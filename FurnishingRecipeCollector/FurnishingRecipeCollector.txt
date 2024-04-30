@@ -10,8 +10,7 @@
 ## Author: tomstock
 ## APIVersion: 100037
 ## SavedVariables: FurnishingRecipeCollector
-## OptionalDependsOn: LibDebugLogger
+## OptionalDependsOn: LibDebugLogger>=180
 ## DependsOn:
 
-data.lua
 FurnishingRecipeCollector.lua
