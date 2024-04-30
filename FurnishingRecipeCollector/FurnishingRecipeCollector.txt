@@ -11,6 +11,7 @@
 ## APIVersion: 100037
 ## SavedVariables: FurnishingRecipeCollector
 ## OptionalDependsOn: LibDebugLogger>=180
-## DependsOn:
+## DependsOn:LibCharacterKnowledge>=20
 
+data.lua
 FurnishingRecipeCollector.lua
