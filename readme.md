@@ -1,3 +1,8 @@
-# AGS_UnknownGearFilter
+# Furnishing Recipe Collector
 
-The purpose of this plugin is to allow you to search for unknown stickerbook gear, without needing to be in a category of Weapon, Armor, or Jewelry.  It will search all three categories at once, from the "All" area.
+<center><img src="image1.png" alt="Screenshot" width=300px/></center>
+
+Adds information to tooltips for recipes that are available from writ vendors.
+
+Optional Pre-requisite Addon:
+LibCharacterKnowledge
