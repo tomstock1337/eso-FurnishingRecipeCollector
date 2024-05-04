@@ -2,7 +2,7 @@ FRC = FRC or {}
 FRC.Name = "FurnishingRecipeCollector"
 FRC.DisplayName = "FurnishingRecipeCollector"
 FRC.Author = "tomstock"
-FRC.Version = "1.0"
+FRC.Version = "1.1"
 
 FRC.Debug = false --Todo: Change that to false before setting live, or else tooltips will contain an extra ID row at the end
 FRC.logger = nil
@@ -240,8 +240,9 @@ local function adjustToolTip(tooltipControl, itemLink)
       end
       if bFoundParentItemId ~= "" then
         ZO_Tooltip_AddDivider(tooltipControl)
+        local recipeLink = "|H1:item:"..bFoundRecipeId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
         tooltipControl:AddLine("Recipe available in Writ Vendor Folio: ".."|H1:item:"..bFoundParentItemId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-        tooltipControl:AddLine("|H1:item:"..bFoundRecipeId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." is known by:",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        tooltipControl:AddLine(recipeLink.." is known by:",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
 
         if LCK ~= nil then
           local chars= LCK.GetItemKnowledgeList(bFoundRecipeId,nil,nil)
@@ -260,6 +261,13 @@ local function adjustToolTip(tooltipControl, itemLink)
           end
 
           tooltipControl:AddLine("Known By "..knownCount.."/"..table.getn(chars)..": "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        end
+        if TamrielTradeCentrePrice~= nil then
+          local priceDetail = TamrielTradeCentrePrice:GetPriceInfo(recipeLink)
+          if(priceDetail~=nil) then
+            tooltipControl:AddLine("Average Price: "..zo_strformat("<<1>>", ZO_LocalizeDecimalNumber(priceDetail["Avg"])),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+            tooltipControl:AddLine("Listings: "..priceDetail["EntryCount"],string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+          end
         end
       end
     end
