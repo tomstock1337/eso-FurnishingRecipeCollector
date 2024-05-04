@@ -73,44 +73,53 @@ local function adjustToolTip(tooltipControl, itemLink)
         end
       end
     end
-  elseif FRC.Data.FurnisherDocuments[itemLinkId] ~= nil and LCK ~= nil then
+  elseif FRC.Data.FurnisherDocuments[itemLinkId] ~= nil then
   --If present item in a furnisher grab bag, then add collective details for characters
+    if LCK ~= nil then
     ZO_Tooltip_AddDivider(tooltipControl)
 
-    local tChars = LCK.GetCharacterList()
+      local tChars = {}
     local characterstring = ""
     local charactercolor = ""
 
-    for i, tChr in pairs(tChars) do
-      if FRC.logger ~= nil then FRC.logger:Verbose("Processing Character "..tChr["name"].." for "..itemLinkId) end
-      tChr.known = 0
-      tChr.tracked = 0
-
       for j,recipeId in ipairs(FRC.Data.FurnisherDocuments[itemLinkId]) do
-        local knowl = LCK.GetItemKnowledgeForCharacter(recipeId, nil,tChr["id"])
-        if knowl == LCK.KNOWLEDGE_KNOWN then
-          tChr.tracked = tChr.tracked + 1
-          tChr.known = tChr.known + 1
-        elseif knowl == LCK.KNOWLEDGE_UNKNOWN then
-          tChr.tracked = tChr.tracked + 1
+        local knowl = LCK.GetItemKnowledgeList(recipeId, nil,nil)
+
+        for i, knowledge in ipairs(knowl) do
+          if knowledge["knowledge"] == LCK.KNOWLEDGE_KNOWN then
+            if tChars[knowledge["id"]] == nil then
+              tChars[knowledge["id"]] = 1
+            else
+              tChars[knowledge["id"]] = tChars[knowledge["id"]] + 1
+        end
+          elseif knowledge["knowledge"] == LCK.KNOWLEDGE_UNKNOWN then
+            if tChars[knowledge["id"]] == nil then
+              tChars[knowledge["id"]] = 0
+      end
+          end
         end
       end
-      if tChr.known == 0 then
+
+      local chrList=LCK.GetCharacterList( nil )
+
+      for i, chr in ipairs(chrList) do
+        if tChars[chr["id"]] ~= nil then
+
+          if tChars[chr["id"]] == 0 then
         charactercolor = 0x777766
-      elseif tChr.known == table.getn(FRC.Data.FurnisherDocuments[itemLinkId]) then
+          elseif tChars[chr["id"]] == table.getn(FRC.Data.FurnisherDocuments[itemLinkId]) then
         charactercolor = 0x55ff1c
       else
         charactercolor = 0x3399FF
       end
-      if tChr.tracked > 0 then
         if characterstring ~= "" then
           characterstring = characterstring..", "
         end
-        characterstring = characterstring..string.format("|c%06X%s|r", charactercolor, tChr["name"].."("..tChr.known.."/"..table.getn(FRC.Data.FurnisherDocuments[itemLinkId])..")")
+          characterstring = characterstring..string.format("|c%06X%s|r", charactercolor, chr["name"].." ("..tChars[chr["id"]].."/"..table.getn(FRC.Data.FurnisherDocuments[itemLinkId])..")")
       end
     end
-
     tooltipControl:AddLine("Known By: "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+    end
   else
     local vItemType,vSpecialType = GetItemLinkItemType(itemLink)
 
@@ -130,14 +139,14 @@ local function adjustToolTip(tooltipControl, itemLink)
       local bFoundParentItemId = ""
       for i in pairs(FRC.Data.Folios) do
         for j in pairs(FRC.Data.Folios[i]) do
-          -- FRC.logger:Verbose("==============================")
-          -- FRC.logger:Verbose("Folio: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
-          -- FRC.logger:Verbose("Recipe ID: "..tos(FRC.Data.Folios[i][j]).." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
-          -- FRC.logger:Verbose("Result Link ID: "..resultItemId..resultLink )
-          -- FRC.logger:Verbose("Search ID: "..itemLinkId.." "..itemLink)
+          --if FRC.logger ~= nil then FRC.logger:Verbose("==============================") end
+          --if FRC.logger ~= nil then FRC.logger:Verbose("Folio: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+          --if FRC.logger ~= nil then FRC.logger:Verbose("Recipe ID: "..tos(FRC.Data.Folios[i][j]).." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+          --if FRC.logger ~= nil then FRC.logger:Verbose("Result Link ID: "..resultItemId..resultLink ) end
+          --if FRC.logger ~= nil then FRC.logger:Verbose("Search ID: "..itemLinkId.." "..itemLink) end
 
           if FRC.Data.Folios[i][j] == itemLinkId then
-            FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..itemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+            if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..itemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
             bFoundParentItemId = i
             break
           end
@@ -152,14 +161,14 @@ local function adjustToolTip(tooltipControl, itemLink)
           for j in pairs(FRC.Data.FurnisherDocuments[i]) do
             local resultLink = GetItemLinkRecipeResultItemLink("|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
             local resultItemId = GetItemLinkItemId(resultLink)
-            -- FRC.logger:Verbose("==============================")
-            -- FRC.logger:Verbose("Folio: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
-            -- FRC.logger:Verbose("Recipe ID: "..tos(FRC.Data.FurnisherDocuments[i][j]).." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
-            -- FRC.logger:Verbose("Result Link ID: "..resultItemId..resultLink )
-            -- FRC.logger:Verbose("Search ID: "..itemLinkId.." "..itemLink)
+            --if FRC.logger ~= nil then FRC.logger:Verbose("==============================") end
+            --if FRC.logger ~= nil then FRC.logger:Verbose("Folio: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+            --if FRC.logger ~= nil then FRC.logger:Verbose("Recipe ID: "..tos(FRC.Data.FurnisherDocuments[i][j]).." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+            --if FRC.logger ~= nil then FRC.logger:Verbose("Result Link ID: "..resultItemId..resultLink ) end
+            --if FRC.logger ~= nil then FRC.logger:Verbose("Search ID: "..itemLinkId.." "..itemLink) end
 
             if FRC.Data.FurnisherDocuments[i][j] == itemLinkId then
-              FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..itemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+              if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..itemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
               bFoundParentItemId = i
               break
             end
@@ -180,19 +189,21 @@ local function adjustToolTip(tooltipControl, itemLink)
 
       --If item exists in a grab bag, add note to tooltip
       local bFoundParentItemId = ""
+      local bFoundRecipeId = ""
       for i in pairs(FRC.Data.Folios) do
         for j in pairs(FRC.Data.Folios[i]) do
           local resultLink = GetItemLinkRecipeResultItemLink("|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
           local resultItemId = GetItemLinkItemId(resultLink)
-          -- FRC.logger:Verbose("==============================")
-          -- FRC.logger:Verbose("Folio: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
-          -- FRC.logger:Verbose("Recipe ID: "..tos(FRC.Data.Folios[i][j]).." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
-          -- FRC.logger:Verbose("Result Link ID: "..resultItemId..resultLink )
-          -- FRC.logger:Verbose("Search ID: "..itemLinkId.." "..itemLink)
+          --if FRC.logger ~= nil then RC.logger:Verbose("==============================") end
+          --if FRC.logger ~= nil then RC.logger:Verbose("Folio: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+          --if FRC.logger ~= nil then RC.logger:Verbose("Recipe ID: "..tos(FRC.Data.Folios[i][j]).." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+          --if FRC.logger ~= nil then RC.logger:Verbose("Result Link ID: "..resultItemId..resultLink ) end
+          --if FRC.logger ~= nil then RC.logger:Verbose("Search ID: "..itemLinkId.." "..itemLink) end
 
           if resultItemId == itemLinkId then
-            FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..itemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+            if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..itemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
             bFoundParentItemId = i
+            bFoundRecipeId = FRC.Data.Folios[i][j]
             break
           end
   end
@@ -206,15 +217,16 @@ local function adjustToolTip(tooltipControl, itemLink)
           for j in pairs(FRC.Data.FurnisherDocuments[i]) do
             local resultLink = GetItemLinkRecipeResultItemLink("|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
             local resultItemId = GetItemLinkItemId(resultLink)
-            -- FRC.logger:Verbose("==============================")
-            -- FRC.logger:Verbose("Folio: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
-            -- FRC.logger:Verbose("Recipe ID: "..tos(FRC.Data.FurnisherDocuments[i][j]).." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
-            -- FRC.logger:Verbose("Result Link ID: "..resultItemId..resultLink )
-            -- FRC.logger:Verbose("Search ID: "..itemLinkId.." "..itemLink)
+            --if FRC.logger ~= nil then FRC.logger:Verbose("==============================") end
+            --if FRC.logger ~= nil then FRC.logger:Verbose("Folio: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+            --if FRC.logger ~= nil then FRC.logger:Verbose("Recipe ID: "..tos(FRC.Data.FurnisherDocuments[i][j]).." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+            --if FRC.logger ~= nil then FRC.logger:Verbose("Result Link ID: "..resultItemId..resultLink ) end
+            --if FRC.logger ~= nil then FRC.logger:Verbose("Search ID: "..itemLinkId.." "..itemLink) end
 
             if resultItemId == itemLinkId then
-              FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..itemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+              if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..itemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
               bFoundParentItemId = i
+              bFoundRecipeId = FRC.Data.FurnisherDocuments[i][j]
               break
             end
           end
@@ -227,6 +239,26 @@ local function adjustToolTip(tooltipControl, itemLink)
       if bFoundParentItemId ~= "" then
         ZO_Tooltip_AddDivider(tooltipControl)
         tooltipControl:AddLine("Recipe available in Writ Vendor Folio: ".."|H1:item:"..bFoundParentItemId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        tooltipControl:AddLine("|H1:item:"..bFoundRecipeId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." is known by:",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+
+        if LCK ~= nil then
+        local chars= LCK.GetItemKnowledgeList(bFoundRecipeId,nil,nil)
+        local characterstring = ""
+        local knownCount = 0
+
+        for i, char in ipairs(chars) do
+          if FRC.logger ~= nil then FRC.logger:Verbose(tos(char["name"]).." "..tos(char["knowledge"])) end
+          if char.knowledge == LCK.KNOWLEDGE_KNOWN or char.knowledge == LCK.KNOWLEDGE_UNKNOWN then
+            if char.knowledge == LCK.KNOWLEDGE_KNOWN then knownCount = knownCount + 1 end
+            if characterstring ~= "" then
+              characterstring = characterstring..", "
+      end
+            characterstring = characterstring..string.format("|c%06X%s|r", FRC.Colors[char.knowledge], char["name"])
+          end
+        end
+
+        tooltipControl:AddLine("Known By "..knownCount.."/"..table.getn(chars)..": "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      end
       end
   end
 end
