@@ -76,11 +76,11 @@ local function adjustToolTip(tooltipControl, itemLink)
   elseif FRC.Data.FurnisherDocuments[itemLinkId] ~= nil then
   --If present item in a furnisher grab bag, then add collective details for characters
     if LCK ~= nil then
-    ZO_Tooltip_AddDivider(tooltipControl)
+      ZO_Tooltip_AddDivider(tooltipControl)
 
       local tChars = {}
-    local characterstring = ""
-    local charactercolor = ""
+      local characterstring = ""
+      local charactercolor = ""
 
       for j,recipeId in ipairs(FRC.Data.FurnisherDocuments[itemLinkId]) do
         local knowl = LCK.GetItemKnowledgeList(recipeId, nil,nil)
@@ -91,11 +91,11 @@ local function adjustToolTip(tooltipControl, itemLink)
               tChars[knowledge["id"]] = 1
             else
               tChars[knowledge["id"]] = tChars[knowledge["id"]] + 1
-        end
+            end
           elseif knowledge["knowledge"] == LCK.KNOWLEDGE_UNKNOWN then
             if tChars[knowledge["id"]] == nil then
               tChars[knowledge["id"]] = 0
-      end
+            end
           end
         end
       end
@@ -106,19 +106,22 @@ local function adjustToolTip(tooltipControl, itemLink)
         if tChars[chr["id"]] ~= nil then
 
           if tChars[chr["id"]] == 0 then
-        charactercolor = 0x777766
+            charactercolor = 0x777766
           elseif tChars[chr["id"]] == table.getn(FRC.Data.FurnisherDocuments[itemLinkId]) then
-        charactercolor = 0x55ff1c
-      else
-        charactercolor = 0x3399FF
-      end
-        if characterstring ~= "" then
-          characterstring = characterstring..", "
-        end
+            charactercolor = 0x55ff1c
+          else
+            charactercolor = 0x3399FF
+          end
+          if characterstring ~= "" then
+            characterstring = characterstring..", "
+          end
           characterstring = characterstring..string.format("|c%06X%s|r", charactercolor, chr["name"].." ("..tChars[chr["id"]].."/"..table.getn(FRC.Data.FurnisherDocuments[itemLinkId])..")")
+        end
       end
-    end
-    tooltipControl:AddLine("Known By: "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      tooltipControl:AddLine("Known By: "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+    else
+      ZO_Tooltip_AddDivider(tooltipControl)
+      tooltipControl:AddLine("Recipe Count: "..table.getn(FRC.Data.FurnisherDocuments[itemLinkId]),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
     end
   else
     local vItemType,vSpecialType = GetItemLinkItemType(itemLink)
@@ -131,7 +134,6 @@ local function adjustToolTip(tooltipControl, itemLink)
         or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_JEWELRYCRAFTING_SKETCH_FURNISHING
         or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_PROVISIONING_DESIGN_FURNISHING
         or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_WOODWORKING_BLUEPRINT_FURNISHING then
-      if FRC.logger ~= nil then FRC.logger:Info('This is a recipe') end
       local station, recipeListIndex, recipeIndex
       local known, recipeName, numIngredients, levelReq, qualityReq, specialIngredientType, requiredCraftingStationType, itemId
 
@@ -206,7 +208,7 @@ local function adjustToolTip(tooltipControl, itemLink)
             bFoundRecipeId = FRC.Data.Folios[i][j]
             break
           end
-  end
+        end
 
         if bFoundParentItemId ~= "" then
           break
@@ -242,26 +244,26 @@ local function adjustToolTip(tooltipControl, itemLink)
         tooltipControl:AddLine("|H1:item:"..bFoundRecipeId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." is known by:",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
 
         if LCK ~= nil then
-        local chars= LCK.GetItemKnowledgeList(bFoundRecipeId,nil,nil)
-        local characterstring = ""
-        local knownCount = 0
+          local chars= LCK.GetItemKnowledgeList(bFoundRecipeId,nil,nil)
+          local characterstring = ""
+          local knownCount = 0
 
-        for i, char in ipairs(chars) do
-          if FRC.logger ~= nil then FRC.logger:Verbose(tos(char["name"]).." "..tos(char["knowledge"])) end
-          if char.knowledge == LCK.KNOWLEDGE_KNOWN or char.knowledge == LCK.KNOWLEDGE_UNKNOWN then
-            if char.knowledge == LCK.KNOWLEDGE_KNOWN then knownCount = knownCount + 1 end
-            if characterstring ~= "" then
-              characterstring = characterstring..", "
-      end
-            characterstring = characterstring..string.format("|c%06X%s|r", FRC.Colors[char.knowledge], char["name"])
+          for i, char in ipairs(chars) do
+            if FRC.logger ~= nil then FRC.logger:Verbose(tos(char["name"]).." "..tos(char["knowledge"])) end
+            if char.knowledge == LCK.KNOWLEDGE_KNOWN or char.knowledge == LCK.KNOWLEDGE_UNKNOWN then
+              if char.knowledge == LCK.KNOWLEDGE_KNOWN then knownCount = knownCount + 1 end
+              if characterstring ~= "" then
+                characterstring = characterstring..", "
+              end
+              characterstring = characterstring..string.format("|c%06X%s|r", FRC.Colors[char.knowledge], char["name"])
+            end
           end
-        end
 
-        tooltipControl:AddLine("Known By "..knownCount.."/"..table.getn(chars)..": "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+          tooltipControl:AddLine("Known By "..knownCount.."/"..table.getn(chars)..": "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        end
       end
-      end
+    end
   end
-end
 end
 local function TooltipHook(tooltipControl, method, linkFunc)
 	local origMethod = tooltipControl[method]

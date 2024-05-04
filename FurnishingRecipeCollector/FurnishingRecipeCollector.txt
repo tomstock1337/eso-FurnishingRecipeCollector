@@ -5,13 +5,14 @@
 
 
 ## Title: FurnishingRecipeCollector
-## Description:
+## Description: Adds information to tooltips for recipes that are available from writ vendors.
 ## Version: 1.0
+## AddOnVersion:0100
 ## Author: tomstock
-## APIVersion: 100037
+## APIVersion: 101041 101042
 ## SavedVariables: FurnishingRecipeCollector
-## OptionalDependsOn: LibDebugLogger>=180
-## DependsOn:LibCharacterKnowledge>=20
+## OptionalDependsOn: LibDebugLogger>=180 LibCharacterKnowledge>=20
+## DependsOn:
 
 data.lua
 FurnishingRecipeCollector.lua
