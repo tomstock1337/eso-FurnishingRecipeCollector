@@ -123,9 +123,57 @@ local function adjustToolTip(tooltipControl, itemLink)
         or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_PROVISIONING_DESIGN_FURNISHING
         or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_WOODWORKING_BLUEPRINT_FURNISHING then
       if FRC.logger ~= nil then FRC.logger:Info('This is a recipe') end
-      ZO_Tooltip_AddDivider(tooltipControl)
-      tooltipControl:AddLine("this is a recipe",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      local station, recipeListIndex, recipeIndex
+      local known, recipeName, numIngredients, levelReq, qualityReq, specialIngredientType, requiredCraftingStationType, itemId
 
+      --If item exists in a grab bag, add note to tooltip
+      local bFoundParentItemId = ""
+      for i in pairs(FRC.Data.Folios) do
+        for j in pairs(FRC.Data.Folios[i]) do
+          -- FRC.logger:Verbose("==============================")
+          -- FRC.logger:Verbose("Folio: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+          -- FRC.logger:Verbose("Recipe ID: "..tos(FRC.Data.Folios[i][j]).." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+          -- FRC.logger:Verbose("Result Link ID: "..resultItemId..resultLink )
+          -- FRC.logger:Verbose("Search ID: "..itemLinkId.." "..itemLink)
+
+          if FRC.Data.Folios[i][j] == itemLinkId then
+            FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..itemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+            bFoundParentItemId = i
+            break
+          end
+        end
+
+        if bFoundParentItemId ~= "" then
+          break
+        end
+      end
+      if bFoundParentItemId == "" then
+        for i in pairs(FRC.Data.FurnisherDocuments) do
+          for j in pairs(FRC.Data.FurnisherDocuments[i]) do
+            local resultLink = GetItemLinkRecipeResultItemLink("|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+            local resultItemId = GetItemLinkItemId(resultLink)
+            -- FRC.logger:Verbose("==============================")
+            -- FRC.logger:Verbose("Folio: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+            -- FRC.logger:Verbose("Recipe ID: "..tos(FRC.Data.FurnisherDocuments[i][j]).." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+            -- FRC.logger:Verbose("Result Link ID: "..resultItemId..resultLink )
+            -- FRC.logger:Verbose("Search ID: "..itemLinkId.." "..itemLink)
+
+            if FRC.Data.FurnisherDocuments[i][j] == itemLinkId then
+              FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..itemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+              bFoundParentItemId = i
+              break
+            end
+          end
+
+          if bFoundParentItemId ~= "" then
+            break
+          end
+        end
+      end
+      if bFoundParentItemId ~= "" then
+        ZO_Tooltip_AddDivider(tooltipControl)
+        tooltipControl:AddLine("Recipe available in Writ Vendor Folio: ".."|H1:item:"..bFoundParentItemId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      end
     elseif vItemType == ITEMTYPE_FURNISHING then
       local station, recipeListIndex, recipeIndex
       local known, recipeName, numIngredients, levelReq, qualityReq, specialIngredientType, requiredCraftingStationType, itemId
