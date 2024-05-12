@@ -399,7 +399,7 @@ FRC.Data.FurnisherDocuments =
     151992, --Sketch: Elsweyr Steaming Pot, Ceramic
     152002, --Sketch: Elsweyr Sugar Pipe, Gilded
   },
-  [194399] =  --Galen Journeyman Furnisher's Document
+  [198599] =  --Galen Mixed Furnisher's Document
   {
     192533, --Blueprint: Druidic Bookcase, Tall Wood
     192534, --Blueprint: Druidic Cage, Ivy Wood
