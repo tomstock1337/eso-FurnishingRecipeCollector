@@ -162,6 +162,59 @@ local function getRecipeDetail(itemLink)
   return vItemLinkId, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink, vGrabBagItemLinkId,vGrabBagItemLink
 end
 
+local function GetWritVendorContainerStats(vendorContainerLinkId)
+  local vCharacterString = ""
+  local vRecipeCount = nil
+  local container = FRC.Data.Folios[vendorContainerLinkId] or FRC.Data.FurnisherDocuments[vendorContainerLinkId]
+
+  vRecipeCount = table.getn(container)
+
+  if LCK ~= nil then
+    if container ~= nil then
+      local tChars = {}
+      local charactercolor = ""
+
+      for j,recipeId in ipairs(container) do
+        local knowl = LCK.GetItemKnowledgeList(recipeId, nil,nil)
+
+        for i, knowledge in ipairs(knowl) do
+          if knowledge["knowledge"] == LCK.KNOWLEDGE_KNOWN then
+            if tChars[knowledge["id"]] == nil then
+              tChars[knowledge["id"]] = 1
+            else
+              tChars[knowledge["id"]] = tChars[knowledge["id"]] + 1
+            end
+          elseif knowledge["knowledge"] == LCK.KNOWLEDGE_UNKNOWN then
+            if tChars[knowledge["id"]] == nil then
+              tChars[knowledge["id"]] = 0
+            end
+          end
+        end
+      end
+
+      local chrList=LCK.GetCharacterList( nil )
+
+      for i, chr in ipairs(chrList) do
+        if tChars[chr["id"]] ~= nil then
+
+          if tChars[chr["id"]] == 0 then
+            charactercolor = 0x777766
+          elseif tChars[chr["id"]] == table.getn(container) then
+            charactercolor = 0x55ff1c
+          else
+            charactercolor = 0x3399FF
+          end
+          if vCharacterString ~= "" then
+            vCharacterString = vCharacterString..", "
+          end
+          vCharacterString = vCharacterString..string.format("|c%06X%s|r", charactercolor, chr["name"].." ("..tChars[chr["id"]].."/"..table.getn(container)..")")
+        end
+      end
+    end
+  end
+  return vCharacterString, vRecipeCount
+end
+
 local function adjustToolTip(tooltipControl, itemLink)
   local fontStyle = "MEDIUM_FONT"
   local fontSizeH1 = 14
@@ -175,85 +228,51 @@ local function adjustToolTip(tooltipControl, itemLink)
 
     if vRecipeItemLinkId ~= nil then
       --Recipe or Recipe Furnisher
+      local vCharacterString, vRecipeCount = GetWritVendorContainerStats(vFolioItemLinkId or vGrabBagItemLinkId)
+
       ZO_Tooltip_AddDivider(tooltipControl)
 
-      tooltipControl:AddLine("Recipe available in Writ Vendor Folio: "..(vFolioItemLink or vGrabBagItemLink),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-      tooltipControl:AddLine(vRecipeItemLink.." is known by:",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-        if LCK ~= nil then
-          local chars= LCK.GetItemKnowledgeList(vRecipeItemLinkId,nil,nil)
-          local characterstring = ""
-          local knownCount = 0
+      tooltipControl:AddLine("Recipe available in Writ Vendor Folio: ",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      tooltipControl:AddLine((vFolioItemLink or vGrabBagItemLink),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      tooltipControl:AddLine("Folio Knowledge: "..vCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      if LCK ~= nil then
+        ZO_Tooltip_AddDivider(tooltipControl)
+        tooltipControl:AddLine(vRecipeItemLink.." is known by:",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        local chars= LCK.GetItemKnowledgeList(vRecipeItemLinkId,nil,nil)
+        local characterstring = ""
+        local knownCount = 0
 
-          for i, char in ipairs(chars) do
-            if FRC.logger ~= nil then FRC.logger:Verbose(tos(char["name"]).." "..tos(char["knowledge"])) end
-            if char.knowledge == LCK.KNOWLEDGE_KNOWN or char.knowledge == LCK.KNOWLEDGE_UNKNOWN then
-              if char.knowledge == LCK.KNOWLEDGE_KNOWN then knownCount = knownCount + 1 end
-              if characterstring ~= "" then
-                characterstring = characterstring..", "
-              end
-              characterstring = characterstring..string.format("|c%06X%s|r", FRC.Colors[char.knowledge], char["name"])
+        for i, char in ipairs(chars) do
+          if FRC.logger ~= nil then FRC.logger:Verbose(tos(char["name"]).." "..tos(char["knowledge"])) end
+          if char.knowledge == LCK.KNOWLEDGE_KNOWN or char.knowledge == LCK.KNOWLEDGE_UNKNOWN then
+            if char.knowledge == LCK.KNOWLEDGE_KNOWN then knownCount = knownCount + 1 end
+            if characterstring ~= "" then
+              characterstring = characterstring..", "
             end
+            characterstring = characterstring..string.format("|c%06X%s|r", FRC.Colors[char.knowledge], char["name"])
           end
+        end
 
-          tooltipControl:AddLine("Known By "..knownCount.."/"..table.getn(chars)..": "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        tooltipControl:AddLine("Known By "..knownCount.."/"..table.getn(chars)..": "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      end
+      if TamrielTradeCentrePrice~= nil then
+        local priceDetail = TamrielTradeCentrePrice:GetPriceInfo(vRecipeItemLink)
+        if(priceDetail~=nil) then
+          tooltipControl:AddLine("Average Price: "..zo_strformat("<<1>>", ZO_LocalizeDecimalNumber(priceDetail["Avg"])),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+          tooltipControl:AddLine("Listings: "..priceDetail["EntryCount"],string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
         end
-        if TamrielTradeCentrePrice~= nil then
-          local priceDetail = TamrielTradeCentrePrice:GetPriceInfo(vRecipeItemLink)
-          if(priceDetail~=nil) then
-            tooltipControl:AddLine("Average Price: "..zo_strformat("<<1>>", ZO_LocalizeDecimalNumber(priceDetail["Avg"])),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-            tooltipControl:AddLine("Listings: "..priceDetail["EntryCount"],string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-          end
-        end
+      end
     elseif vGrabBagItemLinkId ~= nil then
+      local vCharacterString, vRecipeCount = GetWritVendorContainerStats(vFolioItemLinkId or vGrabBagItemLinkId)
       --Grab Bag
       if LCK ~= nil then
-          ZO_Tooltip_AddDivider(tooltipControl)
+        ZO_Tooltip_AddDivider(tooltipControl)
 
-          local tChars = {}
-          local characterstring = ""
-          local charactercolor = ""
-
-          for j,recipeId in ipairs(FRC.Data.FurnisherDocuments[vItemLinkId]) do
-            local knowl = LCK.GetItemKnowledgeList(recipeId, nil,nil)
-
-            for i, knowledge in ipairs(knowl) do
-              if knowledge["knowledge"] == LCK.KNOWLEDGE_KNOWN then
-                if tChars[knowledge["id"]] == nil then
-                  tChars[knowledge["id"]] = 1
-                else
-                  tChars[knowledge["id"]] = tChars[knowledge["id"]] + 1
-                end
-              elseif knowledge["knowledge"] == LCK.KNOWLEDGE_UNKNOWN then
-                if tChars[knowledge["id"]] == nil then
-                  tChars[knowledge["id"]] = 0
-                end
-              end
-            end
-          end
-
-          local chrList=LCK.GetCharacterList( nil )
-
-          for i, chr in ipairs(chrList) do
-            if tChars[chr["id"]] ~= nil then
-
-              if tChars[chr["id"]] == 0 then
-                charactercolor = 0x777766
-              elseif tChars[chr["id"]] == table.getn(FRC.Data.FurnisherDocuments[vItemLinkId]) then
-                charactercolor = 0x55ff1c
-              else
-                charactercolor = 0x3399FF
-              end
-              if characterstring ~= "" then
-                characterstring = characterstring..", "
-              end
-              characterstring = characterstring..string.format("|c%06X%s|r", charactercolor, chr["name"].." ("..tChars[chr["id"]].."/"..table.getn(FRC.Data.FurnisherDocuments[vItemLinkId])..")")
-            end
-          end
-          tooltipControl:AddLine("Known By: "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-        else
-          ZO_Tooltip_AddDivider(tooltipControl)
-          tooltipControl:AddLine("Recipe Count: "..table.getn(FRC.Data.FurnisherDocuments[vItemLinkId]),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-        end
+        tooltipControl:AddLine("Folio Knowledge: "..vCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      else
+        ZO_Tooltip_AddDivider(tooltipControl)
+        tooltipControl:AddLine("Recipe Count: "..vRecipeCount),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      end
     elseif vFolioItemLinkId ~= nil then
       --Folio
       ZO_Tooltip_AddDivider(tooltipControl)
