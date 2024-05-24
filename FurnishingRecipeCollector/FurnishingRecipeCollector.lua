@@ -234,10 +234,10 @@ local function adjustToolTip(tooltipControl, itemLink)
 
       tooltipControl:AddLine("Recipe available in Writ Vendor Folio: ",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       tooltipControl:AddLine((vFolioItemLink or vGrabBagItemLink),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-      tooltipControl:AddLine("Folio Knowledge: "..vCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       if LCK ~= nil then
+        tooltipControl:AddLine("Folio Knowledge: "..vCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
         ZO_Tooltip_AddDivider(tooltipControl)
-        tooltipControl:AddLine(vRecipeItemLink.." is known by:",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        tooltipControl:AddLine(vRecipeItemLink,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
         local chars= LCK.GetItemKnowledgeList(vRecipeItemLinkId,nil,nil)
         local characterstring = ""
         local knownCount = 0
@@ -254,6 +254,8 @@ local function adjustToolTip(tooltipControl, itemLink)
         end
 
         tooltipControl:AddLine("Known By "..knownCount.."/"..table.getn(chars)..": "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      else
+        tooltipControl:AddLine("Recipe Count: "..vRecipeCount,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       end
       if TamrielTradeCentrePrice~= nil then
         local priceDetail = TamrielTradeCentrePrice:GetPriceInfo(vRecipeItemLink)
@@ -263,22 +265,26 @@ local function adjustToolTip(tooltipControl, itemLink)
         end
       end
     elseif vGrabBagItemLinkId ~= nil then
-      local vCharacterString, vRecipeCount = GetWritVendorContainerStats(vFolioItemLinkId or vGrabBagItemLinkId)
       --Grab Bag
-      if LCK ~= nil then
-        ZO_Tooltip_AddDivider(tooltipControl)
+      local vCharacterString, vRecipeCount = GetWritVendorContainerStats(vFolioItemLinkId or vGrabBagItemLinkId)
 
+      ZO_Tooltip_AddDivider(tooltipControl)
+
+      tooltipControl:AddLine("Recipe available in Writ Vendor Folio: ",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      tooltipControl:AddLine((vFolioItemLink or vGrabBagItemLink),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      if LCK ~= nil then
         tooltipControl:AddLine("Folio Knowledge: "..vCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       else
-        ZO_Tooltip_AddDivider(tooltipControl)
-        tooltipControl:AddLine("Recipe Count: "..vRecipeCount),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        tooltipControl:AddLine("Recipe Count: "..vRecipeCount,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       end
     elseif vFolioItemLinkId ~= nil then
       --Folio
+      local vCharacterString, vRecipeCount = GetWritVendorContainerStats(vFolioItemLinkId or vGrabBagItemLinkId)
+
       ZO_Tooltip_AddDivider(tooltipControl)
       for i,recipeId in ipairs(FRC.Data.Folios[vItemLinkId]) do
         if FRC.logger ~= nil then FRC.logger:Verbose(tos(recipeId)) end
-        tooltipControl:AddLine(vRecipeItemLink,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        tooltipControl:AddLine("|H1:item:"..recipeId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
         if LCK ~= nil then
           local charKnowledge = LCK.GetItemKnowledgeList( recipeId )
           if charKnowledge ~= nil then
@@ -297,6 +303,12 @@ local function adjustToolTip(tooltipControl, itemLink)
               tooltipControl:AddLine("Known By: "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH2, fontWeight))
           end
         end
+      end
+      ZO_Tooltip_AddDivider(tooltipControl)
+      if LCK ~= nil then
+        tooltipControl:AddLine("Folio Knowledge: "..vCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      else
+        tooltipControl:AddLine("Recipe Count: "..vRecipeCount,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       end
     end
   end
