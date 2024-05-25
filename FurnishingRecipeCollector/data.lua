@@ -1,4 +1,5 @@
-FRC = FRC or {}
+FurnishingRecipeCollector = FurnishingRecipeCollector or {}
+local FRC = FurnishingRecipeCollector
 FRC.Data = FRC.Data or {}
 --https://en.uesp.net/wiki/Online:Furnisher_Documents
 FRC.Data.Folios =

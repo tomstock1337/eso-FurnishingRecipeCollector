@@ -1,11 +1,24 @@
-FRC = FRC or {}
+FurnishingRecipeCollector = FurnishingRecipeCollector or {}
+local FRC = FurnishingRecipeCollector
 FRC.Name = "FurnishingRecipeCollector"
 FRC.DisplayName = "FurnishingRecipeCollector"
 FRC.Author = "tomstock"
 FRC.Version = "1.1"
 
-FRC.Debug = false --Todo: Change that to false before setting live, or else tooltips will contain an extra ID row at the end
 FRC.logger = nil
+
+FRC.DefDebug = false
+FRC.DefFurnishing_On = true
+FRC.DefFurnishing_ShowRecipe_On = true
+FRC.DefFurnishing_ShowRecipe_TTC_On = true
+FRC.DefFurnishing_ShowRecipe_LCK_On = true
+FRC.DefFurnishingRecipe_On = true
+FRC.DefFurnishingRecipe_Show_TTC_On = true
+FRC.DefFurnishingRecipe_Show_LCK_On = true
+FRC.DefGrabBag_On= true
+FRC.DefGrabBag_LCK_On= true
+FRC.DefFolio_On= true
+FRC.DefFolio_LCK_On= true
 
 --------------------------------------------------------------------
 -- Locals
@@ -23,10 +36,6 @@ local LCK = LibCharacterKnowledge
   Setup LibDebugLogger as an optional dependency
   ==============================================
 --]]
-if LibDebugLogger and FRC.Debug then
-  FRC.logger = LibDebugLogger.Create(FRC.Name)
-  FRC.logger:Info("Loaded logger")
-end
 if LCK ~= nil then
   FRC.Colors = {
     [LCK.KNOWLEDGE_KNOWN] = 0x3399FF,
@@ -70,7 +79,7 @@ local function getRecipeDetail(itemLink)
           --if FRC.logger ~= nil then FRC.logger:Verbose("Search ID: "..itemLinkId.." "..itemLink) end
 
           if FRC.Data.Folios[i][j] == vItemLinkId then
-            if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+            -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
             vFolioItemLinkId = i
             vFolioItemLink = "|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
             break
@@ -91,7 +100,7 @@ local function getRecipeDetail(itemLink)
             --if FRC.logger ~= nil then FRC.logger:Verbose("Search ID: "..itemLinkId.." "..itemLink) end
 
             if FRC.Data.FurnisherDocuments[i][j] == vItemLinkId then
-              if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+              -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
               vGrabBagItemLinkId = i
               vGrabBagItemLink = "|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
               break
@@ -119,7 +128,7 @@ local function getRecipeDetail(itemLink)
           -- if FRC.logger ~= nil then FRC.logger:Verbose("Search ID: "..vItemLinkId.." "..itemLink) end
 
           if resultItemId == vItemLinkId then
-            if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+            -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
             vFolioItemLinkId = i
             vFolioItemLink = "|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
             vRecipeItemLinkId = FRC.Data.Folios[i][j]
@@ -144,7 +153,7 @@ local function getRecipeDetail(itemLink)
             -- if FRC.logger ~= nil then FRC.logger:Verbose("Search ID: "..vItemLinkId.." "..itemLink) end
 
             if resultItemId == vItemLinkId then
-              if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+              -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
               vGrabBagItemLinkId = i
               vGrabBagItemLink = "|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
               vRecipeItemLinkId = FRC.Data.FurnisherDocuments[i][j]
@@ -243,7 +252,7 @@ local function adjustToolTip(tooltipControl, itemLink)
         local knownCount = 0
 
         for i, char in ipairs(chars) do
-          if FRC.logger ~= nil then FRC.logger:Verbose(tos(char["name"]).." "..tos(char["knowledge"])) end
+          -- if FRC.logger ~= nil then FRC.logger:Verbose(tos(char["name"]).." "..tos(char["knowledge"])) end
           if char.knowledge == LCK.KNOWLEDGE_KNOWN or char.knowledge == LCK.KNOWLEDGE_UNKNOWN then
             if char.knowledge == LCK.KNOWLEDGE_KNOWN then knownCount = knownCount + 1 end
             if characterstring ~= "" then
@@ -284,7 +293,7 @@ local function adjustToolTip(tooltipControl, itemLink)
       ZO_Tooltip_AddDivider(tooltipControl)
       for i,recipeId in ipairs(FRC.Data.Folios[vItemLinkId]) do
         if FRC.logger ~= nil then FRC.logger:Verbose(tos(recipeId)) end
-        tooltipControl:AddLine("|H1:item:"..recipeId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        -- tooltipControl:AddLine("|H1:item:"..recipeId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
         if LCK ~= nil then
           local charKnowledge = LCK.GetItemKnowledgeList( recipeId )
           if charKnowledge ~= nil then
@@ -366,7 +375,86 @@ local function OnLoad(eventCode, name)
   if name ~= FRC.Name then return end
   EVENT_MANAGER:UnregisterForEvent(FRC.Name, EVENT_ADD_ON_LOADED)
 
+  FRC.savedVariables = ZO_SavedVars:NewAccountWide("FurnishingRecipeCollectorSavedVariables", 1, nil, {}) --Instead of nil you can also use GetWorldName() to save the SV server dependent
+
+  FRC.savedVariables.debug = (FRC.savedVariables.debug or FRC.DefDebug)
+  FRC.savedVariables.furnishing_on = (FRC.savedVariables.furnishing_on or FRC.DefFurnishing_On)
+  FRC.savedVariables.furnishing_showrecipe_on = (FRC.savedVariables.furnishing_showrecipe_on or FRC.DefFurnishing_ShowRecipe_On)
+  FRC.savedVariables.furnishing_showrecipe_ttc_on = (FRC.savedVariables.furnishing_showrecipe_ttc_on or FRC.DefFurnishing_ShowRecipe_TTC_On)
+  FRC.savedVariables.furnishing_showrecipe_lck_on = (FRC.savedVariables.furnishing_showrecipe_lck_on or FRC.DefFurnishing_ShowRecipe_LCK_On)
+  FRC.savedVariables.furnishingrecipe_on = (FRC.savedVariables.furnishingrecipe_on or FRC.DefFurnishingRecipe_On)
+  FRC.savedVariables.furnishingrecipe_show_ttc_on = (FRC.savedVariables.furnishingrecipe_show_ttc_on or FRC.DefFurnishingRecipe_Show_TTC_On)
+  FRC.savedVariables.furnishingrecipe_show_lck_on = (FRC.savedVariables.furnishingrecipe_show_lck_on or FRC.DefFurnishingRecipe_Show_LCK_On)
+  FRC.savedVariables.grabbag_on = (FRC.savedVariables.grabbag_on or FRC.DefGrabBag_On)
+  FRC.savedVariables.grabbag_lck_on = (FRC.savedVariables.grabbag_lck_on or FRC.DefGrabBag_LCK_On)
+  FRC.savedVariables.folio_on = (FRC.savedVariables.folio_on or FRC.DefFolio_On)
+  FRC.savedVariables.folio_lck_on = (FRC.savedVariables.folio_lck_on or FRC.DefFolio_LCK_On)
+
+  if LibDebugLogger and FRC.savedVariables.debug then
+    FRC.logger = LibDebugLogger.Create(FRC.Name)
+    FRC.logger:Info("Loaded logger")
+  end
+
   HookTooltips()
+
+	local menuOptions = {
+		type				 = "panel",
+		name				 = FRC.Name,
+		displayName	 = FRC.DisplayName,
+		author			 = FRC.Author,
+		version			 = FRC.Version,
+		registerForRefresh	= true,
+		registerForDefaults = true,
+	}
+
+	local dataTable = {
+		{
+			type = "description",
+			text = "Displays additional information in tooltips for furnshing recipes obtained through Writ vendors. ",
+		},
+		{
+			type = "description",
+			text = "Character Knowledge requires the LibCharacterKnowledge library to be installed or Character Knowledge addon installed.",
+		},
+		{
+			type = "description",
+			text = "Debug requires the LibDebugLogger library to be installed",
+		},
+		{
+			type = "description",
+			text = "Prices require the TamrielTradeCentre addon to be installed",
+		},
+		{
+			type = "divider",
+		},
+		{type = "checkbox",name = "Show Debug",getFunc = function() return FRC.savedVariables.debug end,setFunc = function( newValue ) FRC.savedVariables.debug = newValue; end,--[[warning = "",]]	requiresReload = true,default = FRC.DefDebug,},
+		{
+			type = "divider",
+		},
+		{type = "checkbox",name = "Show on Furnishings",getFunc = function() return FRC.savedVariables.furnishing_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFurnishing_On,},
+		{type = "checkbox",name = "Show Recipe",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFurnishing_ShowRecipe_On,},
+		{type = "checkbox",name = "Show Recipe TTC Value",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_ttc_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_ttc_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFurnishing_ShowRecipe_TTC_On,},
+		{type = "checkbox",name = "Show Recipe Character Knowledge",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_lck_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_lck_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFurnishing_ShowRecipe_LCK_On,},
+		{
+			type = "divider",
+		},
+		{type = "checkbox",name = "Show on Furnishing Recipes",getFunc = function() return FRC.savedVariables.furnishingrecipe_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFurnishingRecipe_On,},
+		{type = "checkbox",name = "Show Recipe TTC Value",getFunc = function() return FRC.savedVariables.furnishingrecipe_show_ttc_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_show_ttc_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFurnishingRecipe_Show_TTC_On,},
+		{type = "checkbox",name = "Show Recipe Character Knowledge",getFunc = function() return FRC.savedVariables.furnishingrecipe_show_lck_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_show_lck_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFurnishingRecipe_Show_LCK_On,},
+		{
+			type = "divider",
+		},
+		{type = "checkbox",name = "Show on Writ Vendor Grab Bags",getFunc = function() return FRC.savedVariables.grabbag_on end,setFunc = function( newValue ) FRC.savedVariables.grabbag_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefGrabBag_On,},
+		{type = "checkbox",name = "Show Character Knowledge",getFunc = function() return FRC.savedVariables.grabbag_lck_on end,setFunc = function( newValue ) FRC.savedVariables.grabbag_lck_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefGrabBag_LCK_On,},
+		{type = "checkbox",name = "Show on Writ Vendor Folios",getFunc = function() return FRC.savedVariables.folio_on end,setFunc = function( newValue ) FRC.savedVariables.folio_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFolio_On,},
+		{
+			type = "divider",
+		},
+		{type = "checkbox",name = "Show Character Knowledge",getFunc = function() return FRC.savedVariables.folio_lck_on end,setFunc = function( newValue ) FRC.savedVariables.folio_lck_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFolio_LCK_On,},
+	}
+	LAM = LibAddonMenu2
+	LAM:RegisterAddonPanel(FRC.Name .. "Options", menuOptions )
+	LAM:RegisterOptionControls(FRC.Name .. "Options", dataTable )
 
 end
 

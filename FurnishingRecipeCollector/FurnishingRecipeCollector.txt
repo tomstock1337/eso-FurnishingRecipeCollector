@@ -7,12 +7,12 @@
 ## Title: FurnishingRecipeCollector
 ## Description: Adds information to tooltips for recipes that are available from writ vendors.
 ## Version: 1.1
-## AddOnVersion:0100
+## AddOnVersion:0101
 ## Author: tomstock
 ## APIVersion: 101041 101042
-## SavedVariables: FurnishingRecipeCollector
+## SavedVariables: FurnishingRecipeCollectorSavedVariables
 ## OptionalDependsOn: LibDebugLogger>=180 LibCharacterKnowledge>=20 TamrielTradeCentre
-## DependsOn:
+## DependsOn: LibAddonMenu-2.0>=36
 
 data.lua
 FurnishingRecipeCollector.lua
