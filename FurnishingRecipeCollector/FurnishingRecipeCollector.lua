@@ -51,7 +51,7 @@ if LCK ~= nil then
 end
 
 local function getRecipeDetail(itemLink)
-  local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink = nil,nil,nil, nil, nil, nil, nil, nil, nil, nil,nil
+  local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = nil,nil,nil, nil, nil, nil, nil, nil, nil, nil,nil,nil
 
   vItemType, vSpecialType = GetItemLinkItemType(itemLink)
   vItemLinkId = GetItemLinkItemId(itemLink)
@@ -65,6 +65,12 @@ local function getRecipeDetail(itemLink)
     -- This is a grab bag
     vGrabBagItemLinkId = vItemLinkId
     vGrabBagItemLink = "|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+  elseif FRC.Data.Misc[vItemLinkId] ~= nil then
+    -- This is a recipe with special location
+    vRecipeItemLinkId = vItemLinkId
+    vRecipeItemLink = "|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+    vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+    vLocation = FRC.Data.Misc[vItemLinkId].location
   elseif vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_ALCHEMY_FORMULA_FURNISHING
     or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_BLACKSMITHING_DIAGRAM_FURNISHING
     or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_CLOTHIER_PATTERN_FURNISHING
@@ -179,9 +185,29 @@ local function getRecipeDetail(itemLink)
           end
         end
       end
+      if vFolioItemLinkId == nil and vGrabBagItemLinkId == nil then
+        --Loop through each misc looking for recipe, if not found earlier
+        for i in pairs(FRC.Data.Misc)do
+          resultLink = GetItemLinkRecipeResultItemLink("|H1:item:"..tos(i)..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+          resultItemId = GetItemLinkItemId(resultLink)
+          -- if FRC.logger ~= nil then FRC.logger:Verbose("==============================") end
+          -- if FRC.logger ~= nil then FRC.logger:Verbose("Recipe ID: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+          -- if FRC.logger ~= nil then FRC.logger:Verbose("Result Link ID: "..resultItemId..resultLink ) end
+          -- if FRC.logger ~= nil then FRC.logger:Verbose("Search ID: "..vItemLinkId.." "..itemLink) end
+
+          if resultItemId == vItemLinkId then
+            -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Misc[i]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+            vRecipeItemLinkId = i
+            vRecipeItemLink = "|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+            vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+            vLocation = FRC.Data.Misc[i].location
+            break
+          end
+        end
+      end
     end
 
-  return vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName,vGrabBagItemLinkId,vGrabBagItemLink
+  return vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName,vGrabBagItemLinkId,vGrabBagItemLink,vLocation
 end
 
 local function GetWritVendorContainerStats(vendorContainerLinkId)
@@ -245,11 +271,11 @@ local function adjustToolTip(tooltipControl, itemLink)
   local fontSizeH1 = 14
   local fontSizeH2 = 12
   local fontWeight = "soft-shadow-thin"
-  local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink = getRecipeDetail(itemLink)
+  local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = getRecipeDetail(itemLink)
 
 
   if vFolioItemLinkId ~= nil or vRecipeItemLinkId ~= nil or vGrabBagItemLinkId ~= nil then
-    if FRC.logger ~= nil then FRC.logger:Info("LinkID: "..tos(vItemLinkId).." ItemName:"..vItemName.." ItemType: "..tos(vItemType).." SpType: "..tos(vSpecialType).." Recipe: "..tos(vRecipeItemLinkId).." Folio: "..tos(vFolioItemLinkId).." GrabBag: "..tos(vGrabBagItemLinkId).." RecipeName: "..tos(vRecipeItemName)) end
+    if FRC.logger ~= nil then FRC.logger:Info(" ItemName:"..vItemName.."LinkID: "..tos(vItemLinkId).." ItemType: "..tos(vItemType).." SpType: "..tos(vSpecialType).." Recipe: "..tos(vRecipeItemLinkId).." Folio: "..tos(vFolioItemLinkId).." GrabBag: "..tos(vGrabBagItemLinkId).." RecipeName: "..tos(vRecipeItemName)) end
 
     if vRecipeItemLinkId ~= nil and (vGrabBagItemLinkId ~= nil or vFolioItemLinkId ~= nil) then
       --Recipe or Recipe Furnisher
@@ -301,6 +327,9 @@ local function adjustToolTip(tooltipControl, itemLink)
           end
         end
       end
+    elseif vRecipeItemLinkId ~= nil and vLocation ~= nil then
+      ZO_Tooltip_AddDivider(tooltipControl)
+      tooltipControl:AddLine("Recipe available from: "..vLocation,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
     elseif vGrabBagItemLinkId ~= nil then
       --Grab Bag
       if FRC.savedVariables.grabbag_on == false then

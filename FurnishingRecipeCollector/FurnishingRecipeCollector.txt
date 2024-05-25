@@ -14,5 +14,7 @@
 ## OptionalDependsOn: LibDebugLogger>=180 LibCharacterKnowledge>=20 TamrielTradeCentrePrice
 ## DependsOn: LibAddonMenu-2.0>=36
 
-data.lua
+dataFolios.lua
+dataGrabBags.lua
+dataMisc.lua
 FurnishingRecipeCollector.lua
