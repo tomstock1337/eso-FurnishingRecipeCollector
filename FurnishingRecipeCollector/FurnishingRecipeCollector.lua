@@ -36,6 +36,10 @@ local LCK = LibCharacterKnowledge
   Setup LibDebugLogger as an optional dependency
   ==============================================
 --]]
+if LibDebugLogger then
+  FRC.logger = LibDebugLogger.Create(FRC.Name)
+  FRC.logger:SetEnabled(false)
+end
 if LCK ~= nil then
   FRC.Colors = {
     [LCK.KNOWLEDGE_KNOWN] = 0x3399FF,
@@ -237,6 +241,13 @@ local function adjustToolTip(tooltipControl, itemLink)
 
     if vRecipeItemLinkId ~= nil then
       --Recipe or Recipe Furnisher
+
+      if vItemType == ITEMTYPE_FURNISHING and FRC.savedVariables.furnishing_on == false then
+        return
+      elseif vItemType ~= ITEMTYPE_FURNISHING and FRC.savedVariables.furnishingrecipe_on == false then
+        return
+      end
+
       local vCharacterString, vRecipeCount = GetWritVendorContainerStats(vFolioItemLinkId or vGrabBagItemLinkId)
 
       ZO_Tooltip_AddDivider(tooltipControl)
@@ -275,6 +286,10 @@ local function adjustToolTip(tooltipControl, itemLink)
       end
     elseif vGrabBagItemLinkId ~= nil then
       --Grab Bag
+      if FRC.savedVariables.grabbag_on == false then
+        return
+      end
+
       local vCharacterString, vRecipeCount = GetWritVendorContainerStats(vFolioItemLinkId or vGrabBagItemLinkId)
 
       ZO_Tooltip_AddDivider(tooltipControl)
@@ -288,6 +303,10 @@ local function adjustToolTip(tooltipControl, itemLink)
       end
     elseif vFolioItemLinkId ~= nil then
       --Folio
+      if FRC.savedVariables.folio_on == false then
+        return
+      end
+
       local vCharacterString, vRecipeCount = GetWritVendorContainerStats(vFolioItemLinkId or vGrabBagItemLinkId)
 
       ZO_Tooltip_AddDivider(tooltipControl)
@@ -390,9 +409,9 @@ local function OnLoad(eventCode, name)
   FRC.savedVariables.folio_on = (FRC.savedVariables.folio_on or FRC.DefFolio_On)
   FRC.savedVariables.folio_lck_on = (FRC.savedVariables.folio_lck_on or FRC.DefFolio_LCK_On)
 
-  if LibDebugLogger and FRC.savedVariables.debug then
-    FRC.logger = LibDebugLogger.Create(FRC.Name)
+  if FRC.logger ~= nil then
     FRC.logger:Info("Loaded logger")
+    FRC.logger:SetEnabled(FRC.savedVariables.debug)
   end
 
   HookTooltips()
@@ -427,7 +446,17 @@ local function OnLoad(eventCode, name)
 		{
 			type = "divider",
 		},
-		{type = "checkbox",name = "Show Debug",getFunc = function() return FRC.savedVariables.debug end,setFunc = function( newValue ) FRC.savedVariables.debug = newValue; end,--[[warning = "",]]	requiresReload = true,default = FRC.DefDebug,},
+    {
+      type = "checkbox",
+      name = "Show Debug",
+      getFunc = function() return FRC.savedVariables.debug end,
+      setFunc = function( newValue )
+          FRC.savedVariables.debug = newValue;
+          FRC.logger:SetEnabled(FRC.savedVariables.debug)
+        end,
+      --[[warning = "",]]
+      requiresReload = false,
+      default = FRC.DefDebug,},
 		{
 			type = "divider",
 		},
@@ -446,10 +475,10 @@ local function OnLoad(eventCode, name)
 		},
 		{type = "checkbox",name = "Show on Writ Vendor Grab Bags",getFunc = function() return FRC.savedVariables.grabbag_on end,setFunc = function( newValue ) FRC.savedVariables.grabbag_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefGrabBag_On,},
 		{type = "checkbox",name = "Show Character Knowledge",getFunc = function() return FRC.savedVariables.grabbag_lck_on end,setFunc = function( newValue ) FRC.savedVariables.grabbag_lck_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefGrabBag_LCK_On,},
-		{type = "checkbox",name = "Show on Writ Vendor Folios",getFunc = function() return FRC.savedVariables.folio_on end,setFunc = function( newValue ) FRC.savedVariables.folio_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFolio_On,},
 		{
 			type = "divider",
 		},
+    {type = "checkbox",name = "Show on Writ Vendor Folios",getFunc = function() return FRC.savedVariables.folio_on end,setFunc = function( newValue ) FRC.savedVariables.folio_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFolio_On,},
 		{type = "checkbox",name = "Show Character Knowledge",getFunc = function() return FRC.savedVariables.folio_lck_on end,setFunc = function( newValue ) FRC.savedVariables.folio_lck_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFolio_LCK_On,},
 	}
 	LAM = LibAddonMenu2
