@@ -7,16 +7,18 @@ FRC.Version = "1.1"
 
 FRC.logger = nil
 
-FRC.DefDebug = false
-FRC.DefFurnishing_On = true
-FRC.DefFurnishing_ShowRecipe_On = true
-FRC.DefFurnishing_ShowRecipe_TTC_On = true
-FRC.DefFurnishing_ShowRecipe_LCK_On = true
-FRC.DefFurnishingRecipe_On = true
-FRC.DefGrabBag_On= true
-FRC.DefGrabBag_LCK_On= true
-FRC.DefFolio_On= true
-FRC.DefFolio_LCK_On= true
+FRC.defaultSetting = {
+  debug = false,
+  furnishing_on = true,
+  furnishing_showrecipe_on = true,
+  furnishing_showrecipe_ttc_on = true,
+  furnishing_showrecipe_lck_on = true,
+  furnishingrecipe_on = true,
+  grabbag_on= true,
+  grabbag_lck_on= true,
+  folio_on= true,
+  folio_lck_on= true,
+}
 
 --------------------------------------------------------------------
 -- Locals
@@ -400,18 +402,7 @@ local function OnLoad(eventCode, name)
   if name ~= FRC.Name then return end
   EVENT_MANAGER:UnregisterForEvent(FRC.Name, EVENT_ADD_ON_LOADED)
 
-  FRC.savedVariables = ZO_SavedVars:NewAccountWide("FurnishingRecipeCollectorSavedVariables", 1, nil, {}) --Instead of nil you can also use GetWorldName() to save the SV server dependent
-
-  FRC.savedVariables.debug = (FRC.savedVariables.debug or FRC.DefDebug)
-  FRC.savedVariables.furnishing_on = (FRC.savedVariables.furnishing_on or FRC.DefFurnishing_On)
-  FRC.savedVariables.furnishing_showrecipe_on = (FRC.savedVariables.furnishing_showrecipe_on or FRC.DefFurnishing_ShowRecipe_On)
-  FRC.savedVariables.furnishing_showrecipe_ttc_on = (FRC.savedVariables.furnishing_showrecipe_ttc_on or FRC.DefFurnishing_ShowRecipe_TTC_On)
-  FRC.savedVariables.furnishing_showrecipe_lck_on = (FRC.savedVariables.furnishing_showrecipe_lck_on or FRC.DefFurnishing_ShowRecipe_LCK_On)
-  FRC.savedVariables.furnishingrecipe_on = (FRC.savedVariables.furnishingrecipe_on or FRC.DefFurnishingRecipe_On)
-  FRC.savedVariables.grabbag_on = (FRC.savedVariables.grabbag_on or FRC.DefGrabBag_On)
-  FRC.savedVariables.grabbag_lck_on = (FRC.savedVariables.grabbag_lck_on or FRC.DefGrabBag_LCK_On)
-  FRC.savedVariables.folio_on = (FRC.savedVariables.folio_on or FRC.DefFolio_On)
-  FRC.savedVariables.folio_lck_on = (FRC.savedVariables.folio_lck_on or FRC.DefFolio_LCK_On)
+  FRC.savedVariables = ZO_SavedVars:NewAccountWide("FurnishingRecipeCollectorSavedVariables", 1, nil, FRC.defaultSetting) --Instead of nil you can also use GetWorldName() to save the SV server dependent
 
   if FRC.logger ~= nil then
     FRC.logger:Info("Loaded logger")
@@ -464,24 +455,24 @@ local function OnLoad(eventCode, name)
     {
       type = "divider",
     },
-    {type = "checkbox",name = "Show on Furnishings",getFunc = function() return FRC.savedVariables.furnishing_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFurnishing_On,},
-    {type = "checkbox",name = "Show Recipe",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFurnishing_ShowRecipe_On,},
-    {type = "checkbox",name = "Show Recipe TTC Value",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_ttc_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_ttc_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFurnishing_ShowRecipe_TTC_On,},
-    {type = "checkbox",name = "Show Recipe Character Knowledge",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_lck_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_lck_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFurnishing_ShowRecipe_LCK_On,},
+    {type = "checkbox",name = "Show on Furnishings",getFunc = function() return FRC.savedVariables.furnishing_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_on = newValue; end,--[[warning = "",]]  requiresReload = false},
+    {type = "checkbox",name = "Show Recipe",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_on = newValue; end,--[[warning = "",]]  requiresReload = false},
+    {type = "checkbox",name = "Show Recipe TTC Value",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_ttc_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_ttc_on = newValue; end,--[[warning = "",]]  requiresReload = false},
+    {type = "checkbox",name = "Show Recipe Character Knowledge",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_lck_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_lck_on = newValue; end,--[[warning = "",]]  requiresReload = false},
     {
       type = "divider",
     },
-    {type = "checkbox",name = "Show on Furnishing Recipes",getFunc = function() return FRC.savedVariables.furnishingrecipe_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFurnishingRecipe_On,},
+    {type = "checkbox",name = "Show on Furnishing Recipes",getFunc = function() return FRC.savedVariables.furnishingrecipe_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_on = newValue; end,--[[warning = "",]]  requiresReload = false},
     {
       type = "divider",
     },
-    {type = "checkbox",name = "Show on Writ Vendor Grab Bags",getFunc = function() return FRC.savedVariables.grabbag_on end,setFunc = function( newValue ) FRC.savedVariables.grabbag_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefGrabBag_On,},
-    {type = "checkbox",name = "Show Character Knowledge",getFunc = function() return FRC.savedVariables.grabbag_lck_on end,setFunc = function( newValue ) FRC.savedVariables.grabbag_lck_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefGrabBag_LCK_On,},
+    {type = "checkbox",name = "Show on Writ Vendor Grab Bags",getFunc = function() return FRC.savedVariables.grabbag_on end,setFunc = function( newValue ) FRC.savedVariables.grabbag_on = newValue; end,--[[warning = "",]]  requiresReload = false},
+    {type = "checkbox",name = "Show Character Knowledge",getFunc = function() return FRC.savedVariables.grabbag_lck_on end,setFunc = function( newValue ) FRC.savedVariables.grabbag_lck_on = newValue; end,--[[warning = "",]]  requiresReload = false},
     {
       type = "divider",
     },
-    {type = "checkbox",name = "Show on Writ Vendor Folios",getFunc = function() return FRC.savedVariables.folio_on end,setFunc = function( newValue ) FRC.savedVariables.folio_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFolio_On,},
-    {type = "checkbox",name = "Show Character Knowledge",getFunc = function() return FRC.savedVariables.folio_lck_on end,setFunc = function( newValue ) FRC.savedVariables.folio_lck_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFolio_LCK_On,},
+    {type = "checkbox",name = "Show on Writ Vendor Folios",getFunc = function() return FRC.savedVariables.folio_on end,setFunc = function( newValue ) FRC.savedVariables.folio_on = newValue; end,--[[warning = "",]]  requiresReload = false},
+    {type = "checkbox",name = "Show Character Knowledge",getFunc = function() return FRC.savedVariables.folio_lck_on end,setFunc = function( newValue ) FRC.savedVariables.folio_lck_on = newValue; end,--[[warning = "",]]  requiresReload = false},
   }
   LAM = LibAddonMenu2
   LAM:RegisterAddonPanel(FRC.Name .. "Options", menuOptions )
