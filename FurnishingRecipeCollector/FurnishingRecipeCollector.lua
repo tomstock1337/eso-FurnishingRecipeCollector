@@ -342,46 +342,46 @@ local function adjustToolTip(tooltipControl, itemLink)
   end
 end
 local function TooltipHook(tooltipControl, method, linkFunc)
-	local origMethod = tooltipControl[method]
-	tooltipControl[method] = function(self, ...)
-		origMethod(self, ...)
+  local origMethod = tooltipControl[method]
+  tooltipControl[method] = function(self, ...)
+    origMethod(self, ...)
 
     adjustToolTip(tooltipControl, linkFunc(...))
-	end
+  end
 end
 
 local function TooltipHook_Gamepad(tooltipControl, method, linkFunc)
-	local origMethod = tooltipControl[method]
+  local origMethod = tooltipControl[method]
 
-	tooltipControl[method] = function(self, ...)
-		local result = origMethod(self, ...)
+  tooltipControl[method] = function(self, ...)
+    local result = origMethod(self, ...)
 
     adjustToolTip(tooltipControl, linkFunc(...))
 
     return result
-	end
+  end
 end
 local ItemLinkPassthrough = function( itemLink )
   return itemLink
 end
 local function HookTooltips()
 
-	TooltipHook(PopupTooltip, "SetLink", ItemLinkPassthrough)
-	TooltipHook(ItemTooltip, "SetLink", ItemLinkPassthrough)
-	TooltipHook(ItemTooltip, "SetBagItem", GetItemLink)
-	TooltipHook(ItemTooltip, "SetTradeItem", GetTradeItemLink)
-	TooltipHook(ItemTooltip, "SetBuybackItem", GetBuybackItemLink)
-	TooltipHook(ItemTooltip, "SetStoreItem", GetStoreItemLink)
-	TooltipHook(ItemTooltip, "SetAttachedMailItem", GetAttachedItemLink)
-	TooltipHook(ItemTooltip, "SetLootItem", GetLootItemLink)
-	TooltipHook(ItemTooltip, "SetReward", GetItemRewardItemLink)
-	TooltipHook(ItemTooltip, "SetQuestReward", GetQuestRewardItemLink)
-	TooltipHook(ItemTooltip, "SetTradingHouseItem", GetTradingHouseSearchResultItemLink)
-	TooltipHook(ItemTooltip, "SetTradingHouseListing", GetTradingHouseListingItemLink)
+  TooltipHook(PopupTooltip, "SetLink", ItemLinkPassthrough)
+  TooltipHook(ItemTooltip, "SetLink", ItemLinkPassthrough)
+  TooltipHook(ItemTooltip, "SetBagItem", GetItemLink)
+  TooltipHook(ItemTooltip, "SetTradeItem", GetTradeItemLink)
+  TooltipHook(ItemTooltip, "SetBuybackItem", GetBuybackItemLink)
+  TooltipHook(ItemTooltip, "SetStoreItem", GetStoreItemLink)
+  TooltipHook(ItemTooltip, "SetAttachedMailItem", GetAttachedItemLink)
+  TooltipHook(ItemTooltip, "SetLootItem", GetLootItemLink)
+  TooltipHook(ItemTooltip, "SetReward", GetItemRewardItemLink)
+  TooltipHook(ItemTooltip, "SetQuestReward", GetQuestRewardItemLink)
+  TooltipHook(ItemTooltip, "SetTradingHouseItem", GetTradingHouseSearchResultItemLink)
+  TooltipHook(ItemTooltip, "SetTradingHouseListing", GetTradingHouseListingItemLink)
 
-	TooltipHook_Gamepad(GAMEPAD_TOOLTIPS:GetTooltip(GAMEPAD_LEFT_TOOLTIP), "LayoutItem", ItemLinkPassthrough)
-	TooltipHook_Gamepad(GAMEPAD_TOOLTIPS:GetTooltip(GAMEPAD_RIGHT_TOOLTIP), "LayoutItem", ItemLinkPassthrough)
-	TooltipHook_Gamepad(GAMEPAD_TOOLTIPS:GetTooltip(GAMEPAD_MOVABLE_TOOLTIP), "LayoutItem", ItemLinkPassthrough)
+  TooltipHook_Gamepad(GAMEPAD_TOOLTIPS:GetTooltip(GAMEPAD_LEFT_TOOLTIP), "LayoutItem", ItemLinkPassthrough)
+  TooltipHook_Gamepad(GAMEPAD_TOOLTIPS:GetTooltip(GAMEPAD_RIGHT_TOOLTIP), "LayoutItem", ItemLinkPassthrough)
+  TooltipHook_Gamepad(GAMEPAD_TOOLTIPS:GetTooltip(GAMEPAD_MOVABLE_TOOLTIP), "LayoutItem", ItemLinkPassthrough)
 end
 
 --[[
@@ -416,36 +416,36 @@ local function OnLoad(eventCode, name)
 
   HookTooltips()
 
-	local menuOptions = {
-		type				 = "panel",
-		name				 = FRC.Name,
-		displayName	 = FRC.DisplayName,
-		author			 = FRC.Author,
-		version			 = FRC.Version,
-		registerForRefresh	= true,
-		registerForDefaults = true,
-	}
+  local menuOptions = {
+    type         = "panel",
+    name         = FRC.Name,
+    displayName   = FRC.DisplayName,
+    author       = FRC.Author,
+    version       = FRC.Version,
+    registerForRefresh  = true,
+    registerForDefaults = true,
+  }
 
-	local dataTable = {
-		{
-			type = "description",
-			text = "Displays additional information in tooltips for furnshing recipes obtained through Writ vendors. ",
-		},
-		{
-			type = "description",
-			text = "Character Knowledge requires the LibCharacterKnowledge library to be installed or Character Knowledge addon installed.",
-		},
-		{
-			type = "description",
-			text = "Debug requires the LibDebugLogger library to be installed",
-		},
-		{
-			type = "description",
-			text = "Prices require the TamrielTradeCentre addon to be installed",
-		},
-		{
-			type = "divider",
-		},
+  local dataTable = {
+    {
+      type = "description",
+      text = "Displays additional information in tooltips for furnshing recipes obtained through Writ vendors. ",
+    },
+    {
+      type = "description",
+      text = "Character Knowledge requires the LibCharacterKnowledge library to be installed or Character Knowledge addon installed.",
+    },
+    {
+      type = "description",
+      text = "Debug requires the LibDebugLogger library to be installed",
+    },
+    {
+      type = "description",
+      text = "Prices require the TamrielTradeCentre addon to be installed",
+    },
+    {
+      type = "divider",
+    },
     {
       type = "checkbox",
       name = "Show Debug",
@@ -457,33 +457,33 @@ local function OnLoad(eventCode, name)
       --[[warning = "",]]
       requiresReload = false,
       default = FRC.DefDebug,},
-		{
-			type = "divider",
-		},
-		{type = "checkbox",name = "Show on Furnishings",getFunc = function() return FRC.savedVariables.furnishing_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFurnishing_On,},
-		{type = "checkbox",name = "Show Recipe",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFurnishing_ShowRecipe_On,},
-		{type = "checkbox",name = "Show Recipe TTC Value",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_ttc_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_ttc_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFurnishing_ShowRecipe_TTC_On,},
-		{type = "checkbox",name = "Show Recipe Character Knowledge",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_lck_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_lck_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFurnishing_ShowRecipe_LCK_On,},
-		{
-			type = "divider",
-		},
-		{type = "checkbox",name = "Show on Furnishing Recipes",getFunc = function() return FRC.savedVariables.furnishingrecipe_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFurnishingRecipe_On,},
-		{type = "checkbox",name = "Show Recipe TTC Value",getFunc = function() return FRC.savedVariables.furnishingrecipe_show_ttc_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_show_ttc_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFurnishingRecipe_Show_TTC_On,},
-		{type = "checkbox",name = "Show Recipe Character Knowledge",getFunc = function() return FRC.savedVariables.furnishingrecipe_show_lck_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_show_lck_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFurnishingRecipe_Show_LCK_On,},
-		{
-			type = "divider",
-		},
-		{type = "checkbox",name = "Show on Writ Vendor Grab Bags",getFunc = function() return FRC.savedVariables.grabbag_on end,setFunc = function( newValue ) FRC.savedVariables.grabbag_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefGrabBag_On,},
-		{type = "checkbox",name = "Show Character Knowledge",getFunc = function() return FRC.savedVariables.grabbag_lck_on end,setFunc = function( newValue ) FRC.savedVariables.grabbag_lck_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefGrabBag_LCK_On,},
-		{
-			type = "divider",
-		},
+    {
+      type = "divider",
+    },
+    {type = "checkbox",name = "Show on Furnishings",getFunc = function() return FRC.savedVariables.furnishing_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFurnishing_On,},
+    {type = "checkbox",name = "Show Recipe",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFurnishing_ShowRecipe_On,},
+    {type = "checkbox",name = "Show Recipe TTC Value",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_ttc_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_ttc_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFurnishing_ShowRecipe_TTC_On,},
+    {type = "checkbox",name = "Show Recipe Character Knowledge",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_lck_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_lck_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFurnishing_ShowRecipe_LCK_On,},
+    {
+      type = "divider",
+    },
+    {type = "checkbox",name = "Show on Furnishing Recipes",getFunc = function() return FRC.savedVariables.furnishingrecipe_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFurnishingRecipe_On,},
+    {type = "checkbox",name = "Show Recipe TTC Value",getFunc = function() return FRC.savedVariables.furnishingrecipe_show_ttc_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_show_ttc_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFurnishingRecipe_Show_TTC_On,},
+    {type = "checkbox",name = "Show Recipe Character Knowledge",getFunc = function() return FRC.savedVariables.furnishingrecipe_show_lck_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_show_lck_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFurnishingRecipe_Show_LCK_On,},
+    {
+      type = "divider",
+    },
+    {type = "checkbox",name = "Show on Writ Vendor Grab Bags",getFunc = function() return FRC.savedVariables.grabbag_on end,setFunc = function( newValue ) FRC.savedVariables.grabbag_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefGrabBag_On,},
+    {type = "checkbox",name = "Show Character Knowledge",getFunc = function() return FRC.savedVariables.grabbag_lck_on end,setFunc = function( newValue ) FRC.savedVariables.grabbag_lck_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefGrabBag_LCK_On,},
+    {
+      type = "divider",
+    },
     {type = "checkbox",name = "Show on Writ Vendor Folios",getFunc = function() return FRC.savedVariables.folio_on end,setFunc = function( newValue ) FRC.savedVariables.folio_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFolio_On,},
-		{type = "checkbox",name = "Show Character Knowledge",getFunc = function() return FRC.savedVariables.folio_lck_on end,setFunc = function( newValue ) FRC.savedVariables.folio_lck_on = newValue; end,--[[warning = "",]]	requiresReload = false,default = FRC.DefFolio_LCK_On,},
-	}
-	LAM = LibAddonMenu2
-	LAM:RegisterAddonPanel(FRC.Name .. "Options", menuOptions )
-	LAM:RegisterOptionControls(FRC.Name .. "Options", dataTable )
+    {type = "checkbox",name = "Show Character Knowledge",getFunc = function() return FRC.savedVariables.folio_lck_on end,setFunc = function( newValue ) FRC.savedVariables.folio_lck_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFolio_LCK_On,},
+  }
+  LAM = LibAddonMenu2
+  LAM:RegisterAddonPanel(FRC.Name .. "Options", menuOptions )
+  LAM:RegisterOptionControls(FRC.Name .. "Options", dataTable )
 
 end
 
