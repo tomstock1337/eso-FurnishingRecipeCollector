@@ -13,8 +13,6 @@ FRC.DefFurnishing_ShowRecipe_On = true
 FRC.DefFurnishing_ShowRecipe_TTC_On = true
 FRC.DefFurnishing_ShowRecipe_LCK_On = true
 FRC.DefFurnishingRecipe_On = true
-FRC.DefFurnishingRecipe_Show_TTC_On = true
-FRC.DefFurnishingRecipe_Show_LCK_On = true
 FRC.DefGrabBag_On= true
 FRC.DefGrabBag_LCK_On= true
 FRC.DefFolio_On= true
@@ -86,6 +84,8 @@ local function getRecipeDetail(itemLink)
             -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
             vFolioItemLinkId = i
             vFolioItemLink = "|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+            vRecipeItemLinkId = FRC.Data.Folios[i][j]
+            vRecipeItemLink = "|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
             break
           end
         end
@@ -107,6 +107,8 @@ local function getRecipeDetail(itemLink)
               -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
               vGrabBagItemLinkId = i
               vGrabBagItemLink = "|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+              vRecipeItemLinkId = FRC.Data.FurnisherDocuments[i][j]
+              vRecipeItemLink = "|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
               break
             end
           end
@@ -254,34 +256,39 @@ local function adjustToolTip(tooltipControl, itemLink)
 
       tooltipControl:AddLine("Recipe available in Writ Vendor Folio: ",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       tooltipControl:AddLine((vFolioItemLink or vGrabBagItemLink),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+
       if LCK ~= nil then
         tooltipControl:AddLine("Folio Knowledge: "..vCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-        ZO_Tooltip_AddDivider(tooltipControl)
-        tooltipControl:AddLine(vRecipeItemLink,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-        local chars= LCK.GetItemKnowledgeList(vRecipeItemLinkId,nil,nil)
-        local characterstring = ""
-        local knownCount = 0
-
-        for i, char in ipairs(chars) do
-          -- if FRC.logger ~= nil then FRC.logger:Verbose(tos(char["name"]).." "..tos(char["knowledge"])) end
-          if char.knowledge == LCK.KNOWLEDGE_KNOWN or char.knowledge == LCK.KNOWLEDGE_UNKNOWN then
-            if char.knowledge == LCK.KNOWLEDGE_KNOWN then knownCount = knownCount + 1 end
-            if characterstring ~= "" then
-              characterstring = characterstring..", "
-            end
-            characterstring = characterstring..string.format("|c%06X%s|r", FRC.Colors[char.knowledge], char["name"])
-          end
-        end
-
-        tooltipControl:AddLine("Known By "..knownCount.."/"..table.getn(chars)..": "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       else
         tooltipControl:AddLine("Recipe Count: "..vRecipeCount,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       end
-      if TamrielTradeCentrePrice~= nil then
-        local priceDetail = TamrielTradeCentrePrice:GetPriceInfo(vRecipeItemLink)
-        if(priceDetail~=nil) then
-          tooltipControl:AddLine("Average Price: "..zo_strformat("<<1>>", ZO_LocalizeDecimalNumber(priceDetail["Avg"])),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-          tooltipControl:AddLine("Listings: "..priceDetail["EntryCount"],string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      if vItemType == ITEMTYPE_FURNISHING and FRC.savedVariables.furnishing_showrecipe_on  then
+        --only add recipe details to furnishings
+        ZO_Tooltip_AddDivider(tooltipControl)
+        tooltipControl:AddLine(vRecipeItemLink,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        if LCK ~= nil and FRC.savedVariables.furnishing_showrecipe_lck_on then
+          local chars= LCK.GetItemKnowledgeList(vRecipeItemLinkId,nil,nil)
+          local characterstring = ""
+          local knownCount = 0
+
+          for i, char in ipairs(chars) do
+            -- if FRC.logger ~= nil then FRC.logger:Verbose(tos(char["name"]).." "..tos(char["knowledge"])) end
+            if char.knowledge == LCK.KNOWLEDGE_KNOWN or char.knowledge == LCK.KNOWLEDGE_UNKNOWN then
+              if char.knowledge == LCK.KNOWLEDGE_KNOWN then knownCount = knownCount + 1 end
+              if characterstring ~= "" then
+                characterstring = characterstring..", "
+              end
+              characterstring = characterstring..string.format("|c%06X%s|r", FRC.Colors[char.knowledge], char["name"])
+            end
+          end
+          tooltipControl:AddLine("Known By "..knownCount.."/"..table.getn(chars)..": "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        end
+        if TamrielTradeCentrePrice~= nil and ((vItemType == ITEMTYPE_FURNISHING and FRC.savedVariables.furnishing_showrecipe_ttc_on)) then
+          local priceDetail = TamrielTradeCentrePrice:GetPriceInfo(vRecipeItemLink)
+          if(priceDetail~=nil) then
+            tooltipControl:AddLine("Average Price: "..zo_strformat("<<1>>", ZO_LocalizeDecimalNumber(priceDetail["Avg"])),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+            tooltipControl:AddLine("Listings: "..priceDetail["EntryCount"],string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+          end
         end
       end
     elseif vGrabBagItemLinkId ~= nil then
@@ -296,7 +303,7 @@ local function adjustToolTip(tooltipControl, itemLink)
 
       tooltipControl:AddLine("Recipe available in Writ Vendor Folio: ",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       tooltipControl:AddLine((vFolioItemLink or vGrabBagItemLink),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-      if LCK ~= nil then
+      if LCK ~= nil and FRC.savedVariables.grabbag_lck_on then
         tooltipControl:AddLine("Folio Knowledge: "..vCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       else
         tooltipControl:AddLine("Recipe Count: "..vRecipeCount,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
@@ -311,9 +318,8 @@ local function adjustToolTip(tooltipControl, itemLink)
 
       ZO_Tooltip_AddDivider(tooltipControl)
       for i,recipeId in ipairs(FRC.Data.Folios[vItemLinkId]) do
-        if FRC.logger ~= nil then FRC.logger:Verbose(tos(recipeId)) end
-        -- tooltipControl:AddLine("|H1:item:"..recipeId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-        if LCK ~= nil then
+        tooltipControl:AddLine("|H1:item:"..recipeId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        if LCK ~= nil and FRC.savedVariables.folio_lck_on then
           local charKnowledge = LCK.GetItemKnowledgeList( recipeId )
           if charKnowledge ~= nil then
             local characterstring = ""
@@ -333,7 +339,7 @@ local function adjustToolTip(tooltipControl, itemLink)
         end
       end
       ZO_Tooltip_AddDivider(tooltipControl)
-      if LCK ~= nil then
+      if LCK ~= nil and FRC.savedVariables.folio_lck_on then
         tooltipControl:AddLine("Folio Knowledge: "..vCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       else
         tooltipControl:AddLine("Recipe Count: "..vRecipeCount,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
@@ -402,8 +408,6 @@ local function OnLoad(eventCode, name)
   FRC.savedVariables.furnishing_showrecipe_ttc_on = (FRC.savedVariables.furnishing_showrecipe_ttc_on or FRC.DefFurnishing_ShowRecipe_TTC_On)
   FRC.savedVariables.furnishing_showrecipe_lck_on = (FRC.savedVariables.furnishing_showrecipe_lck_on or FRC.DefFurnishing_ShowRecipe_LCK_On)
   FRC.savedVariables.furnishingrecipe_on = (FRC.savedVariables.furnishingrecipe_on or FRC.DefFurnishingRecipe_On)
-  FRC.savedVariables.furnishingrecipe_show_ttc_on = (FRC.savedVariables.furnishingrecipe_show_ttc_on or FRC.DefFurnishingRecipe_Show_TTC_On)
-  FRC.savedVariables.furnishingrecipe_show_lck_on = (FRC.savedVariables.furnishingrecipe_show_lck_on or FRC.DefFurnishingRecipe_Show_LCK_On)
   FRC.savedVariables.grabbag_on = (FRC.savedVariables.grabbag_on or FRC.DefGrabBag_On)
   FRC.savedVariables.grabbag_lck_on = (FRC.savedVariables.grabbag_lck_on or FRC.DefGrabBag_LCK_On)
   FRC.savedVariables.folio_on = (FRC.savedVariables.folio_on or FRC.DefFolio_On)
@@ -468,8 +472,6 @@ local function OnLoad(eventCode, name)
       type = "divider",
     },
     {type = "checkbox",name = "Show on Furnishing Recipes",getFunc = function() return FRC.savedVariables.furnishingrecipe_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFurnishingRecipe_On,},
-    {type = "checkbox",name = "Show Recipe TTC Value",getFunc = function() return FRC.savedVariables.furnishingrecipe_show_ttc_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_show_ttc_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFurnishingRecipe_Show_TTC_On,},
-    {type = "checkbox",name = "Show Recipe Character Knowledge",getFunc = function() return FRC.savedVariables.furnishingrecipe_show_lck_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_show_lck_on = newValue; end,--[[warning = "",]]  requiresReload = false,default = FRC.DefFurnishingRecipe_Show_LCK_On,},
     {
       type = "divider",
     },

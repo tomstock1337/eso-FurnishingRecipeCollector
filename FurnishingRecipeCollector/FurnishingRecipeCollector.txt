@@ -11,7 +11,7 @@
 ## Author: tomstock
 ## APIVersion: 101041 101042
 ## SavedVariables: FurnishingRecipeCollectorSavedVariables
-## OptionalDependsOn: LibDebugLogger>=180 LibCharacterKnowledge>=20 TamrielTradeCentre
+## OptionalDependsOn: LibDebugLogger>=180 LibCharacterKnowledge>=20 TamrielTradeCentrePrice
 ## DependsOn: LibAddonMenu-2.0>=36
 
 data.lua
