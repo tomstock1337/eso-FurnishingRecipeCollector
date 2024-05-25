@@ -278,7 +278,7 @@ local function adjustToolTip(tooltipControl, itemLink)
     if FRC.logger ~= nil then FRC.logger:Info(" ItemName:"..vItemName.."LinkID: "..tos(vItemLinkId).." ItemType: "..tos(vItemType).." SpType: "..tos(vSpecialType).." Recipe: "..tos(vRecipeItemLinkId).." Folio: "..tos(vFolioItemLinkId).." GrabBag: "..tos(vGrabBagItemLinkId).." RecipeName: "..tos(vRecipeItemName)) end
 
     if vRecipeItemLinkId ~= nil and (vGrabBagItemLinkId ~= nil or vFolioItemLinkId ~= nil) then
-      --Recipe or Recipe Furnisher
+      --Recipe or Furnishing from a folio or grab bag
 
       if vItemType == ITEMTYPE_FURNISHING and FRC.savedVariables.furnishing_on == false then
         return
@@ -330,6 +330,35 @@ local function adjustToolTip(tooltipControl, itemLink)
     elseif vRecipeItemLinkId ~= nil and vLocation ~= nil then
       ZO_Tooltip_AddDivider(tooltipControl)
       tooltipControl:AddLine("Recipe available from: "..vLocation,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      if vItemType == ITEMTYPE_FURNISHING and FRC.savedVariables.furnishing_showrecipe_on  then
+        --only add recipe details to furnishings
+        ZO_Tooltip_AddDivider(tooltipControl)
+        tooltipControl:AddLine(vRecipeItemLink,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        if LCK ~= nil and FRC.savedVariables.furnishing_showrecipe_lck_on then
+          local chars= LCK.GetItemKnowledgeList(vRecipeItemLinkId,nil,nil)
+          local characterstring = ""
+          local knownCount = 0
+
+          for i, char in ipairs(chars) do
+            -- if FRC.logger ~= nil then FRC.logger:Verbose(tos(char["name"]).." "..tos(char["knowledge"])) end
+            if char.knowledge == LCK.KNOWLEDGE_KNOWN or char.knowledge == LCK.KNOWLEDGE_UNKNOWN then
+              if char.knowledge == LCK.KNOWLEDGE_KNOWN then knownCount = knownCount + 1 end
+              if characterstring ~= "" then
+                characterstring = characterstring..", "
+              end
+              characterstring = characterstring..string.format("|c%06X%s|r", FRC.Colors[char.knowledge], char["name"])
+            end
+          end
+          tooltipControl:AddLine("Known By "..knownCount.."/"..table.getn(chars)..": "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        end
+        if TamrielTradeCentrePrice~= nil and ((vItemType == ITEMTYPE_FURNISHING and FRC.savedVariables.furnishing_showrecipe_ttc_on)) then
+          local priceDetail = TamrielTradeCentrePrice:GetPriceInfo(vRecipeItemLink)
+          if(priceDetail~=nil) then
+            tooltipControl:AddLine("Average Price: "..zo_strformat("<<1>>", ZO_LocalizeDecimalNumber(priceDetail["Avg"])),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+            tooltipControl:AddLine("Listings: "..priceDetail["EntryCount"],string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+          end
+        end
+      end
     elseif vGrabBagItemLinkId ~= nil then
       --Grab Bag
       if FRC.savedVariables.grabbag_on == false then
