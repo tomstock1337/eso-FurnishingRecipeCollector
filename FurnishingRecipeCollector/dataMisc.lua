@@ -21,4 +21,5 @@ FRC.Data.Misc = {
   [119592]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Skeleton, Humanoid
   [121315]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Skeleton, Robust Humanoid
   [203324]={location="Rolis Hlaalu Writ Vendor"}, --Sketch: Apocrypha Mirror, Intricate
+  [119391]={location="Brewer"}, --Design: Common Candle, Set
 }
