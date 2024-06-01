@@ -18,6 +18,7 @@ dataFolios.lua
 dataGrabBags.lua
 dataMisc.lua
 FRC_RecipeFuncs.lua
-FRC_GUI.lua
+FRC_ToolTip.lua
 FRC_Main.lua
+FRC_GUI.lua
 xml\viewer.xml
