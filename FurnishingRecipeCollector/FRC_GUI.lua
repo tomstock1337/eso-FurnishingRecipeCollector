@@ -2,12 +2,13 @@ FurnishingRecipeCollector = FurnishingRecipeCollector or {}
 local FRC = FurnishingRecipeCollector
 
 local tos = tostring
+FRC.isGuiLoading = nil
 
 --[[
   Global Window Events
 ]]
 function FRC.GuiOnControlMouseUp(control, button)
-  if nil == control then
+  if nil == control or FRC.isGuiLoading == true then
     return
   end
 
@@ -37,17 +38,26 @@ function FRC.GuiOnControlMouseUp(control, button)
 end
 function FRC.GuiOnResizeStop()
   FRC.GuiSaveFrameInfo()
+  if FRC.isGuiLoading == true then
+    return
+  end
   FRC.UpdateLineVisibility()
   FRC.UpdateInventoryScroll()
 end
 function FRC.GuiOnSliderUpdate(slider, value)
-  if not value or slider and slider.locked then
+  if nil == slider or FRC.isGuiLoading == true then
+    return
+  end
+  if not value or (slider and slider.locked) then
     return
   end
   local relativeValue = math.floor(FRC_GUI_ListHolder.dataOffset - value)
   FRC.GuiOnScroll(slider, relativeValue)
 end
 function FRC.GuiOnScroll(control, delta)
+  if nil == control or FRC.isGuiLoading == true then
+    return
+  end
   if not delta then
     return
   end
@@ -77,6 +87,9 @@ function FRC.GuiOnScroll(control, delta)
   FurnishingRecipeCollector.GuiLineOnMouseEnter(moc())
 end
 function FRC.GuiLineOnMouseEnter(lineControl)
+  if nil == lineControl or FRC.isGuiLoading == false then
+    return
+  end
   currentLink, currentId = nil, nil
 
   if not lineControl or not lineControl.itemLink or lineControl.itemLink == "" then
@@ -93,6 +106,9 @@ function FRC.GuiLineOnMouseEnter(lineControl)
   -- ItemTooltip:SetLink(currentLink)
 end
 function FRC.GuiLineOnMouseExit(lineControl)
+  if nil == lineControl or FRC.isGuiLoading == false then
+    return
+  end
   -- ItemTooltip:SetHidden(true)
 end
 function FRC.GuiSaveFrameInfo(calledFrom)
@@ -104,7 +120,9 @@ function FRC.GuiSaveFrameInfo(calledFrom)
   gui_s.width = FRC_GUI:GetWidth()
   gui_s.height = FRC_GUI:GetHeight()
 
-  FRC.UpdateInventoryScroll()
+  if FRC.isGuiLoading == false then
+    FRC.UpdateInventoryScroll()
+  end
 end
 
 --[[
@@ -348,6 +366,8 @@ end
 function FRC.InitGui()
   local control = FRC_GUI
 
+  FRC.isGuiLoading = true
+
   FRC.RestorePosition()
 
   SetupPostXMLGui()
@@ -359,4 +379,5 @@ function FRC.InitGui()
 
   SCENE_MANAGER:RegisterTopLevel(control, false)
   FRC.logger:Debug("GUI Initialized")
+  FRC.isGuiLoading = false
 end

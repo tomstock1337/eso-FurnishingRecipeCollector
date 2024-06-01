@@ -16,30 +16,46 @@
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
           <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"/>
           <Controls>
-            <!--Header Bar 1-->
             <!-- <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop">
               <AnchorFill />
             </Backdrop> -->
-            <Control name="$(parent)_Bar1" resizeToFitDescendents="true">
-              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
-              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" />
-              <Dimensions y="30" />
-              <Controls>
-                <Label name="$(parent)_HeaderLabel" text="Furnishing Recipe Collector" font="$(STONE_TABLET_FONT)|28|soft-shadow-thick">
-                  <Anchor point="CENTER" relativeTo="$(parent)"/>
-                </Label>
-                <Button name="$(parent)_Hide">
-                  <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"
-                    offsetX="-15" offsetY="15" />
-                  <!-- <OnMouseEnter>FurC.GuiShowTooltip(self, "Hide window")</OnMouseEnter>
-                  <OnMouseExit>FurC.GuiHideTooltip(self)</OnMouseExit> -->
-                  <OnMouseUp>FurnishingRecipeCollector.FRC_Toggle()</OnMouseUp>
-                  <Dimensions x="25" y="25" />
-                  <Textures normal="/esoui/art/buttons/decline_up.dds"
-                    pressed="/esoui/art/buttons/decline_down.dds"
-                    mouseOver="/esoui/art/buttons/decline_over.dds" />
-                </Button>
-              </Controls>
+            <Label name="$(parent)_HeaderLabel" horizontalAlignment="Center" text="Furnishing Recipe Collector" font="$(STONE_TABLET_FONT)|28|soft-shadow-thick">
+              <Anchor point="TOPLEFT" relativeTo="$(parent)_Header" relativePoint="TOPLEFT" />
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)_Header" relativePoint="TOPRIGHT"/>
+            </Label>
+            <Button name="$(parent)_Hide">
+              <Anchor point="RIGHT" relativeTo="$(parent)_HeaderLabel" relativePoint="RIGHT" offsetX="-15" />
+              <!-- <OnMouseEnter>FurC.GuiShowTooltip(self, "Hide window")</OnMouseEnter>
+              <OnMouseExit>FurC.GuiHideTooltip(self)</OnMouseExit> -->
+              <OnMouseUp>FurnishingRecipeCollector.FRC_Toggle()</OnMouseUp>
+              <Dimensions x="25" y="25" />
+              <Textures normal="/esoui/art/buttons/decline_up.dds"
+                pressed="/esoui/art/buttons/decline_down.dds"
+                mouseOver="/esoui/art/buttons/decline_over.dds" />
+            </Button>
+          </Controls>
+        </Control>
+        <!--Filter Bar -->
+        <Control name="$(parent)_FilterBar" resizeToFitDescendents="true">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)_Header" relativePoint="BOTTOMLEFT" />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_Header" relativePoint="BOTTOMRIGHT"/>
+          <Controls>
+            <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop">
+              <AnchorFill />
+            </Backdrop>
+            <Control name="FRC_GUI_FilterFolio" inherits="ZO_ComboBox" mouseEnabled="true">
+              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"/>
+              <Dimensions x="230" y="28" />
+              <OnShow>FurC.GuiSetupDropdown(self)</OnShow>
+              <OnMouseEnter>FurC.GuiShowTooltip(self, "Filter: Knowledge and source", true)</OnMouseEnter>
+              <OnMouseExit>FurC.GuiHideTooltip(self)</OnMouseExit>
+            </Control>
+            <Control name="FRC_GUI_FilterQuality" mouseEnabled="true">
+              <Anchor point="TOPLEFT" relativeTo="$(parent)_FilterFolio" relativePoint="TOPRIGHT"/>
+              <Dimensions x="230" y="28" />
+              <OnShow>FurC.GuiSetupDropdown(self)</OnShow>
+              <OnMouseEnter>FurC.GuiShowTooltip(self, "Filter: Knowledge and source", true)</OnMouseEnter>
+              <OnMouseExit>FurC.GuiHideTooltip(self)</OnMouseExit>
             </Control>
           </Controls>
         </Control>
@@ -50,8 +66,8 @@
           to be anchored to the middlee, sort1 and sort3 need to have already existed.
         -->
         <Control name="$(parent)_SortBar" mouseEnabled="true" resizeToFitDescendents="true">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)_Header" relativePoint="BOTTOMLEFT"/>
-          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_Header" relativePoint="BOTTOMRIGHT"/>
+          <Anchor point="TOPLEFT" relativeTo="$(parent)_FilterBar" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_FilterBar" relativePoint="BOTTOMRIGHT"/>
           <Controls>
             <Control name="$(parent)_Sort1" mouseEnabled="true" resizeToFitDescendents="true">
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10"/>
@@ -141,11 +157,11 @@
           to be anchored to the middlee, sort1 and sort3 need to have already existed.
         -->
       <Controls>
-        <Label name="$(parent)_Location" text="Purchase Location" font="ZoFontGame" wrapMode="ELLIPSIS" maxLineCount="1">
+        <Label name="$(parent)_Location" mouseEnabled="true" text="Purchase Location" font="ZoFontGame" wrapMode="ELLIPSIS" maxLineCount="1">
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"  />
           <Dimensions x="330" y="30" />
         </Label>
-        <Label name="$(parent)_Knowledge" text="Knowledge" font="ZoFontGame" wrapMode="ELLIPSIS" maxLineCount="1">
+        <Label name="$(parent)_Knowledge" mouseEnabled="true" text="Knowledge" font="ZoFontGame" wrapMode="ELLIPSIS" maxLineCount="1">
           <Anchor point="RIGHT" relativeTo="$(parent)" relativePoint="RIGHT"/>
           <Dimensions x="100" y="30" />
         </Label>
