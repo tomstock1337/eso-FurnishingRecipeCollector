@@ -17,4 +17,5 @@
 dataFolios.lua
 dataGrabBags.lua
 dataMisc.lua
-FurnishingRecipeCollector.lua
+FRC_RecipeFuncs.lua
+FRC_Main.lua
