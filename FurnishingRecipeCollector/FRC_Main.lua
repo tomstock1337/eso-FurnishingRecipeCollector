@@ -333,6 +333,29 @@ local function OnLoad(eventCode, name)
   LAM:RegisterAddonPanel(FRC.Name .. "Options", menuOptions )
   LAM:RegisterOptionControls(FRC.Name .. "Options", dataTable )
 
+  FRC.InitGui()
+
+  if SLASH ~= nil then
+    local command = SLASH:Register()
+    command:AddAlias("/furrecipe")
+    if FRC.savedVariables.debug then
+      command:AddAlias("/frc")
+    end
+    command:SetCallback(FurnishingRecipeCollector.FRC_Toggle)
+    command:SetDescription("Furniture Recipe Collector List")
+  else
+    SLASH_COMMANDS["/furrecipe"] = FurnishingRecipeCollector.FRC_Toggle
+    if FRC.savedVariables.debug then
+      SLASH_COMMANDS["/frc"] = FurnishingRecipeCollector.FRC_Toggle
+    end
+  end
+
+  --Show the window after a delay
+  if FRC.savedVariables.debug then
+    zo_callLater(function()
+      FurnishingRecipeCollector.FRC_Show()
+    end, 1000)
+  end
 end
 
 --[[
