@@ -3,6 +3,30 @@ local FRC = FurnishingRecipeCollector
 
 local tos = tostring
 FRC.isGuiLoading = nil
+FRC.sortOptions =
+  {
+    [0] = {
+      "locationSort",
+      {
+        ["locationSort"]=
+          {
+            tiebreaker = "rResultName",
+            tieBreakerSortOrder=ZO_SORT_ORDER_UP
+          },
+        ["rResultName"]=
+          {
+          }
+      }
+    },
+    [1] = {
+      "rResultName",
+      {
+        ["rResultName"]=
+          {
+          }
+      }
+    }
+  }
 
 --[[
   Global Window Events
@@ -128,6 +152,9 @@ end
 --[[
     Global functions used by other addon callbacks or XML
 ]]
+function FRC.SortDataLines(data,orderIndex)
+  table.sort(data, function(item1, item2) return ZO_TableOrderingFunction(item1, item2, FRC.sortOptions[orderIndex][1],FRC.sortOptions[orderIndex][2],ZO_SORT_ORDER_UP) end)
+end
 function FRC.FRC_Toggle()
   --functions hooked from other addons can't be local
   SCENE_MANAGER:ToggleTopLevel(FRC_GUI)
@@ -181,8 +208,12 @@ function FRC.UpdateLineVisibility()
       curLine.rGrabBagItemLinkId = 0
       curLine.rGrabBagItemLink = ""
       curLine.rLocation = ""
+      curLine.rResultLinkId = 0
+      curLine.rResultLink = ""
+      curLine.rResultName = ""
       curLine.lblRecipeName:SetText("")
       curLine.lblLocation:SetText("")
+      curLine.lblKnowledge:SetText("")
     else
       curLine.rItemLinkId = curData.rItemLinkId
       curLine.rItemName = curData.rItemName
@@ -196,8 +227,12 @@ function FRC.UpdateLineVisibility()
       curLine.rGrabBagItemLinkId = curData.rGrabBagItemLinkId
       curLine.rGrabBagItemLink = curData.rGrabBagItemLink
       curLine.rLocation = curData.rLocation
+      curLine.rResultLinkId = curData.rResultLinkId
+      curLine.rResultLink = curData.rResultLink
+      curLine.rResultName = curData.rResultName
       curLine.lblRecipeName:SetText(curLine.rRecipeItemLink)
       curLine.lblLocation:SetText(curLine.rFolioItemLink or curLine.rGrabBagItemLink or curLine.rLocation)
+      curLine.lblKnowledge:SetText("")
     end
   end
 
@@ -229,9 +264,6 @@ function FRC.UpdateLineVisibility()
     redrawList()
   end
 end
---[[
-    Local functions
-]]
 function FRC.RestorePosition()
   local control = FRC_GUI
   local gui_s = FRC.savedVariables["gui"]
@@ -254,7 +286,7 @@ function FRC.updateScrollDataLinesData()
 
   for i in pairs(FRC.Data.FurnisherDocuments) do
     for j in pairs(FRC.Data.FurnisherDocuments[i]) do
-      local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = FRC.GetRecipeDetail(FRC.Data.FurnisherDocuments[i][j])
+      local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(FRC.Data.FurnisherDocuments[i][j])
       local tempDataLine = {}
       tempDataLine.rItemLinkId = vItemLinkId
       tempDataLine.rItemName = vItemName
@@ -262,18 +294,23 @@ function FRC.updateScrollDataLinesData()
       tempDataLine.rSpecialType = vSpecialType
       tempDataLine.rFolioItemLinkId = vFolioItemLinkId
       tempDataLine.rFolioItemLink = vFolioItemLink
+      tempDataLine.rFolioItemName = vFolioItemName or ""
       tempDataLine.rRecipeItemLinkId = vRecipeItemLinkId
       tempDataLine.rRecipeItemLink = vRecipeItemLink
       tempDataLine.rRecipeItemName = vRecipeItemName
       tempDataLine.rGrabBagItemLinkId = vGrabBagItemLinkId
       tempDataLine.rGrabBagItemLink = vGrabBagItemLink
+      tempDataLine.rGrabBagItemName = vGrabBagItemName or ""
       tempDataLine.rLocation = vLocation
+      tempDataLine.rResultLinkId = vResultLinkId
+      tempDataLine.rResultLink = vResultLink
+      tempDataLine.rResultName = vResultName
       table.insert(dataLines, tempDataLine)
     end
   end
   for i in pairs(FRC.Data.Folios) do
     for j in pairs(FRC.Data.Folios[i]) do
-      local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = FRC.GetRecipeDetail(FRC.Data.Folios[i][j])
+      local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(FRC.Data.Folios[i][j])
       local tempDataLine = {}
       tempDataLine.rItemLinkId = vItemLinkId
       tempDataLine.rItemName = vItemName
@@ -281,17 +318,22 @@ function FRC.updateScrollDataLinesData()
       tempDataLine.rSpecialType = vSpecialType
       tempDataLine.rFolioItemLinkId = vFolioItemLinkId
       tempDataLine.rFolioItemLink = vFolioItemLink
+      tempDataLine.rFolioItemName = vFolioItemName or ""
       tempDataLine.rRecipeItemLinkId = vRecipeItemLinkId
       tempDataLine.rRecipeItemLink = vRecipeItemLink
       tempDataLine.rRecipeItemName = vRecipeItemName
       tempDataLine.rGrabBagItemLinkId = vGrabBagItemLinkId
       tempDataLine.rGrabBagItemLink = vGrabBagItemLink
+      tempDataLine.rGrabBagItemName = vGrabBagItemName or ""
       tempDataLine.rLocation = vLocation
+      tempDataLine.rResultLinkId = vResultLinkId
+      tempDataLine.rResultLink = vResultLink
+      tempDataLine.rResultName = vResultName
       table.insert(dataLines, tempDataLine)
     end
   end
   for i in pairs(FRC.Data.Misc)do
-    local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = FRC.GetRecipeDetail(i)
+    local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(i)
     local tempDataLine = {}
     tempDataLine.rItemLinkId = vItemLinkId
     tempDataLine.rItemName = vItemName
@@ -299,19 +341,48 @@ function FRC.updateScrollDataLinesData()
     tempDataLine.rSpecialType = vSpecialType
     tempDataLine.rFolioItemLinkId = vFolioItemLinkId
     tempDataLine.rFolioItemLink = vFolioItemLink
+    tempDataLine.rFolioItemName = vFolioItemName
     tempDataLine.rRecipeItemLinkId = vRecipeItemLinkId
     tempDataLine.rRecipeItemLink = vRecipeItemLink
     tempDataLine.rRecipeItemName = vRecipeItemName
     tempDataLine.rGrabBagItemLinkId = vGrabBagItemLinkId
     tempDataLine.rGrabBagItemLink = vGrabBagItemLink
+    tempDataLine.rGrabBagItemName = vGrabBagItemName
     tempDataLine.rLocation = vLocation
+    tempDataLine.rResultLinkId = vResultLinkId
+    tempDataLine.rResultLink = vResultLink
+    tempDataLine.rResultName = vResultName
     table.insert(dataLines, tempDataLine)
   end
+
+  for i,line in pairs(dataLines) do
+    if line.rFolioItemLinkId ~= nil then
+      line.locationSort = "1_"..line.rFolioItemName
+    elseif line.rGrabBagItemLinkId ~= nil then
+      line.locationSort = "2_"..line.rGrabBagItemName
+    else line.locationSort = "3_"..line.rLocation
+    end
+  end
+
+  FRC.SortDataLines(dataLines,0)
+
   FRC_GUI_ListHolder.dataLines = dataLines
 end
-local function SetupPostXMLGui()
-  local function createInventoryScroll()
-    FurC.Logger:Debug("CreateInventoryScroll")
+
+function FRC.LoadingStart()
+  FRC.isGuiLoading = true
+  FRC_GUI_ListHolder:SetHidden(true)
+  FRC_GUI_Wait:SetHidden(false)
+end
+
+function FRC.LoadingStop()
+  FRC.isGuiLoading = false
+  FRC_GUI_ListHolder:SetHidden(false)
+  FRC_GUI_Wait:SetHidden(true)
+end
+local function CreatePostXMLGui()
+  local function CreateInventoryScroll()
+    FRC.logger:Debug("CreateInventoryScroll")
     local function createLine(i, predecessor)
       predecessor = predecessor or FRC_GUI_ListHolder
 
@@ -320,6 +391,7 @@ local function SetupPostXMLGui()
 
       line.lblRecipeName = line:GetNamedChild("_RecipeName")
       line.lblLocation = line:GetNamedChild("_Location")
+      line.lblKnowledge = line:GetNamedChild("_Knowledge")
 
       line:SetHidden(false)
       line:SetMouseEnabled(true)
@@ -342,6 +414,8 @@ local function SetupPostXMLGui()
     FRC_GUI_ListHolder.Sort1.icon = FRC_GUI_SortBar_Sort1:GetNamedChild("_Button")
     FRC_GUI_ListHolder.Sort2 = FRC_GUI_SortBar_Sort2:GetNamedChild("_Name")
     FRC_GUI_ListHolder.Sort2.icon = FRC_GUI_SortBar_Sort2:GetNamedChild("_Button")
+    FRC_GUI_ListHolder.Sort3 = FRC_GUI_SortBar_Sort2:GetNamedChild("_Name")
+    FRC_GUI_ListHolder.Sort3.icon = FRC_GUI_SortBar_Sort2:GetNamedChild("_Button")
 
     local predecessor
     for i = 1, FRC_GUI_ListHolder.maxLines do
@@ -354,30 +428,72 @@ local function SetupPostXMLGui()
 
     return FRC_GUI_ListHolder.lines
   end
+  local function CreateDropDown(dropDownType)
+    FRC.logger:Debug("CreateDropDown")
+    local filterControl = nil
+    local data = {}
+    local comboBox = nil
 
-  createInventoryScroll()
+    if dropDownType == "Folio" then
+      filterControl = _G["FRC_GUI_FilterFolio"]
+      FRC.logger:Info(tos(filterControl))
+
+      table.insert(data,{enabled=true,name="Location: No Filter",itemLinkId="",itemName="",categoryId="0NoSelection"})
+
+      --Grabbed structure of combobox item from zo_combobox_base.lua
+      for i in pairs(FRC.Data.Folios) do
+        local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = FRC.GetRecipeDetail(i)
+        table.insert(data,{enabled=true,name=vFolioItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="1Folio"})
+      end
+      for i in pairs(FRC.Data.FurnisherDocuments) do
+        local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = FRC.GetRecipeDetail(i)
+        table.insert(data,{enabled=true,name=vGrabBagItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="2FurnisherDocuments"})
+      end
+      table.insert(data,{name="Misc",categoryId="3Misc"})
+    else return
+    end
+
+    filterControl.comboBox = filterControl.comboBox or ZO_ComboBox_ObjectFromContainer(filterControl)
+    comboBox = filterControl.comboBox
+
+    local scrollHelper = AddCustomScrollableComboBoxDropdownMenu(comboBox, filterControl, {})
+
+    function OnItemSelect(control, choiceText, somethingElse)
+      -- local dropdownName = tostring(control.m_name):gsub("FurC_Dropdown", "")
+      -- FurC.SetDropdownChoice(dropdownName, choiceText)
+    end
+
+    comboBox:ClearItems()
+
+    table.sort(data, function(item1, item2) return ZO_TableOrderingFunction(item1, item2, "categoryId",{["categoryId"]={tiebreaker = "itemName",tieBreakerSortOrder=ZO_SORT_ORDER_UP},["itemName"]={caseInsensitive=true}},ZO_SORT_ORDER_UP) end)
+
+		comboBox:AddItems(data)
+    comboBox:SetSelected(1)
+  end
+
+  CreateInventoryScroll()
+  CreateDropDown("Folio")
+
+  local slider = FurCGui_ListHolder_Slider
+  slider:SetMinMax(1, #FurCGui_ListHolder.dataLines)
 end
 
 function FRC.UpdateGui()
+  FRC.LoadingStart()
   FRC.updateScrollDataLinesData()
-  zo_callLater(FRC.UpdateLineVisibility, 200)
+  FRC.UpdateLineVisibility()
+  FRC.UpdateInventoryScroll()
+  FRC.LoadingStop()
 end
 
 function FRC.InitGui()
   local control = FRC_GUI
 
-  FRC.isGuiLoading = true
-
   FRC.RestorePosition()
 
-  SetupPostXMLGui()
-
-  local slider = FRC_GUI_ListHolder_Slider
-  slider:SetMinMax(1, #FRC_GUI_ListHolder.dataLines)
+  CreatePostXMLGui()
 
   FRC.UpdateGui()
 
   SCENE_MANAGER:RegisterTopLevel(control, false)
-  FRC.logger:Debug("GUI Initialized")
-  FRC.isGuiLoading = false
 end

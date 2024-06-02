@@ -12,7 +12,7 @@ local LCK = LibCharacterKnowledge
 --------------------------------------------------------------------
 function FRC.GetRecipeDetail(itemLinkOrItemID)
   local itemLink
-  local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = nil,nil,nil, nil, nil, nil, nil, nil, nil, nil,nil,nil
+  local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
 
   if type(itemLinkOrItemID) == "string" then
     itemLink = itemLinkOrItemID
@@ -28,16 +28,21 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
     -- This is a folio
     vFolioItemLinkId = vItemLinkId
     vFolioItemLink = "|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+    vFolioItemName = vItemName
   elseif FRC.Data.FurnisherDocuments[vItemLinkId] ~= nil then
     -- This is a grab bag
     vGrabBagItemLinkId = vItemLinkId
     vGrabBagItemLink = "|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+    vGrabBagItemName = vItemName
   elseif FRC.Data.Misc[vItemLinkId] ~= nil then
     -- This is a recipe with special location
     vRecipeItemLinkId = vItemLinkId
     vRecipeItemLink = "|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
     vRecipeItemName = GetItemLinkName(vRecipeItemLink)
     vLocation = FRC.Data.Misc[vItemLinkId].location
+    vResultLink = GetItemLinkRecipeResultItemLink("|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+    vResultLinkId = GetItemLinkItemId(vResultLink)
+    vResultName = GetItemLinkName(vResultLink)
   elseif vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_ALCHEMY_FORMULA_FURNISHING
     or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_BLACKSMITHING_DIAGRAM_FURNISHING
     or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_CLOTHIER_PATTERN_FURNISHING
@@ -49,6 +54,9 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
       vRecipeItemLinkId = vItemLinkId
       vRecipeItemLink = "|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
       vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+      vResultLink = GetItemLinkRecipeResultItemLink("|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+      vResultLinkId = GetItemLinkItemId(vResultLink)
+      vResultName = GetItemLinkName(vResultLink)
 
       --Loop through each folio looking for recipe
       for i in pairs(FRC.Data.Folios) do
@@ -66,6 +74,7 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
             vRecipeItemLinkId = FRC.Data.Folios[i][j]
             vRecipeItemLink = "|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
             vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+            vFolioItemName = GetItemLinkName(vFolioItemLink)
             break
           end
         end
@@ -90,6 +99,7 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
               vRecipeItemLinkId = FRC.Data.FurnisherDocuments[i][j]
               vRecipeItemLink = "|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
               vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+              vGrabBagItemName = GetItemLinkName(vGrabBagItemLink)
               break
             end
           end
@@ -118,9 +128,13 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
             -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
             vFolioItemLinkId = i
             vFolioItemLink = "|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+            vFolioItemName = GetItemLinkName(vFolioItemLink)
             vRecipeItemLinkId = FRC.Data.Folios[i][j]
             vRecipeItemLink = "|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
             vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+            vResultLinkId = vItemLinkId
+            vResultLink = itemLink
+            vResultName = vItemName
             break
           end
         end
@@ -144,9 +158,13 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
               -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
               vGrabBagItemLinkId = i
               vGrabBagItemLink = "|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+              vGrabBagItemName = GetItemLinkName(vGrabBagItemLink)
               vRecipeItemLinkId = FRC.Data.FurnisherDocuments[i][j]
               vRecipeItemLink = "|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
               vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+              vResultLinkId = vItemLinkId
+              vResultLink = itemLink
+              vResultName = vItemName
               break
             end
           end
@@ -171,13 +189,16 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
             vRecipeItemLink = "|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
             vRecipeItemName = GetItemLinkName(vRecipeItemLink)
             vLocation = FRC.Data.Misc[i].location
+            vResultLinkId = vItemLinkId
+            vResultLink = itemLink
+            vResultName = vItemName
             break
           end
         end
       end
     end
 
-  return vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName,vGrabBagItemLinkId,vGrabBagItemLink,vLocation
+  return vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName
 end
 
 function FRC.GetWritVendorContainerStats(vendorContainerLinkId)

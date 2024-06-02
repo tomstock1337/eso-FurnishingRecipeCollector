@@ -47,11 +47,11 @@
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"/>
               <Dimensions x="230" y="28" />
               <OnShow>FurC.GuiSetupDropdown(self)</OnShow>
-              <OnMouseEnter>FurC.GuiShowTooltip(self, "Filter: Knowledge and source", true)</OnMouseEnter>
+              <OnMouseEnter>FurC.GuiShowTooltip(self, "Filter: Location of Recipe", true)</OnMouseEnter>
               <OnMouseExit>FurC.GuiHideTooltip(self)</OnMouseExit>
             </Control>
             <Control name="FRC_GUI_FilterQuality" mouseEnabled="true">
-              <Anchor point="TOPLEFT" relativeTo="$(parent)_FilterFolio" relativePoint="TOPRIGHT"/>
+              <Anchor point="TOPLEFT" relativeTo="$(parent)_FilterQuality" relativePoint="TOPRIGHT"/>
               <Dimensions x="230" y="28" />
               <OnShow>FurC.GuiSetupDropdown(self)</OnShow>
               <OnMouseEnter>FurC.GuiShowTooltip(self, "Filter: Knowledge and source", true)</OnMouseEnter>
@@ -81,7 +81,7 @@
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
                   <Textures normal="esoui/art/miscellaneous/list_sortheader_icon_neutral.dds" mouseOver="esoui/art/miscellaneous/list_sortheader_icon_over.dds" />
                 </Button>
-                <Label name="$(parent)_Name" mouseEnabled="true" font="ZoFontGameSmall" text="Name">
+                <Label name="$(parent)_Name" mouseEnabled="true" font="ZoFontGameSmall" text="Purchase Location">
                   <Dimensions x="310"/>
                   <Anchor point="LEFT" relativeTo="$(parent)_Button" relativePoint="RIGHT"/>
                 </Label>
@@ -118,7 +118,7 @@
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
                   <Textures normal="esoui/art/miscellaneous/list_sortheader_icon_neutral.dds" mouseOver="esoui/art/miscellaneous/list_sortheader_icon_over.dds" />
                 </Button>
-                <Label name="$(parent)_Name" mouseEnabled="true" font="ZoFontGameSmall" text="Purchase Location">
+                <Label name="$(parent)_Name" mouseEnabled="true" font="ZoFontGameSmall" text="Name">
                   <Anchor point="LEFT" relativeTo="$(parent)_Button" relativePoint="RIGHT"/>
                 </Label>
               </Controls>
@@ -144,6 +144,10 @@
             </Slider>
           </Controls>
         </Control>
+        <Label name="$(parent)_Wait" font="$(STONE_TABLET_FONT)|28|soft-shadow-thick"
+          text="Please wait... loading data">
+          <Anchor point="Center" relativeTo="$(parent)_ListHolder" relativePoint="Center"/>
+        </Label>
       </Controls>
     </TopLevelControl>
     <Control name="FRC_GUI_ItemListRow" virtual="true" mouseEnabled="true">
