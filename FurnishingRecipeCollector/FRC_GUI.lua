@@ -5,7 +5,7 @@ local tos = tostring
 FRC.isGuiLoading = nil
 FRC.sortOptions =
   {
-    [0] = {
+    ["Location"] = {
       "locationSort",
       {
         ["locationSort"]=
@@ -18,7 +18,7 @@ FRC.sortOptions =
           }
       }
     },
-    [1] = {
+    ["Item"] = {
       "rResultName",
       {
         ["rResultName"]=
@@ -31,35 +31,6 @@ FRC.sortOptions =
 --[[
   Global Window Events
 ]]
-function FRC.GuiOnControlMouseUp(control, button)
-  if nil == control or FRC.isGuiLoading == true then
-    return
-  end
-
-  if button ~= 2 then
-    return
-  end
-  local itemLink = control.itemLink
-
-  if nil == itemLink then
-    return
-  end
-  local recipeArray = FurC.Find(itemLink)
-  if {} == recipeArray then
-    return
-  end
-
-  -- if not menuEventQueued then
-  --   menuEventQueued = true
-  --   zo_callLater(function()
-  --     ItemTooltip:SetHidden(true)
-  --     ClearMenu()
-  --     addMenuItems(itemLink, recipeArray, true)
-  --     ShowMenu()
-  --     menuEventQueued = false
-  --   end, 50)
-  -- end
-end
 function FRC.GuiOnResizeStop()
   FRC.GuiSaveFrameInfo()
   if FRC.isGuiLoading == true then
@@ -110,30 +81,37 @@ function FRC.GuiOnScroll(control, delta)
 
   FurnishingRecipeCollector.GuiLineOnMouseEnter(moc())
 end
-function FRC.GuiLineOnMouseEnter(lineControl)
-  if nil == lineControl or FRC.isGuiLoading == false then
-    return
-  end
-  currentLink, currentId = nil, nil
+function FRC.GuiLineOnMouseEnter(lineControlChild)
 
-  if not lineControl or not lineControl.itemLink or lineControl.itemLink == "" then
-    return
-  end
-  currentLink = lineControl.itemLink
-  currentId = lineControl.itemId
+  local lineControl = lineControlChild:GetParent()
 
-  if nil == currentLink then
+  if nil == lineControl or FRC.isGuiLoading == true then
     return
   end
 
-  -- InitializeTooltip(ItemTooltip, lineControl, LEFT, 0, 0, 0)
-  -- ItemTooltip:SetLink(currentLink)
+  if (lineControl.rFolioItemLink or "") == "" and (lineControl.rGrabBagItemLink or "") == "" and (lineControl.rRecipeItemLink or "") == "" then
+    return
+  end
+
+
+  if moc():GetName() == lineControl.lblLocation:GetName() then
+    if lineControl.rFolioItemLink ~= nil then
+      InitializeTooltip(ItemTooltip, lineControl, LEFT, 0, 0, 0)
+      ItemTooltip:SetLink(lineControl.rFolioItemLink)
+    elseif lineControl.rGrabBagItemLink ~= nil then
+      InitializeTooltip(ItemTooltip, lineControl, LEFT, 0, 0, 0)
+      ItemTooltip:SetLink(lineControl.rGrabBagItemLink)
+    end
+  elseif lineControl.rRecipeItemLink ~= nil then
+    InitializeTooltip(ItemTooltip, lineControl, LEFT, 0, 0, 0)
+    ItemTooltip:SetLink(lineControl.rRecipeItemLink)
+  end
 end
-function FRC.GuiLineOnMouseExit(lineControl)
-  if nil == lineControl or FRC.isGuiLoading == false then
+function FRC.GuiLineOnMouseExit(lineControlChild)
+  if nil == lineControlChild or FRC.isGuiLoading == true then
     return
   end
-  -- ItemTooltip:SetHidden(true)
+  ClearTooltip(ItemTooltip)
 end
 function FRC.GuiSaveFrameInfo(calledFrom)
   --functions hooked from GUI can't be local
@@ -276,9 +254,11 @@ function FRC.RestorePosition()
   control:ClearAnchors()
   control:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 
-  zo_callLater(function()
-    FRC.UpdateInventoryScroll()
-  end, 100)
+  if isLoadingInd == false then
+    zo_callLater(function()
+      FRC.UpdateInventoryScroll()
+    end, 100)
+  end
 end
 
 function FRC.updateScrollDataLinesData()
@@ -364,11 +344,10 @@ function FRC.updateScrollDataLinesData()
     end
   end
 
-  FRC.SortDataLines(dataLines,0)
+  FRC.SortDataLines(dataLines,"Location")
 
   FRC_GUI_ListHolder.dataLines = dataLines
 end
-
 function FRC.LoadingStart()
   FRC.isGuiLoading = true
   FRC_GUI_ListHolder:SetHidden(true)
@@ -436,7 +415,6 @@ local function CreatePostXMLGui()
 
     if dropDownType == "Folio" then
       filterControl = _G["FRC_GUI_FilterFolio"]
-      FRC.logger:Info(tos(filterControl))
 
       table.insert(data,{enabled=true,name="Location: No Filter",itemLinkId="",itemName="",categoryId="0NoSelection"})
 
@@ -459,8 +437,8 @@ local function CreatePostXMLGui()
     local scrollHelper = AddCustomScrollableComboBoxDropdownMenu(comboBox, filterControl, {})
 
     function OnItemSelect(control, choiceText, somethingElse)
-      -- local dropdownName = tostring(control.m_name):gsub("FurC_Dropdown", "")
-      -- FurC.SetDropdownChoice(dropdownName, choiceText)
+      -- local dropdownName = tostring(control.m_name):gsub("FRC_Dropdown", "")
+      -- FRC.SetDropdownChoice(dropdownName, choiceText)
     end
 
     comboBox:ClearItems()
@@ -474,8 +452,8 @@ local function CreatePostXMLGui()
   CreateInventoryScroll()
   CreateDropDown("Folio")
 
-  local slider = FurCGui_ListHolder_Slider
-  slider:SetMinMax(1, #FurCGui_ListHolder.dataLines)
+  local slider = FRC_GUI_ListHolder_Slider
+  slider:SetMinMax(1, #FRC_GUI_ListHolder.dataLines)
 end
 
 function FRC.UpdateGui()

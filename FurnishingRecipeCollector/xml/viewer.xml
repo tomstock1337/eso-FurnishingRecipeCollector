@@ -25,8 +25,8 @@
             </Label>
             <Button name="$(parent)_Hide">
               <Anchor point="RIGHT" relativeTo="$(parent)_HeaderLabel" relativePoint="RIGHT" offsetX="-15" />
-              <!-- <OnMouseEnter>FurC.GuiShowTooltip(self, "Hide window")</OnMouseEnter>
-              <OnMouseExit>FurC.GuiHideTooltip(self)</OnMouseExit> -->
+              <!-- <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Hide window")</OnMouseEnter>
+              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit> -->
               <OnMouseUp>FurnishingRecipeCollector.FRC_Toggle()</OnMouseUp>
               <Dimensions x="25" y="25" />
               <Textures normal="/esoui/art/buttons/decline_up.dds"
@@ -46,16 +46,16 @@
             <Control name="FRC_GUI_FilterFolio" inherits="ZO_ComboBox" mouseEnabled="true">
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"/>
               <Dimensions x="230" y="28" />
-              <OnShow>FurC.GuiSetupDropdown(self)</OnShow>
-              <OnMouseEnter>FurC.GuiShowTooltip(self, "Filter: Location of Recipe", true)</OnMouseEnter>
-              <OnMouseExit>FurC.GuiHideTooltip(self)</OnMouseExit>
+              <!-- <OnShow>FurnishingRecipeCollector.GuiSetupDropdown(self)</OnShow>
+              <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Filter: Location of Recipe", true)</OnMouseEnter>
+              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit> -->
             </Control>
             <Control name="FRC_GUI_FilterQuality" mouseEnabled="true">
               <Anchor point="TOPLEFT" relativeTo="$(parent)_FilterQuality" relativePoint="TOPRIGHT"/>
               <Dimensions x="230" y="28" />
-              <OnShow>FurC.GuiSetupDropdown(self)</OnShow>
-              <OnMouseEnter>FurC.GuiShowTooltip(self, "Filter: Knowledge and source", true)</OnMouseEnter>
-              <OnMouseExit>FurC.GuiHideTooltip(self)</OnMouseExit>
+              <!-- <OnShow>FurnishingRecipeCollector.GuiSetupDropdown(self)</OnShow>
+              <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Filter: Knowledge and source", true)</OnMouseEnter>
+              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit> -->
             </Control>
           </Controls>
         </Control>
@@ -71,7 +71,7 @@
           <Controls>
             <Control name="$(parent)_Sort1" mouseEnabled="true" resizeToFitDescendents="true">
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10"/>
-              <!-- <OnMouseUp>FurC.GuiOnSort("itemName")</OnMouseUp> -->
+              <!-- <OnMouseUp>FurnishingRecipeCollector.GuiOnSort("itemName")</OnMouseUp> -->
               <Controls>
                 <!-- <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop">
                   <AnchorFill />
@@ -90,7 +90,7 @@
             <Control name="$(parent)_Sort3" mouseEnabled="true" resizeToFitDescendents="true">
               <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-30"/>
               <Dimensions x="150" />
-              <!-- <OnMouseUp>FurC.GuiOnSort("itemLocation")</OnMouseUp> -->
+              <!-- <OnMouseUp>FurnishingRecipeCollector.GuiOnSort("itemLocation")</OnMouseUp> -->
               <Controls>
                 <!-- <Backdrop name="$(parent)_BG" inherits="ZO_DarkThinFrame">
                   <AnchorFill />
@@ -108,7 +108,7 @@
             <Control name="$(parent)_Sort2" mouseEnabled="true" resizeToFitDescendents="true">
               <Anchor point="TOPLEFT" relativeTo="$(parent)_Sort1" relativePoint="TOPRIGHT"/>
               <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_Sort3" relativePoint="BOTTOMLEFT"/>
-              <!-- <OnMouseUp>FurC.GuiOnSort("itemLocation")</OnMouseUp> -->
+              <!-- <OnMouseUp>FurnishingRecipeCollector.GuiOnSort("itemLocation")</OnMouseUp> -->
               <Controls>
                 <!-- <Backdrop name="$(parent)_BG" inherits="ZO_InsetBackdrop">
                   <AnchorFill />
@@ -154,7 +154,6 @@
       <Dimensions y="30" />
       <OnMouseEnter>FurnishingRecipeCollector.GuiLineOnMouseEnter(self)</OnMouseEnter>
       <OnMouseExit>FurnishingRecipeCollector.GuiLineOnMouseExit(self)</OnMouseExit>
-      <OnMouseUp>FurnishingRecipeCollector.GuiOnControlMouseUp(self, button)</OnMouseUp>
         <!-- SPECIAL SORTING
           In order for anchors to properly work, the controls need to have already existed.
           Last sort3 is anchored to the right, sort1 anchored to the left.  If I want sort2
@@ -162,14 +161,20 @@
         -->
       <Controls>
         <Label name="$(parent)_Location" mouseEnabled="true" text="Purchase Location" font="ZoFontGame" wrapMode="ELLIPSIS" maxLineCount="1">
+          <OnMouseEnter>FurnishingRecipeCollector.GuiLineOnMouseEnter(self)</OnMouseEnter>
+          <OnMouseExit>FurnishingRecipeCollector.GuiLineOnMouseExit(self)</OnMouseExit>
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"  />
           <Dimensions x="330" y="30" />
         </Label>
         <Label name="$(parent)_Knowledge" mouseEnabled="true" text="Knowledge" font="ZoFontGame" wrapMode="ELLIPSIS" maxLineCount="1">
+          <OnMouseEnter>FurnishingRecipeCollector.GuiLineOnMouseEnter(self)</OnMouseEnter>
+          <OnMouseExit>FurnishingRecipeCollector.GuiLineOnMouseExit(self)</OnMouseExit>
           <Anchor point="RIGHT" relativeTo="$(parent)" relativePoint="RIGHT"/>
           <Dimensions x="100" y="30" />
         </Label>
-        <Label name="$(parent)_RecipeName" text="Recipe Name" font="ZoFontGame" wrapMode="ELLIPSIS" maxLineCount="1">
+        <Label name="$(parent)_RecipeName" mouseEnabled="true" text="Recipe Name" font="ZoFontGame" wrapMode="ELLIPSIS" maxLineCount="1">
+          <OnMouseEnter>FurnishingRecipeCollector.GuiLineOnMouseEnter(self)</OnMouseEnter>
+          <OnMouseExit>FurnishingRecipeCollector.GuiLineOnMouseExit(self)</OnMouseExit>
           <Anchor point="LEFT" relativeTo="$(parent)_Location" relativePoint="RIGHT"  />
           <Anchor point="RIGHT" relativeTo="$(parent)_Knowledge" relativePoint="LEFT"  />
           <Dimensions y="30" />

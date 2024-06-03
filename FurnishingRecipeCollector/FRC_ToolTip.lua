@@ -14,7 +14,7 @@ local function adjustToolTip(tooltipControl, itemLink)
   local fontSizeH1 = 14
   local fontSizeH2 = 12
   local fontWeight = "soft-shadow-thin"
-  local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = FRC.GetRecipeDetail(itemLink)
+  local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(itemLink)
 
 
   if vFolioItemLinkId ~= nil or vRecipeItemLinkId ~= nil or vGrabBagItemLinkId ~= nil then
@@ -108,12 +108,12 @@ local function adjustToolTip(tooltipControl, itemLink)
         return
       end
 
-      local vCharacterString, vRecipeCount = FRC.GetWritVendorContainerStats(vFolioItemLinkId or vGrabBagItemLinkId)
+      local vCharacterString, vRecipeCount = FRC.GetWritVendorContainerStats(vGrabBagItemLinkId)
 
       ZO_Tooltip_AddDivider(tooltipControl)
 
       tooltipControl:AddLine("Recipe available in Writ Vendor Folio: ",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-      tooltipControl:AddLine((vFolioItemLink or vGrabBagItemLink),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      tooltipControl:AddLine(vGrabBagItemLink,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       if LCK ~= nil and FRC.savedVariables.grabbag_lck_on then
         tooltipControl:AddLine("Folio Knowledge: "..vCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       else
@@ -125,7 +125,7 @@ local function adjustToolTip(tooltipControl, itemLink)
         return
       end
 
-      local vCharacterString, vRecipeCount = FRC.GetWritVendorContainerStats(vFolioItemLinkId or vGrabBagItemLinkId)
+      local vCharacterString, vRecipeCount = FRC.GetWritVendorContainerStats(vFolioItemLinkId)
 
       ZO_Tooltip_AddDivider(tooltipControl)
       for i,recipeId in ipairs(FRC.Data.Folios[vItemLinkId]) do
