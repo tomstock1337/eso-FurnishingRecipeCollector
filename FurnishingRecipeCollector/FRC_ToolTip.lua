@@ -29,7 +29,7 @@ local function adjustToolTip(tooltipControl, itemLink)
         return
       end
 
-      local vCharacterString, vRecipeCount = FRC.GetWritVendorContainerStats(vFolioItemLinkId or vGrabBagItemLinkId)
+      local vVendorCharacterString, vVendorRecipeCount = FRC.GetWritVendorContainerStats(vFolioItemLinkId or vGrabBagItemLinkId)
 
       ZO_Tooltip_AddDivider(tooltipControl)
 
@@ -37,30 +37,17 @@ local function adjustToolTip(tooltipControl, itemLink)
       tooltipControl:AddLine((vFolioItemLink or vGrabBagItemLink),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
 
       if LCK ~= nil then
-        tooltipControl:AddLine("Folio Knowledge: "..vCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        tooltipControl:AddLine("Folio Knowledge: "..vVendorCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       else
-        tooltipControl:AddLine("Recipe Count: "..vRecipeCount,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        tooltipControl:AddLine("Recipe Count: "..vVendorRecipeCount,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       end
       if vItemType == ITEMTYPE_FURNISHING and FRC.savedVariables.furnishing_showrecipe_on  then
         --only add recipe details to furnishings
         ZO_Tooltip_AddDivider(tooltipControl)
         tooltipControl:AddLine(vRecipeItemLink,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
         if LCK ~= nil and FRC.savedVariables.furnishing_showrecipe_lck_on then
-          local chars= LCK.GetItemKnowledgeList(vRecipeItemLinkId,nil,nil)
-          local characterstring = ""
-          local knownCount = 0
-
-          for i, char in ipairs(chars) do
-            -- if FRC.logger ~= nil then FRC.logger:Verbose(tos(char["name"]).." "..tos(char["knowledge"])) end
-            if char.knowledge == LCK.KNOWLEDGE_KNOWN or char.knowledge == LCK.KNOWLEDGE_UNKNOWN then
-              if char.knowledge == LCK.KNOWLEDGE_KNOWN then knownCount = knownCount + 1 end
-              if characterstring ~= "" then
-                characterstring = characterstring..", "
-              end
-              characterstring = characterstring..string.format("|c%06X%s|r", FRC.Colors[char.knowledge], char["name"])
-            end
-          end
-          tooltipControl:AddLine("Known By "..knownCount.."/"..table.getn(chars)..": "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+          local vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount = FRC.GetRecipeKnowledge(vRecipeItemLinkId)
+          tooltipControl:AddLine("Known By "..vCharacterStringShort..": "..vCharacterStringLong,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
         end
         if TamrielTradeCentrePrice~= nil and ((vItemType == ITEMTYPE_FURNISHING and FRC.savedVariables.furnishing_showrecipe_ttc_on)) then
           local priceDetail = TamrielTradeCentrePrice:GetPriceInfo(vRecipeItemLink)
@@ -71,6 +58,7 @@ local function adjustToolTip(tooltipControl, itemLink)
         end
       end
     elseif vRecipeItemLinkId ~= nil and vLocation ~= nil then
+      --Recipe with a misc location
       ZO_Tooltip_AddDivider(tooltipControl)
       tooltipControl:AddLine("Recipe available from: "..vLocation,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       if vItemType == ITEMTYPE_FURNISHING and FRC.savedVariables.furnishing_showrecipe_on  then
@@ -78,21 +66,8 @@ local function adjustToolTip(tooltipControl, itemLink)
         ZO_Tooltip_AddDivider(tooltipControl)
         tooltipControl:AddLine(vRecipeItemLink,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
         if LCK ~= nil and FRC.savedVariables.furnishing_showrecipe_lck_on then
-          local chars= LCK.GetItemKnowledgeList(vRecipeItemLinkId,nil,nil)
-          local characterstring = ""
-          local knownCount = 0
-
-          for i, char in ipairs(chars) do
-            -- if FRC.logger ~= nil then FRC.logger:Verbose(tos(char["name"]).." "..tos(char["knowledge"])) end
-            if char.knowledge == LCK.KNOWLEDGE_KNOWN or char.knowledge == LCK.KNOWLEDGE_UNKNOWN then
-              if char.knowledge == LCK.KNOWLEDGE_KNOWN then knownCount = knownCount + 1 end
-              if characterstring ~= "" then
-                characterstring = characterstring..", "
-              end
-              characterstring = characterstring..string.format("|c%06X%s|r", FRC.Colors[char.knowledge], char["name"])
-            end
-          end
-          tooltipControl:AddLine("Known By "..knownCount.."/"..table.getn(chars)..": "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+          local vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount = FRC.GetRecipeKnowledge(vRecipeItemLinkId)
+          tooltipControl:AddLine("Known By "..vCharacterStringShort..": "..vCharacterStringLong,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
         end
         if TamrielTradeCentrePrice~= nil and ((vItemType == ITEMTYPE_FURNISHING and FRC.savedVariables.furnishing_showrecipe_ttc_on)) then
           local priceDetail = TamrielTradeCentrePrice:GetPriceInfo(vRecipeItemLink)
@@ -108,16 +83,16 @@ local function adjustToolTip(tooltipControl, itemLink)
         return
       end
 
-      local vCharacterString, vRecipeCount = FRC.GetWritVendorContainerStats(vGrabBagItemLinkId)
+      local vVendorCharacterString, vVendorRecipeCount = FRC.GetWritVendorContainerStats(vGrabBagItemLinkId)
 
       ZO_Tooltip_AddDivider(tooltipControl)
 
       tooltipControl:AddLine("Recipe available in Writ Vendor Folio: ",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       tooltipControl:AddLine(vGrabBagItemLink,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       if LCK ~= nil and FRC.savedVariables.grabbag_lck_on then
-        tooltipControl:AddLine("Folio Knowledge: "..vCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        tooltipControl:AddLine("Folio Knowledge: "..vVendorCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       else
-        tooltipControl:AddLine("Recipe Count: "..vRecipeCount,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        tooltipControl:AddLine("Recipe Count: "..vVendorRecipeCount,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       end
     elseif vFolioItemLinkId ~= nil then
       --Folio
@@ -125,35 +100,21 @@ local function adjustToolTip(tooltipControl, itemLink)
         return
       end
 
-      local vCharacterString, vRecipeCount = FRC.GetWritVendorContainerStats(vFolioItemLinkId)
+      local vVendorCharacterString, vVendorRecipeCount = FRC.GetWritVendorContainerStats(vFolioItemLinkId)
 
       ZO_Tooltip_AddDivider(tooltipControl)
       for i,recipeId in ipairs(FRC.Data.Folios[vItemLinkId]) do
         tooltipControl:AddLine("|H1:item:"..recipeId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
         if LCK ~= nil and FRC.savedVariables.folio_lck_on then
-          local charKnowledge = LCK.GetItemKnowledgeList( recipeId )
-          if charKnowledge ~= nil then
-            local characterstring = ""
-              for i, knowledge in ipairs(charKnowledge) do
-                -- if FRC.logger ~= nil then FRC.logger:Verbose(tos(knowledge["name"]).." "..tos(knowledge["knowledge"])) end
-
-                if knowledge.knowledge == LCK.KNOWLEDGE_KNOWN or knowledge.knowledge == LCK.KNOWLEDGE_UNKNOWN then
-
-                  if characterstring ~= "" then
-                    characterstring = characterstring..", "
-                  end
-                  characterstring = characterstring..string.format("|c%06X%s|r", FRC.Colors[knowledge.knowledge], knowledge["name"])
-                end
-              end
-              tooltipControl:AddLine("Known By: "..characterstring,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH2, fontWeight))
-          end
+          local vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount =FRC.GetRecipeKnowledge(recipeId)
+          tooltipControl:AddLine("Known By: "..vCharacterStringLong,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH2, fontWeight))
         end
       end
       ZO_Tooltip_AddDivider(tooltipControl)
       if LCK ~= nil and FRC.savedVariables.folio_lck_on then
-        tooltipControl:AddLine("Folio Knowledge: "..vCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        tooltipControl:AddLine("Folio Knowledge: "..vVendorCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       else
-        tooltipControl:AddLine("Recipe Count: "..vRecipeCount,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+        tooltipControl:AddLine("Recipe Count: "..vVendorRecipeCount,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       end
     end
   end

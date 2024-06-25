@@ -202,14 +202,14 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
 end
 
 function FRC.GetWritVendorContainerStats(vendorContainerLinkId)
-  local vCharacterString = ""
-  local vRecipeCount = nil
+  local vVendorCharacterString = ""
+  local vVendorRecipeCount = nil
   local container = FRC.Data.Folios[vendorContainerLinkId] or FRC.Data.FurnisherDocuments[vendorContainerLinkId]
 
   if container == nil then
     return
   end
-  vRecipeCount = table.getn(container)
+  vVendorRecipeCount = table.getn(container)
 
   if LCK ~= nil then
     if container ~= nil then
@@ -246,13 +246,55 @@ function FRC.GetWritVendorContainerStats(vendorContainerLinkId)
           else
             charactercolor = 0x3399FF
           end
-          if vCharacterString ~= "" then
-            vCharacterString = vCharacterString..", "
+          if vVendorCharacterString ~= "" then
+            vVendorCharacterString = vVendorCharacterString..", "
           end
-          vCharacterString = vCharacterString..string.format("|c%06X%s|r", charactercolor, chr["name"].." ("..tChars[chr["id"]].."/"..table.getn(container)..")")
+          vVendorCharacterString = vVendorCharacterString..string.format("|c%06X%s|r", charactercolor, chr["name"].." ("..tChars[chr["id"]].."/"..table.getn(container)..")")
         end
       end
     end
   end
-  return vCharacterString, vRecipeCount
+  return vVendorCharacterString, vVendorRecipeCount
+end
+
+function FRC.GetRecipeKnowledge(vRecipeItemLinkOrItemId)
+  local vCharacterStringLong = ""
+  local vCharacterStringShort = ""
+  local vCharTrackedCount = 0
+  local vCharKnownCount = 0
+  local colorUnknown = 0x777766
+  local colorKnown = 0x3399FF
+  local vRecipeItemLinkId = nil
+
+  if type(vRecipeItemLinkOrItemId) == "string" then
+    vRecipeItemLinkId = GetItemLinkItemId(vRecipeItemLinkOrItemId)
+  else
+    vRecipeItemLinkId = vRecipeItemLinkOrItemId
+  end
+
+  if LCK ~= nil then
+    local tChars= LCK.GetItemKnowledgeList(vRecipeItemLinkId,nil,nil)
+    local charColor = nil
+
+    for i, chr in ipairs(tChars) do
+      if chr["knowledge"] == LCK.KNOWLEDGE_KNOWN then
+        vCharTrackedCount = vCharTrackedCount + 1
+        vCharKnownCount = vCharKnownCount + 1
+        charColor = colorKnown
+      elseif chr["knowledge"] == LCK.KNOWLEDGE_UNKNOWN then
+        vCharTrackedCount = vCharTrackedCount + 1
+        charColor = colorUnknown
+      end
+
+      if chr["knowledge"] == LCK.KNOWLEDGE_KNOWN or chr["knowledge"] == LCK.KNOWLEDGE_UNKNOWN then
+        if vCharacterStringLong ~= "" then
+          vCharacterStringLong = vCharacterStringLong..", "
+        end
+        vCharacterStringLong = vCharacterStringLong..string.format("|c%06X%s|r", charColor, chr["name"])
+      end
+    end
+
+    vCharacterStringShort = tos(vCharKnownCount).."/"..tos(vCharTrackedCount)
+  end
+  return vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount
 end
