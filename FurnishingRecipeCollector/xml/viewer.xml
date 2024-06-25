@@ -23,8 +23,18 @@
               <Anchor point="TOPLEFT" relativeTo="$(parent)_Header" relativePoint="TOPLEFT" />
               <Anchor point="TOPRIGHT" relativeTo="$(parent)_Header" relativePoint="TOPRIGHT"/>
             </Label>
+            <Button name="$(parent)_Reload">
+              <Anchor point="RIGHT" relativeTo="$(parent)_HeaderLabel" relativePoint="RIGHT" offsetX="-70" />
+              <!-- <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Hide window")</OnMouseEnter>
+              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit> -->
+              <OnMouseUp>FurnishingRecipeCollector.GUIButtonRefreshOnMouseUp(self, button)</OnMouseUp>
+              <Dimensions x="35" y="35" />
+              <Textures normal="/esoui/art/help/help_tabicon_feedback_up.dds"
+                pressed="/esoui/art/help/help_tabicon_feedback_down.dds"
+                mouseOver="/esoui/art/help/help_tabicon_feedback_over.dds" />
+            </Button>
             <Button name="$(parent)_Hide">
-              <Anchor point="RIGHT" relativeTo="$(parent)_HeaderLabel" relativePoint="RIGHT" offsetX="-15" />
+              <Anchor point="LEFT" relativeTo="$(parent)_Reload" relativePoint="RIGHT" offsetX="10" />
               <!-- <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Hide window")</OnMouseEnter>
               <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit> -->
               <OnMouseUp>FurnishingRecipeCollector.FRC_Toggle()</OnMouseUp>
@@ -88,8 +98,9 @@
               </Controls>
             </Control>
             <Control name="$(parent)_Sort3" mouseEnabled="true" resizeToFitDescendents="true">
-              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-30"/>
-              <Dimensions x="150" />
+              <!-- OffsetX = $(parent)_ListHolder offsetX + (-) width of scrollbar-->
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-45"/>
+              <Dimensions x="80" />
               <!-- <OnMouseUp>FurnishingRecipeCollector.GuiOnSort("itemLocation")</OnMouseUp> -->
               <Controls>
                 <!-- <Backdrop name="$(parent)_BG" inherits="ZO_DarkThinFrame">
@@ -138,6 +149,7 @@
             <Slider name="$(parent)_Slider" mouseEnabled="true" step="1" inherits="ZO_VerticalScrollbarBase">
               <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetY="20"/>
               <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetY="-20"/>
+              <Dimensions x="20" />
               <OnMouseDown>self.locked = false</OnMouseDown>
               <OnMouseUp>self.locked = true</OnMouseUp>
               <OnValueChanged>FurnishingRecipeCollector.GuiOnSliderUpdate(self, value)</OnValueChanged>
@@ -160,24 +172,23 @@
           to be anchored to the middlee, sort1 and sort3 need to have already existed.
         -->
       <Controls>
-        <Label name="$(parent)_Location" mouseEnabled="true" text="Purchase Location" font="ZoFontGame" wrapMode="ELLIPSIS" maxLineCount="1">
+        <Label name="$(parent)_Location" mouseEnabled="true" text="Purchase Location" font="ZoFontGame" wrapMode="ELLIPSIS" maxLineCount="1" offsetX="10">
           <OnMouseEnter>FurnishingRecipeCollector.GuiLineOnMouseEnter(self)</OnMouseEnter>
           <OnMouseExit>FurnishingRecipeCollector.GuiLineOnMouseExit(self)</OnMouseExit>
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"  />
-          <Dimensions x="330" y="30" />
+          <Dimensions x="330"/>
         </Label>
         <Label name="$(parent)_Knowledge" mouseEnabled="true" text="Knowledge" font="ZoFontGame" wrapMode="ELLIPSIS" maxLineCount="1">
           <OnMouseEnter>FurnishingRecipeCollector.GuiLineOnMouseEnter(self)</OnMouseEnter>
           <OnMouseExit>FurnishingRecipeCollector.GuiLineOnMouseExit(self)</OnMouseExit>
           <Anchor point="RIGHT" relativeTo="$(parent)" relativePoint="RIGHT"/>
-          <Dimensions x="100" y="30" />
+          <Dimensions x="80"/>
         </Label>
         <Label name="$(parent)_RecipeName" mouseEnabled="true" text="Recipe Name" font="ZoFontGame" wrapMode="ELLIPSIS" maxLineCount="1">
           <OnMouseEnter>FurnishingRecipeCollector.GuiLineOnMouseEnter(self)</OnMouseEnter>
           <OnMouseExit>FurnishingRecipeCollector.GuiLineOnMouseExit(self)</OnMouseExit>
           <Anchor point="LEFT" relativeTo="$(parent)_Location" relativePoint="RIGHT"  />
           <Anchor point="RIGHT" relativeTo="$(parent)_Knowledge" relativePoint="LEFT"  />
-          <Dimensions y="30" />
         </Label>
       </Controls>
     </Control>

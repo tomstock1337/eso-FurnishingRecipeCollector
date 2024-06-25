@@ -1,5 +1,6 @@
 FurnishingRecipeCollector = FurnishingRecipeCollector or {}
 local FRC = FurnishingRecipeCollector
+local LCK = LibCharacterKnowledge
 
 local tos = tostring
 FRC.isGuiLoading = nil
@@ -126,6 +127,9 @@ function FRC.GuiSaveFrameInfo(calledFrom)
     FRC.UpdateInventoryScroll()
   end
 end
+function FRC.GUIButtonRefreshOnMouseUp(calledFrom,mouseButton)
+  FRC.UpdateGui()
+end
 
 --[[
     Global functions used by other addon callbacks or XML
@@ -189,6 +193,7 @@ function FRC.UpdateLineVisibility()
       curLine.rResultLinkId = 0
       curLine.rResultLink = ""
       curLine.rResultName = ""
+      curLine.kKnown = ""
       curLine.lblRecipeName:SetText("")
       curLine.lblLocation:SetText("")
       curLine.lblKnowledge:SetText("")
@@ -208,9 +213,10 @@ function FRC.UpdateLineVisibility()
       curLine.rResultLinkId = curData.rResultLinkId
       curLine.rResultLink = curData.rResultLink
       curLine.rResultName = curData.rResultName
+      curLine.kKnown = curData.kKnown
       curLine.lblRecipeName:SetText(curLine.rRecipeItemLink)
       curLine.lblLocation:SetText(curLine.rFolioItemLink or curLine.rGrabBagItemLink or curLine.rLocation)
-      curLine.lblKnowledge:SetText("")
+      curLine.lblKnowledge:SetText(curLine.kKnown)
     end
   end
 
@@ -267,6 +273,7 @@ function FRC.updateScrollDataLinesData()
   for i in pairs(FRC.Data.FurnisherDocuments) do
     for j in pairs(FRC.Data.FurnisherDocuments[i]) do
       local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(FRC.Data.FurnisherDocuments[i][j])
+      local vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount = FRC.GetRecipeKnowledge(vRecipeItemLinkId)
       local tempDataLine = {}
       tempDataLine.rItemLinkId = vItemLinkId
       tempDataLine.rItemName = vItemName
@@ -285,12 +292,14 @@ function FRC.updateScrollDataLinesData()
       tempDataLine.rResultLinkId = vResultLinkId
       tempDataLine.rResultLink = vResultLink
       tempDataLine.rResultName = vResultName
+      tempDataLine.kKnown = vCharacterStringShort
       table.insert(dataLines, tempDataLine)
     end
   end
   for i in pairs(FRC.Data.Folios) do
     for j in pairs(FRC.Data.Folios[i]) do
       local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(FRC.Data.Folios[i][j])
+      local vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount = FRC.GetRecipeKnowledge(vRecipeItemLinkId)
       local tempDataLine = {}
       tempDataLine.rItemLinkId = vItemLinkId
       tempDataLine.rItemName = vItemName
@@ -309,11 +318,13 @@ function FRC.updateScrollDataLinesData()
       tempDataLine.rResultLinkId = vResultLinkId
       tempDataLine.rResultLink = vResultLink
       tempDataLine.rResultName = vResultName
+      tempDataLine.kKnown = vCharacterStringShort
       table.insert(dataLines, tempDataLine)
     end
   end
   for i in pairs(FRC.Data.Misc)do
     local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(i)
+    local vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount = FRC.GetRecipeKnowledge(vRecipeItemLinkId)
     local tempDataLine = {}
     tempDataLine.rItemLinkId = vItemLinkId
     tempDataLine.rItemName = vItemName
@@ -332,8 +343,10 @@ function FRC.updateScrollDataLinesData()
     tempDataLine.rResultLinkId = vResultLinkId
     tempDataLine.rResultLink = vResultLink
     tempDataLine.rResultName = vResultName
+    tempDataLine.kKnown = vCharacterStringShort
     table.insert(dataLines, tempDataLine)
   end
+
 
   for i,line in pairs(dataLines) do
     if line.rFolioItemLinkId ~= nil then
@@ -471,7 +484,12 @@ function FRC.InitGui()
 
   CreatePostXMLGui()
 
-  FRC.UpdateGui()
+  if LCK ~= nil then
+    LCK.RegisterForCallback("FurnishingRecipeCollector", LCK.EVENT_INITIALIZED, function( )
+      FRC.UpdateGui()
+    end)
+  else FRC.UpdateGui()
+  end
 
   SCENE_MANAGER:RegisterTopLevel(control, false)
 end

@@ -18,6 +18,11 @@ FRC.defaultSetting = {
   grabbag_lck_on= true,
   folio_on= true,
   folio_lck_on= true,
+  colorCharUnknown=0x777766,
+  colorCharKnown=0x3399FF,
+  colorAllUnknown=0x777766,
+  colorAllKnown=0x55ff1c,
+  colorAllPartial=0x3399FF,
   gui={
     lastX = 100,
     lastY = 100,
@@ -42,15 +47,6 @@ local SLASH = LibSlashCommander
 if LibDebugLogger then
   FRC.logger = LibDebugLogger.Create(FRC.Name)
   FRC.logger:SetEnabled(false)
-end
-if LCK ~= nil then
-  FRC.Colors = {
-    [LCK.KNOWLEDGE_KNOWN] = 0x3399FF,
-    [LCK.KNOWLEDGE_UNKNOWN] = 0x777766,
-  }
-  FRC.Style = {
-    fontSize=12,
-  }
 end
 
 --[[

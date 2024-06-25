@@ -240,11 +240,11 @@ function FRC.GetWritVendorContainerStats(vendorContainerLinkId)
         if tChars[chr["id"]] ~= nil then
 
           if tChars[chr["id"]] == 0 then
-            charactercolor = 0x777766
+            charactercolor = FRC.savedVariables.colorAllUnknown
           elseif tChars[chr["id"]] == table.getn(container) then
-            charactercolor = 0x55ff1c
+            charactercolor = FRC.savedVariables.colorAllKnown
           else
-            charactercolor = 0x3399FF
+            charactercolor = FRC.savedVariables.colorAllPartial
           end
           if vVendorCharacterString ~= "" then
             vVendorCharacterString = vVendorCharacterString..", "
@@ -262,9 +262,7 @@ function FRC.GetRecipeKnowledge(vRecipeItemLinkOrItemId)
   local vCharacterStringShort = ""
   local vCharTrackedCount = 0
   local vCharKnownCount = 0
-  local colorUnknown = 0x777766
-  local colorKnown = 0x3399FF
-  local vRecipeItemLinkId = nil
+  local vRecipeItemLinkId = 0
 
   if type(vRecipeItemLinkOrItemId) == "string" then
     vRecipeItemLinkId = GetItemLinkItemId(vRecipeItemLinkOrItemId)
@@ -280,10 +278,10 @@ function FRC.GetRecipeKnowledge(vRecipeItemLinkOrItemId)
       if chr["knowledge"] == LCK.KNOWLEDGE_KNOWN then
         vCharTrackedCount = vCharTrackedCount + 1
         vCharKnownCount = vCharKnownCount + 1
-        charColor = colorKnown
+        charColor = FRC.savedVariables.colorCharKnown
       elseif chr["knowledge"] == LCK.KNOWLEDGE_UNKNOWN then
         vCharTrackedCount = vCharTrackedCount + 1
-        charColor = colorUnknown
+        charColor = FRC.savedVariables.colorCharUnknown
       end
 
       if chr["knowledge"] == LCK.KNOWLEDGE_KNOWN or chr["knowledge"] == LCK.KNOWLEDGE_UNKNOWN then
@@ -293,8 +291,13 @@ function FRC.GetRecipeKnowledge(vRecipeItemLinkOrItemId)
         vCharacterStringLong = vCharacterStringLong..string.format("|c%06X%s|r", charColor, chr["name"])
       end
     end
-
-    vCharacterStringShort = tos(vCharKnownCount).."/"..tos(vCharTrackedCount)
+    if vCharKnownCount == 0 then
+      vCharacterStringShort = string.format("|c%06X%s|r", FRC.savedVariables.colorAllUnknown, tos(vCharKnownCount).."/"..tos(vCharTrackedCount))
+    elseif vCharKnownCount == vCharTrackedCount then
+      vCharacterStringShort = string.format("|c%06X%s|r", FRC.savedVariables.colorAllKnown, tos(vCharKnownCount).."/"..tos(vCharTrackedCount))
+    else
+      vCharacterStringShort = string.format("|c%06X%s|r", FRC.savedVariables.colorAllPartial, tos(vCharKnownCount).."/"..tos(vCharTrackedCount))
+    end
   end
   return vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount
 end
