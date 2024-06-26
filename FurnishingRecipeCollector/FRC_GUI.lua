@@ -176,8 +176,8 @@ function FRC.UpdateLineVisibility()
     local maxLines = FRC_GUI_ListHolder.maxLines
 
     local hidden = lineIndex > #dataLines or lineIndex > maxLines
-    curLine:SetHidden(hidden)
-    if nil == curData or curLine:IsHidden() then
+    curLine:SetHidden(hidden) --this may not be working
+    if curData == nil or hidden then
       curLine.rItemLinkId = 0
       curLine.rItemName = ""
       curLine.rItemType = 0
@@ -242,11 +242,7 @@ function FRC.UpdateLineVisibility()
     FRC_GUI_ListHolder_Slider:SetMinMax(0, #dataLines)
   end
 
-  if nil ~= task then
-    task:Call(redrawList)
-  else
-    redrawList()
-  end
+  redrawList()
 end
 function FRC.RestorePosition()
   local control = FRC_GUI
@@ -267,7 +263,7 @@ function FRC.RestorePosition()
   end
 end
 
-function FRC.updateScrollDataLinesData()
+function FRC.UpdateScrollDataLinesData()
   local dataLines = {}
 
   for i in pairs(FRC.Data.FurnisherDocuments) do
@@ -471,10 +467,11 @@ end
 
 function FRC.UpdateGui()
   FRC.LoadingStart()
-  FRC.updateScrollDataLinesData()
-  FRC.UpdateLineVisibility()
-  FRC.UpdateInventoryScroll()
-  FRC.LoadingStop()
+  FRC.UpdateScrollDataLinesData()
+  zo_callLater(function()
+    FRC.UpdateInventoryScroll()
+    FRC.LoadingStop()
+  end, 100)
 end
 
 function FRC.InitGui()
@@ -483,6 +480,9 @@ function FRC.InitGui()
   FRC.RestorePosition()
 
   CreatePostXMLGui()
+
+  local slider = FurCGui_ListHolder_Slider
+  slider:SetMinMax(1, #FurCGui_ListHolder.dataLines)
 
   if LCK ~= nil then
     LCK.RegisterForCallback("FurnishingRecipeCollector", LCK.EVENT_INITIALIZED, function( )
