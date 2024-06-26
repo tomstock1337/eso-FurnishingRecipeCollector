@@ -26,6 +26,19 @@ FRC.sortOptions =
           {
           }
       }
+    },
+    ["Knowledge"] = {
+      "kKnown",
+      {
+        ["kKnown"]=
+          {
+            tiebreaker = "locationSort",
+            tieBreakerSortOrder=ZO_SORT_ORDER_UP
+          },
+        ["locationSort"]=
+          {
+          }
+      }
     }
   }
 
@@ -131,11 +144,25 @@ function FRC.GUIButtonRefreshOnMouseUp(calledFrom,mouseButton)
   FRC.UpdateGui()
 end
 
+function FRC.GuiOnSort(sortKey)
+  if FRC.savedVariables.gui.sort == sortKey then
+    if FRC.savedVariables.gui.sortDirection == ZO_SORT_ORDER_UP then
+      FRC.savedVariables.gui.sortDirection = ZO_SORT_ORDER_DOWN
+    else
+      FRC.savedVariables.gui.sortDirection = ZO_SORT_ORDER_UP
+    end
+  else
+    FRC.savedVariables.gui.sortDirection = ZO_SORT_ORDER_UP
+  end
+  FRC.savedVariables.gui.sort = sortKey
+  FRC.UpdateGui()
+end
+
 --[[
     Global functions used by other addon callbacks or XML
 ]]
-function FRC.SortDataLines(data,orderIndex)
-  table.sort(data, function(item1, item2) return ZO_TableOrderingFunction(item1, item2, FRC.sortOptions[orderIndex][1],FRC.sortOptions[orderIndex][2],ZO_SORT_ORDER_UP) end)
+function FRC.SortDataLines(data,orderIndex,direction)
+  table.sort(data, function(item1, item2) return ZO_TableOrderingFunction(item1, item2, FRC.sortOptions[orderIndex][1],FRC.sortOptions[orderIndex][2],direction) end)
 end
 function FRC.FRC_Toggle()
   --functions hooked from other addons can't be local
@@ -353,7 +380,7 @@ function FRC.UpdateScrollDataLinesData()
     end
   end
 
-  FRC.SortDataLines(dataLines,"Location")
+  FRC.SortDataLines(dataLines,FRC.savedVariables.gui.sort, FRC.savedVariables.gui.sortDirection)
 
   FRC_GUI_ListHolder.dataLines = dataLines
 end
@@ -422,21 +449,26 @@ local function CreatePostXMLGui()
     local data = {}
     local comboBox = nil
 
+    function OnItemSelect(control, entryText, entry)
+      -- local dropdownName = tostring(control.m_name):gsub("FRC_Dropdown", "")
+      -- FRC.SetDropdownChoice(dropdownName, choiceText)
+    end
+
     if dropDownType == "Folio" then
       filterControl = _G["FRC_GUI_FilterFolio"]
 
-      table.insert(data,{enabled=true,name="Location: No Filter",itemLinkId="",itemName="",categoryId="0NoSelection"})
+      table.insert(data,{callback=OnItemSelect,enabled=true,name="Location: No Filter",itemLinkId="",itemName="",categoryId="0NoSelection"})
 
       --Grabbed structure of combobox item from zo_combobox_base.lua
       for i in pairs(FRC.Data.Folios) do
         local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = FRC.GetRecipeDetail(i)
-        table.insert(data,{enabled=true,name=vFolioItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="1Folio"})
+        table.insert(data,{callback=OnItemSelect,enabled=true,name=vFolioItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="1Folio"})
       end
       for i in pairs(FRC.Data.FurnisherDocuments) do
         local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = FRC.GetRecipeDetail(i)
-        table.insert(data,{enabled=true,name=vGrabBagItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="2FurnisherDocuments"})
+        table.insert(data,{callback=OnItemSelect,enabled=true,name=vGrabBagItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="2FurnisherDocuments"})
       end
-      table.insert(data,{name="Misc",categoryId="3Misc"})
+      table.insert(data,{callback=OnItemSelect,name="Misc",categoryId="3Misc"})
     else return
     end
 
@@ -444,11 +476,6 @@ local function CreatePostXMLGui()
     comboBox = filterControl.comboBox
 
     local scrollHelper = AddCustomScrollableComboBoxDropdownMenu(comboBox, filterControl, {})
-
-    function OnItemSelect(control, choiceText, somethingElse)
-      -- local dropdownName = tostring(control.m_name):gsub("FRC_Dropdown", "")
-      -- FRC.SetDropdownChoice(dropdownName, choiceText)
-    end
 
     comboBox:ClearItems()
 

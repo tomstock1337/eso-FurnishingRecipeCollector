@@ -28,6 +28,8 @@ FRC.defaultSetting = {
     lastY = 100,
     width = 650,
     height = 550,
+    sort = "Location",
+    sortDirection = ZO_SORT_ORDER_UP
   }
 }
 

@@ -81,17 +81,17 @@
           <Controls>
             <Control name="$(parent)_Sort1" mouseEnabled="true" resizeToFitDescendents="true">
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10"/>
-              <!-- <OnMouseUp>FurnishingRecipeCollector.GuiOnSort("itemName")</OnMouseUp> -->
+              <OnMouseUp>FurnishingRecipeCollector.GuiOnSort("Location")</OnMouseUp>
               <Controls>
                 <!-- <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop">
                   <AnchorFill />
                 </Backdrop> -->
-                <Button name="$(parent)_Button" mouseEnabled="true">
+                <Button name="$(parent)_Button">
                   <Dimensions y="20" x="20" />
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
                   <Textures normal="esoui/art/miscellaneous/list_sortheader_icon_neutral.dds" mouseOver="esoui/art/miscellaneous/list_sortheader_icon_over.dds" />
                 </Button>
-                <Label name="$(parent)_Name" mouseEnabled="true" font="ZoFontGameSmall" text="Purchase Location">
+                <Label name="$(parent)_Name" font="ZoFontGameSmall" text="Purchase Location">
                   <Dimensions x="310"/>
                   <Anchor point="LEFT" relativeTo="$(parent)_Button" relativePoint="RIGHT"/>
                 </Label>
@@ -101,17 +101,17 @@
               <!-- OffsetX = $(parent)_ListHolder offsetX + (-) width of scrollbar-->
               <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-45"/>
               <Dimensions x="80" />
-              <!-- <OnMouseUp>FurnishingRecipeCollector.GuiOnSort("itemLocation")</OnMouseUp> -->
+              <OnMouseUp>FurnishingRecipeCollector.GuiOnSort("Knowledge")</OnMouseUp>
               <Controls>
                 <!-- <Backdrop name="$(parent)_BG" inherits="ZO_DarkThinFrame">
                   <AnchorFill />
                 </Backdrop> -->
-                <Button name="$(parent)_Button" mouseEnabled="true">
+                <Button name="$(parent)_Button">
                   <Dimensions y="20" x="20" />
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
                   <Textures normal="esoui/art/miscellaneous/list_sortheader_icon_neutral.dds" mouseOver="esoui/art/miscellaneous/list_sortheader_icon_over.dds" />
                 </Button>
-                <Label name="$(parent)_Name" mouseEnabled="true" font="ZoFontGameSmall" text="Knowledge">
+                <Label name="$(parent)_Name" font="ZoFontGameSmall" text="Knowledge">
                   <Anchor point="LEFT" relativeTo="$(parent)_Button" relativePoint="RIGHT"/>
                 </Label>
               </Controls>
@@ -119,17 +119,17 @@
             <Control name="$(parent)_Sort2" mouseEnabled="true" resizeToFitDescendents="true">
               <Anchor point="TOPLEFT" relativeTo="$(parent)_Sort1" relativePoint="TOPRIGHT"/>
               <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_Sort3" relativePoint="BOTTOMLEFT"/>
-              <!-- <OnMouseUp>FurnishingRecipeCollector.GuiOnSort("itemLocation")</OnMouseUp> -->
+              <OnMouseUp>FurnishingRecipeCollector.GuiOnSort("Item")</OnMouseUp>
               <Controls>
                 <!-- <Backdrop name="$(parent)_BG" inherits="ZO_InsetBackdrop">
                   <AnchorFill />
                 </Backdrop> -->
-                <Button name="$(parent)_Button" mouseEnabled="true">
+                <Button name="$(parent)_Button">
                   <Dimensions y="20" x="20" />
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
                   <Textures normal="esoui/art/miscellaneous/list_sortheader_icon_neutral.dds" mouseOver="esoui/art/miscellaneous/list_sortheader_icon_over.dds" />
                 </Button>
-                <Label name="$(parent)_Name" mouseEnabled="true" font="ZoFontGameSmall" text="Name">
+                <Label name="$(parent)_Name" font="ZoFontGameSmall" text="Name">
                   <Anchor point="LEFT" relativeTo="$(parent)_Button" relativePoint="RIGHT"/>
                 </Label>
               </Controls>
