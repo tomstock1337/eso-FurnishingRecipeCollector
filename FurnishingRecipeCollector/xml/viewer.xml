@@ -60,8 +60,8 @@
               <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Filter: Location of Recipe", true)</OnMouseEnter>
               <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit> -->
             </Control>
-            <Control name="FRC_GUI_FilterQuality" mouseEnabled="true">
-              <Anchor point="TOPLEFT" relativeTo="$(parent)_FilterQuality" relativePoint="TOPRIGHT"/>
+            <Control name="FRC_GUI_FilterQuality" inherits="ZO_ComboBox" mouseEnabled="true">
+              <Anchor point="TOPLEFT" relativeTo="FRC_GUI_FilterFolio" relativePoint="TOPRIGHT"/>
               <Dimensions x="230" y="28" />
               <!-- <OnShow>FurnishingRecipeCollector.GuiSetupDropdown(self)</OnShow>
               <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Filter: Knowledge and source", true)</OnMouseEnter>

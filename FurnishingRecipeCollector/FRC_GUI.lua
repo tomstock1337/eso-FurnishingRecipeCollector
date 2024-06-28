@@ -293,83 +293,71 @@ end
 function FRC.UpdateScrollDataLinesData()
   local dataLines = {}
 
-  for i in pairs(FRC.Data.FurnisherDocuments) do
-    for j in pairs(FRC.Data.FurnisherDocuments[i]) do
-      local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(FRC.Data.FurnisherDocuments[i][j])
-      local vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount = FRC.GetRecipeKnowledge(vRecipeItemLinkId)
-      local tempDataLine = {}
-      tempDataLine.rItemLinkId = vItemLinkId
-      tempDataLine.rItemName = vItemName
-      tempDataLine.rItemType = vItemType
-      tempDataLine.rSpecialType = vSpecialType
-      tempDataLine.rFolioItemLinkId = vFolioItemLinkId
-      tempDataLine.rFolioItemLink = vFolioItemLink
-      tempDataLine.rFolioItemName = vFolioItemName or ""
-      tempDataLine.rRecipeItemLinkId = vRecipeItemLinkId
-      tempDataLine.rRecipeItemLink = vRecipeItemLink
-      tempDataLine.rRecipeItemName = vRecipeItemName
-      tempDataLine.rGrabBagItemLinkId = vGrabBagItemLinkId
-      tempDataLine.rGrabBagItemLink = vGrabBagItemLink
-      tempDataLine.rGrabBagItemName = vGrabBagItemName or ""
-      tempDataLine.rLocation = vLocation
-      tempDataLine.rResultLinkId = vResultLinkId
-      tempDataLine.rResultLink = vResultLink
-      tempDataLine.rResultName = vResultName
-      tempDataLine.kKnown = vCharacterStringShort
-      table.insert(dataLines, tempDataLine)
-    end
-  end
-  for i in pairs(FRC.Data.Folios) do
-    for j in pairs(FRC.Data.Folios[i]) do
-      local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(FRC.Data.Folios[i][j])
-      local vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount = FRC.GetRecipeKnowledge(vRecipeItemLinkId)
-      local tempDataLine = {}
-      tempDataLine.rItemLinkId = vItemLinkId
-      tempDataLine.rItemName = vItemName
-      tempDataLine.rItemType = vItemType
-      tempDataLine.rSpecialType = vSpecialType
-      tempDataLine.rFolioItemLinkId = vFolioItemLinkId
-      tempDataLine.rFolioItemLink = vFolioItemLink
-      tempDataLine.rFolioItemName = vFolioItemName or ""
-      tempDataLine.rRecipeItemLinkId = vRecipeItemLinkId
-      tempDataLine.rRecipeItemLink = vRecipeItemLink
-      tempDataLine.rRecipeItemName = vRecipeItemName
-      tempDataLine.rGrabBagItemLinkId = vGrabBagItemLinkId
-      tempDataLine.rGrabBagItemLink = vGrabBagItemLink
-      tempDataLine.rGrabBagItemName = vGrabBagItemName or ""
-      tempDataLine.rLocation = vLocation
-      tempDataLine.rResultLinkId = vResultLinkId
-      tempDataLine.rResultLink = vResultLink
-      tempDataLine.rResultName = vResultName
-      tempDataLine.kKnown = vCharacterStringShort
-      table.insert(dataLines, tempDataLine)
-    end
-  end
-  for i in pairs(FRC.Data.Misc)do
-    local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(i)
+  local function fillDataLine(recipe)
+    local vItemLinkId, vItemName,vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(recipe)
     local vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount = FRC.GetRecipeKnowledge(vRecipeItemLinkId)
     local tempDataLine = {}
+    if not ((FRC.savedVariables.gui.filterQuality == "All") or
+      (FRC.savedVariables.gui.filterQuality == "Normal" and vItemFunctionalQuality == (ITEM_FUNCTIONAL_QUALITY_NORMAL or ITEM_FUNCTIONAL_QUALITY_TRASH)) or
+      (FRC.savedVariables.gui.filterQuality == "Magic" and vItemFunctionalQuality == ITEM_FUNCTIONAL_QUALITY_MAGIC) or
+      (FRC.savedVariables.gui.filterQuality == "Superior" and vItemFunctionalQuality == ITEM_FUNCTIONAL_QUALITY_ARCANE) or
+      (FRC.savedVariables.gui.filterQuality == "Epic" and vItemFunctionalQuality == ITEM_FUNCTIONAL_QUALITY_ARTIFACT) or
+      (FRC.savedVariables.gui.filterQuality == "Legendary" and vItemFunctionalQuality == ITEM_FUNCTIONAL_QUALITY_LEGENDARY)) then
+      return nil
+    end
     tempDataLine.rItemLinkId = vItemLinkId
     tempDataLine.rItemName = vItemName
+    tempDataLine.rItemFunctionalQuality = vItemFunctionalQuality
     tempDataLine.rItemType = vItemType
     tempDataLine.rSpecialType = vSpecialType
     tempDataLine.rFolioItemLinkId = vFolioItemLinkId
     tempDataLine.rFolioItemLink = vFolioItemLink
-    tempDataLine.rFolioItemName = vFolioItemName
+    tempDataLine.rFolioItemName = vFolioItemName or ""
     tempDataLine.rRecipeItemLinkId = vRecipeItemLinkId
     tempDataLine.rRecipeItemLink = vRecipeItemLink
     tempDataLine.rRecipeItemName = vRecipeItemName
     tempDataLine.rGrabBagItemLinkId = vGrabBagItemLinkId
     tempDataLine.rGrabBagItemLink = vGrabBagItemLink
-    tempDataLine.rGrabBagItemName = vGrabBagItemName
+    tempDataLine.rGrabBagItemName = vGrabBagItemName or ""
     tempDataLine.rLocation = vLocation
     tempDataLine.rResultLinkId = vResultLinkId
     tempDataLine.rResultLink = vResultLink
     tempDataLine.rResultName = vResultName
     tempDataLine.kKnown = vCharacterStringShort
-    table.insert(dataLines, tempDataLine)
+    return tempDataLine
   end
 
+  for i in pairs(FRC.Data.FurnisherDocuments) do
+    for j in pairs(FRC.Data.FurnisherDocuments[i]) do
+      if FRC.savedVariables.gui.filterLocation ~= "All" and FRC.savedVariables.gui.filterLocation ~= i then
+        break
+      end
+      local tempDataLine = fillDataLine(FRC.Data.FurnisherDocuments[i][j])
+      if tempDataLine ~= nil then
+        table.insert(dataLines, tempDataLine)
+      end
+    end
+  end
+  for i in pairs(FRC.Data.Folios) do
+    for j in pairs(FRC.Data.Folios[i]) do
+      if FRC.savedVariables.gui.filterLocation ~= "All" and FRC.savedVariables.gui.filterLocation ~= i then
+        break
+      end
+      local tempDataLine = fillDataLine(FRC.Data.Folios[i][j])
+      if tempDataLine ~= nil then
+        table.insert(dataLines, tempDataLine)
+      end
+    end
+  end
+  for i in pairs(FRC.Data.Misc)do
+    if FRC.savedVariables.gui.filterLocation ~= "All" and FRC.savedVariables.gui.filterLocation ~= "Misc" then
+      break
+    end
+    local tempDataLine = fillDataLine(i)
+    if tempDataLine ~= nil then
+      table.insert(dataLines, tempDataLine)
+    end
+  end
 
   for i,line in pairs(dataLines) do
     if line.rFolioItemLinkId ~= nil then
@@ -443,32 +431,61 @@ local function CreatePostXMLGui()
 
     return FRC_GUI_ListHolder.lines
   end
+
   local function CreateDropDown(dropDownType)
-    FRC.logger:Debug("CreateDropDown")
+    if FRC.logger ~= nil then FRC.logger:Debug("CreateDropDown") end
     local filterControl = nil
     local data = {}
     local comboBox = nil
+    local defValue = nil
 
-    function OnItemSelect(control, entryText, entry)
-      -- local dropdownName = tostring(control.m_name):gsub("FRC_Dropdown", "")
-      -- FRC.SetDropdownChoice(dropdownName, choiceText)
+    function OnItemSelect(comboBox, itemName, item, selectionChanged, oldItem)
+      local ctrlName = comboBox:GetUniqueName()
+      if FRC.logger ~= nil then FRC.logger:Info(ctrlName) end
+
+      if ctrlName == "FRC_GUI_FilterFolio" then
+        if FRC.logger ~= nil then FRC.logger:Info("Filter Folio: " .. item.key) end
+        FRC.savedVariables.gui.filterLocation = item.key
+      elseif ctrlName == "FRC_GUI_FilterQuality" then
+        if FRC.logger ~= nil then FRC.logger:Info("Filter Quality: " .. item.key) end
+        FRC.savedVariables.gui.filterQuality = item.key
+      end
+      if FRC.isGuiLoading == false then
+        FRC.UpdateGui()
+      end
+
     end
 
     if dropDownType == "Folio" then
       filterControl = _G["FRC_GUI_FilterFolio"]
+      defValue = FRC.savedVariables.gui.filterLocation
 
-      table.insert(data,{callback=OnItemSelect,enabled=true,name="Location: No Filter",itemLinkId="",itemName="",categoryId="0NoSelection"})
+      table.insert(data,{callback=OnItemSelect,enabled=true,name="Location: No Filter",itemLinkId="",itemName="",categoryId="0NoSelection",key="All"})
 
       --Grabbed structure of combobox item from zo_combobox_base.lua
       for i in pairs(FRC.Data.Folios) do
-        local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = FRC.GetRecipeDetail(i)
-        table.insert(data,{callback=OnItemSelect,enabled=true,name=vFolioItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="1Folio"})
+        local vItemLinkId, vItemName,vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = FRC.GetRecipeDetail(i)
+        table.insert(data,{callback=OnItemSelect,enabled=true,name=vFolioItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="1Folio",key=vFolioItemLinkId})
       end
       for i in pairs(FRC.Data.FurnisherDocuments) do
-        local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = FRC.GetRecipeDetail(i)
-        table.insert(data,{callback=OnItemSelect,enabled=true,name=vGrabBagItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="2FurnisherDocuments"})
+        local vItemLinkId, vItemName,vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = FRC.GetRecipeDetail(i)
+        table.insert(data,{callback=OnItemSelect,enabled=true,name=vGrabBagItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="2FurnisherDocuments",key=vGrabBagItemLinkId})
       end
-      table.insert(data,{callback=OnItemSelect,name="Misc",categoryId="3Misc"})
+      table.insert(data,{callback=OnItemSelect,name="Misc",categoryId="3Misc",key="Misc"})
+
+      table.sort(data, function(item1, item2) return ZO_TableOrderingFunction(item1, item2, "categoryId",{["categoryId"]={tiebreaker = "itemName",tieBreakerSortOrder=ZO_SORT_ORDER_UP},["itemName"]={caseInsensitive=true}},ZO_SORT_ORDER_UP) end)
+    elseif dropDownType == "Quality" then
+      filterControl = _G["FRC_GUI_FilterQuality"]
+      defValue = FRC.savedVariables.gui.filterQuality
+
+      table.insert(data,{callback=OnItemSelect,enabled=true,name="Quality: No Filter",sort=0,key="All"})
+      table.insert(data,{callback=OnItemSelect,enabled=true,name=string.format("|c%06X%s|r", FRC.savedVariables.colorQualityNormal,"Normal"),sort=1,key="Normal"})
+      table.insert(data,{callback=OnItemSelect,enabled=true,name=string.format("|c%06X%s|r", FRC.savedVariables.colorQualityMagic,"Magic"),sort=2,key="Magic"})
+      table.insert(data,{callback=OnItemSelect,enabled=true,name=string.format("|c%06X%s|r", FRC.savedVariables.colorQualitySuperior,"Superior"),sort=3,key="Superior"})
+      table.insert(data,{callback=OnItemSelect,enabled=true,name=string.format("|c%06X%s|r", FRC.savedVariables.colorQualityEpic,"Epic"),sort=4,key="Epic"})
+      table.insert(data,{callback=OnItemSelect,enabled=true,name=string.format("|c%06X%s|r", FRC.savedVariables.colorQualityLegendary,"Legendary"),sort=5,key="Legendary"})
+
+      table.sort(data, function(item1, item2) return ZO_TableOrderingFunction(item1, item2, "sort",{["sort"]={}},ZO_SORT_ORDER_UP) end)
     else return
     end
 
@@ -479,14 +496,22 @@ local function CreatePostXMLGui()
 
     comboBox:ClearItems()
 
-    table.sort(data, function(item1, item2) return ZO_TableOrderingFunction(item1, item2, "categoryId",{["categoryId"]={tiebreaker = "itemName",tieBreakerSortOrder=ZO_SORT_ORDER_UP},["itemName"]={caseInsensitive=true}},ZO_SORT_ORDER_UP) end)
-
 		comboBox:AddItems(data)
-    comboBox:SetSelected(1)
+
+    local defIndex = 1
+    for i in pairs(data) do
+      if data[i].key == defValue then
+        defIndex = i
+        break
+      end
+    end
+
+    comboBox:SelectItemByIndex(defIndex,false)
   end
 
   CreateInventoryScroll()
   CreateDropDown("Folio")
+  CreateDropDown("Quality")
 
   local slider = FRC_GUI_ListHolder_Slider
   slider:SetMinMax(1, #FRC_GUI_ListHolder.dataLines)

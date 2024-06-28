@@ -12,7 +12,7 @@ local LCK = LibCharacterKnowledge
 --------------------------------------------------------------------
 function FRC.GetRecipeDetail(itemLinkOrItemID)
   local itemLink
-  local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
+  local vItemLinkId, vItemName,vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
 
   if type(itemLinkOrItemID) == "string" then
     itemLink = itemLinkOrItemID
@@ -23,6 +23,7 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
   vItemType, vSpecialType = GetItemLinkItemType(itemLink)
   vItemLinkId = GetItemLinkItemId(itemLink)
   vItemName = GetItemLinkName(itemLink)
+  vItemFunctionalQuality = GetItemLinkFunctionalQuality(itemLink)
 
   if FRC.Data.Folios[vItemLinkId] ~= nil then
     -- This is a folio
@@ -198,7 +199,7 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
       end
     end
 
-  return vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName
+  return vItemLinkId, vItemName,vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName
 end
 
 function FRC.GetWritVendorContainerStats(vendorContainerLinkId)

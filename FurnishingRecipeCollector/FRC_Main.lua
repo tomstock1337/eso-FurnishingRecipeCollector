@@ -23,13 +23,20 @@ FRC.defaultSetting = {
   colorAllUnknown=0x777766,
   colorAllKnown=0x55ff1c,
   colorAllPartial=0x3399FF,
+  colorQualityNormal=0XEDEAED,
+  colorQualityMagic=0X34A221,
+  colorQualitySuperior=0X458ADF,
+  colorQualityEpic=0X9D43EC,
+  colorQualityLegendary=0XE2C437,
   gui={
     lastX = 100,
     lastY = 100,
     width = 650,
     height = 550,
     sort = "Location",
-    sortDirection = ZO_SORT_ORDER_UP
+    sortDirection = ZO_SORT_ORDER_UP,
+    filterLocation = "All",
+    filterQuality = "All",
   }
 }
 
@@ -63,10 +70,8 @@ local function OnLoad(eventCode, name)
 
   FRC.savedVariables = ZO_SavedVars:NewAccountWide("FurnishingRecipeCollectorSavedVariables", 1, nil, FRC.defaultSetting) --Instead of nil you can also use GetWorldName() to save the SV server dependent
 
-  if FRC.logger ~= nil then
-    FRC.logger:Info("Loaded logger")
-    FRC.logger:SetEnabled(FRC.savedVariables.debug)
-  end
+  if FRC.logger ~= nil then FRC.logger:Info("Loaded logger") end
+  if FRC.logger ~= nil then FRC.logger:SetEnabled(FRC.savedVariables.debug) end
 
   local menuOptions = {
     type         = "panel",
@@ -104,7 +109,7 @@ local function OnLoad(eventCode, name)
       getFunc = function() return FRC.savedVariables.debug end,
       setFunc = function( newValue )
           FRC.savedVariables.debug = newValue;
-          FRC.logger:SetEnabled(FRC.savedVariables.debug)
+          if FRC.logger ~= nil then FRC.logger:SetEnabled(FRC.savedVariables.debug) end
         end,
       --[[warning = "",]]
       requiresReload = false,
