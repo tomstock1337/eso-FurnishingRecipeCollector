@@ -12,7 +12,7 @@ local LCK = LibCharacterKnowledge
 --------------------------------------------------------------------
 function FRC.GetRecipeDetail(itemLinkOrItemID)
   local itemLink
-  local vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = nil,nil,nil, nil, nil, nil, nil, nil, nil, nil,nil,nil
+  local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
 
   if type(itemLinkOrItemID) == "string" then
     itemLink = itemLinkOrItemID
@@ -23,21 +23,27 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
   vItemType, vSpecialType = GetItemLinkItemType(itemLink)
   vItemLinkId = GetItemLinkItemId(itemLink)
   vItemName = GetItemLinkName(itemLink)
+  vItemFunctionalQuality = GetItemLinkFunctionalQuality(itemLink)
 
   if FRC.Data.Folios[vItemLinkId] ~= nil then
     -- This is a folio
     vFolioItemLinkId = vItemLinkId
-    vFolioItemLink = "|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+    vFolioItemLink = "|H1:item:"..vFolioItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+    vFolioItemName = vItemName
   elseif FRC.Data.FurnisherDocuments[vItemLinkId] ~= nil then
     -- This is a grab bag
     vGrabBagItemLinkId = vItemLinkId
-    vGrabBagItemLink = "|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+    vGrabBagItemLink = "|H1:item:"..vGrabBagItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+    vGrabBagItemName = vItemName
   elseif FRC.Data.Misc[vItemLinkId] ~= nil then
     -- This is a recipe with special location
     vRecipeItemLinkId = vItemLinkId
-    vRecipeItemLink = "|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+    vRecipeItemLink = "|H1:item:"..vRecipeItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
     vRecipeItemName = GetItemLinkName(vRecipeItemLink)
-    vLocation = FRC.Data.Misc[vItemLinkId].location
+    vLocation = FRC.Data.Misc[vRecipeItemLinkId].location
+    vResultLink = GetItemLinkRecipeResultItemLink("|H1:item:"..vRecipeItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+    vResultLinkId = GetItemLinkItemId(vResultLink)
+    vResultName = GetItemLinkName(vResultLink)
   elseif vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_ALCHEMY_FORMULA_FURNISHING
     or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_BLACKSMITHING_DIAGRAM_FURNISHING
     or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_CLOTHIER_PATTERN_FURNISHING
@@ -47,8 +53,11 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
     or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_WOODWORKING_BLUEPRINT_FURNISHING then
       --This is a furnishing recipe
       vRecipeItemLinkId = vItemLinkId
-      vRecipeItemLink = "|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+      vRecipeItemLink = "|H1:item:"..vRecipeItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
       vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+      vResultLink = GetItemLinkRecipeResultItemLink("|H1:item:"..vRecipeItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+      vResultLinkId = GetItemLinkItemId(vResultLink)
+      vResultName = GetItemLinkName(vResultLink)
 
       --Loop through each folio looking for recipe
       for i in pairs(FRC.Data.Folios) do
@@ -62,10 +71,11 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
           if FRC.Data.Folios[i][j] == vItemLinkId then
             -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
             vFolioItemLinkId = i
-            vFolioItemLink = "|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+            vFolioItemLink = "|H1:item:"..vFolioItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
             vRecipeItemLinkId = FRC.Data.Folios[i][j]
             vRecipeItemLink = "|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
             vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+            vFolioItemName = GetItemLinkName(vFolioItemLink)
             break
           end
         end
@@ -86,10 +96,11 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
             if FRC.Data.FurnisherDocuments[i][j] == vItemLinkId then
               -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
               vGrabBagItemLinkId = i
-              vGrabBagItemLink = "|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+              vGrabBagItemLink = "|H1:item:"..vGrabBagItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
               vRecipeItemLinkId = FRC.Data.FurnisherDocuments[i][j]
               vRecipeItemLink = "|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
               vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+              vGrabBagItemName = GetItemLinkName(vGrabBagItemLink)
               break
             end
           end
@@ -117,10 +128,14 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
           if resultItemId == vItemLinkId then
             -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
             vFolioItemLinkId = i
-            vFolioItemLink = "|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+            vFolioItemLink = "|H1:item:"..vFolioItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+            vFolioItemName = GetItemLinkName(vFolioItemLink)
             vRecipeItemLinkId = FRC.Data.Folios[i][j]
             vRecipeItemLink = "|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
             vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+            vResultLinkId = vItemLinkId
+            vResultLink = itemLink
+            vResultName = vItemName
             break
           end
         end
@@ -143,10 +158,14 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
             if resultItemId == vItemLinkId then
               -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
               vGrabBagItemLinkId = i
-              vGrabBagItemLink = "|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+              vGrabBagItemLink = "|H1:item:"..vGrabBagItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+              vGrabBagItemName = GetItemLinkName(vGrabBagItemLink)
               vRecipeItemLinkId = FRC.Data.FurnisherDocuments[i][j]
               vRecipeItemLink = "|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
               vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+              vResultLinkId = vItemLinkId
+              vResultLink = itemLink
+              vResultName = vItemName
               break
             end
           end
@@ -168,27 +187,30 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
           if resultItemId == vItemLinkId then
             -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Misc[i]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
             vRecipeItemLinkId = i
-            vRecipeItemLink = "|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+            vRecipeItemLink = "|H1:item:"..vRecipeItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
             vRecipeItemName = GetItemLinkName(vRecipeItemLink)
-            vLocation = FRC.Data.Misc[i].location
+            vLocation = FRC.Data.Misc[vRecipeItemLinkId].location
+            vResultLinkId = vItemLinkId
+            vResultLink = itemLink
+            vResultName = vItemName
             break
           end
         end
       end
     end
 
-  return vItemLinkId, vItemName, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName,vGrabBagItemLinkId,vGrabBagItemLink,vLocation
+  return vItemLinkId, vItemName,vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName
 end
 
 function FRC.GetWritVendorContainerStats(vendorContainerLinkId)
-  local vCharacterString = ""
-  local vRecipeCount = nil
+  local vVendorCharacterString = ""
+  local vVendorRecipeCount = nil
   local container = FRC.Data.Folios[vendorContainerLinkId] or FRC.Data.FurnisherDocuments[vendorContainerLinkId]
 
   if container == nil then
     return
   end
-  vRecipeCount = table.getn(container)
+  vVendorRecipeCount = table.getn(container)
 
   if LCK ~= nil then
     if container ~= nil then
@@ -219,19 +241,64 @@ function FRC.GetWritVendorContainerStats(vendorContainerLinkId)
         if tChars[chr["id"]] ~= nil then
 
           if tChars[chr["id"]] == 0 then
-            charactercolor = 0x777766
+            charactercolor = FRC.savedVariables.colorAllUnknown
           elseif tChars[chr["id"]] == table.getn(container) then
-            charactercolor = 0x55ff1c
+            charactercolor = FRC.savedVariables.colorAllKnown
           else
-            charactercolor = 0x3399FF
+            charactercolor = FRC.savedVariables.colorAllPartial
           end
-          if vCharacterString ~= "" then
-            vCharacterString = vCharacterString..", "
+          if vVendorCharacterString ~= "" then
+            vVendorCharacterString = vVendorCharacterString..", "
           end
-          vCharacterString = vCharacterString..string.format("|c%06X%s|r", charactercolor, chr["name"].." ("..tChars[chr["id"]].."/"..table.getn(container)..")")
+          vVendorCharacterString = vVendorCharacterString..string.format("|c%06X%s|r", charactercolor, chr["name"].." ("..tChars[chr["id"]].."/"..table.getn(container)..")")
         end
       end
     end
   end
-  return vCharacterString, vRecipeCount
+  return vVendorCharacterString, vVendorRecipeCount
+end
+
+function FRC.GetRecipeKnowledge(vRecipeItemLinkOrItemId)
+  local vCharacterStringLong = ""
+  local vCharacterStringShort = ""
+  local vCharTrackedCount = 0
+  local vCharKnownCount = 0
+  local vRecipeItemLinkId = 0
+
+  if type(vRecipeItemLinkOrItemId) == "string" then
+    vRecipeItemLinkId = GetItemLinkItemId(vRecipeItemLinkOrItemId)
+  else
+    vRecipeItemLinkId = vRecipeItemLinkOrItemId
+  end
+
+  if LCK ~= nil then
+    local tChars= LCK.GetItemKnowledgeList(vRecipeItemLinkId,nil,nil)
+    local charColor = nil
+
+    for i, chr in ipairs(tChars) do
+      if chr["knowledge"] == LCK.KNOWLEDGE_KNOWN then
+        vCharTrackedCount = vCharTrackedCount + 1
+        vCharKnownCount = vCharKnownCount + 1
+        charColor = FRC.savedVariables.colorCharKnown
+      elseif chr["knowledge"] == LCK.KNOWLEDGE_UNKNOWN then
+        vCharTrackedCount = vCharTrackedCount + 1
+        charColor = FRC.savedVariables.colorCharUnknown
+      end
+
+      if chr["knowledge"] == LCK.KNOWLEDGE_KNOWN or chr["knowledge"] == LCK.KNOWLEDGE_UNKNOWN then
+        if vCharacterStringLong ~= "" then
+          vCharacterStringLong = vCharacterStringLong..", "
+        end
+        vCharacterStringLong = vCharacterStringLong..string.format("|c%06X%s|r", charColor, chr["name"])
+      end
+    end
+    if vCharKnownCount == 0 then
+      vCharacterStringShort = string.format("|c%06X%s|r", FRC.savedVariables.colorAllUnknown, tos(vCharKnownCount).."/"..tos(vCharTrackedCount))
+    elseif vCharKnownCount == vCharTrackedCount then
+      vCharacterStringShort = string.format("|c%06X%s|r", FRC.savedVariables.colorAllKnown, tos(vCharKnownCount).."/"..tos(vCharTrackedCount))
+    else
+      vCharacterStringShort = string.format("|c%06X%s|r", FRC.savedVariables.colorAllPartial, tos(vCharKnownCount).."/"..tos(vCharTrackedCount))
+    end
+  end
+  return vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount
 end

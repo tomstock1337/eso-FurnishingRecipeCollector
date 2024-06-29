@@ -11,11 +11,14 @@
 ## Author: tomstock
 ## APIVersion: 101041 101042
 ## SavedVariables: FurnishingRecipeCollectorSavedVariables
-## OptionalDependsOn: LibDebugLogger>=180 LibCharacterKnowledge>=20 TamrielTradeCentrePrice
-## DependsOn: LibAddonMenu-2.0>=36
+## OptionalDependsOn: LibDebugLogger>=180 LibCharacterKnowledge>=20 TamrielTradeCentrePrice LibSlashCommander
+## DependsOn: LibAddonMenu-2.0>=36 LibScrollableMenu>=0201
 
 dataFolios.lua
 dataGrabBags.lua
 dataMisc.lua
 FRC_RecipeFuncs.lua
+FRC_ToolTip.lua
 FRC_Main.lua
+FRC_GUI.lua
+xml\viewer.xml
