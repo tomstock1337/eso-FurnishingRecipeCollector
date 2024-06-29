@@ -3,7 +3,7 @@ local FRC = FurnishingRecipeCollector
 local LCK = LibCharacterKnowledge
 
 local tos = tostring
-FRC.isGuiLoading = nil
+FRC.isGuiLoading = true
 FRC.sortOptions =
   {
     ["Location"] = {
@@ -283,13 +283,44 @@ function FRC.RestorePosition()
   control:ClearAnchors()
   control:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 
-  if isLoadingInd == false then
-    zo_callLater(function()
-      FRC.UpdateInventoryScroll()
-    end, 100)
+  zo_callLater(function()
+    FRC.UpdateInventoryScroll()
+  end, 100)
+end
+function FRC.UpdateSortIcons()
+  --EsoUI/Art/Miscellaneous/list_sortHeader_icon_sortUp.dds
+  --EsoUI/Art/Miscellaneous/list_sortHeader_icon_sortDown.dds
+  --EsoUI/Art/Miscellaneous/list_sortHeader_icon_over.dds
+  --EsoUI/Art/Miscellaneous/list_sortheader_icon_neutral.dds
+  FRC_GUI_ListHolder.SortLocation.icon:SetNormalTexture("EsoUI/Art/Miscellaneous/list_sortheader_icon_neutral.dds")
+  FRC_GUI_ListHolder.SortLocation.icon:SetMouseOverTexture("EsoUI/Art/Miscellaneous/list_sortHeader_icon_over.dds")
+  FRC_GUI_ListHolder.SortItem.icon:SetNormalTexture("EsoUI/Art/Miscellaneous/list_sortheader_icon_neutral.dds")
+  FRC_GUI_ListHolder.SortItem.icon:SetMouseOverTexture("EsoUI/Art/Miscellaneous/list_sortHeader_icon_over.dds")
+  FRC_GUI_ListHolder.SortKnowledge.icon:SetNormalTexture("EsoUI/Art/Miscellaneous/list_sortheader_icon_neutral.dds")
+  FRC_GUI_ListHolder.SortKnowledge.icon:SetMouseOverTexture("EsoUI/Art/Miscellaneous/list_sortHeader_icon_over.dds")
+
+  if FRC.savedVariables.gui.sort == "Location" then
+    if FRC.savedVariables.gui.sortDirection == ZO_SORT_ORDER_UP then
+      FRC_GUI_ListHolder.SortLocation.icon:SetNormalTexture("EsoUI/Art/Miscellaneous/list_sortHeader_icon_sortDown.dds")
+    else
+      FRC_GUI_ListHolder.SortLocation.icon:SetNormalTexture("EsoUI/Art/Miscellaneous/list_sortHeader_icon_sortUp.dds")
+    end
+  end
+  if FRC.savedVariables.gui.sort == "Item" then
+    if FRC.savedVariables.gui.sortDirection == ZO_SORT_ORDER_UP then
+      FRC_GUI_ListHolder.SortItem.icon:SetNormalTexture("EsoUI/Art/Miscellaneous/list_sortHeader_icon_sortDown.dds")
+    else
+      FRC_GUI_ListHolder.SortItem.icon:SetNormalTexture("EsoUI/Art/Miscellaneous/list_sortHeader_icon_sortUp.dds")
+    end
+  end
+  if FRC.savedVariables.gui.sort == "Knowledge" then
+    if FRC.savedVariables.gui.sortDirection == ZO_SORT_ORDER_UP then
+      FRC_GUI_ListHolder.SortKnowledge.icon:SetNormalTexture("EsoUI/Art/Miscellaneous/list_sortHeader_icon_sortDown.dds")
+    else
+      FRC_GUI_ListHolder.SortKnowledge.icon:SetNormalTexture("EsoUI/Art/Miscellaneous/list_sortHeader_icon_sortUp.dds")
+    end
   end
 end
-
 function FRC.UpdateScrollDataLinesData()
   local dataLines = {}
 
@@ -373,19 +404,21 @@ function FRC.UpdateScrollDataLinesData()
   FRC_GUI_ListHolder.dataLines = dataLines
 end
 function FRC.LoadingStart()
+  if FRC.logger ~= nil then FRC.logger:Verbose("Loading Start") end
   FRC.isGuiLoading = true
   FRC_GUI_ListHolder:SetHidden(true)
   FRC_GUI_Wait:SetHidden(false)
 end
 
 function FRC.LoadingStop()
+  if FRC.logger ~= nil then FRC.logger:Verbose("Loading Stop") end
   FRC.isGuiLoading = false
   FRC_GUI_ListHolder:SetHidden(false)
   FRC_GUI_Wait:SetHidden(true)
 end
 local function CreatePostXMLGui()
   local function CreateInventoryScroll()
-    FRC.logger:Debug("CreateInventoryScroll")
+    if FRC.logger ~= nil then FRC.logger:Debug("CreateInventoryScroll") end
     local function createLine(i, predecessor)
       predecessor = predecessor or FRC_GUI_ListHolder
 
@@ -413,12 +446,12 @@ local function CreatePostXMLGui()
     FRC_GUI_ListHolder.maxLines = 60
     FRC_GUI_ListHolder.dataLines = {}
     FRC_GUI_ListHolder.lines = {}
-    FRC_GUI_ListHolder.Sort1 = FRC_GUI_SortBar_Sort1:GetNamedChild("_Name")
-    FRC_GUI_ListHolder.Sort1.icon = FRC_GUI_SortBar_Sort1:GetNamedChild("_Button")
-    FRC_GUI_ListHolder.Sort2 = FRC_GUI_SortBar_Sort2:GetNamedChild("_Name")
-    FRC_GUI_ListHolder.Sort2.icon = FRC_GUI_SortBar_Sort2:GetNamedChild("_Button")
-    FRC_GUI_ListHolder.Sort3 = FRC_GUI_SortBar_Sort2:GetNamedChild("_Name")
-    FRC_GUI_ListHolder.Sort3.icon = FRC_GUI_SortBar_Sort2:GetNamedChild("_Button")
+    FRC_GUI_ListHolder.SortLocation = FRC_GUI_SortBar_SortLocation:GetNamedChild("_Name")
+    FRC_GUI_ListHolder.SortLocation.icon = FRC_GUI_SortBar_SortLocation:GetNamedChild("_Button")
+    FRC_GUI_ListHolder.SortItem = FRC_GUI_SortBar_SortItem:GetNamedChild("_Name")
+    FRC_GUI_ListHolder.SortItem.icon = FRC_GUI_SortBar_SortItem:GetNamedChild("_Button")
+    FRC_GUI_ListHolder.SortKnowledge = FRC_GUI_SortBar_SortKnowledge:GetNamedChild("_Name")
+    FRC_GUI_ListHolder.SortKnowledge.icon = FRC_GUI_SortBar_SortKnowledge:GetNamedChild("_Button")
 
     local predecessor
     for i = 1, FRC_GUI_ListHolder.maxLines do
@@ -441,13 +474,12 @@ local function CreatePostXMLGui()
 
     function OnItemSelect(comboBox, itemName, item, selectionChanged, oldItem)
       local ctrlName = comboBox:GetUniqueName()
-      if FRC.logger ~= nil then FRC.logger:Info(ctrlName) end
 
       if ctrlName == "FRC_GUI_FilterFolio" then
-        if FRC.logger ~= nil then FRC.logger:Info("Filter Folio: " .. item.key) end
+        if FRC.logger ~= nil then FRC.logger:Verbose("Filter Folio: " .. item.key) end
         FRC.savedVariables.gui.filterLocation = item.key
       elseif ctrlName == "FRC_GUI_FilterQuality" then
-        if FRC.logger ~= nil then FRC.logger:Info("Filter Quality: " .. item.key) end
+        if FRC.logger ~= nil then FRC.logger:Verbose("Filter Quality: " .. item.key) end
         FRC.savedVariables.gui.filterQuality = item.key
       end
       if FRC.isGuiLoading == false then
@@ -464,11 +496,11 @@ local function CreatePostXMLGui()
 
       --Grabbed structure of combobox item from zo_combobox_base.lua
       for i in pairs(FRC.Data.Folios) do
-        local vItemLinkId, vItemName,vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = FRC.GetRecipeDetail(i)
+        local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(i)
         table.insert(data,{callback=OnItemSelect,enabled=true,name=vFolioItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="1Folio",key=vFolioItemLinkId})
       end
       for i in pairs(FRC.Data.FurnisherDocuments) do
-        local vItemLinkId, vItemName,vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId,vFolioItemLink, vRecipeItemLinkId,vRecipeItemLink,vRecipeItemName, vGrabBagItemLinkId,vGrabBagItemLink,vLocation = FRC.GetRecipeDetail(i)
+        local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(i)
         table.insert(data,{callback=OnItemSelect,enabled=true,name=vGrabBagItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="2FurnisherDocuments",key=vGrabBagItemLinkId})
       end
       table.insert(data,{callback=OnItemSelect,name="Misc",categoryId="3Misc",key="Misc"})
@@ -522,6 +554,7 @@ function FRC.UpdateGui()
   FRC.UpdateScrollDataLinesData()
   zo_callLater(function()
     FRC.UpdateInventoryScroll()
+    FRC.UpdateSortIcons()
     FRC.LoadingStop()
   end, 100)
 end
