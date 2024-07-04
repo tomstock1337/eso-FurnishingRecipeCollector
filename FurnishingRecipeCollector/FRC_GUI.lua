@@ -36,8 +36,13 @@ FRC.sortOptions =
             tieBreakerSortOrder=ZO_SORT_ORDER_UP
           },
         ["locationSort"]=
-          {
-          }
+        {
+          tiebreaker = "rResultName",
+          tieBreakerSortOrder=ZO_SORT_ORDER_UP
+        },
+        ["rResultName"]=
+        {
+        }
       }
     }
   }
