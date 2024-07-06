@@ -22,22 +22,16 @@ FRC.Data.Misc = {
   [121315]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Skeleton, Robust Humanoid
   [203324]={location="Rolis Hlaalu Writ Vendor"}, --Sketch: Apocrypha Mirror, Intricate
   [119391]={location="Brewer"}, --Design: Common Candle, Set
-  [139489]={location="Nalirswewen, Artaeum"}, --Blueprint: Psijic Chair, Arched
-  [139490]={location="Nalirswewen, Artaeum"}, --Blueprint: Psijic Table, Small
-  [139493]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner
-  [139496]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner, Large
-  [141901]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner, Long
-  [139487]={location="Nalirswewen, Artaeum"}, --Praxis: Book Row, Levitating
-  [141901]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner, Long
-  [139496]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner, Large
-  [139493]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner
-  [139496]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner, Large
-  [141901]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner, Long
   [139487]={location="Nalirswewen, Artaeum"}, --Praxis: Book Row, Levitating
   [139488]={location="Nalirswewen, Artaeum"}, --Praxis: Book Stack, Levitating
-  [139495]={location="Nalirswewen, Artaeum"}, --Praxis: Psijic Lighting Globe, Large
+  [139489]={location="Nalirswewen, Artaeum"}, --Blueprint: Psijic Chair, Arched
+  [139490]={location="Nalirswewen, Artaeum"}, --Blueprint: Psijic Table, Small
   [139491]={location="Nalirswewen, Artaeum"}, --Praxis: Psijic Lighting Globe, Small
-  [139497]={location="Nalirswewen, Artaeum"}, --Praxis: Psijic Table, Grand
   [139492]={location="Nalirswewen, Artaeum"}, --Praxis: Psijic Table, Scalloped
+  [139493]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner
   [139494]={location="Nalirswewen, Artaeum"}, --Praxis: Psijic Table, Six-fold Symmetry
+  [139495]={location="Nalirswewen, Artaeum"}, --Praxis: Psijic Lighting Globe, Large
+  [139496]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner, Large
+  [139497]={location="Nalirswewen, Artaeum"}, --Praxis: Psijic Table, Grand
+  [141901]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner, Long
 }
