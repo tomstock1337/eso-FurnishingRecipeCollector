@@ -586,8 +586,8 @@ function FRC.InitGui()
 
   CreatePostXMLGui()
 
-  local slider = FurCGui_ListHolder_Slider
-  slider:SetMinMax(1, #FurCGui_ListHolder.dataLines)
+  local slider = FRC_GUI_ListHolder_Slider
+  slider:SetMinMax(1, #FRC_GUI_ListHolder.dataLines)
 
   if LCK ~= nil then
     LCK.RegisterForCallback("FurnishingRecipeCollector", LCK.EVENT_INITIALIZED, function( )
