@@ -104,6 +104,13 @@ local function OnLoad(eventCode, name)
       type = "divider",
     },
     {
+      type = "description",
+      text = "/furrecipe - opens a window for viewing recipe list",
+    },
+    {
+      type = "divider",
+    },
+    {
       type = "checkbox",
       name = "Show Debug",
       getFunc = function() return FRC.savedVariables.debug end,
