@@ -166,7 +166,22 @@ local function OnLoad(eventCode, name)
     end, 1000)
   end
 end
+function FRC.Donate(control, mouseButton)
+  local amount = 2000
+  if mouseButton == 2 then
+    amount = 10000
+  elseif mouseButton == 3 then
+    amount = 25000
+  end
 
+  SCENE_MANAGER:Show("mailSend")
+  zo_callLater(function()
+    ZO_MailSendToField:SetText("@tomstock")
+    ZO_MailSendSubjectField:SetText("Thank you for FurnishingRecipeCollector!")
+    QueueMoneyAttachment(amount)
+    ZO_MailSendBodyField:TakeFocus()
+  end, 200)
+end
 --[[
   ==============================================
   AddOn global and loading

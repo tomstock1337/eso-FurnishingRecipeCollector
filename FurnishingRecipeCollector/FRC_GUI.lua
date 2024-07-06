@@ -50,6 +50,21 @@ FRC.sortOptions =
 --[[
   Global Window Events
 ]]
+function FRC.GuiShowTooltip(control, tooltiptext, reAnchor)
+  InitializeTooltip(InformationTooltip, control, BOTTOM, 0, 0, 0)
+  InformationTooltip:SetHidden(false)
+  InformationTooltip:ClearLines()
+  InformationTooltip:AddLine(tooltiptext)
+
+  if reAnchor then
+    InformationTooltip:ClearAnchors()
+    InformationTooltip:SetAnchor(TOPRIGHT, control, TOPLEFT, -10, 0)
+  end
+end
+function FRC.GuiHideTooltip(control)
+  InformationTooltip:ClearLines()
+  InformationTooltip:SetHidden(true)
+end
 function FRC.GuiOnResizeStop()
   FRC.GuiSaveFrameInfo()
   if FRC.isGuiLoading == true then

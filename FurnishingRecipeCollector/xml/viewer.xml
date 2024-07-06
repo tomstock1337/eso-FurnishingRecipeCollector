@@ -23,25 +23,35 @@
               <Anchor point="TOPLEFT" relativeTo="$(parent)_Header" relativePoint="TOPLEFT" />
               <Anchor point="TOPRIGHT" relativeTo="$(parent)_Header" relativePoint="TOPRIGHT"/>
             </Label>
-            <Button name="$(parent)_Reload">
-              <Anchor point="RIGHT" relativeTo="$(parent)_HeaderLabel" relativePoint="RIGHT" offsetX="-70" />
-              <!-- <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Hide window")</OnMouseEnter>
-              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit> -->
-              <OnMouseUp>FurnishingRecipeCollector.GUIButtonRefreshOnMouseUp(self, button)</OnMouseUp>
-              <Dimensions x="35" y="35" />
-              <Textures normal="/esoui/art/help/help_tabicon_feedback_up.dds"
-                pressed="/esoui/art/help/help_tabicon_feedback_down.dds"
-                mouseOver="/esoui/art/help/help_tabicon_feedback_over.dds" />
+            <Button name="$(parent)_Feedback">
+              <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetx="10" />
+              <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Click to say thank you:\nLeft: 2k\nRight: 10k\nMiddle: 25k\nYour feedback and/or donation is appreciated!")</OnMouseEnter>
+              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit>
+              <OnMouseUp>FurnishingRecipeCollector.Donate(self, button)</OnMouseUp>
+              <Dimensions x="40" y="40" />
+              <Textures normal="esoui/art/mail/mail_tabicon_compose_up.dds"
+                pressed="esoui/art/mail/mail_tabicon_compose_down.dds"
+                mouseOver="esoui/art/mail/mail_tabicon_compose_over.dds" />
             </Button>
             <Button name="$(parent)_Hide">
-              <Anchor point="LEFT" relativeTo="$(parent)_Reload" relativePoint="RIGHT" offsetX="10" />
-              <!-- <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Hide window")</OnMouseEnter>
-              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit> -->
+              <Anchor point="RIGHT" relativeTo="$(parent)" relativePoint="RIGHT" offsetX="-10" />
+              <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Hide window")</OnMouseEnter>
+              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit>
               <OnMouseUp>FurnishingRecipeCollector.FRC_Toggle()</OnMouseUp>
               <Dimensions x="25" y="25" />
               <Textures normal="/esoui/art/buttons/decline_up.dds"
                 pressed="/esoui/art/buttons/decline_down.dds"
                 mouseOver="/esoui/art/buttons/decline_over.dds" />
+            </Button>
+            <Button name="$(parent)_Reload">
+              <Anchor point="RIGHT" relativeTo="$(parent)_Hide" relativePoint="LEFT" offsetX="-5" />
+              <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Reload Recipes")</OnMouseEnter>
+              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit>
+              <OnMouseUp>FurnishingRecipeCollector.GUIButtonRefreshOnMouseUp(self, button)</OnMouseUp>
+              <Dimensions x="35" y="35" />
+              <Textures normal="/esoui/art/help/help_tabicon_feedback_up.dds"
+                pressed="/esoui/art/help/help_tabicon_feedback_down.dds"
+                mouseOver="/esoui/art/help/help_tabicon_feedback_over.dds" />
             </Button>
           </Controls>
         </Control>
@@ -56,16 +66,14 @@
             <Control name="FRC_GUI_FilterFolio" inherits="ZO_ComboBox" mouseEnabled="true">
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"/>
               <Dimensions x="230" y="28" />
-              <!-- <OnShow>FurnishingRecipeCollector.GuiSetupDropdown(self)</OnShow>
               <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Filter: Location of Recipe", true)</OnMouseEnter>
-              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit> -->
+              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit>
             </Control>
             <Control name="FRC_GUI_FilterQuality" inherits="ZO_ComboBox" mouseEnabled="true">
               <Anchor point="TOPLEFT" relativeTo="FRC_GUI_FilterFolio" relativePoint="TOPRIGHT"/>
               <Dimensions x="230" y="28" />
-              <!-- <OnShow>FurnishingRecipeCollector.GuiSetupDropdown(self)</OnShow>
               <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Filter: Knowledge and source", true)</OnMouseEnter>
-              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit> -->
+              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit>
             </Control>
           </Controls>
         </Control>
