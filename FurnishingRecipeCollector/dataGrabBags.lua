@@ -1021,41 +1021,41 @@ FRC.Data.FurnisherDocuments =
   [204501] =  --Necrom Journeyman Furnisher's Document
   {
     197549, --Blueprint: Necrom Bookcase, Elegant Tall
-    197551, --Blueprint: Necrom Wardrobe, Elegant
-    197552, --Blueprint: Necrom End Table, Elegant
-    197553, --Blueprint: Necrom Chest, Elegant
-    197555, --Pattern: Necrom Bed, Elegant Single
-    197556, --Blueprint: Necrom Divider, Elegant
     197559, --Blueprint: Necrom Chair, Elegant
-    197566, --Diagram: Necrom Sconce, Elegant
-    197568, --Praxis: Necrom Lamp, Elegant Standing
-    197570, --Praxis: Necrom Vase, Elegant Square Floral
-    197571, --Design: Necrom Bowl, Elegant
-    197573, --Praxis: Necrom Wind Chimes, Elegant
-    197574, --Praxis: Necrom Memorial, Large
-    197577, --Design: Necrom Urn, Malachite
+    197553, --Blueprint: Necrom Chest, Elegant
+    197556, --Blueprint: Necrom Divider, Elegant
+    197552, --Blueprint: Necrom End Table, Elegant
+    197551, --Blueprint: Necrom Wardrobe, Elegant
+    197588, --Blueprint: Telvanni Box, Fungal
+    197590, --Blueprint: Telvanni Chair, Fungal
+    197586, --Blueprint: Telvanni Chest, Fungal
     197580, --Blueprint: Telvanni Dresser, Small Fungal
     197583, --Blueprint: Telvanni Nightstand, Fungal
-    197584, --Design: Telvanni Bookcase, Tall Fungal
-    197586, --Blueprint: Telvanni Chest, Fungal
-    197587, --Design: Telvanni Table, Round Fungal
-    197588, --Blueprint: Telvanni Box, Fungal
-    197589, --Design: Telvanni Planter, Fungal
-    197590, --Blueprint: Telvanni Chair, Fungal
     197591, --Blueprint: Telvanni Stool, Fungal
+    197571, --Design: Necrom Bowl, Elegant
+    197577, --Design: Necrom Urn, Malachite
+    197584, --Design: Telvanni Bookcase, Tall Fungal
     197595, --Design: Telvanni Meal, Fish Dinner
     197599, --Design: Telvanni Meal, Kebab Lunch
-    197601, --Formula: Telvanni Sconce, Fungal Wall
+    197589, --Design: Telvanni Planter, Fungal
+    197587, --Design: Telvanni Table, Round Fungal
+    197566, --Diagram: Necrom Sconce, Elegant
     197602, --Formula: Telvanni Candle, Fungal Standing
-    197604, --Praxis: Apocrypha Bookcase, Tall Marble
-    197605, --Praxis: Apocrypha Desk, Marble
-    197606, --Praxis: Apocrypha Candlestick, Twisted
-    197609, --Praxis: Apocrypha Chair, Marble
-    197610, --Praxis: Apocrypha Nightstand, Marble
+    197601, --Formula: Telvanni Sconce, Fungal Wall
     197611, --Pattern: Apocrypha Bed, Marble Twin
     197613, --Pattern: Book Pile, Large
+    197555, --Pattern: Necrom Bed, Elegant Single
     197615, --Pattern: Necrom Carpet, Medium
     197714, --Pattern: Tribunal Rug
+    197604, --Praxis: Apocrypha Bookcase, Tall Marble
+    197606, --Praxis: Apocrypha Candlestick, Twisted
+    197609, --Praxis: Apocrypha Chair, Marble
+    197605, --Praxis: Apocrypha Desk, Marble
+    197610, --Praxis: Apocrypha Nightstand, Marble
+    197568, --Praxis: Necrom Lamp, Elegant Standing
+    197574, --Praxis: Necrom Memorial, Large
+    197570, --Praxis: Necrom Vase, Elegant Square Floral
+    197573, --Praxis: Necrom Wind Chimes, Elegant
   },
   [204500] =  --Necrom Master Furnisher's Document
   {
