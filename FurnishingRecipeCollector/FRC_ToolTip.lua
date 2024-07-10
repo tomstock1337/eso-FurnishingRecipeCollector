@@ -16,6 +16,10 @@ local function adjustToolTip(tooltipControl, itemLink)
   local fontWeight = "soft-shadow-thin"
   local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(itemLink)
 
+  if vItemType == ITEMTYPE_CONTAINER then
+    if FRC.logger ~= nil then FRC.logger:Verbose("Container ItemLinkID: ["..tos(vItemLinkId).."] "..tos(vItemName)) end
+  end
+
   if vFolioItemLinkId ~= nil or vRecipeItemLinkId ~= nil or vGrabBagItemLinkId ~= nil then
     --if FRC.logger ~= nil then FRC.logger:Verbose(" ItemName:"..vItemName.."LinkID: "..tos(vItemLinkId).." ItemType: "..tos(vItemType).." SpType: "..tos(vSpecialType).." Recipe: "..tos(vRecipeItemLinkId).." Folio: "..tos(vFolioItemLinkId).." GrabBag: "..tos(vGrabBagItemLinkId).." RecipeName: "..tos(vRecipeItemName)) end
     if FRC.logger ~= nil then FRC.logger:Verbose("FRC: ["..tos(vItemLinkId).."]={}, --"..tos(vRecipeItemName)) end

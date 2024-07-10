@@ -300,77 +300,181 @@ FRC.Data.FurnisherDocuments =
   },
   [127106] = -- Hlaalu Journeyman Furnisher's Document
   {
+    115761, --Blueprint: Argonian Bed, Woven
+    115762, --Blueprint: Argonian Bench, Woven
     115768, --Blueprint: Argonian Bookcase, Sturdy
     115757, --Blueprint: Argonian Cage, Bird
     115766, --Blueprint: Argonian Dresser, Sturdy
+    115771, --Blueprint: Argonian End Table, Woven
     115767, --Blueprint: Argonian Shelf, Woven
     115760, --Blueprint: Argonian Snakes in a Basket
+    115770, --Blueprint: Argonian Table, Formal
+    115758, --Blueprint: Argonian Wind Chimes
+    115939, --Blueprint: Breton Chair, Rocking
     115947, --Blueprint: Breton Desk, Knotwork
     115941, --Blueprint: Breton Hutch, Knotwork
+    115936, --Blueprint: Breton Pew, Knotwork
+    115950, --Blueprint: Breton Shelf, Scrolled
+    115964, --Blueprint: Breton Stall, Vending
     115948, --Blueprint: Breton Table, Round
+    115949, --Blueprint: Breton Table, Square
     116032, --Blueprint: Dark Elf Bookcase, Sectioned
     116030, --Blueprint: Dark Elf Caravan, Cargo
+    116036, --Blueprint: Dark Elf Desk, Angled
+    116043, --Blueprint: Dark Elf Shelf, Barrel
+    116041, --Blueprint: Dark Elf Trestle, Scaled
     116029, --Blueprint: Dark Elf Wagon, Merchant
+    116035, --Blueprint: Dark Elf Wardrobe, Scaled
+    118960, --Blueprint: High Elf Bookcase, Verdant
     118961, --Blueprint: High Elf Chair, Verdant
+    118962, --Blueprint: High Elf Chair, Winged
+    118956, --Blueprint: High Elf Wagon, Sturdy
+    116122, --Blueprint: Khajiit Barstool, Padded
     116129, --Blueprint: Khajiit Counter, Long Cabinet
     116105, --Blueprint: Khajiit Table, Formal
+    116119, --Blueprint: Khajiit Wagon, Reed
     116184, --Blueprint: Nord Armoire, Lattice
     116174, --Blueprint: Nord Bookcase, Short Alcove
     116175, --Blueprint: Nord Chair, Braced
     116176, --Blueprint: Nord Counter, Long
+    116190, --Blueprint: Nord Drinking Horn, Empty
+    116183, --Blueprint: Nord Footlocker, Braced
+    116185, --Blueprint: Nord Rack, Wine
     116178, --Blueprint: Nord Stool, Braced
     116181, --Blueprint: Nord Table, Braced
     116182, --Blueprint: Nord Trestle, Braced
     119040, --Blueprint: Orcish Bucket, Cistern
+    119047, --Blueprint: Orcish Bunkbed, Leather
     119053, --Blueprint: Orcish Cabinet, Branded
+    119052, --Blueprint: Orcish Counter, Branded
     119044, --Blueprint: Orcish Pew, Peaked
+    119036, --Blueprint: Orcish Platform, Stage
     119171, --Blueprint: Redguard Cabinet, Inlaid
     119215, --Blueprint: Redguard Candleholder, Polished
+    119214, --Blueprint: Redguard Candlestick, Polished
     119163, --Blueprint: Redguard Caravan, Practical
     119164, --Blueprint: Redguard Carriage, Merchant
     119168, --Blueprint: Redguard Cask, Sealed
+    119176, --Blueprint: Redguard Counter, Cabinet
     119175, --Blueprint: Redguard Counter, Corner
     119173, --Blueprint: Redguard Cupboard, Lattice
     119301, --Blueprint: Redguard End Table, Inlaid
     119190, --Blueprint: Redguard End Table, Oasis
+    119187, --Blueprint: Redguard Footlocker, Braced
     119193, --Blueprint: Redguard Shelf, Arched
+    119182, --Blueprint: Redguard Stool, Padded
+    119188, --Blueprint: Redguard Table, Grand Oasis
     119189, --Blueprint: Redguard Table, Oasis
+    119259, --Blueprint: Redguard Wine Rack, Inlaid
+    115871, --Blueprint: Wood Elf Rack, Single
+    115755, --Design: Argonian Totem, Frilled Skull
     115753, --Design: Argonian Totem, Painted Skull
+    119478, --Design: Basket of Apples, Full
+    119481, --Design: Basket of Corn
+    119529, --Design: Bread Loaves, Round
+    119525, --Design: Bread, Braided
     119032, --Design: Breton Chamberstick, Short
+    119033, --Design: Breton Chamberstick, Tall
+    119444, --Design: Candle, Group
+    119427, --Design: Cheese Wedge
     119470, --Design: Cured Meat Chunk
+    119471, --Design: Cured Meat Pile
+    119543, --Design: Fish, Large
     119542, --Design: Fish, Medium
     119541, --Design: Fish, Small
     119526, --Design: Goblet, Wine
+    119425, --Design: Hearty Bread
     116112, --Design: Khajiit Decanter, Amber
+    116106, --Design: Khajiit Jug, Amber
+    116168, --Design: Nord Cauldron, Glazed
+    116169, --Design: Nord Pot, Empty
+    116171, --Design: Nord Vase, Bent
+    119066, --Design: Orcish Urn, Ceramic
+    119065, --Design: Orcish Vessel, Sealed Ceramic
+    119462, --Design: Plums, Bunch
+    119167, --Design: Redguard Amphora, Polished
+    119165, --Design: Redguard Vase, Lacquered
+    115883, --Design: Wood Elf Bowl, Striped
+    115866, --Design: Wood Elf Cask, Ceramic
     115881, --Design: Wood Elf Pitcher, Chipped
+    115877, --Design: Wood Elf Pitcher, Painted
+    115879, --Design: Wood Elf Vase, Painted
+    115875, --Design: Wood Elf Vessel, Tiered Ceramic
     115773, --Diagram: Argonian Cup, Bordered
+    115961, --Diagram: Breton Streetlight, Arched Stone
+    115962, --Diagram: Breton Streetlight, Paired Stone
+    115966, --Diagram: Breton Streetlight, Paired
     119413, --Diagram: Cauldron of Soup
+    119416, --Diagram: Cauldron of Stew
+    116069, --Diagram: Dark Elf Pot, Banded
     116044, --Diagram: Dark Elf Pot, Scaled
+    116055, --Diagram: Dark Elf Streetlamp, Stone
+    119400, --Diagram: Hammer, Forge
     118977, --Diagram: High Elf Carafe, Gilded
+    118980, --Diagram: High Elf Flute, Wine
     118983, --Diagram: High Elf Lamp, Oil
+    118972, --Diagram: High Elf Platter, Gilded
+    119451, --Diagram: Kennel, Locked
+    116121, --Diagram: Khajiit Barstool, Clawfoot
+    116115, --Diagram: Khajiit Basin, Claw
+    116114, --Diagram: Khajiit Brazier, Claw
     119446, --Diagram: Lantern, Hanging
+    116187, --Diagram: Nord Crockpot, Covered
+    116189, --Diagram: Nord Lantern, Hanging
+    119068, --Diagram: Orcish Brazier, Pedestal
     119063, --Diagram: Orcish Plate, Stone
     119440, --Diagram: Pie Dish, Empty
+    119185, --Diagram: Redguard Bowl, Hanging Star
+    119213, --Diagram: Redguard Brazier, Robust
+    119202, --Diagram: Redguard Goblet, Full
     119207, --Diagram: Redguard Mug, Full
     119205, --Diagram: Redguard Sconce, Polished
     119177, --Diagram: Redguard Shelf, Barrel
+    119211, --Diagram: Redguard Streetlamps, Paired
     119186, --Diagram: Redguard Urn, Star
+    116046, --Formula: Dark Elf Cruet, Glass
+    116045, --Formula: Dark Elf Decanter, Glass
+    119174, --Formula: Redguard Vanity, Florid
+    115752, --Pattern: Argonian Bin, Woven
+    115779, --Pattern: Argonian Curtain, Woven
+    115780, --Pattern: Argonian Curtains, Woven
     115784, --Pattern: Argonian Scaleskin, Faded
+    115778, --Pattern: Argonian Tray, Woven
+    115934, --Pattern: Breton Bed, Four-poster
     115935, --Pattern: Breton Bed, Full
+    116070, --Pattern: Dark Elf Carpet, Ashen
     116050, --Pattern: Dark Elf Carpet, Fungal
+    116049, --Pattern: Dark Elf Carpet, Mossy
+    116047, --Pattern: Dark Elf Flags, Hanging
+    118974, --Pattern: High Elf Carpet, Tree-Themed
     118973, --Pattern: High Elf Carpet, Water-Themed
     118976, --Pattern: High Elf Tapestry, Tree-Themed
+    116113, --Pattern: Khajiit Banner, Hooked
+    116108, --Pattern: Khajiit Carpet, Sun
     116120, --Pattern: Khajiit Curtains, Moons
+    116109, --Pattern: Khajiit Cushion, Long
+    116188, --Pattern: Nord Tapestry, Dragon
     119071, --Pattern: Orcish Banner, Hammer Fist
+    119037, --Pattern: Orcish Sack, Grain
     119035, --Pattern: Orcish Shelter, Shingled
+    119224, --Pattern: Redguard Awning, Desert Flame
     119220, --Pattern: Redguard Basket, Closed
     119183, --Pattern: Redguard Bed, Wide Grand
+    119170, --Pattern: Redguard Couch, Padded
+    119199, --Pattern: Redguard Tapestry, Lattice
     119225, --Pattern: Redguard Tent, Scaled Flames
+    119181, --Pattern: Redguard Tuffet, Flames
     115867, --Pattern: Wood Elf Bladder, Fermenting
+    115862, --Pattern: Wood Elf Chair, Leather
     115873, --Pattern: Wood Elf Divider, Relaxed
+    115872, --Pattern: Wood Elf Rack, Double
     115775, --Praxis: Argonian Bowl, Bordered
     115776, --Praxis: Argonian Ramekin, Bordered
+    118966, --Praxis: High Elf End Table, Verdant
     118969, --Praxis: High Elf Trestle, Verdant
+    119056, --Praxis: Orcish Table, Engraved
+    119059, --Praxis: Orcish Table, Formal
+    119058, --Praxis: Orcish Table, Kitchen
     119057, --Praxis: Orcish Trestle, Engraved
   },
   [121364] = -- Hlaalu Master Furnisher's Document
@@ -379,19 +483,25 @@ FRC.Data.FurnisherDocuments =
     115830, --Blueprint: Argonian Gravestick
     115796, --Blueprint: Argonian Hamper, Woven
     115799, --Blueprint: Argonian Table, Horn
+    115790, --Blueprint: Argonian Trunk, Painted
     115973, --Blueprint: Breton Armchair, Padded
     115974, --Blueprint: Breton Cabinet, Knotwork
-    115972, --Blueprint: Breton Chair, Padded
+    118955, --Blueprint: Breton Cart, Covered Closed
     115999, --Blueprint: Breton Cart, Palanquin
+    115972, --Blueprint: Breton Chair, Padded
     115977, --Blueprint: Breton Coffer, Knotwork
+    115981, --Blueprint: Breton Counter, Cabinet
     115980, --Blueprint: Breton Counter, Corner
     115975, --Blueprint: Breton Curio, Knotwork
+    115987, --Blueprint: Breton Desk, Scholar's
     115984, --Blueprint: Breton Divider, Folded Knotwork
+    115979, --Blueprint: Breton Dresser, Knotwork
     115997, --Blueprint: Breton Footlocker, Knotwork
     115983, --Blueprint: Breton Nightstand, Knotwork
     115971, --Blueprint: Breton Sideboard, Knotwork
     115986, --Blueprint: Breton Stool, Padded
     115988, --Blueprint: Breton Table, Formal
+    115989, --Blueprint: Breton Trestle, Formal
     116058, --Blueprint: Dark Elf Bed, Canopy
     116060, --Blueprint: Dark Elf Counter, Block
     116059, --Blueprint: Dark Elf Counter, Corner
@@ -402,23 +512,27 @@ FRC.Data.FurnisherDocuments =
     116066, --Blueprint: Dark Elf Trunk, Buckled
     116067, --Blueprint: Dark Elf Wardrobe, Angled
     119483, --Blueprint: Gibbet, Single
-    116125, --Blueprint: Khajiit Bed, Canopy
-    116132, --Blueprint: Khajiit Table, Round
-    116133, --Blueprint: Khajiit Wardrobe, Arched
     118920, --Blueprint: High Elf Armoire, Winged
     118917, --Blueprint: High Elf Bed, Winged Double
     118919, --Blueprint: High Elf Bookcase, Short Winged
     118921, --Blueprint: High Elf Bookcase, Winged
     118927, --Blueprint: High Elf Cabinet, Corner
     118923, --Blueprint: High Elf Chair, Regal Verdant
+    118924, --Blueprint: High Elf Chair, Regal Winged
     118926, --Blueprint: High Elf Counter, Block
     118933, --Blueprint: High Elf Stool, Covered
+    118916, --Blueprint: High Elf Wagon, Covered
     119490, --Blueprint: Horn, Ritual
+    116125, --Blueprint: Khajiit Bed, Canopy
     116127, --Blueprint: Khajiit Bookcase, Arched
     116103, --Blueprint: Khajiit Counter, Faded
+    116132, --Blueprint: Khajiit Table, Round
+    116124, --Blueprint: Khajiit Tent, Vacation
+    116133, --Blueprint: Khajiit Wardrobe, Arched
     116194, --Blueprint: Nord Bed, Canopy
     116195, --Blueprint: Nord Bookcase, Alcove
     116191, --Blueprint: Nord Cart, Covered
+    116196, --Blueprint: Nord Chair, Lattice
     116198, --Blueprint: Nord Counter, Cabinet
     116197, --Blueprint: Nord Counter, Corner
     116201, --Blueprint: Nord Divider, Folding
@@ -431,26 +545,34 @@ FRC.Data.FurnisherDocuments =
     119079, --Blueprint: Orcish Armoire, Peaked
     119080, --Blueprint: Orcish Bed, Peaked
     119081, --Blueprint: Orcish Bookcase, Peaked
+    119082, --Blueprint: Orcish Bookcase, Peaked
     119084, --Blueprint: Orcish Cabinet, Engraved
     119111, --Blueprint: Orcish Candleholder, Horn
     119112, --Blueprint: Orcish Candlestick, Horn
     119075, --Blueprint: Orcish Chair, Peaked
     119086, --Blueprint: Orcish Coffer, Bolted
+    119090, --Blueprint: Orcish Counter, Corner
     119120, --Blueprint: Orcish Cradle, Peaked
     119087, --Blueprint: Orcish Cupboards, Peaked
     119095, --Blueprint: Orcish Divider, Curved
+    119094, --Blueprint: Orcish Divider, Folded
     119091, --Blueprint: Orcish Hutch, Storage
     119100, --Blueprint: Orcish Mug, Horn
     119093, --Blueprint: Orcish Nightstand, Engraved
+    119092, --Blueprint: Orcish Shelves, Storage
     119099, --Blueprint: Orcish Stein, Horn
     121369, --Blueprint: Redguard Bed, Full Lattice
     119245, --Blueprint: Redguard Bookcase, Full
     119244, --Blueprint: Redguard Bookcase, Piled
+    119228, --Blueprint: Redguard Caravan, Cargo
+    119229, --Blueprint: Redguard Caravan, Merchant
     119286, --Blueprint: Redguard Counter, Bar Island
     119285, --Blueprint: Redguard Counter, Block Island
+    119287, --Blueprint: Redguard Counter, Grill
     119257, --Blueprint: Redguard Cupboard, Sturdy
     119248, --Blueprint: Redguard Desk, Bolted
     119254, --Blueprint: Redguard Divider, Lattice
+    119297, --Blueprint: Redguard End Table, Tea
     119250, --Blueprint: Redguard Nightstand, Bolted
     119258, --Blueprint: Redguard Shelf, Bolted
     119252, --Blueprint: Redguard Table, Formal
@@ -458,24 +580,31 @@ FRC.Data.FurnisherDocuments =
     119296, --Blueprint: Redguard Table, Grand Inlaid
     119241, --Blueprint: Redguard Wardrobe, Braced
     119243, --Blueprint: Redguard Wardrobe, Sturdy
+    119524, --Blueprint: Stockade
+    115887, --Blueprint: Wood Elf Tent, Frame
     115795, --Design: Argonian Bone Chimes
     115823, --Design: Argonian Light, Stick
     115826, --Design: Argonian Lights, Branch
+    115820, --Design: Argonian Post, Frilled
     115792, --Design: Argonian Skull, Crocodile
     115794, --Design: Argonian Skull, Lizard
-    115831, --Design: Argonian Tree of Lights
+    115829, --Design: Argonian Totem of Skulls
     115793, --Design: Argonian Totem of the Snake
+    115831, --Design: Argonian Tree of Lights
     116002, --Design: Breton Urn Lid, Striated
     116138, --Design: Khajiit Urn, Amber
-    116137, --Design: Khajiit Vial, Amber
     116139, --Design: Khajiit Vessel, Amber
+    116137, --Design: Khajiit Vial, Amber
+    121372, --Design: Noble Standing Cauldron
     116193, --Design: Nord Urn, Braided
     119103, --Design: Orcish Bowl, Buffed
     119078, --Design: Orcish Capsule, Sealed
     119104, --Design: Orcish Platter, Serving
     119105, --Design: Orcish Urn, Sealed
+    119487, --Design: Pie Dish, Display
     119262, --Design: Redguard Pot, Hanging Mosaic
     119261, --Design: Redguard Pot, Mosaic
+    119263, --Design: Redguard Slices, Wax
     119539, --Design: Sweetroll
     115892, --Design: Wood Elf Bin, Blue Feathers
     115893, --Design: Wood Elf Bin, Feathers
@@ -491,28 +620,40 @@ FRC.Data.FurnisherDocuments =
     115890, --Design: Wood Elf Totem, Skull
     115891, --Design: Wood Elf Trough, Slop
     116010, --Diagram: Breton Candelabra, Formal
+    116009, --Diagram: Breton Candle, Grand
+    115968, --Diagram: Breton Chandelier, Wrought Iron
     116004, --Diagram: Breton Lamp, Hanging
     115995, --Diagram: Breton Lamp, Oil
     116008, --Diagram: Breton Sconce, Floor
-    116009, --Diagram: Breton Candle, Grand
     116011, --Diagram: Breton Sconce, Wall
     116007, --Diagram: Breton Streetlight, Full
     116005, --Diagram: Breton Streetlight, Full Stone
+    119520, --Diagram: Cage, Covered
     119518, --Diagram: Cage, Wild Animal
-    116080, --Diagram: Dark Elf Candle, Votive Tray
     116079, --Diagram: Dark Elf Candelabra, Angled
+    116080, --Diagram: Dark Elf Candle, Votive Tray
     116077, --Diagram: Dark Elf Cauldron, Ringed
+    116074, --Diagram: Dark Elf Censer, Hanging
     116068, --Diagram: Dark Elf Kettle Cooker
+    116053, --Diagram: Dark Elf Lantern, Caged
+    116054, --Diagram: Dark Elf Lantern, Hanging
+    116073, --Diagram: Dark Elf Medallion, Tribunal
     116075, --Diagram: Dark Elf Thurible, Caged
     118940, --Diagram: High Elf Basin, Standing
     118952, --Diagram: High Elf Candelabra, Winged
+    118950, --Diagram: High Elf Candle, Winged
+    118949, --Diagram: High Elf Chandelier, Winged
     118953, --Diagram: High Elf Crest, Winged
+    118930, --Diagram: High Elf Divider, Delicate
     118946, --Diagram: High Elf Goblet, Winged
     121309, --Diagram: High Elf Medal, Winged
     118941, --Diagram: High Elf Platter, Winged
     118939, --Diagram: High Elf Pot, Hanging
+    121310, --Diagram: High Elf Sconce, Winged
+    118925, --Diagram: High Elf Trunk, Jeweled
     116144, --Diagram: Khajiit Brazier, Hanging
     116146, --Diagram: Khajiit Candle-Filled Lamp
+    116146, --Diagram: Khajiit Candle-filled Lamp
     116140, --Diagram: Khajiit Candles, Clawfoot
     116128, --Diagram: Khajiit Footlocker, Arched
     116145, --Diagram: Khajiit Sconce, Spiked
@@ -520,36 +661,43 @@ FRC.Data.FurnisherDocuments =
     116209, --Diagram: Nord Candle, Antler
     116210, --Diagram: Nord Chandelier, Antler
     116192, --Diagram: Nord Chest, Latched
+    116212, --Diagram: Nord Lamppost, Stone
     116211, --Diagram: Nord Streetlamps, Stone
     119114, --Diagram: Orcish Brazier, Bordered
     119117, --Diagram: Orcish Brazier, Floor
     119115, --Diagram: Orcish Brazier, Hanging
+    119116, --Diagram: Orcish Brazier, Tabletop
     119110, --Diagram: Orcish Cauldron, Sealed
     119123, --Diagram: Orcish Chandelier, Spiked
     119101, --Diagram: Orcish Knife, Kitchen
     119118, --Diagram: Orcish Sconce, Bordered
     119119, --Diagram: Orcish Sconce, Scrolled
     119072, --Diagram: Orcish Strongbox, Buckled
+    119073, --Diagram: Orcish Trunk, Buckled
     119109, --Diagram: Orcish Vessel, Sealed
     119288, --Diagram: Redguard Brazier, Enchanted
     119230, --Diagram: Redguard Brazier, Garish
     119279, --Diagram: Redguard Candelabra, Polished
     119278, --Diagram: Redguard Candelabra, Twisted
-    119278, --Diagram: Redguard Candelabra, Twisted
     121373, --Diagram: Redguard Censer, Hanging Bulb
     121374, --Diagram: Redguard Censer, Hanging Disc
+    119268, --Diagram: Redguard Chalice, Empty
     119269, --Diagram: Redguard Chalice, Full
     121305, --Diagram: Redguard Chandelier, Dark
     121304, --Diagram: Redguard Chandelier, Grated
+    119280, --Diagram: Redguard Chandelier, Polished
     119281, --Diagram: Redguard Chandelier, Polished Grated
     119251, --Diagram: Redguard Pot, Hanging Garish
     119277, --Diagram: Redguard Streetlamps, Full
     115806, --Formula: Argonian Pestle, Bone
     119484, --Formula: Bottle, Elixir
-    115982, --Formula: Breton Mirror, Knotwork
     119485, --Formula: Bottle, Liquor
     119488, --Formula: Bottle, Wine
+    115982, --Formula: Breton Mirror, Knotwork
+    118945, --Formula: High Elf Decanter, Glass
     118947, --Formula: High Elf Goblet, Glass
+    118944, --Formula: High Elf Vase, Winged
+    121307, --Formula: Orcish Brazier, Pillar
     119121, --Formula: Orcish Mirror, Peaked
     119273, --Formula: Redguard Bottle, Delicate
     119303, --Formula: Redguard Bottle, Stained Glass
@@ -563,21 +711,25 @@ FRC.Data.FurnisherDocuments =
     119276, --Formula: Redguard Lantern, Delicate
     119249, --Formula: Redguard Vanity, Bolted
     119304, --Formula: Redguard Vial, Stained Glass
-    115818, --Pattern: Argonian Banners, Frilled
+    119486, --Formula: Vial, Delicate
     115819, --Pattern: Argonian Banner, Half Hands
+    115818, --Pattern: Argonian Banners, Frilled
     115817, --Pattern: Argonian Bedroll, Woven
     115787, --Pattern: Argonian Canopy, Frilled
+    115789, --Pattern: Argonian Canopy, Scaled
     115788, --Pattern: Argonian Canopy, Skull
     115800, --Pattern: Argonian Curtain of Smoke
     115801, --Pattern: Argonian Curtain of the Nest
     115816, --Pattern: Argonian Divider, Stretched
     115802, --Pattern: Argonian Drum, Ceremonial
+    115822, --Pattern: Argonian Lanterns, Strand
     115821, --Pattern: Argonian Lanterns, String
     115807, --Pattern: Argonian Seat of Authority
     115815, --Pattern: Argonian Seat of Comfort
     115808, --Pattern: Argonian Seat of Honor
     115970, --Pattern: Breton Bed, Canopy
     115992, --Pattern: Breton Carpet, Bordered
+    115978, --Pattern: Breton Cradle, Infant
     115969, --Pattern: Breton Curtains, Window
     115976, --Pattern: Breton Drapes, Grand
     115990, --Pattern: Breton Rug, Bordered
@@ -589,22 +741,25 @@ FRC.Data.FurnisherDocuments =
     116062, --Pattern: Dark Elf Pillow, Cushion
     116063, --Pattern: Dark Elf Pillow, Roll
     116051, --Pattern: Dark Elf Rug, Fungal
+    116071, --Pattern: Dark Elf Rug, Mossy
     116072, --Pattern: Dark Elf Rug, Striated
     121308, --Pattern: High Elf Banner, Gilded
     118918, --Pattern: High Elf Bench, Covered
     118942, --Pattern: High Elf Carpet, Eagle
     118931, --Pattern: High Elf Divider, Carved
     118943, --Pattern: High Elf Tapestry, Eagle
+    121365, --Pattern: High Elf Tapestry, Gilded
     116126, --Pattern: Khajiit Couch, Padded
     116131, --Pattern: Khajiit Divider, Folding
     116135, --Pattern: Khajiit Drapes, Grand
+    116136, --Pattern: Khajiit Pillow, Crescents
     116142, --Pattern: Khajiit Pillow, Roll
     116134, --Pattern: Khajiit Rug, Moons
     116143, --Pattern: Khajiit Rug, Sun
     116141, --Pattern: Khajiit Sofa, Padded
     116207, --Pattern: Nord Banner, Knotwork
-    116208, --Pattern: Nord Tapestry, Ship
     116206, --Pattern: Nord Rug, Bearskin
+    116208, --Pattern: Nord Tapestry, Ship
     119102, --Pattern: Orcish Backpack
     119106, --Pattern: Orcish Tapestry, Axe
     119107, --Pattern: Orcish Tapestry, Heroes
@@ -616,6 +771,7 @@ FRC.Data.FurnisherDocuments =
     119240, --Pattern: Redguard Bench, Padded
     119290, --Pattern: Redguard Canopy, Stars
     119266, --Pattern: Redguard Carpet, Mirage
+    119305, --Pattern: Redguard Carpet, Oasis
     119247, --Pattern: Redguard Chair, Starry
     119239, --Pattern: Redguard Couch, Slatted
     119256, --Pattern: Redguard Footstool, Starry
@@ -623,9 +779,11 @@ FRC.Data.FurnisherDocuments =
     119306, --Pattern: Redguard Mat, Mirage
     119307, --Pattern: Redguard Mat, Starburst
     119298, --Pattern: Redguard Pillow Roll, Desert Flame
+    119235, --Pattern: Redguard Pillow Roll, Oasis
     119292, --Pattern: Redguard Pillow, Florid Flames
     119234, --Pattern: Redguard Pillow, Florid Oasis
     119293, --Pattern: Redguard Pillow, Florid Sunset
+    119291, --Pattern: Redguard Pillow, Lattice Flames
     119233, --Pattern: Redguard Pillow, Oasis
     119232, --Pattern: Redguard Pillow, Sunset
     119264, --Pattern: Redguard Runner, Oasis
@@ -641,37 +799,44 @@ FRC.Data.FurnisherDocuments =
     115898, --Pattern: Wood Elf Tapestry, Vine
     115803, --Praxis: Argonian Bowl, Ritual
     115825, --Praxis: Argonian Brazier, Mud
+    115812, --Praxis: Argonian Censer
     115791, --Praxis: Argonian Chest, Carved
     115804, --Praxis: Argonian Jug, Ritual
     115824, --Praxis: Argonian Lamp, Mud
+    115809, --Praxis: Argonian Mortar and Pestle, Bone
     115810, --Praxis: Argonian Mortar, Bone
     115811, --Praxis: Argonian Pedestal, Altar
     115805, --Praxis: Argonian Pot, Ritual
     115828, --Praxis: Argonian Relic, Basin
     115814, --Praxis: Argonian Relic, Serpent
     115813, --Praxis: Argonian Relic, Small Serpent
+    115832, --Praxis: Argonian Tile, Inscribed
+    115967, --Praxis: Breton Figure, Stone
     116003, --Praxis: Breton Urn, Striated
     116006, --Praxis: Breton Vase, Delicate
+    118928, --Praxis: High Elf Desk, Regal Winged
     118922, --Praxis: High Elf Dresser, Corner
     118929, --Praxis: High Elf Dresser, Winged
     118934, --Praxis: High Elf End Table, Winged
+    118954, --Praxis: High Elf Streetlight, Stone
     118932, --Praxis: High Elf Table, Tea
     118935, --Praxis: High Elf Table, Winged Formal
     118936, --Praxis: High Elf Table, Winged Kitchen
     118937, --Praxis: High Elf Trestle, Winged
-    118954, --Praxis: High Elf Streetlight, Stone
     121203, --Praxis: Khajiit Brazier, Enchanted
     119089, --Praxis: Orcish Cabinet, Bedside
     119088, --Praxis: Orcish Dresser, Engraved
+    121306, --Praxis: Orcish Figurine, Strength
     119085, --Praxis: Orcish Hutch, Engraved
     119083, --Praxis: Orcish Sideboard, Engraved
     119096, --Praxis: Orcish Table, Game
+    119097, --Praxis: Orcish Table, Grand
     119260, --Praxis: Redguard Enclosure, Arc
     119284, --Praxis: Redguard Firepit, Stone
     119274, --Praxis: Redguard Jar, Baroque
     119271, --Praxis: Redguard Jar, Oasis
     119272, --Praxis: Redguard Vase, Baroque
-    121371, --Praxis: Wood Elf Hearth, Forest
+    121371, --Praxis: Wood Elf Hearth, Forests
   },
   [194430] =  --High Isle Mixed Furnisher's Document
   {
@@ -1018,15 +1183,52 @@ FRC.Data.FurnisherDocuments =
     126981, --Praxis: Telvanni Throne, Organic
     127102, --Praxis: Tribunal Tablet of Almalexia
   },
---  [204501] =  --Necrom Journeyman Furnisher's Document
---  {
---  },
+  [204501] =  --Necrom Journeyman Furnisher's Document
+  {
+    197549, --Blueprint: Necrom Bookcase, Elegant Tall
+    197559, --Blueprint: Necrom Chair, Elegant
+    197553, --Blueprint: Necrom Chest, Elegant
+    197556, --Blueprint: Necrom Divider, Elegant
+    197552, --Blueprint: Necrom End Table, Elegant
+    197551, --Blueprint: Necrom Wardrobe, Elegant
+    197588, --Blueprint: Telvanni Box, Fungal
+    197590, --Blueprint: Telvanni Chair, Fungal
+    197586, --Blueprint: Telvanni Chest, Fungal
+    197580, --Blueprint: Telvanni Dresser, Small Fungal
+    197583, --Blueprint: Telvanni Nightstand, Fungal
+    197591, --Blueprint: Telvanni Stool, Fungal
+    197571, --Design: Necrom Bowl, Elegant
+    197577, --Design: Necrom Urn, Malachite
+    197584, --Design: Telvanni Bookcase, Tall Fungal
+    197595, --Design: Telvanni Meal, Fish Dinner
+    197599, --Design: Telvanni Meal, Kebab Lunch
+    197589, --Design: Telvanni Planter, Fungal
+    197587, --Design: Telvanni Table, Round Fungal
+    197566, --Diagram: Necrom Sconce, Elegant
+    197602, --Formula: Telvanni Candle, Fungal Standing
+    197601, --Formula: Telvanni Sconce, Fungal Wall
+    197611, --Pattern: Apocrypha Bed, Marble Twin
+    197613, --Pattern: Book Pile, Large
+    197555, --Pattern: Necrom Bed, Elegant Single
+    197615, --Pattern: Necrom Carpet, Medium
+    197714, --Pattern: Tribunal Rug
+    197604, --Praxis: Apocrypha Bookcase, Tall Marble
+    197606, --Praxis: Apocrypha Candlestick, Twisted
+    197609, --Praxis: Apocrypha Chair, Marble
+    197605, --Praxis: Apocrypha Desk, Marble
+    197610, --Praxis: Apocrypha Nightstand, Marble
+    197568, --Praxis: Necrom Lamp, Elegant Standing
+    197574, --Praxis: Necrom Memorial, Large
+    197570, --Praxis: Necrom Vase, Elegant Square Floral
+    197573, --Praxis: Necrom Wind Chimes, Elegant
+  },
   [204500] =  --Necrom Master Furnisher's Document
   {
     197560, --Blueprint: Necrom Bench, Elegant
     197550, --Blueprint: Necrom Bookcase, Elegant Grand
     197630, --Blueprint: Necrom Bookcase, Elegant Grand Filled
     197629, --Blueprint: Necrom Bookcase, Elegant Tall Filled
+    197597, --Blueprint: Telvanni Teapot, Fungal
     197581, --Blueprint: Telvanni Wardrobe, Fungal
     197578, --Design: Necrom Incense, Mushroom Offering
     197585, --Design: Telvanni Dresser, Large Fungal
@@ -1034,14 +1236,17 @@ FRC.Data.FurnisherDocuments =
     197564, --Diagram: Necrom Firepit, Elegant
     197572, --Diagram: Necrom Hanging Flowers, Elegant
     197576, --Diagram: Necrom Ossuary, Plated
+    197600, --Formula: Telvanni Chandelier, Fungal
     197593, --Formula: Telvanni Water Jug, Fungal
     197554, --Pattern: Necrom Bed, Elegant Double
     197614, --Pattern: Necrom Carpet, Large
     197579, --Pattern: Telvanni Bed, Fungal Double
     197631, --Praxis: Apocrypha Bookcase, Tall Marble Filled
+    197607, --Praxis: Apocrypha Sconce, Cylindrical
     197608, --Praxis: Apocrypha Sconce, Spiral
     197569, --Praxis: Necrom Vase, Elegant Rounded Floral
     197557, --Sketch: Necrom Mirror, Elegant Standing
+    197582, --Sketch: Telvanni Mirror, Fungal
   },
   [171753] =  --Skyrim Journeyman Furnisher's Document
   {
