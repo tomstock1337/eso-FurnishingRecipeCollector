@@ -44,6 +44,20 @@ FRC.sortOptions =
         {
         }
       }
+    },
+    ["Price"] = {
+      "ttcPrice",
+      {
+        ["ttcPrice"]=
+          {
+            tiebreaker = "rResultName",
+            tieBreakerSortOrder=ZO_SORT_ORDER_UP,
+            isNumeric = true
+          },
+        ["rResultName"]=
+        {
+        }
+      }
     }
   }
 
@@ -241,9 +255,11 @@ function FRC.UpdateLineVisibility()
       curLine.rResultLink = ""
       curLine.rResultName = ""
       curLine.kKnown = ""
+      curLine.ttcPrice = ""
       curLine.lblRecipeName:SetText("")
       curLine.lblLocation:SetText("")
       curLine.lblKnowledge:SetText("")
+      curLine.lblPrice:SetText("")
     else
       curLine.rItemLinkId = curData.rItemLinkId
       curLine.rItemName = curData.rItemName
@@ -261,9 +277,11 @@ function FRC.UpdateLineVisibility()
       curLine.rResultLink = curData.rResultLink
       curLine.rResultName = curData.rResultName
       curLine.kKnown = curData.kKnown
-      curLine.lblRecipeName:SetText(curLine.rRecipeItemLink)
-      curLine.lblLocation:SetText(curLine.rFolioItemLink or curLine.rGrabBagItemLink or curLine.rLocation)
-      curLine.lblKnowledge:SetText(curLine.kKnown)
+      curLine.ttcPrice = curData.ttcPrice
+      curLine.lblRecipeName:SetText(curData.rRecipeItemLink)
+      curLine.lblLocation:SetText(curData.rFolioItemLink or curData.rGrabBagItemLink or curData.rLocation)
+      curLine.lblKnowledge:SetText(curData.kKnown)
+      curLine.lblPrice:SetText(zo_strformat("<<1>>", ZO_LocalizeDecimalNumber(curData.ttcPrice or 0)))
     end
   end
 
@@ -318,6 +336,8 @@ function FRC.UpdateSortIcons()
   FRC_GUI_ListHolder.SortItem.icon:SetMouseOverTexture("EsoUI/Art/Miscellaneous/list_sortHeader_icon_over.dds")
   FRC_GUI_ListHolder.SortKnowledge.icon:SetNormalTexture("EsoUI/Art/Miscellaneous/list_sortheader_icon_neutral.dds")
   FRC_GUI_ListHolder.SortKnowledge.icon:SetMouseOverTexture("EsoUI/Art/Miscellaneous/list_sortHeader_icon_over.dds")
+  FRC_GUI_ListHolder.SortPrice.icon:SetNormalTexture("EsoUI/Art/Miscellaneous/list_sortheader_icon_neutral.dds")
+  FRC_GUI_ListHolder.SortPrice.icon:SetMouseOverTexture("EsoUI/Art/Miscellaneous/list_sortHeader_icon_over.dds")
 
   if FRC.savedVariables.gui.sort == "Location" then
     if FRC.savedVariables.gui.sortDirection == ZO_SORT_ORDER_UP then
@@ -340,12 +360,19 @@ function FRC.UpdateSortIcons()
       FRC_GUI_ListHolder.SortKnowledge.icon:SetNormalTexture("EsoUI/Art/Miscellaneous/list_sortHeader_icon_sortUp.dds")
     end
   end
+  if FRC.savedVariables.gui.sort == "Price" then
+    if FRC.savedVariables.gui.sortDirection == ZO_SORT_ORDER_UP then
+      FRC_GUI_ListHolder.SortPrice.icon:SetNormalTexture("EsoUI/Art/Miscellaneous/list_sortHeader_icon_sortDown.dds")
+    else
+      FRC_GUI_ListHolder.SortPrice.icon:SetNormalTexture("EsoUI/Art/Miscellaneous/list_sortHeader_icon_sortUp.dds")
+    end
+  end
 end
 function FRC.UpdateScrollDataLinesData()
   local dataLines = {}
 
   local function fillDataLine(recipe)
-    local vItemLinkId, vItemName,vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(recipe)
+    local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName, vRecipePrice, vRecipeListing = FRC.GetRecipeDetail(recipe)
     local vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount = FRC.GetRecipeKnowledge(vRecipeItemLinkId)
     local tempDataLine = {}
     if not ((FRC.savedVariables.gui.filterQuality == "All") or
@@ -375,6 +402,7 @@ function FRC.UpdateScrollDataLinesData()
     tempDataLine.rResultLink = vResultLink
     tempDataLine.rResultName = vResultName
     tempDataLine.kKnown = vCharacterStringShort
+    tempDataLine.ttcPrice = vRecipePrice or 0
     return tempDataLine
   end
 
@@ -448,6 +476,7 @@ local function CreatePostXMLGui()
       line.lblRecipeName = line:GetNamedChild("_RecipeName")
       line.lblLocation = line:GetNamedChild("_Location")
       line.lblKnowledge = line:GetNamedChild("_Knowledge")
+      line.lblPrice = line:GetNamedChild("_Price")
 
       line:SetHidden(false)
       line:SetMouseEnabled(true)
@@ -472,6 +501,8 @@ local function CreatePostXMLGui()
     FRC_GUI_ListHolder.SortItem.icon = FRC_GUI_SortBar_SortItem:GetNamedChild("_Button")
     FRC_GUI_ListHolder.SortKnowledge = FRC_GUI_SortBar_SortKnowledge:GetNamedChild("_Name")
     FRC_GUI_ListHolder.SortKnowledge.icon = FRC_GUI_SortBar_SortKnowledge:GetNamedChild("_Button")
+    FRC_GUI_ListHolder.SortPrice = FRC_GUI_SortBar_SortPrice:GetNamedChild("_Name")
+    FRC_GUI_ListHolder.SortPrice.icon = FRC_GUI_SortBar_SortPrice:GetNamedChild("_Button")
 
     local predecessor
     for i = 1, FRC_GUI_ListHolder.maxLines do
@@ -516,11 +547,11 @@ local function CreatePostXMLGui()
 
       --Grabbed structure of combobox item from zo_combobox_base.lua
       for i in pairs(FRC.Data.Folios) do
-        local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(i)
+        local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName, vRecipePrice, vRecipeListing = FRC.GetRecipeDetail(i)
         table.insert(data,{callback=OnItemSelect,enabled=true,name=vFolioItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="1Folio",key=vFolioItemLinkId})
       end
       for i in pairs(FRC.Data.FurnisherDocuments) do
-        local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(i)
+        local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName, vRecipePrice, vRecipeListing = FRC.GetRecipeDetail(i)
         table.insert(data,{callback=OnItemSelect,enabled=true,name=vGrabBagItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="2FurnisherDocuments",key=vGrabBagItemLinkId})
       end
       table.insert(data,{callback=OnItemSelect,name="Misc",categoryId="3Misc",key="Misc"})

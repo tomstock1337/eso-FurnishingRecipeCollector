@@ -14,7 +14,7 @@ local function adjustToolTip(tooltipControl, itemLink)
   local fontSizeH1 = 14
   local fontSizeH2 = 12
   local fontWeight = "soft-shadow-thin"
-  local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = FRC.GetRecipeDetail(itemLink)
+  local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName, vRecipePrice, vRecipeListing = FRC.GetRecipeDetail(itemLink)
 
   if vItemType == ITEMTYPE_CONTAINER then
     if FRC.logger ~= nil then FRC.logger:Verbose("Container ItemLinkID: ["..tos(vItemLinkId).."] "..tos(vItemName)) end
@@ -99,11 +99,17 @@ local function adjustToolTip(tooltipControl, itemLink)
       local vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount = FRC.GetRecipeKnowledge(vRecipeItemLinkId)
       tooltipControl:AddLine("Known By "..vCharacterStringShort..": "..vCharacterStringLong,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
     end
-    if TamrielTradeCentrePrice~= nil and ((vItemType == ITEMTYPE_FURNISHING and FRC.savedVariables.furnishing_showrecipe_ttc_on)) then
-      local priceDetail = TamrielTradeCentrePrice:GetPriceInfo(vRecipeItemLink)
-      if(priceDetail~=nil) then
-        tooltipControl:AddLine("Average Price: "..zo_strformat("<<1>>", ZO_LocalizeDecimalNumber(priceDetail["Avg"])),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-        tooltipControl:AddLine("Listings: "..priceDetail["EntryCount"],string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+    if (vItemType == ITEMTYPE_FURNISHING and FRC.savedVariables.furnishing_showrecipe_ttc_on)
+        or ((vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_ALCHEMY_FORMULA_FURNISHING
+        or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_BLACKSMITHING_DIAGRAM_FURNISHING
+        or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_CLOTHIER_PATTERN_FURNISHING
+        or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_ENCHANTING_SCHEMATIC_FURNISHING
+        or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_JEWELRYCRAFTING_SKETCH_FURNISHING
+        or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_PROVISIONING_DESIGN_FURNISHING
+        or vSpecialType == SPECIALIZED_ITEMTYPE_RECIPE_WOODWORKING_BLUEPRINT_FURNISHING) and FRC.savedVariables.furnishing_showrecipe_ttc_on) then
+      tooltipControl:AddLine("Average Price: "..zo_strformat("<<1>>", ZO_LocalizeDecimalNumber(vRecipePrice or 0)),string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      if vRecipeListing ~= nil then
+        tooltipControl:AddLine("Listings: "..vRecipeListing,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
       end
     end
   end
