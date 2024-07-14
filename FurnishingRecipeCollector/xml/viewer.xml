@@ -77,8 +77,8 @@
             </Control>
             <Control name="FRC_GUI_FilterKnowledge" inherits="ZO_ComboBox" mouseEnabled="true">
               <Anchor point="TOPLEFT" relativeTo="FRC_GUI_FilterQuality" relativePoint="TOPRIGHT"/>
-              <Dimensions x="230" y="28" />
-              <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Filter: Knowledge", true)</OnMouseEnter>
+              <Dimensions x="250" y="28" />
+              <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Filter: Unknown Knowledge", true)</OnMouseEnter>
               <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit>
             </Control>
           </Controls>
@@ -144,7 +144,7 @@
                   <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" />
                   <Textures normal="esoui/art/miscellaneous/list_sortheader_icon_neutral.dds" mouseOver="esoui/art/miscellaneous/list_sortheader_icon_over.dds" />
                 </Button>
-                <Label name="$(parent)_Name" font="ZoFontGameSmall" text="Price">
+                <Label name="$(parent)_Name" font="ZoFontGameSmall" text="Avg Price">
                   <Anchor point="LEFT" relativeTo="$(parent)_Button" relativePoint="RIGHT"/>
                 </Label>
               </Controls>

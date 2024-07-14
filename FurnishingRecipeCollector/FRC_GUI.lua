@@ -3,7 +3,6 @@ local FRC = FurnishingRecipeCollector
 local LCK = LibCharacterKnowledge
 
 local tos = tostring
-local LCK = LibCharacterKnowledge
 FRC.isGuiLoading = true
 FRC.sortOptions =
   {
@@ -452,6 +451,9 @@ function FRC.UpdateScrollDataLinesData()
     end
   end
 
+  local headerControl = _G["FRC_GUI_Header_HeaderLabel"]
+  headerControl:SetText("Furnishing Recipe Collector - "..#dataLines.." Recipes")
+
   FRC.SortDataLines(dataLines,FRC.savedVariables.gui.sort, FRC.savedVariables.gui.sortDirection)
 
   FRC_GUI_ListHolder.dataLines = dataLines
@@ -580,7 +582,7 @@ local function CreatePostXMLGui()
     elseif dropDownType == "Knowledge" then
       filterControl = _G["FRC_GUI_FilterKnowledge"]
       defValue = FRC.savedVariables.gui.filterKnowledge
-      table.insert(data,{callback=OnItemSelect,enabled=true,name="Knowledge: No Filter",sort=0,key="All"})
+      table.insert(data,{callback=OnItemSelect,enabled=true,name="Unknown Knowledge: No Filter",sort=0,key="All"})
       if LCK ~= nil then
         local chrList=LCK.GetCharacterList( nil )
 
@@ -643,12 +645,7 @@ function FRC.InitGui()
   local slider = FRC_GUI_ListHolder_Slider
   slider:SetMinMax(1, #FRC_GUI_ListHolder.dataLines)
 
-  if LCK ~= nil then
-    LCK.RegisterForCallback("FurnishingRecipeCollector", LCK.EVENT_INITIALIZED, function( )
-      FRC.UpdateGui()
-    end)
-  else FRC.UpdateGui()
-  end
+  FRC.UpdateGui()
 
   SCENE_MANAGER:RegisterTopLevel(control, false)
 end
