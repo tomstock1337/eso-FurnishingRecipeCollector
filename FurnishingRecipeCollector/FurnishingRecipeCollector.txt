@@ -6,8 +6,8 @@
 
 ## Title: FurnishingRecipeCollector
 ## Description: Adds information to tooltips for recipes that are available from writ vendors.
-## Version: 1.2.2
-## AddOnVersion:01022
+## Version: 1.2.3
+## AddOnVersion:01023
 ## Author: tomstock
 ## APIVersion: 101041 101042
 ## SavedVariables: FurnishingRecipeCollectorSavedVariables

@@ -15,3 +15,4 @@ Optional Pre-requisite Addon:
 LibCharacterKnowledge
 TamrielTradeCentrePrice
 LibSlashCommander
+LibRecipe
