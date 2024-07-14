@@ -6,13 +6,14 @@ local FRC = FurnishingRecipeCollector
 --------------------------------------------------------------------
 local tos = tostring
 local LCK = LibCharacterKnowledge
+local LR = LibRecipe
 
 --------------------------------------------------------------------
 -- Recipe Functions
 --------------------------------------------------------------------
 function FRC.GetRecipeDetail(itemLinkOrItemID)
   local itemLink
-  local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
+  local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName, vRecipePrice, vRecipeListing = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
 
   if type(itemLinkOrItemID) == "string" then
     itemLink = itemLinkOrItemID
@@ -65,16 +66,13 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
           --if FRC.logger ~= nil then FRC.logger:Verbose("==============================") end
           --if FRC.logger ~= nil then FRC.logger:Verbose("Folio: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
           --if FRC.logger ~= nil then FRC.logger:Verbose("Recipe ID: "..tos(FRC.Data.Folios[i][j]).." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
-          --if FRC.logger ~= nil then FRC.logger:Verbose("Result Link ID: "..resultItemId..resultLink ) end
+          --if FRC.logger ~= nil then FRC.logger:Verbose("Result Link ID: "..vResultLinkId..resultLink ) end
           --if FRC.logger ~= nil then FRC.logger:Verbose("Search ID: "..itemLinkId.." "..itemLink) end
 
           if FRC.Data.Folios[i][j] == vItemLinkId then
-            -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+            --if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
             vFolioItemLinkId = i
             vFolioItemLink = "|H1:item:"..vFolioItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
-            vRecipeItemLinkId = FRC.Data.Folios[i][j]
-            vRecipeItemLink = "|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
-            vRecipeItemName = GetItemLinkName(vRecipeItemLink)
             vFolioItemName = GetItemLinkName(vFolioItemLink)
             break
           end
@@ -90,16 +88,13 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
             --if FRC.logger ~= nil then FRC.logger:Verbose("==============================") end
             --if FRC.logger ~= nil then FRC.logger:Verbose("Folio: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
             --if FRC.logger ~= nil then FRC.logger:Verbose("Recipe ID: "..tos(FRC.Data.FurnisherDocuments[i][j]).." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
-            --if FRC.logger ~= nil then FRC.logger:Verbose("Result Link ID: "..resultItemId..resultLink ) end
+            --if FRC.logger ~= nil then FRC.logger:Verbose("Result Link ID: "..vResultLinkId..resultLink ) end
             --if FRC.logger ~= nil then FRC.logger:Verbose("Search ID: "..itemLinkId.." "..itemLink) end
 
             if FRC.Data.FurnisherDocuments[i][j] == vItemLinkId then
-              -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+              --if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
               vGrabBagItemLinkId = i
               vGrabBagItemLink = "|H1:item:"..vGrabBagItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
-              vRecipeItemLinkId = FRC.Data.FurnisherDocuments[i][j]
-              vRecipeItemLink = "|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
-              vRecipeItemName = GetItemLinkName(vRecipeItemLink)
               vGrabBagItemName = GetItemLinkName(vGrabBagItemLink)
               break
             end
@@ -109,97 +104,101 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
           end
         end
       end
-    elseif vItemType == ITEMTYPE_FURNISHING then
-      --This is a furnishing item
-      local resultLink
-      local resultItemId
+  elseif vItemType == ITEMTYPE_FURNISHING then
+    --This is a furnishing item
+    -- local craftingStationType, recipeListIndex,recipeIndex = GetRecipeInfoFromItemId(vItemLinkId)
+    -- local recipeListName, numRecipes, upIcon, downIcon, overIcon, _, recipeListCreateSound = GetRecipeListInfo(recipeListIndex)
+    -- local known_, name_, numIngredients_, provisionerLevelReq_, qualityReq_, specialIngredientType_, requiredCraftingStationType_, resultItemId_ GetRecipeInfo(recipeListIndex,recipeIndex)
+    -- local link = GetRecipeIngredientItemLink(recipeListIndex, recipeIndex, i, LINK_STYLE_BRACKETS)
+    vResultLinkId = vItemLinkId
+    vResultLink = "|H1:item:"..vResultLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+    vResultName = GetItemLinkName(vResultLink)
 
-      --Loop through each folio looking for recipe
-      for i in pairs(FRC.Data.Folios) do
-        for j in pairs(FRC.Data.Folios[i]) do
-          resultLink = GetItemLinkRecipeResultItemLink("|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
-          resultItemId = GetItemLinkItemId(resultLink)
-          -- if FRC.logger ~= nil then FRC.logger:Verbose("==============================") end
-          -- if FRC.logger ~= nil then FRC.logger:Verbose("Folio: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
-          -- if FRC.logger ~= nil then FRC.logger:Verbose("Recipe ID: "..tos(FRC.Data.Folios[i][j]).." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
-          -- if FRC.logger ~= nil then FRC.logger:Verbose("Result Link ID: "..resultItemId..resultLink ) end
-          -- if FRC.logger ~= nil then FRC.logger:Verbose("Search ID: "..vItemLinkId.." "..itemLink) end
+    --Loop through each folio looking for recipe
+    for i in pairs(FRC.Data.Folios) do
+      for j in pairs(FRC.Data.Folios[i]) do
+        local vSearchResultLink = GetItemLinkRecipeResultItemLink("|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+        local vSearchResultLinkId = GetItemLinkItemId(vSearchResultLink)
 
-          if resultItemId == vItemLinkId then
-            -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
-            vFolioItemLinkId = i
-            vFolioItemLink = "|H1:item:"..vFolioItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
-            vFolioItemName = GetItemLinkName(vFolioItemLink)
-            vRecipeItemLinkId = FRC.Data.Folios[i][j]
-            vRecipeItemLink = "|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
-            vRecipeItemName = GetItemLinkName(vRecipeItemLink)
-            vResultLinkId = vItemLinkId
-            vResultLink = itemLink
-            vResultName = vItemName
-            break
-          end
-        end
-        if vFolioItemLinkId ~= nil then
+        if vResultLinkId == vSearchResultLinkId then
+          --if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+          vFolioItemLinkId = i
+          vFolioItemLink = "|H1:item:"..vFolioItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+          vFolioItemName = GetItemLinkName(vFolioItemLink)
+          vRecipeItemLinkId = FRC.Data.Folios[i][j]
+          vRecipeItemLink = "|H1:item:"..FRC.Data.Folios[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+          vRecipeItemName = GetItemLinkName(vRecipeItemLink)
           break
         end
       end
-      if vFolioItemLinkId == nil then
-        --Loop through each grabn bag looking for recipe, if not found earlier
-        for i in pairs(FRC.Data.FurnisherDocuments) do
-          for j in pairs(FRC.Data.FurnisherDocuments[i]) do
-            resultLink = GetItemLinkRecipeResultItemLink("|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
-            resultItemId = GetItemLinkItemId(resultLink)
-            -- if FRC.logger ~= nil then FRC.logger:Verbose("==============================") end
-            -- if FRC.logger ~= nil then FRC.logger:Verbose("Folio: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
-            -- if FRC.logger ~= nil then FRC.logger:Verbose("Recipe ID: "..tos(FRC.Data.FurnisherDocuments[i][j]).." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
-            -- if FRC.logger ~= nil then FRC.logger:Verbose("Result Link ID: "..resultItemId..resultLink ) end
-            -- if FRC.logger ~= nil then FRC.logger:Verbose("Search ID: "..vItemLinkId.." "..itemLink) end
+      if vFolioItemLinkId ~= nil then
+        break
+      end
+    end
+    if vFolioItemLinkId == nil then
+      --Loop through each grabn bag looking for recipe, if not found earlier
+      for i in pairs(FRC.Data.FurnisherDocuments) do
+        for j in pairs(FRC.Data.FurnisherDocuments[i]) do
+          local vSearchResultLink = GetItemLinkRecipeResultItemLink("|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+          local vSearchResultLinkId = GetItemLinkItemId(vSearchResultLink)
 
-            if resultItemId == vItemLinkId then
-              -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
-              vGrabBagItemLinkId = i
-              vGrabBagItemLink = "|H1:item:"..vGrabBagItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
-              vGrabBagItemName = GetItemLinkName(vGrabBagItemLink)
-              vRecipeItemLinkId = FRC.Data.FurnisherDocuments[i][j]
-              vRecipeItemLink = "|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
-              vRecipeItemName = GetItemLinkName(vRecipeItemLink)
-              vResultLinkId = vItemLinkId
-              vResultLink = itemLink
-              vResultName = vItemName
-              break
-            end
-          end
-          if vGrabBagItemLinkId ~= nil then
+          if vResultLinkId == vSearchResultLinkId then
+            --if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+            vGrabBagItemLinkId = i
+            vGrabBagItemLink = "|H1:item:"..vGrabBagItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+            vGrabBagItemName = GetItemLinkName(vGrabBagItemLink)
+            vRecipeItemLinkId = FRC.Data.FurnisherDocuments[i][j]
+            vRecipeItemLink = "|H1:item:"..FRC.Data.FurnisherDocuments[i][j]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+            vRecipeItemName = GetItemLinkName(vRecipeItemLink)
             break
           end
         end
-      end
-      if vFolioItemLinkId == nil and vGrabBagItemLinkId == nil then
-        --Loop through each misc looking for recipe, if not found earlier
-        for i in pairs(FRC.Data.Misc)do
-          resultLink = GetItemLinkRecipeResultItemLink("|H1:item:"..tos(i)..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
-          resultItemId = GetItemLinkItemId(resultLink)
-          -- if FRC.logger ~= nil then FRC.logger:Verbose("==============================") end
-          -- if FRC.logger ~= nil then FRC.logger:Verbose("Recipe ID: "..tos(i).." ".."|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
-          -- if FRC.logger ~= nil then FRC.logger:Verbose("Result Link ID: "..resultItemId..resultLink ) end
-          -- if FRC.logger ~= nil then FRC.logger:Verbose("Search ID: "..vItemLinkId.." "..itemLink) end
-
-          if resultItemId == vItemLinkId then
-            -- if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Misc[i]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
-            vRecipeItemLinkId = i
-            vRecipeItemLink = "|H1:item:"..vRecipeItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
-            vRecipeItemName = GetItemLinkName(vRecipeItemLink)
-            vLocation = FRC.Data.Misc[vRecipeItemLinkId].location
-            vResultLinkId = vItemLinkId
-            vResultLink = itemLink
-            vResultName = vItemName
-            break
-          end
+        if vGrabBagItemLinkId ~= nil then
+          break
         end
       end
     end
+    if vFolioItemLinkId == nil and vGrabBagItemLinkId == nil then
+      --Loop through each misc looking for recipe, if not found earlier
+      for i in pairs(FRC.Data.Misc) do
+        local vSearchResultLink = GetItemLinkRecipeResultItemLink("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h")
+        local vSearchResultLinkId = GetItemLinkItemId(vSearchResultLink)
 
-  return vItemLinkId, vItemName,vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName
+        if vResultLinkId == vSearchResultLinkId then
+          --if FRC.logger ~= nil then FRC.logger:Verbose("|H1:item:"..i..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..FRC.Data.Misc[i]..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h".." ".."|H1:item:"..vItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h") end
+          vRecipeItemLinkId = i
+          vRecipeItemLink = "|H1:item:"..vRecipeItemLinkId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+          vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+          vLocation = FRC.Data.Misc[vRecipeItemLinkId].location
+          break
+        end
+      end
+    end
+    if vFolioItemLinkId == nil and vGrabBagItemLinkId == nil and vLocation == nil then
+      --Use LibRecipe to get the result item
+
+      if LR ~= nil then
+        vRecipeItemLink = LR:GetRecipeItemLink(vResultLink)
+        vRecipeItemLinkId = GetItemLinkItemId(vRecipeItemLink)
+        vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+      end
+    end
+  end
+
+  if TamrielTradeCentrePrice~= nil then
+    --TODO: This can be configurable
+    local priceTable = TamrielTradeCentrePrice:GetPriceInfo(vRecipeItemLink)
+    if priceTable ~= nil then
+      if priceTable["Avg"] ~= nil then
+        vRecipePrice = priceTable["Avg"]
+      end
+      if priceTable["EntryCount"] ~= nil then
+        vRecipeListing = priceTable["EntryCount"]
+      end
+    end
+  end
+
+  return vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName, vRecipePrice, vRecipeListing
 end
 
 function FRC.GetWritVendorContainerStats(vendorContainerLinkId)
