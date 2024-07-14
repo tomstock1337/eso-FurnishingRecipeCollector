@@ -78,7 +78,7 @@
             <Control name="FRC_GUI_FilterKnowledge" inherits="ZO_ComboBox" mouseEnabled="true">
               <Anchor point="TOPLEFT" relativeTo="FRC_GUI_FilterQuality" relativePoint="TOPRIGHT"/>
               <Dimensions x="250" y="28" />
-              <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Filter: Unknown Knowledge", true)</OnMouseEnter>
+              <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self,"Filter: Unknown Knowledge\n\nRequires Addon LibCharacterKnowledge", true)</OnMouseEnter>
               <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit>
             </Control>
           </Controls>
@@ -116,6 +116,8 @@
               <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-45"/>
               <Dimensions x="80" />
               <OnMouseUp>FurnishingRecipeCollector.GuiOnSort("Knowledge")</OnMouseUp>
+              <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self,"Requires Addon LibCharacterKnowledge", true)</OnMouseEnter>
+              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit>
               <Controls>
                 <!-- <Backdrop name="$(parent)_BG" inherits="ZO_DarkThinFrame">
                   <AnchorFill />
@@ -135,6 +137,8 @@
               <Anchor point="TOPRIGHT" relativeTo="$(parent)_SortKnowledge" relativePoint="TOPLEFT"/>
               <Dimensions x="80" />
               <OnMouseUp>FurnishingRecipeCollector.GuiOnSort("Price")</OnMouseUp>
+              <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self,"Requires Addon TamrielTradeCenter", true)</OnMouseEnter>
+              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit>
               <Controls>
                 <!-- <Backdrop name="$(parent)_BG" inherits="ZO_DarkThinFrame">
                   <AnchorFill />
