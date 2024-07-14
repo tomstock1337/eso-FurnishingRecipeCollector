@@ -72,7 +72,13 @@
             <Control name="FRC_GUI_FilterQuality" inherits="ZO_ComboBox" mouseEnabled="true">
               <Anchor point="TOPLEFT" relativeTo="FRC_GUI_FilterFolio" relativePoint="TOPRIGHT"/>
               <Dimensions x="230" y="28" />
-              <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Filter: Knowledge and source", true)</OnMouseEnter>
+              <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Filter: Quality", true)</OnMouseEnter>
+              <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit>
+            </Control>
+            <Control name="FRC_GUI_FilterKnowledge" inherits="ZO_ComboBox" mouseEnabled="true">
+              <Anchor point="TOPLEFT" relativeTo="FRC_GUI_FilterQuality" relativePoint="TOPRIGHT"/>
+              <Dimensions x="230" y="28" />
+              <OnMouseEnter>FurnishingRecipeCollector.GuiShowTooltip(self, "Filter: Knowledge", true)</OnMouseEnter>
               <OnMouseExit>FurnishingRecipeCollector.GuiHideTooltip(self)</OnMouseExit>
             </Control>
           </Controls>

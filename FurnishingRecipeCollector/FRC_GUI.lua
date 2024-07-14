@@ -3,6 +3,7 @@ local FRC = FurnishingRecipeCollector
 local LCK = LibCharacterKnowledge
 
 local tos = tostring
+local LCK = LibCharacterKnowledge
 FRC.isGuiLoading = true
 FRC.sortOptions =
   {
@@ -383,6 +384,10 @@ function FRC.UpdateScrollDataLinesData()
       (FRC.savedVariables.gui.filterQuality == "Legendary" and vItemFunctionalQuality == ITEM_FUNCTIONAL_QUALITY_LEGENDARY)) then
       return nil
     end
+    if not ((FRC.savedVariables.gui.filterKnowledge == "All") or
+      LCK.GetItemKnowledgeForCharacter( vRecipeItemLink, nil, FRC.savedVariables.gui.filterKnowledge )==LCK.KNOWLEDGE_UNKNOWN) then
+      return nil
+    end
     tempDataLine.rItemLinkId = vItemLinkId
     tempDataLine.rItemName = vItemName
     tempDataLine.rItemFunctionalQuality = vItemFunctionalQuality
@@ -532,6 +537,9 @@ local function CreatePostXMLGui()
       elseif ctrlName == "FRC_GUI_FilterQuality" then
         if FRC.logger ~= nil then FRC.logger:Verbose("Filter Quality: " .. item.key) end
         FRC.savedVariables.gui.filterQuality = item.key
+      elseif ctrlName == "FRC_GUI_FilterKnowledge" then
+        if FRC.logger ~= nil then FRC.logger:Verbose("Filter Knowledge: " .. item.key) end
+        FRC.savedVariables.gui.filterKnowledge = item.key
       end
       if FRC.isGuiLoading == false then
         FRC.UpdateGui()
@@ -569,6 +577,20 @@ local function CreatePostXMLGui()
       table.insert(data,{callback=OnItemSelect,enabled=true,name=string.format("|c%06X%s|r", FRC.savedVariables.colorQualityLegendary,"Legendary"),sort=5,key="Legendary"})
 
       table.sort(data, function(item1, item2) return ZO_TableOrderingFunction(item1, item2, "sort",{["sort"]={}},ZO_SORT_ORDER_UP) end)
+    elseif dropDownType == "Knowledge" then
+      filterControl = _G["FRC_GUI_FilterKnowledge"]
+      defValue = FRC.savedVariables.gui.filterKnowledge
+      table.insert(data,{callback=OnItemSelect,enabled=true,name="Knowledge: No Filter",sort=0,key="All"})
+      if LCK ~= nil then
+        local chrList=LCK.GetCharacterList( nil )
+
+        for i, chr in ipairs(chrList) do
+
+          table.insert(data,{callback=OnItemSelect,enabled=true,name=chr["name"],sort=5,key=chr["id"]})
+        end
+      end
+      table.sort(data, function(item1, item2) return ZO_TableOrderingFunction(item1, item2, "sort",{["sort"]={}},ZO_SORT_ORDER_UP) end)
+
     else return
     end
 
@@ -595,6 +617,7 @@ local function CreatePostXMLGui()
   CreateInventoryScroll()
   CreateDropDown("Folio")
   CreateDropDown("Quality")
+  CreateDropDown("Knowledge")
 
   local slider = FRC_GUI_ListHolder_Slider
   slider:SetMinMax(1, #FRC_GUI_ListHolder.dataLines)

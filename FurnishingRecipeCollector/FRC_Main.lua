@@ -37,6 +37,7 @@ FRC.defaultSetting = {
     sortDirection = ZO_SORT_ORDER_UP,
     filterLocation = "All",
     filterQuality = "All",
+    filterKnowledge = "All",
   }
 }
 
