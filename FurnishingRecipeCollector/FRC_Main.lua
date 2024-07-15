@@ -3,12 +3,12 @@ local FRC = FurnishingRecipeCollector
 FRC.Name = "FurnishingRecipeCollector"
 FRC.DisplayName = "FurnishingRecipeCollector"
 FRC.Author = "tomstock"
-FRC.Version = "1.2.3"
+FRC.Version = "1.2.4"
 
 FRC.logger = nil
 
 FRC.defaultSetting = {
-  debug = true,
+  debug = false,
   furnishing_on = true,
   furnishing_showrecipe_on = true,
   furnishing_showrecipe_ttc_on = true,
@@ -70,6 +70,9 @@ local function OnLoad(eventCode, name)
   EVENT_MANAGER:UnregisterForEvent(FRC.Name, EVENT_ADD_ON_LOADED)
 
   FRC.savedVariables = ZO_SavedVars:NewAccountWide("FurnishingRecipeCollectorSavedVariables", 1, nil, FRC.defaultSetting) --Instead of nil you can also use GetWorldName() to save the SV server dependent
+
+  --TODO: Remove this code in next version
+  FRC.savedVariables.debug = false
 
   if FRC.logger ~= nil then FRC.logger:Info("Loaded logger") end
   if FRC.logger ~= nil then FRC.logger:SetEnabled(FRC.savedVariables.debug) end
