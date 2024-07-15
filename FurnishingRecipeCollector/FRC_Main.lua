@@ -71,9 +71,6 @@ local function OnLoad(eventCode, name)
 
   FRC.savedVariables = ZO_SavedVars:NewAccountWide("FurnishingRecipeCollectorSavedVariables", 1, nil, FRC.defaultSetting) --Instead of nil you can also use GetWorldName() to save the SV server dependent
 
-  --TODO: Remove this code in next version
-  FRC.savedVariables.debug = false
-
   if FRC.logger ~= nil then FRC.logger:Info("Loaded logger") end
   if FRC.logger ~= nil then FRC.logger:SetEnabled(FRC.savedVariables.debug) end
 
