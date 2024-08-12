@@ -165,11 +165,11 @@ local function OnLoad(eventCode, name)
     FRC.InitGui()
 
     --Show the window after a delay
-    if FRC.savedVariables.debug then
-      zo_callLater(function()
-        FurnishingRecipeCollector.FRC_Show()
-      end, 1000)
-    end
+    -- if FRC.savedVariables.debug then
+    --   zo_callLater(function()
+    --     FurnishingRecipeCollector.FRC_Show()
+    --   end, 1000)
+    -- end
   end
 
   if SLASH ~= nil then
