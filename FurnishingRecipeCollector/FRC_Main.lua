@@ -1,7 +1,7 @@
 FurnishingRecipeCollector = FurnishingRecipeCollector or {}
 local FRC = FurnishingRecipeCollector
 FRC.Name = "FurnishingRecipeCollector"
-FRC.DisplayName = "FurnishingRecipeCollector"
+FRC.DisplayName = "Furnishing Recipe Collector"
 FRC.Author = "tomstock"
 FRC.Version = "1.2.5"
 
@@ -76,7 +76,7 @@ local function OnLoad(eventCode, name)
 
   local menuOptions = {
     type         = "panel",
-    name         = FRC.Name,
+    name         = FRC.DisplayName,
     displayName   = FRC.DisplayName,
     author       = FRC.Author,
     version       = FRC.Version,
