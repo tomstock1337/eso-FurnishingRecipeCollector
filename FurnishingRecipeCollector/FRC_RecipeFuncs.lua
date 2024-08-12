@@ -6,7 +6,6 @@ local FRC = FurnishingRecipeCollector
 --------------------------------------------------------------------
 local tos = tostring
 local LCK = LibCharacterKnowledge
-local LR = LibRecipe
 
 --------------------------------------------------------------------
 -- Recipe Functions
@@ -175,10 +174,8 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
       end
     end
     if vFolioItemLinkId == nil and vGrabBagItemLinkId == nil and vLocation == nil then
-      --Use LibRecipe to get the result item
-
-      if LR ~= nil then
-        vRecipeItemLink = LR:GetRecipeItemLink(vResultLink)
+      if LCK ~= nil then
+        vRecipeItemLink = "|H1:item:"..LCK.GetSourceItemIdFromResultItem(vResultLink)..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
         vRecipeItemLinkId = GetItemLinkItemId(vRecipeItemLink)
         vRecipeItemName = GetItemLinkName(vRecipeItemLink)
       end
