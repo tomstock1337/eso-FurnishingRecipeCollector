@@ -7,23 +7,38 @@ local FRC = FurnishingRecipeCollector
 local tos = tostring
 local LCK = LibCharacterKnowledge
 
+local function Linkify(itemId)
+  return "|H1:item:"..itemId..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
+end
+local function GetItemlinkDetails(itemLinkOrItemId)
+  local vItemLink, vItemId
+
+  if type(itemLinkOrItemId) == "string" then
+    vItemLink = itemLinkOrItemId
+    vItemId = GetItemLinkItemId(vItemLink)
+  else
+    vItemId = itemLinkOrItemId
+    vItemLink = Linkify(vItemId)
+  end
+
+  return vItemLink, vItemId
+end
+
 --------------------------------------------------------------------
 -- Recipe Functions
 --------------------------------------------------------------------
 function FRC.GetRecipeDetail(itemLinkOrItemID)
-  local itemLink
-  local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName, vRecipePrice, vRecipeListing = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
 
-  if type(itemLinkOrItemID) == "string" then
-    itemLink = itemLinkOrItemID
-  else
-    itemLink = "|H1:item:"..itemLinkOrItemID..":1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h"
-  end
+  local vItemLink, vItemId = GetItemlinkDetails(itemLinkOrItemID)
+  local vItemType, vSpecialType = GetItemLinkItemType(vItemLink)
+  local vItemName = GetItemLinkName(vItemLink)
+  local vItemFunctionalQuality = GetItemLinkFunctionalQuality(vItemLink)
 
-  vItemType, vSpecialType = GetItemLinkItemType(itemLink)
-  vItemLinkId = GetItemLinkItemId(itemLink)
-  vItemName = GetItemLinkName(itemLink)
-  vItemFunctionalQuality = GetItemLinkFunctionalQuality(itemLink)
+  local vFolioItemLinkId, vFolioItemLink, vFolioItemName = nil, nil, nil
+  local vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName = nil, nil, nil
+  local vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName = nil, nil, nil
+  local vResultLinkId, vResultLink, vResultName = nil, nil, nil
+  local vLocation, vRecipePrice, vRecipeListing = nil, nil, nil
 
   if FRC.Data.Folios[vItemLinkId] ~= nil then
     -- This is a folio
