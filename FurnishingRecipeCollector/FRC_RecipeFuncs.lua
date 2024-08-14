@@ -181,11 +181,10 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
   end
 
   if TamrielTradeCentrePrice~= nil then
-    --TODO: This can be configurable
     local priceTable = TamrielTradeCentrePrice:GetPriceInfo(vRecipeItemLink)
     if priceTable ~= nil then
-      if priceTable["Avg"] ~= nil then
-        vRecipePrice = priceTable["Avg"]
+      if priceTable[FRC.savedVariables.price] ~= nil then
+        vRecipePrice = priceTable[FRC.savedVariables.price]
       end
       if priceTable["EntryCount"] ~= nil then
         vRecipeListing = priceTable["EntryCount"]

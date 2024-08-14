@@ -369,6 +369,8 @@ function FRC.UpdateSortIcons()
   end
 end
 function FRC.UpdateScrollDataLinesData()
+  FRC_GUI_ListHolder.SortPrice:SetText(FRC.savedVariables.price.." Price")
+
   local dataLines = {}
 
   local function fillDataLine(recipe)

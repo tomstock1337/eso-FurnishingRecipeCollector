@@ -9,6 +9,7 @@ FRC.logger = nil
 
 FRC.defaultSetting = {
   debug = false,
+  price="Avg",
   furnishing_on = true,
   furnishing_showrecipe_on = true,
   furnishing_showrecipe_ttc_on = true,
@@ -113,16 +114,11 @@ local function OnLoad(eventCode, name)
       type = "divider",
     },
     {
-      type = "checkbox",
-      name = "Show Debug",
-      getFunc = function() return FRC.savedVariables.debug end,
-      setFunc = function( newValue )
-          FRC.savedVariables.debug = newValue;
-          if FRC.logger ~= nil then FRC.logger:SetEnabled(FRC.savedVariables.debug) end
-        end,
-      --[[warning = "",]]
-      requiresReload = false,
-      default = FRC.DefDebug,},
+      type = "dropdown", name = "TTC Price", tooltip = "The price that will display across the addon", choices = {"Min", "Avg", "Max"}, getFunc = function() return FRC.savedVariables.price end, setFunc = function( newValue ) FRC.savedVariables.price = newValue; if FRC.logger ~= nil then FRC.logger:SetEnabled(FRC.savedVariables.price) end end, },
+    {
+      type = "divider",
+    },
+    { type = "checkbox", name = "Show Debug", getFunc = function() return FRC.savedVariables.debug end, setFunc = function( newValue ) FRC.savedVariables.debug = newValue; if FRC.logger ~= nil then FRC.logger:SetEnabled(FRC.savedVariables.debug) end end, --[[warning = "",]] requiresReload = false, default = FRC.DefDebug,},
     {
       type = "divider",
     },
