@@ -174,8 +174,11 @@ function FRC.GetRecipeDetail(itemLinkOrItemID)
     end
     if vFolioItemLinkId == nil and vGrabBagItemLinkId == nil and vLocation == nil then
       if LCK ~= nil then
-        vRecipeItemLink, vRecipeItemLinkId = GetItemlinkDetails(LCK.GetSourceItemIdFromResultItem(vResultLink))
-        vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+        local souceItemId =LCK.GetSourceItemIdFromResultItem(vResultLink)
+        if souceItemId ~= 0 then
+          vRecipeItemLink, vRecipeItemLinkId = GetItemlinkDetails(LCK.GetSourceItemIdFromResultItem(vResultLink))
+          vRecipeItemName = GetItemLinkName(vRecipeItemLink)
+        end
       end
     end
   end
