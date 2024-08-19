@@ -4,6 +4,16 @@ FRC.Data = FRC.Data or {}
 --https://en.uesp.net/wiki/Online:Furnisher_Documents
 FRC.Data.Folios =
 {
+  [211090]= --Necrom Furnishing Folio
+  {
+    198062, --Blueprint: Necrom Cart, Funerary
+    198065, --Design: Indoril Chandelier, Vine-Covered
+    198061, --Diagram: Dwarven Door, Bronze
+    198064, --Formula: Telvanni Lantern, Luminous Mushroom
+    198060, --Pattern: Dark Elf Tent, Multiroom
+    198063, --Praxis: Necrom Crematory, Furnace
+    198059, --Sketch: Daedric Mirror, Nightmarish
+  },
   [190121] = --Blackwood Furnishing Folio
   {
     181557, -- Blueprint: Leyawiin Divider, Carved Starfish
