@@ -1,19 +1,21 @@
 FurnishingRecipeCollector = FurnishingRecipeCollector or {}
 local FRC = FurnishingRecipeCollector
 FRC.Name = "FurnishingRecipeCollector"
-FRC.DisplayName = "FurnishingRecipeCollector"
+FRC.DisplayName = "Furnishing Recipe Collector"
 FRC.Author = "tomstock"
-FRC.Version = "1.2.4"
+FRC.Version = "1.2.5"
 
 FRC.logger = nil
 
 FRC.defaultSetting = {
   debug = false,
+  price="Avg",
   furnishing_on = true,
   furnishing_showrecipe_on = true,
   furnishing_showrecipe_ttc_on = true,
   furnishing_showrecipe_lck_on = true,
   furnishingrecipe_on = true,
+  furnishingrecipe_ttc_on = true,
   grabbag_on= true,
   grabbag_lck_on= true,
   folio_on= true,
@@ -76,7 +78,7 @@ local function OnLoad(eventCode, name)
 
   local menuOptions = {
     type         = "panel",
-    name         = FRC.Name,
+    name         = FRC.DisplayName,
     displayName   = FRC.DisplayName,
     author       = FRC.Author,
     version       = FRC.Version,
@@ -112,27 +114,24 @@ local function OnLoad(eventCode, name)
       type = "divider",
     },
     {
-      type = "checkbox",
-      name = "Show Debug",
-      getFunc = function() return FRC.savedVariables.debug end,
-      setFunc = function( newValue )
-          FRC.savedVariables.debug = newValue;
-          if FRC.logger ~= nil then FRC.logger:SetEnabled(FRC.savedVariables.debug) end
-        end,
-      --[[warning = "",]]
-      requiresReload = false,
-      default = FRC.DefDebug,},
+      type = "dropdown", name = "TTC Price", tooltip = "The price that will display across the addon", choices = {"Min", "Avg", "Max"}, getFunc = function() return FRC.savedVariables.price end, setFunc = function( newValue ) FRC.savedVariables.price = newValue; if FRC.logger ~= nil then FRC.logger:SetEnabled(FRC.savedVariables.price) end end, },
+    {
+      type = "divider",
+    },
+    { type = "checkbox", name = "Show Debug", getFunc = function() return FRC.savedVariables.debug end, setFunc = function( newValue ) FRC.savedVariables.debug = newValue; if FRC.logger ~= nil then FRC.logger:SetEnabled(FRC.savedVariables.debug) end end, --[[warning = "",]] requiresReload = false, default = FRC.DefDebug,},
     {
       type = "divider",
     },
     {type = "checkbox",name = "Show on Furnishings",getFunc = function() return FRC.savedVariables.furnishing_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_on = newValue; end,--[[warning = "",]]  requiresReload = false},
-    {type = "checkbox",name = "Show Recipe",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_on = newValue; end,--[[warning = "",]]  requiresReload = false},
-    {type = "checkbox",name = "Show Recipe TTC Value",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_ttc_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_ttc_on = newValue; end,--[[warning = "",]]  requiresReload = false},
-    {type = "checkbox",name = "Show Recipe Character Knowledge",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_lck_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_lck_on = newValue; end,--[[warning = "",]]  requiresReload = false},
+    {type = "checkbox",name = "Show Recipe on Furnishings",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_on = newValue; end,--[[warning = "",]]  requiresReload = false},
+    {type = "checkbox",name = "Show Recipe TTC Value on Furnishings",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_ttc_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_ttc_on = newValue; end,--[[warning = "",]]  requiresReload = false},
+    {type = "checkbox",name = "Show Recipe Character Knowledge on Furnishings",getFunc = function() return FRC.savedVariables.furnishing_showrecipe_lck_on end,setFunc = function( newValue ) FRC.savedVariables.furnishing_showrecipe_lck_on = newValue; end,--[[warning = "",]]  requiresReload = false},
     {
       type = "divider",
     },
     {type = "checkbox",name = "Show on Furnishing Recipes",getFunc = function() return FRC.savedVariables.furnishingrecipe_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_on = newValue; end,--[[warning = "",]]  requiresReload = false},
+    {type = "checkbox",name = "Show Recipe TTC Value on Furnishing Recipes",getFunc = function() return FRC.savedVariables.furnishingrecipe_ttc_on end,setFunc = function( newValue ) FRC.savedVariables.furnishingrecipe_ttc_on = newValue; end,--[[warning = "",]]  requiresReload = false},
+
     {
       type = "divider",
     },
@@ -165,11 +164,11 @@ local function OnLoad(eventCode, name)
     FRC.InitGui()
 
     --Show the window after a delay
-    if FRC.savedVariables.debug then
-      zo_callLater(function()
-        FurnishingRecipeCollector.FRC_Show()
-      end, 1000)
-    end
+    -- if FRC.savedVariables.debug then
+    --   zo_callLater(function()
+    --     FurnishingRecipeCollector.FRC_Show()
+    --   end, 1000)
+    -- end
   end
 
   if SLASH ~= nil then

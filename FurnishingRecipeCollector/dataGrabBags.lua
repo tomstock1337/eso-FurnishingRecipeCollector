@@ -4,6 +4,64 @@ FRC.Data = FRC.Data or {}
 --https://en.uesp.net/wiki/Online:Furnisher_Documents
 FRC.Data.FurnisherDocuments =
 {
+  [211092] = --Tomehold Journeyman Furnisher's Document
+  {
+    198531, --Blueprint: Necrom Dresser, Elegant Short
+    198479, --Blueprint: Necrom Lamp Post, Wood
+    198488, --Diagram: Apocrypha Bench, Intricate
+    198505, --Diagram: Apocrypha Stool, Intricate
+    198545, --Diagram: Necrom Candle, Tall
+    198487, --Pattern: Apocrypha Bed, Spiked Double
+    198480, --Pattern: Apocrypha Book Pile, Large Twisted
+    198515, --Pattern: Apocrypha Book Pile, Medium
+    198540, --Pattern: Necrom Carpet, Ruby
+    198481, --Praxis: Apocrypha Bookcase, Corner
+    198509, --Praxis: Apocrypha Bookcase, Intricate
+    198502, --Praxis: Apocrypha Bookcase, Large
+    198495, --Praxis: Apocrypha Bookcase, Large Intricate
+    198512, --Praxis: Apocrypha Bookcase, Spiked
+    198497, --Praxis: Apocrypha Desk, Intricate
+    198499, --Praxis: Apocrypha Divider, Spiked
+    198500, --Praxis: Apocrypha Dresser, Intricate
+    198522, --Praxis: Apocrypha Lamp, Desk
+    198504, --Praxis: Apocrypha Nightstand, Intricate
+    198483, --Praxis: Apocrypha Stele, Arched
+    198485, --Praxis: Apocrypha Stele, Tablet
+    198484, --Praxis: Apocrypha Stele, Wide Arched
+    198507, --Praxis: Apocrypha Table, Intricate
+    198536, --Praxis: Necrom Planter, Small
+    198541, --Praxis: Necrom Planter, Tall
+    198529, --Praxis: Necrom Wind Chimes, Stone
+    198516, --Praxis: Paper Making Frame
+    198518, --Praxis: Pulp Masher, Paper Making
+  },
+  [211091] = --Tomehold Master Furnisher's Document
+  {
+    198528, --Blueprint: Necrom Cart, Merchant
+    198530, --Blueprint: Necrom Dresser, Elegant
+    198535, --Blueprint: Necrom Planter, Large
+    198533, --Blueprint: Necrom Table, Elegant Round
+    198496, --Diagram: Apocrypha Chair, Intricate
+    198498, --Diagram: Apocrypha Divider, Intricate
+    198521, --Diagram: Apocrypha Light Diffusers, Bowl
+    198526, --Diagram: Apocrypha Sconce, Intricate
+    198546, --Diagram: Necrom Lamp Post, Metal
+    198539, --Diagram: Necrom Planter, Hanging Round
+    198547, --Diagram: Necrom Sconce, Brass
+    198537, --Formula: Necrom Incense Burner, Delicate Brass
+    198538, --Formula: Necrom Incense Burner, Squat Brass
+    198486, --Pattern: Apocrypha Bed, Intricate Double
+    198511, --Praxis: Apocrypha Bookcase, Large Intricate Filled
+    198549, --Praxis: Apocrypha Bookcase, Large Spiked Filled
+    198523, --Praxis: Apocrypha Lamp, Large
+    198503, --Praxis: Apocrypha Mirror, Spiked
+    198525, --Praxis: Apocrypha Sconce, Diffuser
+    198482, --Praxis: Apocrypha Stele, Tentacles
+    198510, --Praxis: Apocrypha Wardrobe, Intricate
+    198513, --Praxis: Apocrypha Wardrobe, Spiked
+    198548, --Praxis: Necrom Brazier, Tall Stone
+    198517, --Praxis: Vat, Paper Pulp
+  },
   [184191] =  --Blackwood Journeyman Furnisher's Document
   {
     166921, --Blueprint: Solitude Backpack, Basket

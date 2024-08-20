@@ -369,10 +369,12 @@ function FRC.UpdateSortIcons()
   end
 end
 function FRC.UpdateScrollDataLinesData()
+  FRC_GUI_ListHolder.SortPrice:SetText(FRC.savedVariables.price.." Price")
+
   local dataLines = {}
 
   local function fillDataLine(recipe)
-    local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName, vRecipePrice, vRecipeListing = FRC.GetRecipeDetail(recipe)
+    local vItemId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName, vRecipePrice, vRecipeListing = FRC.GetRecipeDetail(recipe)
     local vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount = FRC.GetRecipeKnowledge(vRecipeItemLinkId)
     local tempDataLine = {}
     if not ((FRC.savedVariables.gui.filterQuality == "All") or
@@ -410,33 +412,33 @@ function FRC.UpdateScrollDataLinesData()
     return tempDataLine
   end
 
-  for i in pairs(FRC.Data.FurnisherDocuments) do
-    for j in pairs(FRC.Data.FurnisherDocuments[i]) do
-      if FRC.savedVariables.gui.filterLocation ~= "All" and FRC.savedVariables.gui.filterLocation ~= i then
+  for i_key,i_value in pairs(FRC.Data.FurnisherDocuments) do
+    for j_key,j_value in pairs(FRC.Data.FurnisherDocuments[i_key]) do
+      if FRC.savedVariables.gui.filterLocation ~= "All" and FRC.savedVariables.gui.filterLocation ~= i_key then
         break
       end
-      local tempDataLine = fillDataLine(FRC.Data.FurnisherDocuments[i][j])
+      local tempDataLine = fillDataLine(FRC.Data.FurnisherDocuments[i_key][j_key])
       if tempDataLine ~= nil then
         table.insert(dataLines, tempDataLine)
       end
     end
   end
-  for i in pairs(FRC.Data.Folios) do
-    for j in pairs(FRC.Data.Folios[i]) do
-      if FRC.savedVariables.gui.filterLocation ~= "All" and FRC.savedVariables.gui.filterLocation ~= i then
+  for i_key,i_value in pairs(FRC.Data.Folios) do
+    for j_key,j_value in pairs(FRC.Data.Folios[i_key]) do
+      if FRC.savedVariables.gui.filterLocation ~= "All" and FRC.savedVariables.gui.filterLocation ~= i_key then
         break
       end
-      local tempDataLine = fillDataLine(FRC.Data.Folios[i][j])
+      local tempDataLine = fillDataLine(FRC.Data.Folios[i_key][j_key])
       if tempDataLine ~= nil then
         table.insert(dataLines, tempDataLine)
       end
     end
   end
-  for i in pairs(FRC.Data.Misc)do
+  for i_key,i_value in pairs(FRC.Data.Misc) do
     if FRC.savedVariables.gui.filterLocation ~= "All" and FRC.savedVariables.gui.filterLocation ~= "Misc" then
       break
     end
-    local tempDataLine = fillDataLine(i)
+    local tempDataLine = fillDataLine(i_key)
     if tempDataLine ~= nil then
       table.insert(dataLines, tempDataLine)
     end
@@ -556,12 +558,12 @@ local function CreatePostXMLGui()
       table.insert(data,{callback=OnItemSelect,enabled=true,name="Location: No Filter",itemLinkId="",itemName="",categoryId="0NoSelection",key="All"})
 
       --Grabbed structure of combobox item from zo_combobox_base.lua
-      for i in pairs(FRC.Data.Folios) do
-        local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName, vRecipePrice, vRecipeListing = FRC.GetRecipeDetail(i)
+      for key,value in pairs(FRC.Data.Folios) do
+        local vItemId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName, vRecipePrice, vRecipeListing = FRC.GetRecipeDetail(key)
         table.insert(data,{callback=OnItemSelect,enabled=true,name=vFolioItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="1Folio",key=vFolioItemLinkId})
       end
-      for i in pairs(FRC.Data.FurnisherDocuments) do
-        local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName, vRecipePrice, vRecipeListing = FRC.GetRecipeDetail(i)
+      for key,value in pairs(FRC.Data.FurnisherDocuments) do
+        local vItemId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName, vRecipePrice, vRecipeListing = FRC.GetRecipeDetail(key)
         table.insert(data,{callback=OnItemSelect,enabled=true,name=vGrabBagItemLink,itemLinkId=vItemLinkId,itemName=vItemName,categoryId="2FurnisherDocuments",key=vGrabBagItemLinkId})
       end
       table.insert(data,{callback=OnItemSelect,name="Misc",categoryId="3Misc",key="Misc"})

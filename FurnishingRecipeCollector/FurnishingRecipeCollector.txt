@@ -2,16 +2,17 @@
 ; Media Inc. or its affiliates. The Elder Scrolls® and related logos are
 ; registered trademarks or trademarks of ZeniMax Media Inc. in the United
 ; States and/or other countries. All rights reserved.
+; /script d(GetAPIVersion())
 
 
 ## Title: FurnishingRecipeCollector
 ## Description: Adds information to tooltips for recipes that are available from writ vendors.
-## Version: 1.2.4
-## AddOnVersion:01024
+## Version: 1.2.5
+## AddOnVersion:01025
 ## Author: tomstock
-## APIVersion: 101041 101042
+## APIVersion: 101043
 ## SavedVariables: FurnishingRecipeCollectorSavedVariables
-## OptionalDependsOn: LibDebugLogger>=180 LibCharacterKnowledge>=20 TamrielTradeCentrePrice LibSlashCommander
+## OptionalDependsOn: LibDebugLogger>=180 LibCharacterKnowledge>=201000 TamrielTradeCentrePrice LibSlashCommander
 ## DependsOn: LibAddonMenu-2.0>=36 LibScrollableMenu>=0201
 
 dataFolios.lua
