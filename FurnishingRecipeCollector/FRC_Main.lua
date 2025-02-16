@@ -40,6 +40,12 @@ FRC.defaultSetting = {
     filterLocation = "All",
     filterQuality = "All",
     filterKnowledge = "All",
+  },
+  guiDebug={
+    lastX = 100,
+    lastY = 100,
+    width = 650,
+    height = 550,
   }
 }
 
@@ -118,7 +124,7 @@ local function OnLoad(eventCode, name)
     {
       type = "divider",
     },
-    { type = "checkbox", name = "Show Debug", getFunc = function() return FRC.savedVariables.debug end, setFunc = function( newValue ) FRC.savedVariables.debug = newValue; if FRC.logger ~= nil then FRC.logger:SetEnabled(FRC.savedVariables.debug) end end, --[[warning = "",]] requiresReload = false, default = FRC.DefDebug,},
+    { type = "checkbox", name = "Show Debug", getFunc = function() return FRC.savedVariables.debug end, setFunc = function( newValue ) FRC.savedVariables.debug = newValue; if FRC.logger ~= nil then FRC.logger:SetEnabled(FRC.savedVariables.debug) end end, --[[warning = "",]] requiresReload = false},
     {
       type = "divider",
     },
@@ -153,23 +159,18 @@ local function OnLoad(eventCode, name)
     LCK.RegisterForCallback("InsertYourAddonNameHere", LCK.EVENT_INITIALIZED, function( )
       FRC.InitGui()
 
-      --Show the window after a delay
-      if FRC.savedVariables.debug then
-        zo_callLater(function()
-          FurnishingRecipeCollector.FRC_Show()
-        end, 1000)
-      end
+      -- --Show the window after a delay
+      -- if FRC.savedVariables.debug then
+      --   zo_callLater(function()
+      --     FurnishingRecipeCollector.FRC_Show()
+      --   end, 1000)
+      -- end
     end)
   else
     FRC.InitGui()
-
-    --Show the window after a delay
-    -- if FRC.savedVariables.debug then
-    --   zo_callLater(function()
-    --     FurnishingRecipeCollector.FRC_Show()
-    --   end, 1000)
-    -- end
   end
+
+  FRC.InitDebugGui()
 
   if SLASH ~= nil then
     local command = SLASH:Register()
@@ -179,10 +180,17 @@ local function OnLoad(eventCode, name)
     end
     command:SetCallback(FurnishingRecipeCollector.FRC_Toggle)
     command:SetDescription("Furniture Recipe Collector List")
+    if FRC.savedVariables.debug then
+      local command2 = SLASH:Register()
+      command2:AddAlias("/frc_debug")
+      command2:SetCallback(FurnishingRecipeCollector.FRC_DebugToggle)
+      command2:SetDescription("Furniture Recipe Collector Debug")
+    end
   else
     SLASH_COMMANDS["/furrecipe"] = FurnishingRecipeCollector.FRC_Toggle
     if FRC.savedVariables.debug then
       SLASH_COMMANDS["/frc"] = FurnishingRecipeCollector.FRC_Toggle
+      SLASH_COMMANDS["/frc_debug"] = FurnishingRecipeCollector.FRC_DebugToggle
     end
   end
 end

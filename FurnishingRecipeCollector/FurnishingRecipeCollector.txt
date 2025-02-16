@@ -22,4 +22,6 @@ FRC_RecipeFuncs.lua
 FRC_ToolTip.lua
 FRC_Main.lua
 FRC_GUI.lua
+FRC_Debug.lua
 xml\viewer.xml
+xml\debug.xml
