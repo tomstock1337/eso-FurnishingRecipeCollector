@@ -4,6 +4,94 @@ FRC.Data = FRC.Data or {}
 --https://en.uesp.net/wiki/Online:Furnisher_Documents
 FRC.Data.FurnisherDocuments =
 {
+  [214257] = --West Weald Journeyman's Furnisher's Document
+  {
+    207919, -- Blueprint: Colovian Beehive, Small
+    207824, -- Blueprint: Colovian Bookcase, Noble Small
+    207823, -- Blueprint: Colovian Bookshelf , Noble Filled
+    207840, -- Blueprint: Colovian Counter, Bar
+    207839, -- Blueprint: Colovian Counter, Corner
+    207831, -- Blueprint: Colovian Divider, Noble
+    207916, -- Blueprint: Colovian Keg, Wine
+    207828, -- Blueprint: Colovian Shelf, Noble
+    207837, -- Blueprint: Colovian Tea Table, Noble
+    207911, -- Blueprint: Colovian Trellis, Enclosed
+    207922, -- Blueprint: Colovian Trellis, Tall Vineyard
+    207825, -- Blueprint: Colovian Wardrobe, Rustic
+    211441, -- Blueprint: Dawnwood Table, Reclaimed
+    207882, -- Design: Colovian Meal, Cheese Board
+    207883, -- Design: Colovian Meal, Grape Board
+    207886, -- Design: Dawnwood Meal, Flan
+    211446, -- Design: Dawnwood Meal, Meat
+    211433, -- Design: Dawnwood Wind Chimes, Bone
+    207887, -- Design: Honey Pot, Open
+    207864, -- Diagram: Colovian Brazier, Basin
+    207863, -- Diagram: Colovian Brazier, Hanging
+    207850, -- Diagram: Colovian Dresser, Noble
+    207866, -- Diagram: Colovian Lamppost, Arched
+    207865, -- Diagram: Colovian Lantern, Hanging
+    207862, -- Diagram: Colovian Sconce, Wall
+    207899, -- Diagram: Dawnwood Cauldron, Closed
+    211447, -- Diagram: Dawnwood Container, Metal
+    211431, -- Diagram: Dawnwood Firepit, Metal
+    207897, -- Formula: Colovian Cup, Glass
+    207908, -- Formula: Colovian Mirror, Table
+    207893, -- Formula: Colovian Wine, Basketed
+    207870, -- Formula: Dawnwood Lantern String, Long
+    207871, -- Formula: Dawnwood Lantern String, Short
+    207869, -- Formula: Dawnwood Lantern, Antlers
+    207872, -- Formula: Dawnwood Lantern, Hanging
+    211452, -- Formula: Dawnwood Orange Light, Tall Sprouted Arch
+    211453, -- Formula: Dawnwood Orange Lights, Sprouted Arch
+    207847, -- Formula: Dawnwood Seat, Sprouted
+    207833, -- Pattern: Colovian Bed, Noble Single
+    207832, -- Pattern: Colovian Bed, Rustic Double
+    207905, -- Pattern: Colovian Curtains, Ivory
+    207857, -- Pattern: Colovian Rug, Fallen Leaves
+    207855, -- Pattern: Colovian Rug, Noble Long
+    211437, -- Pattern: Dawnwood Basket, Square Leather
+    207854, -- Pattern: Dawnwood Bedding, Skins
+    211449, -- Pattern: Dawnwood Container, Turtle
+    211435, -- Pattern: Dawnwood Container, Wood
+    207901, -- Praxis: Colovian Planter, Large
+    207848, -- Praxis: Dawnwood Bench, Sprouted
+    211445, -- Praxis: Dawnwood Vase, Leather
+  },
+  [214256] = --West Weald Master Furnisher's Document
+  {
+
+    207918, -- Blueprint: Colovian Beehive, Large
+    207820, -- Blueprint: Colovian Bookcase, Noble Large
+    207829, -- Blueprint: Colovian Cheese Rack, Rustic
+    207826, -- Blueprint: Colovian Wardrobe, Noble
+    207914, -- Blueprint: Colovian Wine Barrel, Large
+    207915, -- Blueprint: Colovian Wine Rack, Filled
+    207852, -- Blueprint: Dawnwood Chest, Antlers
+    207880, -- Design: Colovian Grape Basket, Wax
+    207867, -- Diagram: Colovian Chandelier, Metal
+    207904, -- Diagram: Colovian Incense Burner, Metal
+    207861, -- Diagram: Colovian Lamp, Brass
+    211448, -- Diagram: Dawnwood Container, Crow
+    207860, -- Formula: Colovian Lamp, Glass
+    207909, -- Formula: Colovian Mirror, Wall
+    207889, -- Formula: Colovian Wine Crate, Large
+    207874, -- Formula: Dawnwood Crystal Lights, Sprouted
+    211454, -- Formula: Dawnwood Tent, Grown
+    207845, -- Pattern: Colovian Armchair, Noble
+    207843, -- Pattern: Colovian Armchair, Noble Backless
+    212617, -- Pattern: Colovian Bed, Canopy Full
+    207844, -- Pattern: Colovian Bench, Noble
+    207907, -- Pattern: Colovian Curtains, Noble
+    207906, -- Pattern: Colovian Curtains, Sage
+    207856, -- Pattern: Colovian Rug, Noble Circular
+    211439, -- Pattern: Dawnwood Bedding, Illuminated
+    207846, -- Pattern: Dawnwood Chair, Antlers
+    211436, -- Pattern: Dawnwood Container, Bone
+    207834, -- Pattern: Dawnwood Hammock, Sprouted
+    211430, -- Pattern: Wood Elf Beehive, Stump
+    207898, -- Praxis: Dawnwood Pitcher, Tall
+    207849, -- Praxis: Dawnwood Table, Sprouted
+  },
   [211092] = --Tomehold Journeyman Furnisher's Document
   {
     198531, --Blueprint: Necrom Dresser, Elegant Short
