@@ -57,6 +57,9 @@ local tos = tostring
 local LCK = LibCharacterKnowledge
 local SLASH = LibSlashCommander
 
+local slashMainCommand
+local slashDebugCommand
+
 --[[
   ==============================================
   Setup LibDebugLogger as an optional dependency
@@ -124,7 +127,7 @@ local function OnLoad(eventCode, name)
     {
       type = "divider",
     },
-    { type = "checkbox", name = "Show Debug", getFunc = function() return FRC.savedVariables.debug end, setFunc = function( newValue ) FRC.savedVariables.debug = newValue; if FRC.logger ~= nil then FRC.logger:SetEnabled(FRC.savedVariables.debug) end end, --[[warning = "",]] requiresReload = false},
+    { type = "checkbox", name = "Debug Logging Enabled", getFunc = function() return FRC.savedVariables.debug end, setFunc = function( newValue ) FRC.savedVariables.debug = newValue; if FRC.logger ~= nil then FRC.logger:SetEnabled(FRC.savedVariables.debug) end end, --[[warning = "",]] requiresReload = false},
     {
       type = "divider",
     },
@@ -158,40 +161,27 @@ local function OnLoad(eventCode, name)
   if LCK ~= nil then
     LCK.RegisterForCallback("InsertYourAddonNameHere", LCK.EVENT_INITIALIZED, function( )
       FRC.InitGui()
-
-      -- --Show the window after a delay
-      -- if FRC.savedVariables.debug then
-      --   zo_callLater(function()
-      --     FurnishingRecipeCollector.FRC_Show()
-      --   end, 1000)
-      -- end
+      FRC.InitDebugGui()
     end)
   else
     FRC.InitGui()
+    FRC.InitDebugGui()
   end
 
-  FRC.InitDebugGui()
-
   if SLASH ~= nil then
-    local command = SLASH:Register()
-    command:AddAlias("/furrecipe")
-    if FRC.savedVariables.debug then
-      command:AddAlias("/frc")
-    end
-    command:SetCallback(FurnishingRecipeCollector.FRC_Toggle)
-    command:SetDescription("Furniture Recipe Collector List")
-    if FRC.savedVariables.debug then
-      local command2 = SLASH:Register()
-      command2:AddAlias("/frc_debug")
-      command2:SetCallback(FurnishingRecipeCollector.FRC_DebugToggle)
-      command2:SetDescription("Furniture Recipe Collector Debug")
-    end
+    slashMainCommand = SLASH:Register()
+    slashMainCommand:AddAlias("/furrecipe")
+    slashMainCommand:AddAlias("/frc")
+    slashMainCommand:SetCallback(FurnishingRecipeCollector.FRC_Toggle)
+    slashMainCommand:SetDescription("Furniture Recipe Collector")
+    slashDebugCommand = SLASH:Register()
+    slashDebugCommand:AddAlias("/frc_debug")
+    slashDebugCommand:SetCallback(FurnishingRecipeCollector.FRC_DebugToggle)
+    slashDebugCommand:SetDescription("Furniture Recipe Collector Debug")
   else
     SLASH_COMMANDS["/furrecipe"] = FurnishingRecipeCollector.FRC_Toggle
-    if FRC.savedVariables.debug then
-      SLASH_COMMANDS["/frc"] = FurnishingRecipeCollector.FRC_Toggle
-      SLASH_COMMANDS["/frc_debug"] = FurnishingRecipeCollector.FRC_DebugToggle
-    end
+    SLASH_COMMANDS["/frc"] = FurnishingRecipeCollector.FRC_Toggle
+    SLASH_COMMANDS["/frc_debug"] = FurnishingRecipeCollector.FRC_DebugToggle
   end
 end
 function FRC.Donate(control, mouseButton)
