@@ -121,11 +121,19 @@ function FRC.GuiOnScroll(control, delta)
   if value > total then
     value = total
   end
+  if total < 0 then
+    value = 0
+    total = #FRC_GUI_ListHolder.dataLines
+  end
   FRC_GUI_ListHolder.dataOffset = value
+
+  slider:SetValue(FRC_GUI_ListHolder.dataOffset)
 
   FurnishingRecipeCollector.UpdateInventoryScroll()
 
-  slider:SetValue(FRC_GUI_ListHolder.dataOffset)
+  --This is used to troubleshoot scrolling issues
+  --local min, max=slider:GetMinMax()
+  --FRC.logger:Debug("Scrolling to: " .. value.." of "..total.."; DataOffset="..tos(FRC_GUI_ListHolder.dataOffset).."; Delta="..tos(delta).."; Data Lines="..tos(#FRC_GUI_ListHolder.dataLines).."; Max Lines="..tos(FRC_GUI_ListHolder.maxLines).."; MinMax"..min.."/"..max.."; Step: "..slider:GetValueStep())
 
   FurnishingRecipeCollector.GuiLineOnMouseEnter(moc())
 end
@@ -223,8 +231,9 @@ function FRC.UpdateInventoryScroll()
   local total = #FRC_GUI_ListHolder.dataLines - FRC_GUI_ListHolder.maxLines
   if total > 0 then
     FRC_GUI_ListHolder_Slider:SetMinMax(0, total)
+  else
+    FRC_GUI_ListHolder_Slider:SetMinMax(0, #FRC_GUI_ListHolder.dataLines)
   end
-
   FRC.UpdateLineVisibility()
 end
 function FRC.UpdateLineVisibility()
@@ -304,7 +313,12 @@ function FRC.UpdateLineVisibility()
       curData = FRC_GUI_ListHolder.dataLines[offset + i]
       fillLine(curLine, curData, i)
     end
-    FRC_GUI_ListHolder_Slider:SetMinMax(0, #dataLines)
+    local total = #FRC_GUI_ListHolder.dataLines - FRC_GUI_ListHolder.maxLines
+    if total > 0 then
+      FRC_GUI_ListHolder_Slider:SetMinMax(0, total)
+    else
+      FRC_GUI_ListHolder_Slider:SetMinMax(0, #FRC_GUI_ListHolder.dataLines)
+    end
   end
 
   redrawList()
@@ -520,7 +534,12 @@ local function CreatePostXMLGui()
     end
 
     -- setup slider
-    FRC_GUI_ListHolder_Slider:SetMinMax(0, #FRC_GUI_ListHolder.dataLines - FRC_GUI_ListHolder.maxLines)
+    local total = #FRC_GUI_ListHolder.dataLines - FRC_GUI_ListHolder.maxLines
+    if total > 0 then
+      FRC_GUI_ListHolder_Slider:SetMinMax(0, total)
+    else
+      FRC_GUI_ListHolder_Slider:SetMinMax(0, #FRC_GUI_ListHolder.dataLines)
+    end
 
     return FRC_GUI_ListHolder.lines
   end
