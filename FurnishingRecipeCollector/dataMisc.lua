@@ -35,4 +35,24 @@ FRC.Data.Misc = {
   [139496]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner, Large
   [139497]={location="Nalirswewen, Artaeum"}, --Praxis: Psijic Table, Grand
   [141901]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner, Long
+  --The following are special cases that are not in the writ folios and grab bags
+  [119098]={location="Pickpocketing Nobles in Orsinium"}, --Blueprint: Orcish Throne, Peaked
+  [119077]={location="Pickpocketing Nobles in Orsinium"}, --Praxis: Orcish Throne, Engraved
+  [119076]={location="Pickpocketing Nobles in Orsinium"}, --Praxis: Orcish Throne, Stone
+  [211415]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Praxis: Ayleid Bench, Long Ornate Backed
+  [211416]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Praxis: Ayleid Bench, Ornate Backed
+  [211417]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Praxis: Ayleid Bench, Ornate
+  [211428]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Praxis: Ayleid Bracket, Ornate Stone
+  [211423]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Praxis: Ayleid Cage, Ornate
+  [211424]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Diagram: Ayleid Chandelier, Metal Tiered
+  [211425]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Diagram: Ayleid Chandelier, Sturdy Caged
+  [211418]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Praxis: Ayleid Counter, Stone
+  [211426]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Diagram: Ayleid Crystal Star
+  [211429]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Formula: Ayleid Crystal, Cracked
+  [211419]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Praxis: Ayleid Desk, Ornate Stone
+  [211421]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Praxis: Ayleid Jewelry Box, Ornate Stone
+  [211422]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Praxis: Ayleid Lamp, Ornate Stone
+  [211414]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Praxis: Ayleid Pedestal, Empty
+  [211427]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Diagram: Ayleid Sconce, Caged
+  [211420]={location="West Weald, Gold Coast, Blackwood Antiquity bonus, intermediate or above"}, --Praxis: Ayleid Wardrobe, Ornate Stone
 }
