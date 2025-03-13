@@ -3,20 +3,21 @@ local FRC = FurnishingRecipeCollector
 FRC.Data = FRC.Data or {}
 --https://en.uesp.net/wiki/Online:Furnisher_Documents
 FRC.Data.Misc = {
-  [203319]={location="Faustina Writ Vendor"}, --Blueprint: Pergola, Reclaimed Wood
-  [203320]={location="Faustina Writ Vendor"}, --Design: Apocrypha Tree, Spore
-  [203323]={location="Faustina Writ Vendor"}, --Diagram: Apocrypha Bookcase Platform
-  [203321]={location="Faustina Writ Vendor"}, --Formula: Apocrypha Light Diffuser, Stalk
-  [203322]={location="Faustina Writ Vendor"}, --Pattern: Apocrypha Book Press
-  [203325]={location="Faustina Writ Vendor"}, --Praxis: Apocrypha Wall, Eye
-  [203324]={location="Faustina Writ Vendor"}, --Sketch: Apocrypha Mirror, Intricate
-  [211033]={location="Rolis Hlaalu Writ Vendor"}, --Formula: Colovian Alembic Set, Colorful
-  [211034]={location="Rolis Hlaalu Writ Vendor"}, --Diagram: Colovian Chandelier, Grapes
-  [211035]={location="Rolis Hlaalu Writ Vendor"}, --Pattern: Colovian Tapestry, Red Diamond
-  [211036]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Colovian Glassblower's Furnace
-  [211037]={location="Rolis Hlaalu Writ Vendor"}, --Sketch: Colovian Mirror, Standing
-  [211038]={location="Rolis Hlaalu Writ Vendor"}, --Design: Dawnwood Platter, Feast
-  [211039]={location="Rolis Hlaalu Writ Vendor"}, --Blueprint: Colovian Keg, Gigantic Wine
+  [211033]={location="Faustina Writ Vendor"}, --Formula: Colovian Alembic Set, Colorful
+  [211034]={location="Faustina Writ Vendor"}, --Diagram: Colovian Chandelier, Grapes
+  [211035]={location="Faustina Writ Vendor"}, --Pattern: Colovian Tapestry, Red Diamond
+  [211036]={location="Faustina Writ Vendor"}, --Praxis: Colovian Glassblower's Furnace
+  [211037]={location="Faustina Writ Vendor"}, --Sketch: Colovian Mirror, Standing
+  [211038]={location="Faustina Writ Vendor"}, --Design: Dawnwood Platter, Feast
+  [211039]={location="Faustina Writ Vendor"}, --Blueprint: Colovian Keg, Gigantic Wine
+  [211039]={location="Faustina Writ Vendor"}, --Blueprint: Colovian Keg, Gigantic Wine
+  [212562]={location="Rolis Hlaalu Writ Vendor"}, -- Blueprint: Colovian Wine Press
+  [212563]={location="Rolis Hlaalu Writ Vendor"}, -- Design: Colovian Grape Vat, Large
+  [212565]={location="Rolis Hlaalu Writ Vendor"}, -- Diagram: Ayleid Window, Turquoise Glass
+  [212564]={location="Rolis Hlaalu Writ Vendor"}, -- Formula: Dawnwood Hut, Partial
+  [212561]={location="Rolis Hlaalu Writ Vendor"}, -- Pattern: Wood Elf Tent, Saplings
+  [212566]={location="Rolis Hlaalu Writ Vendor"}, -- Praxis: Ayleid Sconce, Winged Floor
+  [212567]={location="Rolis Hlaalu Writ Vendor"}, -- Sketch: Guardian Key, Replica
   --The following are always at Rolis
   [126582]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Centurion, Dwarf-Brass
   [126583]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Centurion, Robust Refabricated

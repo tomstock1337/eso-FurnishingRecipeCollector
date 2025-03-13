@@ -146,5 +146,15 @@ FRC.Data.Folios =
     167379, --Western Skyrim  Pattern: Solitude Loom, Warp-Weighted
     167381, --Western Skyrim  Praxis: Ancient Nord Monolith, Head
     167384, --Western Skyrim  Sketch: Blackreach Geode, Iridescent
+  },
+  [214255] = --Tomehold Furnishing Folio
+  {
+    203319, --Blueprint: Pergola, Reclaimed Wood
+    203320, --Design: Apocrypha Tree, Spore
+    203323, --Diagram: Apocrypha Bookcase Platform
+    203321, --Formula: Apocrypha Light Diffuser, Stalk
+    203322, --Pattern: Apocrypha Book Press
+    203325, --Praxis: Apocrypha Wall, Eye
+    203324, --Sketch: Apocrypha Mirror, Intricate
   }
 }
