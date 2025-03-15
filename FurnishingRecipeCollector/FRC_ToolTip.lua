@@ -60,10 +60,8 @@ local function adjustToolTip(tooltipControl, itemLink)
 
     ZO_Tooltip_AddDivider(tooltipControl)
 
-    tooltipControl:AddLine("Recipe available in Writ Vendor Folio: ",string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
-    tooltipControl:AddLine(vGrabBagItemLink,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
     if LCK ~= nil and FRC.savedVariables.grabbag_lck_on then
-      tooltipControl:AddLine("Folio Knowledge: "..vVendorCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
+      tooltipControl:AddLine("Grab Bag Knowledge: "..vVendorCharacterString,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
     else
       tooltipControl:AddLine("Recipe Count: "..vVendorRecipeCount,string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSizeH1, fontWeight))
     end
