@@ -2,95 +2,113 @@ FurnishingRecipeCollector = FurnishingRecipeCollector or {}
 local FRC = FurnishingRecipeCollector
 FRC.Data = FRC.Data or {}
 --https://en.uesp.net/wiki/Online:Furnisher_Documents
+--RegexReplace on site:
+--<li>.*?itemid=(\d*).*?>(.*?)<.*
+--$1, --$2
 FRC.Data.FurnisherDocuments =
 {
   [214257] = --West Weald Journeyman's Furnisher's Document
   {
-    207919, -- Blueprint: Colovian Beehive, Small
-    207824, -- Blueprint: Colovian Bookcase, Noble Small
-    207823, -- Blueprint: Colovian Bookshelf , Noble Filled
-    207840, -- Blueprint: Colovian Counter, Bar
-    207839, -- Blueprint: Colovian Counter, Corner
-    207831, -- Blueprint: Colovian Divider, Noble
-    207916, -- Blueprint: Colovian Keg, Wine
-    207828, -- Blueprint: Colovian Shelf, Noble
-    207837, -- Blueprint: Colovian Tea Table, Noble
-    207911, -- Blueprint: Colovian Trellis, Enclosed
-    207922, -- Blueprint: Colovian Trellis, Tall Vineyard
-    207825, -- Blueprint: Colovian Wardrobe, Rustic
-    211441, -- Blueprint: Dawnwood Table, Reclaimed
-    207882, -- Design: Colovian Meal, Cheese Board
-    207883, -- Design: Colovian Meal, Grape Board
-    207886, -- Design: Dawnwood Meal, Flan
-    211446, -- Design: Dawnwood Meal, Meat
-    211433, -- Design: Dawnwood Wind Chimes, Bone
-    207887, -- Design: Honey Pot, Open
-    207864, -- Diagram: Colovian Brazier, Basin
-    207863, -- Diagram: Colovian Brazier, Hanging
-    207850, -- Diagram: Colovian Dresser, Noble
-    207866, -- Diagram: Colovian Lamppost, Arched
-    207865, -- Diagram: Colovian Lantern, Hanging
-    207862, -- Diagram: Colovian Sconce, Wall
-    207899, -- Diagram: Dawnwood Cauldron, Closed
-    211447, -- Diagram: Dawnwood Container, Metal
-    211431, -- Diagram: Dawnwood Firepit, Metal
-    207897, -- Formula: Colovian Cup, Glass
-    207908, -- Formula: Colovian Mirror, Table
-    207893, -- Formula: Colovian Wine, Basketed
-    207870, -- Formula: Dawnwood Lantern String, Long
-    207871, -- Formula: Dawnwood Lantern String, Short
-    207869, -- Formula: Dawnwood Lantern, Antlers
-    207872, -- Formula: Dawnwood Lantern, Hanging
-    211452, -- Formula: Dawnwood Orange Light, Tall Sprouted Arch
-    211453, -- Formula: Dawnwood Orange Lights, Sprouted Arch
-    207847, -- Formula: Dawnwood Seat, Sprouted
-    207833, -- Pattern: Colovian Bed, Noble Single
-    207832, -- Pattern: Colovian Bed, Rustic Double
-    207905, -- Pattern: Colovian Curtains, Ivory
-    207857, -- Pattern: Colovian Rug, Fallen Leaves
-    207855, -- Pattern: Colovian Rug, Noble Long
-    211437, -- Pattern: Dawnwood Basket, Square Leather
-    207854, -- Pattern: Dawnwood Bedding, Skins
-    211449, -- Pattern: Dawnwood Container, Turtle
-    211435, -- Pattern: Dawnwood Container, Wood
-    207901, -- Praxis: Colovian Planter, Large
-    207848, -- Praxis: Dawnwood Bench, Sprouted
-    211445, -- Praxis: Dawnwood Vase, Leather
+    207919, --Blueprint: Colovian Beehive, Small
+    207824, --Blueprint: Colovian Bookcase, Noble Small
+    207823, --Blueprint: Colovian Bookshelf , Noble Filled
+    207840, --Blueprint: Colovian Counter, Bar
+    207838, --Blueprint: Colovian Counter, Block
+    207839, --Blueprint: Colovian Counter, Corner
+    207831, --Blueprint: Colovian Divider, Noble
+    207913, --Blueprint: Colovian Grape Vines, Long
+    207916, --Blueprint: Colovian Keg, Wine
+    207828, --Blueprint: Colovian Shelf, Noble
+    207836, --Blueprint: Colovian Table, Noble
+    207837, --Blueprint: Colovian Tea Table, Noble
+    207911, --Blueprint: Colovian Trellis, Enclosed
+    207922, --Blueprint: Colovian Trellis, Tall Vineyard
+    207825, --Blueprint: Colovian Wardrobe, Rustic
+    211441, --Blueprint: Dawnwood Table, Reclaimed
+    207879, --Design: Colovian Bowl, Grapes
+    207882, --Design: Colovian Meal, Cheese Board
+    207883, --Design: Colovian Meal, Grape Board
+    207877, --Design: Colovian Meal, Poultry
+    207876, --Design: Colovian Serving Dish, Cheese
+    207881, --Design: Dawnwood Basket, Antlers
+    207886, --Design: Dawnwood Meal, Flan
+    211446, --Design: Dawnwood Meal, Meat
+    207885, --Design: Dawnwood Tray, Fish
+    211433, --Design: Dawnwood Wind Chimes, Bone
+    207887, --Design: Honey Pot, Open
+    207864, --Diagram: Colovian Brazier, Basin
+    207863, --Diagram: Colovian Brazier, Hanging
+    207850, --Diagram: Colovian Dresser, Noble
+    207853, --Diagram: Colovian Jewelry Box, Noble
+    207866, --Diagram: Colovian Lamppost, Arched
+    207865, --Diagram: Colovian Lantern, Hanging
+    207862, --Diagram: Colovian Sconce, Wall
+    207899, --Diagram: Dawnwood Cauldron, Closed
+    211447, --Diagram: Dawnwood Container, Metal
+    211431, --Diagram: Dawnwood Firepit, Metal
+    207897, --Formula: Colovian Cup, Glass
+    207896, --Formula: Colovian Jug, Glass
+    207908, --Formula: Colovian Mirror, Table
+    207892, --Formula: Colovian Wine Bottle, Wax Sealed
+    207890, --Formula: Colovian Wine Crate, Small
+    207893, --Formula: Colovian Wine, Basketed
+    207870, --Formula: Dawnwood Lantern String, Long
+    207871, --Formula: Dawnwood Lantern String, Short
+    207869, --Formula: Dawnwood Lantern, Antlers
+    207872, --Formula: Dawnwood Lantern, Hanging
+    211452, --Formula: Dawnwood Orange Light, Tall Sprouted Arch
+    211453, --Formula: Dawnwood Orange Lights, Sprouted Arch
+    207873, --Formula: Dawnwood Sconce, Wall
+    207847, --Formula: Dawnwood Seat, Sprouted
+    207833, --Pattern: Colovian Bed, Noble Single
+    207832, --Pattern: Colovian Bed, Rustic Double
+    207905, --Pattern: Colovian Curtains, Ivory
+    207857, --Pattern: Colovian Rug, Fallen Leaves
+    207855, --Pattern: Colovian Rug, Noble Long
+    211437, --Pattern: Dawnwood Basket, Square Leather
+    207854, --Pattern: Dawnwood Bedding, Skins
+    211449, --Pattern: Dawnwood Container, Turtle
+    211435, --Pattern: Dawnwood Container, Wood
+    207901, --Praxis: Colovian Planter, Large
+    207900, --Praxis: Colovian Planter, Tall
+    207902, --Praxis: Colovian Vase, Limestone
+    207848, --Praxis: Dawnwood Bench, Sprouted
+    211445, --Praxis: Dawnwood Vase, Leather
   },
   [214256] = --West Weald Master Furnisher's Document
   {
-
-    207918, -- Blueprint: Colovian Beehive, Large
-    207820, -- Blueprint: Colovian Bookcase, Noble Large
-    207829, -- Blueprint: Colovian Cheese Rack, Rustic
-    207826, -- Blueprint: Colovian Wardrobe, Noble
-    207914, -- Blueprint: Colovian Wine Barrel, Large
-    207915, -- Blueprint: Colovian Wine Rack, Filled
-    207852, -- Blueprint: Dawnwood Chest, Antlers
-    207880, -- Design: Colovian Grape Basket, Wax
-    207867, -- Diagram: Colovian Chandelier, Metal
-    207904, -- Diagram: Colovian Incense Burner, Metal
-    207861, -- Diagram: Colovian Lamp, Brass
-    211448, -- Diagram: Dawnwood Container, Crow
-    207860, -- Formula: Colovian Lamp, Glass
-    207909, -- Formula: Colovian Mirror, Wall
-    207889, -- Formula: Colovian Wine Crate, Large
-    207874, -- Formula: Dawnwood Crystal Lights, Sprouted
-    211454, -- Formula: Dawnwood Tent, Grown
-    207845, -- Pattern: Colovian Armchair, Noble
-    207843, -- Pattern: Colovian Armchair, Noble Backless
-    212617, -- Pattern: Colovian Bed, Canopy Full
-    207844, -- Pattern: Colovian Bench, Noble
-    207907, -- Pattern: Colovian Curtains, Noble
-    207906, -- Pattern: Colovian Curtains, Sage
-    207856, -- Pattern: Colovian Rug, Noble Circular
-    211439, -- Pattern: Dawnwood Bedding, Illuminated
-    207846, -- Pattern: Dawnwood Chair, Antlers
-    211436, -- Pattern: Dawnwood Container, Bone
-    207834, -- Pattern: Dawnwood Hammock, Sprouted
-    211430, -- Pattern: Wood Elf Beehive, Stump
-    207898, -- Praxis: Dawnwood Pitcher, Tall
-    207849, -- Praxis: Dawnwood Table, Sprouted
+    207918, --Blueprint: Colovian Beehive, Large
+    207820, --Blueprint: Colovian Bookcase, Noble Large
+    207829, --Blueprint: Colovian Cheese Rack, Rustic
+    207826, --Blueprint: Colovian Wardrobe, Noble
+    207914, --Blueprint: Colovian Wine Barrel, Large
+    207915, --Blueprint: Colovian Wine Rack, Filled
+    207852, --Blueprint: Dawnwood Chest, Antlers
+    207880, --Design: Colovian Grape Basket, Wax
+    207867, --Diagram: Colovian Chandelier, Metal
+    207904, --Diagram: Colovian Incense Burner, Metal
+    207861, --Diagram: Colovian Lamp, Brass
+    211448, --Diagram: Dawnwood Container, Crow
+    207860, --Formula: Colovian Lamp, Glass
+    207909, --Formula: Colovian Mirror, Wall
+    207889, --Formula: Colovian Wine Crate, Large
+    207874, --Formula: Dawnwood Crystal Lights, Sprouted
+    211451, --Formula: Dawnwood Crystal Lights, Sprouted Arch
+    211454, --Formula: Dawnwood Tent, Grown
+    207845, --Pattern: Colovian Armchair, Noble
+    207843, --Pattern: Colovian Armchair, Noble Backless
+    212617, --Pattern: Colovian Bed, Canopy Full
+    207844, --Pattern: Colovian Bench, Noble
+    207907, --Pattern: Colovian Curtains, Noble
+    207906, --Pattern: Colovian Curtains, Sage
+    207856, --Pattern: Colovian Rug, Noble Circular
+    211439, --Pattern: Dawnwood Bedding, Illuminated
+    207846, --Pattern: Dawnwood Chair, Antlers
+    211436, --Pattern: Dawnwood Container, Bone
+    207834, --Pattern: Dawnwood Hammock, Sprouted
+    211430, --Pattern: Wood Elf Beehive, Stump
+    207898, --Praxis: Dawnwood Pitcher, Tall
+    207849, --Praxis: Dawnwood Table, Sprouted
   },
   [211092] = --Tomehold Journeyman Furnisher's Document
   {
@@ -102,6 +120,7 @@ FRC.Data.FurnisherDocuments =
     198487, --Pattern: Apocrypha Bed, Spiked Double
     198480, --Pattern: Apocrypha Book Pile, Large Twisted
     198515, --Pattern: Apocrypha Book Pile, Medium
+    198527, --Pattern: Apocrypha Book Piles, Floating
     198540, --Pattern: Necrom Carpet, Ruby
     198481, --Praxis: Apocrypha Bookcase, Corner
     198509, --Praxis: Apocrypha Bookcase, Intricate
@@ -152,40 +171,56 @@ FRC.Data.FurnisherDocuments =
   },
   [184191] =  --Blackwood Journeyman Furnisher's Document
   {
-    166921, --Blueprint: Solitude Backpack, Basket
-    166919, --Blueprint: Solitude Basket, Centerpiece
-    166920, --Blueprint: Solitude Basket, Ornate
-    166918, --Blueprint: Solitude Basket, Wicker Wide
-    166849, --Blueprint: Solitude Cabinet, Ornate Wall
-    166865, --Blueprint: Solitude Cabinet, Rustic Filled
-    166832, --Blueprint: Solitude Dresser, Rustic
-    166862, --Blueprint: Solitude Jewelry Box, Wolf's-Head
-    166848, --Blueprint: Solitude Nightstand, Noble Cabinet
-    166810, --Blueprint: Solitude Pew, Sturdy Long
-    166916, --Blueprint: Solitude Picnic Basket, Wicker
-    166824, --Blueprint: Solitude Table, Round Small
-    166830, --Blueprint: Solitude Wardrobe, Rustic
-    166931, --Design: Solitude Bowl, Berries
-    166930, --Design: Solitude Bowl, Mushrooms
-    166944, --Design: Solitude Bread, Floral Pattern
-    166947, --Design: Solitude Bread, Rustic Loaf
-    166943, --Design: Solitude Breakfast, Sausages and Ham
-    166939, --Design: Solitude Camping Pot, Fish Stew
-    166936, --Design: Solitude Dinner Bowl, Hearty Stew
-    166938, --Design: Solitude Dinner Bowl, Vegetable Soup
-    166954, --Design: Solitude Drying Rack, Stockfish
-    166895, --Diagram: Solitude Hand-Drill, Simple
-    166925, --Diagram: Solitude Frying Pan, Long-Handled
-    166907, --Diagram: Solitude Pot, Stout Metal
-    166860, --Diagram: Solitude Trunk, Knotwork
-    166891, --Pattern: Solitude Bed, Rustic Bearskin Single
-    166794, --Pattern: Solitude Carpet, Small Plush
-    166898, --Pattern: Solitude Patching Kit, Well-Worn
-    166787, --Pattern: Solitude Rug, Cowhide
-    166793, --Pattern: Solitude Rug, Knotwork
-    166788, --Pattern: Solitude Rug, Snow Bear
-    166951, --Sketch: Solitude Goblet, Noble
-    166911, --Sketch: Solitude Serving Bowl, Verdigris
+
+    175955, --Blueprint: Leyawiin Armchair, Backless
+    175959, --Blueprint: Leyawiin Bench, Formal Wide
+    175927, --Blueprint: Leyawiin Bookcase, Narrow
+    175924, --Blueprint: Leyawiin Bookcase, Short
+    175925, --Blueprint: Leyawiin Bookcase, Tall
+    175920, --Blueprint: Leyawiin Cabinet, Sturdy
+    175918, --Blueprint: Leyawiin Counter, Corner
+    175919, --Blueprint: Leyawiin Counter, Long
+    175915, --Blueprint: Leyawiin Cupboard, Sturdy
+    175943, --Blueprint: Leyawiin End Table, Formal Round
+    175951, --Blueprint: Leyawiin Nightstand, Formal
+    176026, --Blueprint: Leyawiin Ox Cart, Sturdy
+    176020, --Blueprint: Leyawiin Plates, Stack
+    175968, --Blueprint: Leyawiin Sconce, Lantern
+    175965, --Blueprint: Leyawiin Streetlight, Carved Waves
+    175947, --Blueprint: Leyawiin Table, Formal
+    175944, --Blueprint: Leyawiin Table, Formal Square Low
+    175948, --Blueprint: Leyawiin Table, Sturdy Grand
+    175963, --Blueprint: Leyawiin Trunk, Carved Octad
+    175917, --Blueprint: Leyawiin Wall Shelf, Carved
+    176010, --Design: Leyawiin Bowl, Lobster Stew
+    176014, --Design: Leyawiin Gravy Boat, Silver
+    176005, --Design: Leyawiin Kylix, Silver
+    176016, --Design: Leyawiin Meal, Clams
+    176017, --Design: Leyawiin Meal, Lobster
+    176012, --Design: Leyawiin Meal, Octopus
+    176013, --Design: Leyawiin Meal, Squid
+    176011, --Design: Leyawiin Meal, Vegetables
+    176003, --Design: Leyawiin Mug, Milk
+    176021, --Design: Leyawiin Platter, Seafood
+    175973, --Diagram: Leyawiin Brazier, Iron
+    175971, --Diagram: Leyawiin Brazier, Short Iron Serpent
+    175980, --Diagram: Leyawiin Chandelier, Twin Lanterns
+    175970, --Diagram: Leyawiin Lamp, Stationary
+    175987, --Diagram: Leyawiin Wall Mirror, Lacquered Frame
+    175988, --Pattern: Leyawiin Basket, Hamper Tall
+    175989, --Pattern: Leyawiin Basket, Hamper Wide
+    175932, --Pattern: Leyawiin Bed, Sturdy Single
+    175942, --Pattern: Leyawiin Carpet, Large Carmine Octad
+    175941, --Pattern: Leyawiin Carpet, Large Misty Octad
+    175984, --Pattern: Leyawiin Clothesline, Pulleys
+    175985, --Pattern: Leyawiin Laundry, Stack
+    175939, --Pattern: Leyawiin Rug, Carmine Octad
+    175935, --Pattern: Leyawiin Tapestry, Lone Vessel
+    175936, --Pattern: Leyawiin Tapestry, Twin Vessels
+    175977, --Praxis: Leyawiin Firepit, Stone
+    175997, --Praxis: Leyawiin Pot, Waves
+    176000, --Praxis: Leyawiin Potted Plant, Aspen Sapling
+    176002, --Sketch: Leyawiin Hand Mirror, Lacquered
   },
   [184190] =  --Blackwood Master Furnisher's Document
   {
@@ -446,55 +481,103 @@ FRC.Data.FurnisherDocuments =
   },
   [127106] = -- Hlaalu Journeyman Furnisher's Document
   {
+    115759, --Blueprint: Argonian Bar, Woven Corner
     115761, --Blueprint: Argonian Bed, Woven
     115762, --Blueprint: Argonian Bench, Woven
+    115765, --Blueprint: Argonian Bookcase, Short Woven
     115768, --Blueprint: Argonian Bookcase, Sturdy
     115757, --Blueprint: Argonian Cage, Bird
+    115756, --Blueprint: Argonian Cage, Rat
+    115763, --Blueprint: Argonian Chair, Woven
     115766, --Blueprint: Argonian Dresser, Sturdy
     115771, --Blueprint: Argonian End Table, Woven
     115767, --Blueprint: Argonian Shelf, Woven
     115760, --Blueprint: Argonian Snakes in a Basket
+    115769, --Blueprint: Argonian Stool, Woven
     115770, --Blueprint: Argonian Table, Formal
+    115764, --Blueprint: Argonian Trunk, Sturdy
     115758, --Blueprint: Argonian Wind Chimes
+    115937, --Blueprint: Breton Bench, Knotwork
+    115938, --Blueprint: Breton Bookcase, Knotwork
+    115963, --Blueprint: Breton Cart, Covered Open
     115939, --Blueprint: Breton Chair, Rocking
+    115943, --Blueprint: Breton Chest of Drawers
+    115940, --Blueprint: Breton Chest, Knotwork
+    115944, --Blueprint: Breton Counter, Long Cabinet
+    115942, --Blueprint: Breton Cupboard, Knotwork
     115947, --Blueprint: Breton Desk, Knotwork
     115941, --Blueprint: Breton Hutch, Knotwork
     115936, --Blueprint: Breton Pew, Knotwork
+    115951, --Blueprint: Breton Rack, Wine
     115950, --Blueprint: Breton Shelf, Scrolled
     115964, --Blueprint: Breton Stall, Vending
+    115946, --Blueprint: Breton Stool, Plain
     115948, --Blueprint: Breton Table, Round
     115949, --Blueprint: Breton Table, Square
+    119420, --Blueprint: Cart, Sided
+    121120, --Blueprint: Chair, Carved
     116032, --Blueprint: Dark Elf Bookcase, Sectioned
     116030, --Blueprint: Dark Elf Caravan, Cargo
+    116034, --Blueprint: Dark Elf Counter, Bar
     116036, --Blueprint: Dark Elf Desk, Angled
+    116031, --Blueprint: Dark Elf Dresser, Angled
+    116065, --Blueprint: Dark Elf End Table, Angled
     116043, --Blueprint: Dark Elf Shelf, Barrel
+    116039, --Blueprint: Dark Elf Stool, Angled
     116041, --Blueprint: Dark Elf Trestle, Scaled
     116029, --Blueprint: Dark Elf Wagon, Merchant
     116035, --Blueprint: Dark Elf Wardrobe, Scaled
+    116042, --Blueprint: Dark Elf Wine Rack, Sturdy
+    119540, --Blueprint: Desk, Engraved
+    118963, --Blueprint: High Elf Bar, Overhanging
+    118958, --Blueprint: High Elf Bed, Verdant
+    118957, --Blueprint: High Elf Bed, Winged
     118960, --Blueprint: High Elf Bookcase, Verdant
     118961, --Blueprint: High Elf Chair, Verdant
     118962, --Blueprint: High Elf Chair, Winged
+    118959, --Blueprint: High Elf Chest of Drawers
+    118970, --Blueprint: High Elf Trunk, Winged
     118956, --Blueprint: High Elf Wagon, Sturdy
+    118971, --Blueprint: High Elf Wine Rack, Folding
+    119423, --Blueprint: Keg
     116122, --Blueprint: Khajiit Barstool, Padded
+    116101, --Blueprint: Khajiit Bookcase, Short Arched
     116129, --Blueprint: Khajiit Counter, Long Cabinet
+    116104, --Blueprint: Khajiit Nightstand, Gilded
     116105, --Blueprint: Khajiit Table, Formal
+    116117, --Blueprint: Khajiit Tent, Mercantile
+    116118, --Blueprint: Khajiit Tent, Storage
+    116102, --Blueprint: Khajiit Trunk, Arched
     116119, --Blueprint: Khajiit Wagon, Reed
     116184, --Blueprint: Nord Armoire, Lattice
+    116172, --Blueprint: Nord Bed, Sleigh
+    116173, --Blueprint: Nord Bench, Plank
     116174, --Blueprint: Nord Bookcase, Short Alcove
+    116166, --Blueprint: Nord Cart, Cargo
     116175, --Blueprint: Nord Chair, Braced
     116176, --Blueprint: Nord Counter, Long
+    116177, --Blueprint: Nord Dresser, Braced
     116190, --Blueprint: Nord Drinking Horn, Empty
     116183, --Blueprint: Nord Footlocker, Braced
     116185, --Blueprint: Nord Rack, Wine
     116178, --Blueprint: Nord Stool, Braced
     116181, --Blueprint: Nord Table, Braced
+    116179, --Blueprint: Nord Table, Dining
+    116180, --Blueprint: Nord Table, Round
     116182, --Blueprint: Nord Trestle, Braced
+    116167, --Blueprint: Nord Trunk, Faded
+    119043, --Blueprint: Orcish Armchair, Peaked
+    119051, --Blueprint: Orcish Bar, Long Branded Block
+    119045, --Blueprint: Orcish Bedding, Peaked
     119040, --Blueprint: Orcish Bucket, Cistern
     119047, --Blueprint: Orcish Bunkbed, Leather
     119053, --Blueprint: Orcish Cabinet, Branded
+    119048, --Blueprint: Orcish Chair, Peaked
     119052, --Blueprint: Orcish Counter, Branded
+    119041, --Blueprint: Orcish Curtain, Folding
     119044, --Blueprint: Orcish Pew, Peaked
     119036, --Blueprint: Orcish Platform, Stage
+    119242, --Blueprint: Redguard Bookcase, Arched
     119171, --Blueprint: Redguard Cabinet, Inlaid
     119215, --Blueprint: Redguard Candleholder, Polished
     119214, --Blueprint: Redguard Candlestick, Polished
@@ -504,124 +587,247 @@ FRC.Data.FurnisherDocuments =
     119176, --Blueprint: Redguard Counter, Cabinet
     119175, --Blueprint: Redguard Counter, Corner
     119173, --Blueprint: Redguard Cupboard, Lattice
+    119179, --Blueprint: Redguard Divider, Florid
     119301, --Blueprint: Redguard End Table, Inlaid
     119190, --Blueprint: Redguard End Table, Oasis
     119187, --Blueprint: Redguard Footlocker, Braced
+    119169, --Blueprint: Redguard Keg, Hefty
+    119178, --Blueprint: Redguard Nightstand, Florid
     119193, --Blueprint: Redguard Shelf, Arched
     119182, --Blueprint: Redguard Stool, Padded
     119188, --Blueprint: Redguard Table, Grand Oasis
+    119295, --Blueprint: Redguard Table, Inlaid
     119189, --Blueprint: Redguard Table, Oasis
+    119191, --Blueprint: Redguard Trunk, Bolted
+    119194, --Blueprint: Redguard Wardrobe, Inlaid
     119259, --Blueprint: Redguard Wine Rack, Inlaid
+    119192, --Blueprint: Redguard Wine Rack, Sturdy
     115871, --Blueprint: Wood Elf Rack, Single
     115755, --Design: Argonian Totem, Frilled Skull
     115753, --Design: Argonian Totem, Painted Skull
+    119438, --Design: Baked Potato, Display
+    119477, --Design: Basket of Apples
     119478, --Design: Basket of Apples, Full
     119481, --Design: Basket of Corn
+    119480, --Design: Basket of Gourds
+    119479, --Design: Basket of Lettuce
+    119482, --Design: Basket of Tomatoes
+    119533, --Design: Box of Plums
     119529, --Design: Bread Loaves, Round
     119525, --Design: Bread, Braided
+    119532, --Design: Bread, Hearty Loaves
+    119527, --Design: Bread, Round
+    115957, --Design: Breton Amphora, Glazed
     119032, --Design: Breton Chamberstick, Short
     119033, --Design: Breton Chamberstick, Tall
+    115955, --Design: Breton Pottery, Lid
+    115956, --Design: Breton Urn, Glazed
+    115959, --Design: Breton Vase, Glazed
+    119489, --Design: Candle Set, Ritual
     119444, --Design: Candle, Group
     119427, --Design: Cheese Wedge
+    119467, --Design: Cured Meat
     119470, --Design: Cured Meat Chunk
+    119469, --Design: Cured Meat Chunks
+    119472, --Design: Cured Meat Hock
     119471, --Design: Cured Meat Pile
+    119491, --Design: Cured Meat Shank
+    119468, --Design: Cured Meats
+    119443, --Design: Drumstick
     119543, --Design: Fish, Large
     119542, --Design: Fish, Medium
     119541, --Design: Fish, Small
     119526, --Design: Goblet, Wine
+    119429, --Design: Ham, Display
     119425, --Design: Hearty Bread
+    116111, --Design: Khajiit Carafe, Amber
     116112, --Design: Khajiit Decanter, Amber
     116106, --Design: Khajiit Jug, Amber
+    116107, --Design: Khajiit Pitcher, Amber
+    116170, --Design: Nord Amphora, Glazed
     116168, --Design: Nord Cauldron, Glazed
+    116186, --Design: Nord Crockpot, Carrot Soup
     116169, --Design: Nord Pot, Empty
     116171, --Design: Nord Vase, Bent
+    119465, --Design: Oranges, Bunch
+    119062, --Design: Orcish Goblet, Stone
     119066, --Design: Orcish Urn, Ceramic
     119065, --Design: Orcish Vessel, Sealed Ceramic
+    119464, --Design: Peaches, Bunch
     119462, --Design: Plums, Bunch
+    119439, --Design: Pot Pie, Display
     119167, --Design: Redguard Amphora, Polished
+    119195, --Design: Redguard Kabobs, Plate
+    119166, --Design: Redguard Pot, Lacquered
+    119231, --Design: Redguard Urn, Mural
     119165, --Design: Redguard Vase, Lacquered
+    119463, --Design: Tangerines, Bunch
+    115865, --Design: Wood Elf Barrel, Ceramic
     115883, --Design: Wood Elf Bowl, Striped
     115866, --Design: Wood Elf Cask, Ceramic
+    115868, --Design: Wood Elf Cauldron, Ceramic
+    115882, --Design: Wood Elf Pitcher, Ceramic
     115881, --Design: Wood Elf Pitcher, Chipped
+    115878, --Design: Wood Elf Pitcher, Marked
     115877, --Design: Wood Elf Pitcher, Painted
+    115880, --Design: Wood Elf Vase, Chipped
     115879, --Design: Wood Elf Vase, Painted
     115875, --Design: Wood Elf Vessel, Tiered Ceramic
+    115876, --Design: Wood Elf Vessel, Tiered Painted
+    115772, --Diagram: Argonian Bowl, Serving
     115773, --Diagram: Argonian Cup, Bordered
+    115965, --Diagram: Breton Lightpost, Arched
+    115945, --Diagram: Breton Shelf, Barrel Rack
     115961, --Diagram: Breton Streetlight, Arched Stone
-    115962, --Diagram: Breton Streetlight, Paired Stone
     115966, --Diagram: Breton Streetlight, Paired
+    115962, --Diagram: Breton Streetlight, Paired Stone
     119413, --Diagram: Cauldron of Soup
     119416, --Diagram: Cauldron of Stew
+    119418, --Diagram: Cauldron, Covered
+    119424, --Diagram: Cleaver, Butcher's
+    116048, --Diagram: Dark Elf Cauldron, Banded
+    116052, --Diagram: Dark Elf Hook, Wall
+    116078, --Diagram: Dark Elf Lantern, Ashen
     116069, --Diagram: Dark Elf Pot, Banded
     116044, --Diagram: Dark Elf Pot, Scaled
     116055, --Diagram: Dark Elf Streetlamp, Stone
+    116056, --Diagram: Dark Elf Streetlamps, Stone
+    119476, --Diagram: Grilling Rack
     119400, --Diagram: Hammer, Forge
+    118981, --Diagram: High Elf Basin, Winged
     118977, --Diagram: High Elf Carafe, Gilded
     118980, --Diagram: High Elf Flute, Wine
     118983, --Diagram: High Elf Lamp, Oil
     118972, --Diagram: High Elf Platter, Gilded
+    118978, --Diagram: High Elf Vase, Gilded
     119451, --Diagram: Kennel, Locked
     116121, --Diagram: Khajiit Barstool, Clawfoot
     116115, --Diagram: Khajiit Basin, Claw
     116114, --Diagram: Khajiit Brazier, Claw
+    116093, --Diagram: Khajiit Candle, Clawfoot
+    116116, --Diagram: Khajiit Lantern, Hanging
     119446, --Diagram: Lantern, Hanging
+    119445, --Diagram: Lantern, Stationary
     116187, --Diagram: Nord Crockpot, Covered
     116189, --Diagram: Nord Lantern, Hanging
+    119061, --Diagram: Orcish Bowl, Stone
     119068, --Diagram: Orcish Brazier, Pedestal
+    119069, --Diagram: Orcish Chandelier, Practical
+    119060, --Diagram: Orcish Footlocker, Buckled
+    119067, --Diagram: Orcish Lantern, Hanging
     119063, --Diagram: Orcish Plate, Stone
+    119064, --Diagram: Orcish Saucer, Stone
+    119070, --Diagram: Orcish Sconce, Caged
+    119049, --Diagram: Orcish Trunk, Heavy
     119440, --Diagram: Pie Dish, Empty
     119185, --Diagram: Redguard Bowl, Hanging Star
     119213, --Diagram: Redguard Brazier, Robust
+    119204, --Diagram: Redguard Cauldron, Clawfoot
+    119201, --Diagram: Redguard Goblet, Empty
     119202, --Diagram: Redguard Goblet, Full
+    119206, --Diagram: Redguard Mug, Empty
     119207, --Diagram: Redguard Mug, Full
     119205, --Diagram: Redguard Sconce, Polished
     119177, --Diagram: Redguard Shelf, Barrel
     119211, --Diagram: Redguard Streetlamps, Paired
+    119212, --Diagram: Redguard Streetlamps, Triple
+    119208, --Diagram: Redguard Tankard, Empty
+    119209, --Diagram: Redguard Tankard, Full
     119186, --Diagram: Redguard Urn, Star
+    119401, --Diagram: Tongs, Forge
     116046, --Formula: Dark Elf Cruet, Glass
     116045, --Formula: Dark Elf Decanter, Glass
+    118979, --Formula: High Elf Bottle, Winged
     119174, --Formula: Redguard Vanity, Florid
+    115751, --Pattern: Argonian Basket, Closed
+    115774, --Pattern: Argonian Basket, Woven
     115752, --Pattern: Argonian Bin, Woven
     115779, --Pattern: Argonian Curtain, Woven
     115780, --Pattern: Argonian Curtains, Woven
+    115785, --Pattern: Argonian Lamppost
+    115754, --Pattern: Argonian Rack, Drying
     115784, --Pattern: Argonian Scaleskin, Faded
+    115782, --Pattern: Argonian Scaleskin, Pale
+    115783, --Pattern: Argonian Scaleskin, Striped
     115778, --Pattern: Argonian Tray, Woven
     115934, --Pattern: Breton Bed, Four-poster
     115935, --Pattern: Breton Bed, Full
+    115954, --Pattern: Breton Carpet, Dark
+    115952, --Pattern: Breton Carpet, Full
+    115953, --Pattern: Breton Rug, Starburst
+    116037, --Pattern: Dark Elf Bed, Full
     116070, --Pattern: Dark Elf Carpet, Ashen
     116050, --Pattern: Dark Elf Carpet, Fungal
     116049, --Pattern: Dark Elf Carpet, Mossy
     116047, --Pattern: Dark Elf Flags, Hanging
+    116038, --Pattern: Dark Elf Pillow, Body
     118974, --Pattern: High Elf Carpet, Tree-Themed
     118973, --Pattern: High Elf Carpet, Water-Themed
     118976, --Pattern: High Elf Tapestry, Tree-Themed
+    118975, --Pattern: High Elf Tapestry, Water-Themed
     116113, --Pattern: Khajiit Banner, Hooked
+    116099, --Pattern: Khajiit Bed, Faded
+    116100, --Pattern: Khajiit Bench, Padded
     116108, --Pattern: Khajiit Carpet, Sun
     116120, --Pattern: Khajiit Curtains, Moons
     116109, --Pattern: Khajiit Cushion, Long
+    116110, --Pattern: Khajiit Cushion, Single
     116188, --Pattern: Nord Tapestry, Dragon
     119071, --Pattern: Orcish Banner, Hammer Fist
+    119034, --Pattern: Orcish Canopy, Shingled
+    119042, --Pattern: Orcish Curtain, Curved
+    119039, --Pattern: Orcish Sack, Bean
+    119038, --Pattern: Orcish Sack, Flour
     119037, --Pattern: Orcish Sack, Grain
     119035, --Pattern: Orcish Shelter, Shingled
+    119172, --Pattern: Redguard Armchair, Cushioned
     119224, --Pattern: Redguard Awning, Desert Flame
+    119282, --Pattern: Redguard Awning, Oasis
     119220, --Pattern: Redguard Basket, Closed
+    119184, --Pattern: Redguard Bed, Full Arched
     119183, --Pattern: Redguard Bed, Wide Grand
+    119226, --Pattern: Redguard Canopy, Dawn
+    119198, --Pattern: Redguard Carpet, Dunes
     119170, --Pattern: Redguard Couch, Padded
+    119197, --Pattern: Redguard Mat, Sunset
+    119196, --Pattern: Redguard Runner, Sun
+    119180, --Pattern: Redguard Sofa, Desert Flame
     119199, --Pattern: Redguard Tapestry, Lattice
     119225, --Pattern: Redguard Tent, Scaled Flames
+    119283, --Pattern: Redguard Tent, Starry
     119181, --Pattern: Redguard Tuffet, Flames
+    115885, --Pattern: Wood Elf Bedding, Layered
     115867, --Pattern: Wood Elf Bladder, Fermenting
+    115863, --Pattern: Wood Elf Bookcase, Leather
+    115884, --Pattern: Wood Elf Canopy, Braced
     115862, --Pattern: Wood Elf Chair, Leather
     115873, --Pattern: Wood Elf Divider, Relaxed
+    115874, --Pattern: Wood Elf Divider, Taut
+    115870, --Pattern: Wood Elf Hammock, Double
+    115869, --Pattern: Wood Elf Hammock, Single
     115872, --Pattern: Wood Elf Rack, Double
+    115864, --Pattern: Wood Elf Table, Formal
+    115861, --Pattern: Wood Elf Tent, Sturdy
     115775, --Praxis: Argonian Bowl, Bordered
+    115781, --Praxis: Argonian Medallion, Stone
     115776, --Praxis: Argonian Ramekin, Bordered
+    115777, --Praxis: Argonian Urn, Clawfoot
+    118964, --Praxis: High Elf Desk, Verdant
+    118965, --Praxis: High Elf Dresser, Verdant
     118966, --Praxis: High Elf End Table, Verdant
+    118982, --Praxis: High Elf Lamppost, Spiked
+    118967, --Praxis: High Elf Table, Verdant Formal
+    118968, --Praxis: High Elf Table, Verdant Kitchen
     118969, --Praxis: High Elf Trestle, Verdant
+    119046, --Praxis: Orcish Bookcase, Engraved
+    119050, --Praxis: Orcish Desk, Engraved
+    119054, --Praxis: Orcish Dresser, Open
+    119055, --Praxis: Orcish Nightstand, Open
     119056, --Praxis: Orcish Table, Engraved
     119059, --Praxis: Orcish Table, Formal
     119058, --Praxis: Orcish Table, Kitchen
     119057, --Praxis: Orcish Trestle, Engraved
+    119216, --Praxis: Redguard Well, Arched
   },
   [121364] = -- Hlaalu Master Furnisher's Document
   {
@@ -631,6 +837,7 @@ FRC.Data.FurnisherDocuments =
     115799, --Blueprint: Argonian Table, Horn
     115790, --Blueprint: Argonian Trunk, Painted
     115973, --Blueprint: Breton Armchair, Padded
+    115998, --Blueprint: Breton Armoire, Knotwork
     115974, --Blueprint: Breton Cabinet, Knotwork
     118955, --Blueprint: Breton Cart, Covered Closed
     115999, --Blueprint: Breton Cart, Palanquin
@@ -640,6 +847,7 @@ FRC.Data.FurnisherDocuments =
     115980, --Blueprint: Breton Counter, Corner
     115975, --Blueprint: Breton Curio, Knotwork
     115987, --Blueprint: Breton Desk, Scholar's
+    115985, --Blueprint: Breton Divider, Curved Knotwork
     115984, --Blueprint: Breton Divider, Folded Knotwork
     115979, --Blueprint: Breton Dresser, Knotwork
     115997, --Blueprint: Breton Footlocker, Knotwork
@@ -681,6 +889,7 @@ FRC.Data.FurnisherDocuments =
     116196, --Blueprint: Nord Chair, Lattice
     116198, --Blueprint: Nord Counter, Cabinet
     116197, --Blueprint: Nord Counter, Corner
+    116199, --Blueprint: Nord Desk, Tied
     116201, --Blueprint: Nord Divider, Folding
     116200, --Blueprint: Nord Nightstand, Braced
     116203, --Blueprint: Nord Table, Formal
@@ -744,6 +953,7 @@ FRC.Data.FurnisherDocuments =
     121372, --Design: Noble Standing Cauldron
     116193, --Design: Nord Urn, Braided
     119103, --Design: Orcish Bowl, Buffed
+    119113, --Design: Orcish Candle Sconce, Horn
     119078, --Design: Orcish Capsule, Sealed
     119104, --Design: Orcish Platter, Serving
     119105, --Design: Orcish Urn, Sealed
@@ -770,6 +980,7 @@ FRC.Data.FurnisherDocuments =
     115968, --Diagram: Breton Chandelier, Wrought Iron
     116004, --Diagram: Breton Lamp, Hanging
     115995, --Diagram: Breton Lamp, Oil
+    115993, --Diagram: Breton Medallion, Lion
     116008, --Diagram: Breton Sconce, Floor
     116011, --Diagram: Breton Sconce, Wall
     116007, --Diagram: Breton Streetlight, Full
@@ -786,6 +997,8 @@ FRC.Data.FurnisherDocuments =
     116073, --Diagram: Dark Elf Medallion, Tribunal
     116075, --Diagram: Dark Elf Thurible, Caged
     118940, --Diagram: High Elf Basin, Standing
+    118938, --Diagram: High Elf Bowl, Serving
+    118948, --Diagram: High Elf Brazier, Winged
     118952, --Diagram: High Elf Candelabra, Winged
     118950, --Diagram: High Elf Candle, Winged
     118949, --Diagram: High Elf Chandelier, Winged
@@ -799,7 +1012,6 @@ FRC.Data.FurnisherDocuments =
     118925, --Diagram: High Elf Trunk, Jeweled
     116144, --Diagram: Khajiit Brazier, Hanging
     116146, --Diagram: Khajiit Candle-Filled Lamp
-    116146, --Diagram: Khajiit Candle-filled Lamp
     116140, --Diagram: Khajiit Candles, Clawfoot
     116128, --Diagram: Khajiit Footlocker, Arched
     116145, --Diagram: Khajiit Sconce, Spiked
@@ -815,6 +1027,7 @@ FRC.Data.FurnisherDocuments =
     119116, --Diagram: Orcish Brazier, Tabletop
     119110, --Diagram: Orcish Cauldron, Sealed
     119123, --Diagram: Orcish Chandelier, Spiked
+    119074, --Diagram: Orcish Chest, Buckled
     119101, --Diagram: Orcish Knife, Kitchen
     119118, --Diagram: Orcish Sconce, Bordered
     119119, --Diagram: Orcish Sconce, Scrolled
@@ -938,6 +1151,7 @@ FRC.Data.FurnisherDocuments =
     119312, --Pattern: Redguard Tapestry, Starry
     119299, --Pattern: Redguard Throw Pillow, Desert Flame
     119236, --Pattern: Redguard Throw Pillow, Oasis
+    119300, --Pattern: Redguard Tuffet, Oasis
     115900, --Pattern: Wood Elf Bedding, Padded
     115899, --Pattern: Wood Elf Canopy, Spine
     115897, --Pattern: Wood Elf Tapestry, Deer
@@ -964,6 +1178,7 @@ FRC.Data.FurnisherDocuments =
     118922, --Praxis: High Elf Dresser, Corner
     118929, --Praxis: High Elf Dresser, Winged
     118934, --Praxis: High Elf End Table, Winged
+    118951, --Praxis: High Elf Lamppost, Stone
     118954, --Praxis: High Elf Streetlight, Stone
     118932, --Praxis: High Elf Table, Tea
     118935, --Praxis: High Elf Table, Winged Formal
@@ -982,7 +1197,7 @@ FRC.Data.FurnisherDocuments =
     119274, --Praxis: Redguard Jar, Baroque
     119271, --Praxis: Redguard Jar, Oasis
     119272, --Praxis: Redguard Vase, Baroque
-    121371, --Praxis: Wood Elf Hearth, Forests
+    121371, --Praxis: Wood Elf Hearth, Forest
   },
   [194430] =  --High Isle Mixed Furnisher's Document
   {

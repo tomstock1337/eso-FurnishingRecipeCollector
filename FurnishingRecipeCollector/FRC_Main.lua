@@ -3,7 +3,7 @@ local FRC = FurnishingRecipeCollector
 FRC.Name = "FurnishingRecipeCollector"
 FRC.DisplayName = "Furnishing Recipe Collector"
 FRC.Author = "tomstock"
-FRC.Version = "1.2.5"
+FRC.Version = "1.3.0"
 
 FRC.logger = nil
 
