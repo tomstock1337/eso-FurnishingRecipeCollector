@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import fs from 'fs';
+import path from 'path';
 import { readdir } from 'node:fs/promises';
 import ObjectsToCsv from 'objects-to-csv';
 
@@ -8,9 +9,9 @@ const uespBaseUrl = "https://en.uesp.net";
 const webDataDir = "uesp/";
 const projDir = "FurnishingRecipeCollector/";
 const merchRolisURL="https://en.uesp.net/wiki/Online:Rolis_Hlaalu";
-const merchRolisFile=webDataDir+"Merchant-Rolis Hlaalu.html";
+const merchRolisFile=webDataDir+"_Merchant-Rolis Hlaalu.html";
 const merchFaustinaURL="https://en.uesp.net/wiki/Online:Faustina_Curio";
-const merchFaustinaFile=webDataDir+"Merchant-Faustina Curio.html";
+const merchFaustinaFile=webDataDir+"_Merchant-Faustina Curio.html";
 const projFolioFile=projDir+"dataFolios.lua";
 const projGrabBagFile=projDir+"dataGrabBags.lua";
 const recipeMarkers=["Blueprint","Blueprints","Sketch","Sketches","Pattern","Patterns","Design","Designs","Praxis","Praxes","Recipe","Formula","Formulae"];
@@ -27,6 +28,11 @@ var grabBagItems = [];
 var grabBagItemsText="";
 
 var previousContainer = "";
+
+// Sleep function: pauses for 'ms' milliseconds
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function cleanText(text) {
 
@@ -73,7 +79,7 @@ async function scrapeMerchant(url, filename) {
       // Write to a local file
       fs.writeFileSync(filename, tableHtml);
 
-      console.log('Wares table HTML exported to '+filename);
+      console.log('Merchant inventory exported from '+filename);
 
   } catch (error) {
       console.error('Error fetching merchant data:', error);
@@ -120,109 +126,112 @@ await readMerchantData(merchFaustinaFile);
 //=======================================================================
 //  Grab Bag and Folio Page Scraping
 //=======================================================================
+async function scrapeContainers() {
+  itemsGrabBags.forEach(async(item) => {
+    var filename = webDataDir+item.Name+".html"
+    // Check if the file already exists and is recent enough
+    if (checkForCachedData(filename)) {
+      return;
+    } else {
+      console.log('Visiting Grab Bag: '+item.Name + " - " + item.Url);
+    }
+    try {
+        const response = await axios.get(item.Url);
+        const $ = cheerio.load(response.data);
+        var allHTML="";
+        allHTML+="<h2>"+item.Name+"</h2>";
+        allHTML+="<h2>"+item.ItemId+"</h2>";
 
-itemsGrabBags.forEach(async(item) => {
-  var filename = webDataDir+item.Name+".html"
-  // Check if the file already exists and is recent enough
-  if (checkForCachedData(filename)) {
-    return;
-  } else {
-    console.log('Visiting Grab Bag: '+item.Name + " - " + item.Url);
-  }
-  try {
-      const response = await axios.get(item.Url);
-      const $ = cheerio.load(response.data);
-      var allHTML="";
-      allHTML+="<h2>"+item.Name+"</h2>";
-      allHTML+="<h2>"+item.ItemId+"</h2>";
+        recipeMarkers.forEach(marker => {
+          const list = $('h2').filter(function(){
+            if ( cleanText($(this).text()) === marker) {
+              return true;
+            }}).next('ul');
 
-      recipeMarkers.forEach(marker => {
-        const list = $('h2').filter(function(){
-          if ( cleanText($(this).text()) === marker) {
-            return true;
-          }}).next('ul');
+            // Get the HTML of the table
+            allHTML += $.html(list);
+          });
 
-          // Get the HTML of the table
-          allHTML += $.html(list);
-        });
+        // Write to a local file
+        fs.writeFileSync(filename, allHTML);
+    } catch (error) {
+        console.error('Error fetching merchant data:', error);
+    }
+    return true;
+  });
 
-      // Write to a local file
-      fs.writeFileSync(filename, allHTML);
-  } catch (error) {
-      console.error('Error fetching merchant data:', error);
-  }
-  return true;
-});
+  itemsFolios.forEach(async(item) => {
+    var filename = webDataDir+item.Name+".html"
+    // Check if the file already exists and is recent enough
+    if (checkForCachedData(filename)) {
+      return;
+    }
+    else {
+      console.log('Visiting Folio: '+item.Name + " - " + item.Url);
+    }
+    try {
+        const response = await axios.get(item.Url);
+        const $ = cheerio.load(response.data);
+        var allHTML="";
+        allHTML+="<h2>"+item.Name+"</h2>";
+        allHTML+="<h2>"+item.ItemId+"</h2>";
 
-itemsFolios.forEach(async(item) => {
-  var filename = webDataDir+item.Name+".html"
-  // Check if the file already exists and is recent enough
-  if (checkForCachedData(filename)) {
-    return;
-  }
-  else {
-    console.log('Visiting Folio: '+item.Name + " - " + item.Url);
-  }
-  try {
-      const response = await axios.get(item.Url);
-      const $ = cheerio.load(response.data);
-      var allHTML="";
-      allHTML+="<h2>"+item.Name+"</h2>";
-      allHTML+="<h2>"+item.ItemId+"</h2>";
+        const table = $('h2:contains("Contents")').next('ul');
 
-      const table = $('h2:contains("Contents")').next('ul');
+        // Get the HTML of the table
+        allHTML+=$.html(table);
 
-      // Get the HTML of the table
-      allHTML+=$.html(table);
+        // Write to a local file
+        fs.writeFileSync(webDataDir+item.Name+".html", allHTML);
 
-      // Write to a local file
-      fs.writeFileSync(webDataDir+item.Name+".html", allHTML);
+    } catch (error) {
+        console.error('Error fetching merchant data:', error);
+    }
+  });
+};
 
-      console.log('Wares table HTML exported to '+webDataDir+item.Name+".html");
-
-  } catch (error) {
-      console.error('Error fetching merchant data:', error);
-  }
-});
-
+await scrapeContainers();
 //=======================================================================
 //  Analyze Data
 //=======================================================================
-try {
-  const files = await readdir(webDataDir, { withFileTypes: true });
+async function analyzeData() {
+  try {
+    const files = await fs.promises.readdir(webDataDir, { withFileTypes: true });
 
-  for (const file of files) {
-    if (file.isFile() && file.name.endsWith('.html')) {
-      if (grabBagMarkers.some(marker => file.name.includes(marker))) {
-        const $ = cheerio.load(fs.readFileSync(file.path+file.name, 'utf8'));
-        $('ul li').each((index, element) => {
-          const item = {};
-          item.Name = cleanText($(element).text());
-          item.Url = $(element).find('a').attr('href');
-          item.ItemId = $(element).find('a').attr('itemid');
-          item.ContainerId=$('h2:nth-child(2)').text().trim();
-          item.Container=$('h2:nth-child(1)').text().trim();
-          grabBagItems.push(item);
-        });
+    for (const file of files) {
+      if (file.isFile() && file.name.endsWith('.html')) {
+        if (grabBagMarkers.some(marker => file.name.includes(marker))) {
+          const $ = cheerio.load(fs.readFileSync(path.join(webDataDir, file.name), 'utf8'));
+          $('ul li').each((index, element) => {
+            const item = {};
+            item.Name = cleanText($(element).text());
+            item.Url = $(element).find('a').attr('href');
+            item.ItemId = $(element).find('a').attr('itemid');
+            item.ContainerId=$('h2:nth-child(2)').text().trim();
+            item.Container=$('h2:nth-child(1)').text().trim();
+            grabBagItems.push(item);
+          });
+        }
+        if (folioMarkers.some(marker => file.name.includes(marker))) {
+          const $ = cheerio.load(fs.readFileSync(file.path+file.name, 'utf8'));
+          $('ul li').each((index, element) => {
+            const item = {};
+            item.Name = cleanText($(element).text());
+            item.Url = $(element).find('a').attr('href');
+            item.ItemId = $(element).find('a').attr('itemid');
+            item.ContainerId=$('h2:nth-child(2)').text().trim();
+            item.Container=$('h2:nth-child(1)').text().trim();
+            folioItems.push(item);
+          });
+        }
       }
-      if (folioMarkers.some(marker => file.name.includes(marker))) {
-        const $ = cheerio.load(fs.readFileSync(file.path+file.name, 'utf8'));
-        $('ul li').each((index, element) => {
-          const item = {};
-          item.Name = cleanText($(element).text());
-          item.Url = $(element).find('a').attr('href');
-          item.ItemId = $(element).find('a').attr('itemid');
-          item.ContainerId=$('h2:nth-child(2)').text().trim();
-          item.Container=$('h2:nth-child(1)').text().trim();
-          folioItems.push(item);
-        });
-      }
-    }
-  };
-} catch (error) {
-    console.error('Error analyzing data:', error);
-}
-
+    };
+  } catch (error) {
+      console.error('Error analyzing data:', error);
+  }
+};
+await sleep(2000); //buffer to wait until files are created.
+await analyzeData();
 //=======================================================================
 //  Sort the data and generate lua that can be put into the respective files
 //=======================================================================
@@ -243,14 +252,15 @@ function processItems(items, itemsTextVar) {
   items.forEach((item, index) => {
     if (item.Container !== previousContainer) {
       if (previousContainer !== "") {
-        itemsTextVar.value += "\t\t},\n";
+        itemsTextVar.value += "\t},\n";
       }
-      itemsTextVar.value += '[' + item.ContainerId + ']= --' + item.Container + '\n\t{\n';
+      itemsTextVar.value += '\t[' + item.ContainerId + ']= --' + item.Container + '\n\t{\n';
+      itemsTextVar.value += "\t\t" + item.ItemId + ", --" + item.Name + "\n";
     } else {
-      itemsTextVar.value += "\t\t\t" + item.ItemId + ", --" + item.Name + "\n";
+      itemsTextVar.value += "\t\t" + item.ItemId + ", --" + item.Name + "\n";
     }
     if (index === items.length - 1) {
-      itemsTextVar.value += "\t\t},\n";
+      itemsTextVar.value += "\t},\n";
     }
     previousContainer = item.Container;
   });
