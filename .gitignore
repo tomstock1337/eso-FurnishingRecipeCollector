@@ -1,5 +1,7 @@
 *.xlsx
 *.zip
 *_sv.lua
-UESP/node_modules/*
-UESP/webdata/*
+node_modules/*
+uesp/*
+folios.lua
+grabbags.lua

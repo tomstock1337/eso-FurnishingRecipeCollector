@@ -1,10 +1,11 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import fs from 'fs';
+import { readdir } from 'node:fs/promises';
 import ObjectsToCsv from 'objects-to-csv';
 
 const uespBaseUrl = "https://en.uesp.net";
-const webDataDir = "webdata/";
+const webDataDir = "uesp/";
 const merchRolisURL="https://en.uesp.net/wiki/Online:Rolis_Hlaalu";
 const merchRolisFile=webDataDir+"Merchant-Rolis Hlaalu.html";
 const merchFaustinaURL="https://en.uesp.net/wiki/Online:Faustina_Curio";
@@ -12,11 +13,17 @@ const merchFaustinaFile=webDataDir+"Merchant-Faustina Curio.html";
 const recipeMarkers=["Blueprint","Blueprints","Sketch","Sketches","Pattern","Patterns","Design","Designs","Praxis","Praxes","Recipe","Formula","Formulae"];
 const grabBagMarkers=["Master Furnisher's Document","Journeyman Furnisher's Document","Mixed Furnisher's Document"];
 const folioMarkers=["Furnishing Folio"];
-const rejectMarkers=["(page)*","(page)","(view contents)","*","[edit]"];
+const rejectMarkers=["(page)*","(page)","(view contents)","*","[edit]","(image)"];
 
 var itemsRecipes = [];
 var itemsFolios = [];
 var itemsGrabBags = [];
+var folioItems= [];
+var folioItemsText="";
+var grabBagItems = [];
+var grabBagItemsText="";
+
+var previousContainer = "";
 
 function cleanText(text) {
 
@@ -89,17 +96,18 @@ await readMerchantData(merchFaustinaFile);
 // console.log(itemsGrabBags);
 // console.log(itemsFolios);
 
-// itemsRecipes.forEach(item => {
-//   console.log(item.Name + " - " + uespBaseUrl+item.Url);
-// });
+//=======================================================================
+//  Grab Bag and Folio Page Scraping
+//=======================================================================
 
 itemsGrabBags.forEach(async(item) => {
   console.log('Visiting Grab Bag: '+item.Name + " - " + item.Url);
   try {
       const response = await axios.get(item.Url);
       const $ = cheerio.load(response.data);
-      const items = [];
       var allHTML="";
+      allHTML+="<h2>"+item.Name+"</h2>";
+      allHTML+="<h2>"+item.ItemId+"</h2>";
 
       recipeMarkers.forEach(marker => {
         const list = $('h2').filter(function(){
@@ -125,15 +133,17 @@ itemsFolios.forEach(async(item) => {
   try {
       const response = await axios.get(item.Url);
       const $ = cheerio.load(response.data);
-      const items = [];
+      var allHTML="";
+      allHTML+="<h2>"+item.Name+"</h2>";
+      allHTML+="<h2>"+item.ItemId+"</h2>";
 
       const table = $('h2:contains("Contents")').next('ul');
 
       // Get the HTML of the table
-      const tableHtml = $.html(table);
+      allHTML+=$.html(table);
 
       // Write to a local file
-      fs.writeFileSync(webDataDir+item.Name+".html", tableHtml);
+      fs.writeFileSync(webDataDir+item.Name+".html", allHTML);
 
       console.log('Wares table HTML exported to '+webDataDir+item.Name+".html");
 
@@ -141,3 +151,95 @@ itemsFolios.forEach(async(item) => {
       console.error('Error fetching merchant data:', error);
   }
 });
+
+//=======================================================================
+//  Analyze Data
+//=======================================================================
+try {
+  const files = await readdir(webDataDir, { withFileTypes: true });
+
+  for (const file of files) {
+    if (file.isFile() && file.name.endsWith('.html')) {
+      if (grabBagMarkers.some(marker => file.name.includes(marker))) {
+        const $ = cheerio.load(fs.readFileSync(file.path+file.name, 'utf8'));
+        $('ul li').each((index, element) => {
+          const item = {};
+          item.Name = cleanText($(element).text());
+          item.Url = $(element).find('a').attr('href');
+          item.ItemId = $(element).find('a').attr('itemid');
+          item.ContainerId=$('h2:nth-child(2)').text().trim();
+          item.Container=$('h2:nth-child(1)').text().trim();
+          grabBagItems.push(item);
+        });
+      }
+      if (folioMarkers.some(marker => file.name.includes(marker))) {
+        const $ = cheerio.load(fs.readFileSync(file.path+file.name, 'utf8'));
+        $('ul li').each((index, element) => {
+          const item = {};
+          item.Name = cleanText($(element).text());
+          item.Url = $(element).find('a').attr('href');
+          item.ItemId = $(element).find('a').attr('itemid');
+          item.ContainerId=$('h2:nth-child(2)').text().trim();
+          item.Container=$('h2:nth-child(1)').text().trim();
+          folioItems.push(item);
+        });
+      }
+    }
+  };
+} catch (error) {
+    console.error('Error analyzing data:', error);
+}
+
+folioItems.sort((a,b) => {
+  // First, compare by Container
+  if (a.Container < b.Container) return -1;
+  if (a.Container > b.Container) return 1;
+  // If Container is the same, compare by ItemId
+  if (a.ItemId < b.ItemId) return -1;
+  if (a.ItemId > b.ItemId) return 1;
+  return 0; // They are equal
+});
+previousContainer = "";
+folioItems.forEach((item,index) => {
+  if (item.Container !== previousContainer) {
+    if (previousContainer !== "") {
+      folioItemsText+="\t},\n";
+    }
+    folioItemsText+='['+item.ContainerId+'] --'+item.Container+'\n\t{\n\t';
+  }
+  else {
+    folioItemsText+="\t"+item.ItemId+", --"+item.Name+"\n\t";
+  }
+  if (index === folioItems.length - 1) {
+    folioItemsText+="},\n";
+  }
+  previousContainer = item.Container;
+});
+grabBagItems.sort((a,b) => {
+  // First, compare by Container
+  if (a.Container < b.Container) return -1;
+  if (a.Container > b.Container) return 1;
+  // If Container is the same, compare by ItemId
+  if (a.ItemId < b.ItemId) return -1;
+  if (a.ItemId > b.ItemId) return 1;
+  return 0; // They are equal
+});
+previousContainer = "";
+grabBagItems.forEach((item,index) => {
+  if (item.Container !== previousContainer) {
+    if (previousContainer !== "") {
+      grabBagItemsText+="\t},\n";
+    }
+    grabBagItemsText+='['+item.ContainerId+'] --'+item.Container+'\n\t{\n\t';
+  }
+  else {
+    grabBagItemsText+="\t"+item.ItemId+", --"+item.Name+"\n\t";
+  }
+  if (index === grabBagItems.length - 1) {
+    grabBagItemsText+="},\n";
+  }
+  previousContainer = item.Container;
+});
+
+fs.writeFileSync('folios.lua', folioItemsText);
+fs.writeFileSync('grabbags.lua', grabBagItemsText);
