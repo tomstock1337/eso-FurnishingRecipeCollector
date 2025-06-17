@@ -96,6 +96,7 @@ FRC.Data.FurnisherDocuments =
     175930, --Pattern: Leyawiin Bed, Formal Double
     175931, --Pattern: Leyawiin Bed, Formal Single
     175938, --Pattern: Leyawiin Carpet, Grand Carmine Octad
+    175937, --Pattern: Leyawiin Tapestry, Fleet
     175933, --Pattern: Leyawiin Tapestry, Floral
     175995, --Praxis: Leyawiin Amphora, Elegant
     175994, --Praxis: Leyawiin Pitcher, Elegant
@@ -206,23 +207,71 @@ FRC.Data.FurnisherDocuments =
   [159653] =  --Elsweyr Journeyman Furnisher's Document
   {
     152035, --Blueprint: Elsweyr Armchair, Low-Backed Wooden
+    152042, --Blueprint: Elsweyr Bookcase, Elegant Wooden
+    152044, --Blueprint: Elsweyr Bookcase, Short Elegant
+    152040, --Blueprint: Elsweyr Bookcase, Wooden
     152055, --Blueprint: Elsweyr Cabinet, Elegant Wooden
+    152053, --Blueprint: Elsweyr Cabinet, Wall
+    152032, --Blueprint: Elsweyr Couch, Wooden
+    152060, --Blueprint: Elsweyr Desk, Wooden
     151979, --Blueprint: Elsweyr Meal, Hearty Noodles
     152059, --Blueprint: Elsweyr Nightstand, Wooden
+    152054, --Blueprint: Elsweyr Shelf, Elegant Wall
+    152019, --Blueprint: Elsweyr Stall Counter, Single
+    152063, --Blueprint: Elsweyr Table, Low
+    152064, --Blueprint: Elsweyr Table, Low Square
+    152061, --Blueprint: Elsweyr Table, Square
+    152062, --Blueprint: Elsweyr Table, Wide
     151978, --Design: Elsweyr Bowl, Deep Ceramic
+    151983, --Design: Elsweyr Bowl, Shallow Ceramic
+    151980, --Design: Elsweyr Fish, Displayed
+    151984, --Design: Elsweyr Meal, Root Vegetables
     152086, --Design: Elsweyr Sconce, Candle Carved
+    152084, --Design: Elsweyr Sconce, Candle Elegant
+    152085, --Design: Elsweyr Sconce, Candle Engraved
+    152087, --Design: Elsweyr Sconce, Candle Shielded
+    151987, --Design: Elsweyr Steamer, Ceramic
+    152038, --Pattern: Elsweyr Barstool, Wooden
+    152012, --Pattern: Elsweyr Bed, Quilted Double
+    152011, --Pattern: Elsweyr Bed, Quilted Single
+    152013, --Pattern: Elsweyr Bed, Rumpled Quilted Single
+    152093, --Pattern: Elsweyr Carpet, Chaotic Symmetry
+    152022, --Pattern: Elsweyr Curtains, Flat Panel Maroon
     152106, --Diagram: Hakoshae Hook, Block
     152013, --Pattern: Elsweyr Bed, Rumpled Quilted Single
     152023, --Pattern: Elsweyr Curtains, Tied-Back Blue
+    152024, --Pattern: Elsweyr Fabric, Hanging
+    152025, --Pattern: Elsweyr Fabric, Hanging Cluster
+    152096, --Pattern: Elsweyr Half-Rug, Sandflowers
+    152097, --Pattern: Elsweyr Runner, Autumn Vines
+    152100, --Pattern: Elsweyr Runner, Lavish Floral
+    152103, --Pattern: Elsweyr Tapestry, Amber Vines
     152105, --Pattern: Elsweyr Tapestry, Ruby-Maroon
     152104, --Pattern: Elsweyr Tapestry, Verdant Blossom
+    152102, --Pattern: Elsweyr Tapestry, Water Flowers
+    152005, --Praxis: Elsweyr Altar, Ancient Stone
+    152073, --Praxis: Elsweyr Brazier, Embellished
+    152072, --Praxis: Elsweyr Brazier, Ribbed
+    152030, --Praxis: Elsweyr Column, Stone Support
+    152114, --Praxis: Elsweyr Floor, Masonry
+    152116, --Praxis: Elsweyr Foot Bridge, Masonry
+    152081, --Praxis: Elsweyr Lantern, Hanging Twist
     152076, --Praxis: Elsweyr Lightpost, Ancient Stone
+    151974, --Praxis: Elsweyr Pillar, Ancient Stone
     152113, --Praxis: Elsweyr Platform, Stepped
+    151998, --Praxis: Elsweyr Pot, Cerulean
+    151999, --Praxis: Elsweyr Pot, Floral
     152003, --Praxis: Elsweyr Sand Meditation Ring, Large
+    152031, --Praxis: Elsweyr Spire, Decorative
     152115, --Praxis: Elsweyr Stairs, Masonry
+    152077, --Praxis: Elsweyr Streetlight, Inlaid Stone
+    151989, --Sketch: Elsweyr Cup of Rice, Gilded
+    151991, --Sketch: Elsweyr Gravy Boat, Gilded
     152006, --Sketch: Elsweyr Incense Burner, Tall Brass
     152082, --Sketch: Elsweyr Lantern, Metal Ring
+    152088, --Sketch: Elsweyr Lantern, Twist
     151990, --Sketch: Elsweyr Sugar Bowl, Gilded
+    152008, --Sketch: Elsweyr Vessel, Umber Embellished
   },
   [159654] =  --Elsweyr Master Furnisher's Document
   {
@@ -286,11 +335,17 @@ FRC.Data.FurnisherDocuments =
   [198599] =  --Galen Mixed Furnisher's Document
   {
     192533, --Blueprint: Druidic Bookcase, Tall Wood
+    192536, --Praxis: Druidic Dresser, Ivy Open Stone
+    192526, --Praxis: Druidic Dresser, Open Stone
+    192523, --Praxis: Druidic End Table, Ivy Stone
+    192561, --Praxis: Druidic Game, Marble Maze
     192534, --Blueprint: Druidic Cage, Ivy Wood
     192542, --Blueprint: High Isle Dresser, Wood
     192541, --Blueprint: High Isle Nightstand, Wood
     192555, --Design: Druidic Chandelier, Firesong
     192556, --Design: Druidic Gourd Candle, Hanging
+    192559, --Design: Druidic Incense Burner, Clay
+    192560, --Design: Druidic Pot, Clay
     192557, --Design: Druidic Wind Chimes, Gourd
     192529, --Diagram: High Isle Censer, Metal
     192539, --Diagram: High Isle Copper Teapot
@@ -303,6 +358,10 @@ FRC.Data.FurnisherDocuments =
     192520, --Praxis: Druidic Bench, Ivy Curved Stone
     192519, --Praxis: Druidic Bench, Ivy Stone
     192524, --Praxis: Druidic Bookcase, Tall Stone
+    192536, --Praxis: Druidic Dresser, Ivy Open Stone
+    192526, --Praxis: Druidic Dresser, Open Stone
+    192523, --Praxis: Druidic End Table, Ivy Stone
+    192561, --Praxis: Druidic Game, Marble Maze
     192526, --Praxis: Druidic Dresser, Open Stone
     192523, --Praxis: Druidic End Table, Ivy Stone
     192517, --Praxis: Druidic Gourd Candles, Stone
@@ -316,6 +375,38 @@ FRC.Data.FurnisherDocuments =
     192547, --Praxis: Druidic Wall Stone, Flame
     192546, --Praxis: Druidic Wall Stone, Spirits
     192543, --Praxis: High Isle Fountain, Wall
+  },
+  [194430]= --High Isle Mixed Furnisher's Document
+  {
+    188150, --Blueprint: High Isle Bench, Padded
+    188159, --Blueprint: High Isle Bench, Sturdy
+    188168, --Blueprint: High Isle Bookcase, Carved Filled
+    188169, --Blueprint: High Isle Bookcase, Wide Carved Filled
+    188151, --Blueprint: High Isle Chair, Ornate
+    188158, --Blueprint: High Isle Chair, Sturdy
+    188156, --Blueprint: High Isle Counter, Sturdy
+    188185, --Blueprint: High Isle Divider, Ornate
+    188180, --Blueprint: High Isle Dresser, Carved
+    188181, --Blueprint: High Isle End Table, Carved
+    188167, --Blueprint: High Isle Nightstand, Ornate
+    188176, --Blueprint: High Isle Plate, Compass Rose Setting
+    188160, --Blueprint: High Isle Stool, Cushioned
+    188157, --Blueprint: High Isle Stool, Sturdy
+    188172, --Blueprint: High Isle Streetlight, Paired
+    188153, --Blueprint: High Isle Table, Compass Rose
+    188152, --Blueprint: High Isle Table, Ornate
+    188155, --Blueprint: High Isle Table, Sturdy
+    188154, --Blueprint: High Isle Tea Table, Round Wheel
+    188165, --Blueprint: High Isle Trunk, Ornate
+    188166, --Blueprint: High Isle Trunk, Sturdy
+    188147, --Blueprint: High Isle Wardrobe, Compass Rose
+    188177, --Design: High Isle Crab, Steamed
+    188178, --Design: High Isle Crab, Steamed Pile
+    188179, --Design: High Isle Mussel, Steamed Pile
+    188184, --Formula: High Isle Herb Rack, Ladder
+    188145, --Pattern: High Isle Bed, Canopy Full
+    188182, --Pattern: High Isle Carpet, Ballroom
+    188187, --Sketch: High Isle Wall Mirror, Gilded
   },
   [127106] = -- Hlaalu Journeyman Furnisher's Document
   {
@@ -1084,6 +1175,7 @@ FRC.Data.FurnisherDocuments =
     171511, --Design: Dwarven Serving Dish, Vegetable Soup
     171510, --Design: Dwarven Dinner Bowl, Hearty Stew
     171512, --Design: Dwarven Plate, Full Breakfast
+    171511, --Design: Dwarven Serving Dish, Vegetable Soup
     171503, --Diagram: Dwarven Amphora, Ornate Polished
     171484, --Diagram: Dwarven Brazier, Square Polished
     171492, --Diagram: Dwarven Corner Bench, Ornate Polished
@@ -1120,6 +1212,7 @@ FRC.Data.FurnisherDocuments =
     171516, --Praxis: Dwarven Table, Granite
     171518, --Praxis: Dwarven Table, Granite Kitchen
     171524, --Praxis: Dwarven Wall Cabinet, Granite
+    171500, --Sketch: Dwarven Cage, Polished Specimen
     171799, --Praxis: Markarth Archway, Stone
     171790, --Praxis: Markarth Fireplace, Stone
     171781, --Praxis: Markarth Floor, Circular
@@ -1269,8 +1362,8 @@ FRC.Data.FurnisherDocuments =
     126913, --Blueprint: Hlaalu Armchair, Polished
     126942, --Blueprint: Hlaalu Bookcase, Orderly
     127048, --Blueprint: Hlaalu Box, Trinket
-    126955, --Blueprint: Hlaalu Cabinet, Clerk
     126946, --Blueprint: Hlaalu Cabinet of Drawers, Clerk
+    126955, --Blueprint: Hlaalu Cabinet, Clerk
     126972, --Blueprint: Hlaalu Chest, Secure
     126943, --Blueprint: Hlaalu Cupboard, Formal
     126944, --Blueprint: Hlaalu Desk, Scholar's
@@ -1382,6 +1475,61 @@ FRC.Data.FurnisherDocuments =
     126981, --Praxis: Telvanni Throne, Organic
     127102, --Praxis: Tribunal Tablet of Almalexia
   },
+  [153888]= --Murkmire Mixed Furnisher's Document
+  {
+    145992, --Blueprint: Murkmire Bed, Carved
+    145980, --Blueprint: Murkmire Bonding Chimes, Domed
+    146016, --Blueprint: Murkmire Bonding Chimes, Simple
+    145994, --Blueprint: Murkmire Chair, Woven
+    145996, --Blueprint: Murkmire Counter, Cabinet
+    146006, --Blueprint: Murkmire Gate, Arched
+    146005, --Blueprint: Murkmire Platform, Reed
+    146002, --Blueprint: Murkmire Ramp, Marshwood
+    146004, --Blueprint: Murkmire Ramp, Reed
+    146001, --Blueprint: Murkmire Shelf, Woven Hanging
+    146000, --Blueprint: Murkmire Shelves, Woven
+    145998, --Blueprint: Murkmire Table, Woven
+    146008, --Blueprint: Murkmire Totem Post, Carved
+    146017, --Blueprint: Murkmire Totem, Wolf-Lizard
+    145995, --Blueprint: Murkmire Trunk, Leatherbound
+    146009, --Blueprint: Murkmire Wall, Corner Curve
+    146007, --Blueprint: Murkmire Wall, Straight
+    145993, --Blueprint: Murkmire Wardrobe, Woven
+    145971, --Design: Bowl of Worms, Large
+    145988, --Design: Murkmire Candlepost, Driftwood
+    145987, --Design: Murkmire Candlepost, Timber
+    145989, --Design: Murkmire Candles, Bone Group
+    145968, --Design: Murkmire Pot, Large Carved
+    145986, --Formula: Murkmire Candle, Standing Shell
+    145982, --Formula: Murkmire Lamp, Hanging Bottle
+    145983, --Formula: Murkmire Lamp, Hanging Conch
+    145981, --Formula: Murkmire Lantern, Covered
+    145984, --Formula: Murkmire Sconce, Shell
+    146011, --Pattern: Murkmire Rug, Hist Gathering
+    146012, --Pattern: Murkmire Rug, Supine Turtle
+    146010, --Pattern: Murkmire Tapestry, Hist Gathering
+    145947, --Praxis: Murkmire Bed, Enclosed
+    145945, --Praxis: Murkmire Bench, Wide
+    145955, --Praxis: Murkmire Bookcase
+    145956, --Praxis: Murkmire Bookcase, Full
+    145951, --Praxis: Murkmire Bookcase, Grand
+    145952, --Praxis: Murkmire Bookcase, Grand Full
+    145950, --Praxis: Murkmire Brazier, Engraved
+    145962, --Praxis: Murkmire Hearth Shrine, Sithis Coiled
+    145963, --Praxis: Murkmire Hearth Shrine, Sithis Looming
+    145961, --Praxis: Murkmire Hearth Shrine, Sithis Rearing
+    145958, --Praxis: Murkmire Pedestal, Winged
+    145957, --Praxis: Murkmire Platform, Sectioned
+    145954, --Praxis: Murkmire Sarcophagus Lid
+    145953, --Praxis: Murkmire Sarcophagus, Empty
+    145967, --Praxis: Murkmire Shrine, Sithis Coiled
+    145966, --Praxis: Murkmire Shrine, Sithis Figure
+    145965, --Praxis: Murkmire Shrine, Sithis Rearing
+    145964, --Praxis: Murkmire Shrine, Sithis Relief
+    145949, --Praxis: Murkmire Table, Engraved
+    145959, --Praxis: Murkmire Totem, Beacon
+    145979, --Praxis: Murkmire Wall, Stone
+  },
   [204501] =  --Necrom Journeyman Furnisher's Document
   {
     197549, --Blueprint: Necrom Bookcase, Elegant Tall
@@ -1449,39 +1597,77 @@ FRC.Data.FurnisherDocuments =
   },
   [171753] =  --Skyrim Journeyman Furnisher's Document
   {
+    166806, --Blueprint: Solitude Armchair, Wicker
     166921, --Blueprint: Solitude Backpack, Basket
+    166803, --Blueprint: Solitude Barstool, Wicker
     166919, --Blueprint: Solitude Basket, Centerpiece
     166920, --Blueprint: Solitude Basket, Ornate
+    166917, --Blueprint: Solitude Basket, Wicker Handles
     166918, --Blueprint: Solitude Basket, Wicker Wide
+    166820, --Blueprint: Solitude Bench, Polished
+    166878, --Blueprint: Solitude Bookcase, Narrow Backless
+    166874, --Blueprint: Solitude Bookcase, Narrow Noble
+    166869, --Blueprint: Solitude Bookcase, Narrow Rustic Filled
+    166867, --Blueprint: Solitude Bookcase, Rustic Filled
+    166880, --Blueprint: Solitude Cabinet, Narrow Noble
     166849, --Blueprint: Solitude Cabinet, Ornate Wall
     166865, --Blueprint: Solitude Cabinet, Rustic Filled
+    166808, --Blueprint: Solitude Chair, Wicker
     166832, --Blueprint: Solitude Dresser, Rustic
     166862, --Blueprint: Solitude Jewelry Box, Wolf's-Head
+    166847, --Blueprint: Solitude Nightstand, Noble
     166848, --Blueprint: Solitude Nightstand, Noble Cabinet
+    166846, --Blueprint: Solitude Nightstand, Noble Drawers
+    166812, --Blueprint: Solitude Pew, Sturdy
     166810, --Blueprint: Solitude Pew, Sturdy Long
     166916, --Blueprint: Solitude Picnic Basket, Wicker
+    166915, --Blueprint: Solitude Serving Basket, Wicker
+    166914, --Blueprint: Solitude Serving Tray, Wood
+    166837, --Blueprint: Solitude Table, Circular Ornate Small
+    166823, --Blueprint: Solitude Table, Round
     166824, --Blueprint: Solitude Table, Round Small
+    166821, --Blueprint: Solitude Table, Rustic
+    166822, --Blueprint: Solitude Table, Rustic Large
+    166827, --Blueprint: Solitude Table, Square
+    166826, --Blueprint: Solitude Table, Square Low
+    166858, --Blueprint: Solitude Travel Chest, Practical
+    166840, --Blueprint: Solitude Trestle, Ornate
+    166841, --Blueprint: Solitude Trestle, Ornate Large
     166830, --Blueprint: Solitude Wardrobe, Rustic
     166931, --Design: Solitude Bowl, Berries
     166930, --Design: Solitude Bowl, Mushrooms
     166944, --Design: Solitude Bread, Floral Pattern
+    166948, --Design: Solitude Bread, Long
     166947, --Design: Solitude Bread, Rustic Loaf
+    166942, --Design: Solitude Breakfast, Eggs and Ham
+    166941, --Design: Solitude Breakfast, Full
     166943, --Design: Solitude Breakfast, Sausages and Ham
     166939, --Design: Solitude Camping Pot, Fish Stew
     166936, --Design: Solitude Dinner Bowl, Hearty Stew
     166938, --Design: Solitude Dinner Bowl, Vegetable Soup
+    166953, --Design: Solitude Drinking Horn, Ivory
     166954, --Design: Solitude Drying Rack, Stockfish
     166895, --Diagram: Solitude Hand-Drill, Simple
     166925, --Diagram: Solitude Frying Pan, Long-Handled
     166907, --Diagram: Solitude Pot, Stout Metal
     166860, --Diagram: Solitude Trunk, Knotwork
+    166950, --Design: Solitude Goblet, Knotwork
+    166932, --Design: Solitude Meal, Rustic
+    166902, --Design: Solitude Pot, Large Ceramic
+    166933, --Design: Solitude Tray, Stockfish
+    166903, --Design: Solitude Vase, Large Sealed
+    166888, --Pattern: Solitude Bed, Rustic Bearskin Double
     166891, --Pattern: Solitude Bed, Rustic Bearskin Single
+    166889, --Pattern: Solitude Bed, Rustic Cowhide Double
+    166892, --Pattern: Solitude Bed, Rustic Cowhide Single
     166794, --Pattern: Solitude Carpet, Small Plush
     166898, --Pattern: Solitude Patching Kit, Well-Worn
     166787, --Pattern: Solitude Rug, Cowhide
     166793, --Pattern: Solitude Rug, Knotwork
     166788, --Pattern: Solitude Rug, Snow Bear
+    166782, --Praxis: Solitude Sconce, Candle Embellished
     166951, --Sketch: Solitude Goblet, Noble
+    166863, --Sketch: Solitude Jewelry Box, Copper and Agate
     166911, --Sketch: Solitude Serving Bowl, Verdigris
   },
   [171754] =  --Skyrim Master Furnisher's Document
@@ -1506,6 +1692,7 @@ FRC.Data.FurnisherDocuments =
     166959, --Blueprint: Solitude Display Shelf, Noble Filled
     166899, --Blueprint: Solitude Game, Warrior and the Wolf
     166851, --Blueprint: Solitude Mirror, Noble Full-Length
+    166819, --Blueprint: Solitude Pew, Noble
     166817, --Blueprint: Solitude Pew, Noble Long
     166818, --Blueprint: Solitude Pew, Ornate
     166816, --Blueprint: Solitude Pew, Ornate Long
@@ -1532,8 +1719,8 @@ FRC.Data.FurnisherDocuments =
     166853, --Diagram: Solitude Wall Mirror, Ornate
     166887, --Pattern: Solitude Bed, Noble Double
     166890, --Pattern: Solitude Bed, Noble Single
-    166791, --Pattern: Solitude Carpet, Plush
     166789, --Pattern: Solitude Carpet, Grand Wolf's-Head Border
+    166791, --Pattern: Solitude Carpet, Plush
     166792, --Pattern: Solitude Carpet, Wolf's-Head Border
     166790, --Pattern: Solitude Runner, Grand Wolf's-Head Border
     166957, --Praxis: Solitude Streetlight, Paired
@@ -1542,29 +1729,43 @@ FRC.Data.FurnisherDocuments =
     166856, --Sketch: Solitude Censer, Wolf-Head
     166949, --Sketch: Solitude Goblet, Covered
   },
-  [153622] =  --Summerset Journeyman Furnisher's
+
+  [153622]= --Summerset Journeyman Furnisher's Document
   {
     139550, --Blueprint: Alinor Armchair, Polished
     139551, --Blueprint: Alinor Armchair, Backless Polished
-    139539, --Blueprint: Alinor Bed, Polished Single
+    139550, --Blueprint: Alinor Armchair, Polished
     139541, --Blueprint: Alinor Bed, Noble Single
+    139539, --Blueprint: Alinor Bed, Polished Single
+    139532, --Blueprint: Alinor Candles, Stand
     139531, --Blueprint: Alinor Candles, Tall Stand
+    139549, --Blueprint: Alinor Chair, Polished
+    139559, --Blueprint: Alinor Counter, Polished Corner
     139558, --Blueprint: Alinor Counter, Polished Drawers
     139552, --Blueprint: Alinor Desk, Polished
+    139584, --Blueprint: Alinor Divider, Polished
     139570, --Blueprint: Alinor Jewelry Box, Octagonal
+    139568, --Blueprint: Alinor Jewelry Box, Polished
     139555, --Blueprint: Alinor Nightstand, Octagonal
+    139554, --Blueprint: Alinor Nightstand, Scalloped
     139485, --Blueprint: Alinor Pew, Polished
+    139593, --Blueprint: Alinor Table, Noble Intimate
     139564, --Blueprint: Alinor Trunk, Engraved
     139563, --Blueprint: Alinor Trunk, Peaked
+    139557, --Blueprint: Alinor Winerack, Polished
     139598, --Design: Alinor Amphora, Embossed
     139648, --Design: Alinor Amphora, Portrait
+    139610, --Design: Alinor Meal, Complete Setting
     139594, --Design: Alinor Urn, Gilded
     139533, --Diagram: Alinor Brazier, Hanging Coals
     139526, --Diagram: Alinor Brazier, Standing Coals
     139618, --Diagram: Alinor Platter, Scalloped
     139599, --Diagram: Alinor Urn, Bronze
+    139639, --Pattern: Alinor Carpet, Vibrant
     139635, --Pattern: Alinor Curtains, Drawn
+    139634, --Pattern: Alinor Curtains, Tall Drawn
     139640, --Pattern: Alinor Rug, Alinor Seal
+    139643, --Pattern: Alinor Tapestry, Alinor Dawn
     139644, --Pattern: Alinor Tapestry, Alinor Dusk
     139645, --Pattern: Alinor Tapestry, Royal Gryphons
     139518, --Praxis: Alinor Archway, Tall
@@ -1573,25 +1774,32 @@ FRC.Data.FurnisherDocuments =
     139502, --Praxis: Alinor Column, Slender Timeworn
     139504, --Praxis: Alinor Column, Timeworn
     139607, --Praxis: Alinor Display Stand, Marble
+    139606, --Praxis: Alinor Display Stand, Marble Wide
+    139516, --Praxis: Alinor Fence, Tall
+    139517, --Praxis: Alinor Fence, Tall Long
     139503, --Praxis: Alinor Floor, Ballroom Timeworn
+    139589, --Praxis: Alinor Fountain, Timeworn
     139507, --Praxis: Alinor Plinth, Sarcophagus
     139515, --Praxis: Alinor Post, Tall Fence
     139630, --Praxis: Alinor Potted Plant, Double Tiered
     139629, --Praxis: Alinor Potted Plant, Triple Tiered
     139631, --Praxis: Alinor Potted Plant, Twin Saplings
     139508, --Praxis: Alinor Sarcophagus, Open
+    139603, --Praxis: Alinor Shrine, Limestone
     139604, --Praxis: Alinor Shrine, Limestone Raised
+    139509, --Praxis: Alinor Stairway, Timeworn
     139510, --Praxis: Alinor Stairway, Timeworn Wide
     139591, --Praxis: Alinor Table, Decorative Marble
     139590, --Praxis: Alinor Table, Round Marble
     139602, --Praxis: Alinor Urn, Limestone Large
     139608, --Praxis: Alinor Wall Shrine, Marble
+    139613, --Sketch: Alinor Chalice, Delicate
     139615, --Sketch: Alinor Chalice, Ornate
     139616, --Sketch: Alinor Goblet, Silver Ornate
     139576, --Sketch: Scrimshaw, Sea Monster
     139577, --Sketch: Scrimshaw, Ship
   },
-  [153621] =  --Summerset Master Furnisher's
+  [153621]= --Summerset Master Furnisher's Document
   {
     139545, --Blueprint: Alinor Armchair, Backless Verdant
     139547, --Blueprint: Alinor Armchair, Noble
