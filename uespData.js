@@ -16,7 +16,7 @@ const merchFaustinaURL="https://en.uesp.net/wiki/Online:Faustina_Curio";
 const merchFaustinaFile=webDataDir+"_Merchant-Faustina Curio.html";
 const projFolioFile=projDir+"dataFolios.lua";
 const projGrabBagFile=projDir+"dataGrabBags.lua";
-const recipeMarkers=["Blueprint","Blueprints","Sketch","Sketches","Pattern","Patterns","Design","Designs","Praxis","Praxes","Recipe","Formula","Formulae"];
+const recipeMarkers=["Blueprint","Blueprints","Sketch","Sketches","Pattern","Patterns","Design","Designs","Praxis","Praxes","Recipe","Formula","Formulae",'Diagram','Diagrams'];
 const grabBagMarkers=["Master Furnisher's Document","Journeyman Furnisher's Document","Mixed Furnisher's Document"];
 const folioMarkers=["Furnishing Folio"];
 const rejectMarkers=["(page)*","(page)","(view contents)","*","[edit]","(image)"];
@@ -62,6 +62,28 @@ var grabBagItemsRecipesLua="";
   //   167381, --Praxis: Ancient Nord Monolith, Head
   //   167384, --Sketch: Blackreach Geode, Iridescent
   // },
+var jsonFolioCompare = {};
+var jsonGrabBagCompare = {};
+//Sample data structure for comparison results
+  // {
+  //   "addedContainers": [],
+  //   "removedContainers": [],
+  //   "changedContainers": {
+  //     "121364": {
+  //       "name": "Hlaalu Master Furnisher's Document",
+  //       "addedItems": [],
+  //       "removedItems": [
+  //         "115968",
+  //         "121373",
+  //         "121374"
+  //       ]
+  //     },
+  //   },
+  //   "sameContainers": [
+  //     "153888",
+  //     "159654"
+  //   ]
+  // }
 
 // Helper Functions=================================================
 // Sleep function to pause execution for given milliseconds
@@ -76,8 +98,26 @@ function cleanText(text) {
         text = text.replace(new RegExp(escapedMarker, 'g'), '').trim();
     }
   });
-
   return text;
+}
+function removeRecipeMarkers(text) {
+  recipeMarkers.forEach(marker => {
+    const escapedMarker = marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    if (text.includes(marker)) {
+        text = text.replace(new RegExp(escapedMarker, 'g'), '').trim();
+    }
+  });
+  return text;
+}
+function detectRecipeMarker(text) {
+  for (const marker of recipeMarkers) {
+    const escapedMarker = marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(escapedMarker, 'g');
+    if (regex.test(text)) {
+      return marker;
+    }
+  }
+  return null;
 }
 function sortByContainerAndItemName(a, b) {
   // First, compare by Container
@@ -307,8 +347,7 @@ async function scrapeContainerPages() {
     }
   });
 };
-async function scrapeItemPage(itemId) {
-  const filename = webDataDir + itemId + ".html";
+async function scrapeItemPage(itemId, filename) {
   if (checkForCachedData(filename)) {
     return;
   }
@@ -391,6 +430,56 @@ async function readContainerData() {
       console.error('Error analyzing data:', error);
   }
 };
+async function readItemPage(filename) {
+  try {
+    const currPage = cheerio.load(fs.readFileSync(filename, 'utf8'));
+    const item = {};
+    item.Raw = currPage('table tr').filter(function() {
+                    return currPage(this).find('td:first').text().trim() === "name";
+                  }).find('td').eq(1).text();
+    item.Type = detectRecipeMarker(item.Raw);
+    item.Name = removeRecipeMarkers(item.Raw).replace(":",""); // Get the second <td> (index 1)
+
+    return item;
+  } catch (error) {
+      console.error('Error analyzing data:', error);
+  }
+};
+async function processContainers(containers) {
+  const containerIds = Object.keys(containers);
+
+  for (const containerId of containerIds) {
+    containersGrabBags
+      .filter(item => item.ItemId === containerId)
+      .forEach(item => {
+        console.log(`Container ID: ${containerId} (${changedContainers[containerId].name}) - ${item.Url}`);
+      });
+
+    const printedTypes = new Set(); // Track types printed for this container
+
+    for (const itemId of changedContainers[containerId].removedItems) {
+      const itemData = grabBagItemsRecipes.find(i => i.ItemId === itemId);
+
+      if (itemData) {
+        console.log(`  - ${itemData.Name} (${itemData.ItemId})`);
+      } else {
+        try {
+          const filename = webDataDir + itemId + ".html";
+          await scrapeItemPage(itemId, filename);
+          const item = await readItemPage(filename);
+
+          if (!printedTypes.has(item.Type)) {
+            console.log(item.Type);
+            printedTypes.add(item.Type);
+          }
+          console.log(`* {{Furnishing Recipe Link Short|${item.Name}}}`);
+        } catch (error) {
+          console.error(`Failed to process item ${itemId}:`, error);
+        }
+      }
+    }
+  }
+}
 
 //=======================================================================
 //Main Logic of the Script===============================================
@@ -409,6 +498,7 @@ await sleep(2000); //buffer to wait until files are created.
 
 await readContainerData();
 
+//populated from readContainerData()
 folioItemRecipes.sort(sortByContainerAndItemName);
 grabBagItemsRecipes.sort(sortByContainerAndItemName);
 
@@ -421,31 +511,13 @@ fs.writeFileSync('grabbags_new.lua', grabBagItemsRecipesLua);
 await readProjLuaFile(projFolioFile,'folios_old.lua');
 await readProjLuaFile(projGrabBagFile,'grabbags_old.lua');
 
-var jsonFolioCompare = compareLuaFiles('folios_old.lua', 'folios_new.lua');
-var jsonGrabBagCompare = compareLuaFiles('grabbags_old.lua', 'grabbags_new.lua');
-
-// console.log("Folio Comparison Results:");
-// console.log("Added Containers:", jsonFolioCompare.addedContainers);
-// console.log("Removed Containers:", jsonFolioCompare.removedContainers);
-// console.log("Changed Containers:", jsonFolioCompare.changedContainers);
-// console.log("Same Containers:", jsonFolioCompare.sameContainers);
-
+jsonFolioCompare = compareLuaFiles('folios_old.lua', 'folios_new.lua');
+jsonGrabBagCompare = compareLuaFiles('grabbags_old.lua', 'grabbags_new.lua');
 
 console.log("Grab Bag Comparison Results:");
+
 var changedContainers = jsonGrabBagCompare.changedContainers;
-Object.keys(changedContainers).forEach(containerId => {
+console.log("The following items needs to be added to UESP.");
 
-  containersGrabBags.filter(item => item.ItemId === containerId).forEach(item => {
-    console.log(`Container ID: ${containerId} (${changedContainers[containerId].name}) - ${item.Url}`);
-  });
+processContainers(changedContainers)
 
-  changedContainers[containerId].removedItems.forEach(item => {
-    const itemData = grabBagItemsRecipes.find(i => i.ItemId === item);
-    if (itemData) {
-      console.log(`  - ${itemData.Name} (${itemData.ItemId})`);
-    } else {
-      scrapeItemPage(item);
-      console.log(`  - Item ID ${item} not found in grab bag items.`);
-    }
-  });
-});

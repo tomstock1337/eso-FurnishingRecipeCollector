@@ -1229,62 +1229,6 @@ FRC.Data.FurnisherDocuments =
     171791, --Praxis: Markarth Wall, Windowed Stone
     171499, --Sketch: Dwarven Mirror, Polished
   },
-  [153888] =  --Murkmire Mixed Furnisher's Document
-  {
-    145992, --Blueprint: Murkmire Bed, Carved
-    145980, --Blueprint: Murkmire Bonding Chimes, Domed
-    146016, --Blueprint: Murkmire Bonding Chimes, Simple
-    145994, --Blueprint: Murkmire Chair, Woven
-    145996, --Blueprint: Murkmire Counter, Cabinet
-    146006, --Blueprint: Murkmire Gate, Arched
-    146005, --Blueprint: Murkmire Platform, Reed
-    146002, --Blueprint: Murkmire Ramp, Marshwood
-    146004, --Blueprint: Murkmire Ramp, Reed
-    146001, --Blueprint: Murkmire Shelf, Woven Hanging
-    146000, --Blueprint: Murkmire Shelves, Woven
-    145998, --Blueprint: Murkmire Table, Woven
-    146008, --Blueprint: Murkmire Totem Post, Carved
-    146017, --Blueprint: Murkmire Totem, Wolf-Lizard
-    145995, --Blueprint: Murkmire Trunk, Leatherbound
-    146009, --Blueprint: Murkmire Wall, Corner Curve
-    146007, --Blueprint: Murkmire Wall, Straight
-    145993, --Blueprint: Murkmire Wardrobe, Woven
-    145971, --Design: Bowl of Worms, Large
-    145988, --Design: Murkmire Candlepost, Driftwood
-    145987, --Design: Murkmire Candlepost, Timber
-    145989, --Design: Murkmire Candles, Bone Group
-    145968, --Design: Murkmire Pot, Large Carved
-    145960, --Diagram: Murkmire Brazier, Bowl
-    145986, --Formula: Murkmire Candle, Standing Shell
-    145982, --Formula: Murkmire Lamp, Hanging Bottle
-    145983, --Formula: Murkmire Lamp, Hanging Conch
-    145981, --Formula: Murkmire Lantern, Covered
-    145984, --Formula: Murkmire Sconce, Shell
-    146011, --Pattern: Murkmire Rug, Hist Gathering
-    146012, --Pattern: Murkmire Rug, Supine Turtle
-    146010, --Pattern: Murkmire Tapestry, Hist Gathering
-    145947, --Praxis: Murkmire Bed, Enclosed
-    145945, --Praxis: Murkmire Bench, Wide
-    145955, --Praxis: Murkmire Bookcase
-    145956, --Praxis: Murkmire Bookcase, Full
-    145951, --Praxis: Murkmire Bookcase, Grand
-    145952, --Praxis: Murkmire Bookcase, Grand Full
-    145950, --Praxis: Murkmire Brazier, Engraved
-    145962, --Praxis: Murkmire Hearth Shrine, Sithis Coiled
-    145963, --Praxis: Murkmire Hearth Shrine, Sithis Looming
-    145961, --Praxis: Murkmire Hearth Shrine, Sithis Rearing
-    145958, --Praxis: Murkmire Pedestal, Winged
-    145957, --Praxis: Murkmire Platform, Sectioned
-    145953, --Praxis: Murkmire Sarcophagus, Empty
-    145954, --Praxis: Murkmire Sarcophagus Lid
-    145967, --Praxis: Murkmire Shrine, Sithis Coiled
-    145966, --Praxis: Murkmire Shrine, Sithis Figure
-    145965, --Praxis: Murkmire Shrine, Sithis Rearing
-    145964, --Praxis: Murkmire Shrine, Sithis Relief
-    145949, --Praxis: Murkmire Table, Engraved
-    145959, --Praxis: Murkmire Totem, Beacon
-    145979, --Praxis: Murkmire Wall, Stone
-  },
   [134684] =  --Morrowind Journeyman Furnisher's Document
   {
     127002, --Blueprint: Ashlander Cup, Empty
