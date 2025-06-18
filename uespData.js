@@ -5,7 +5,9 @@ import path from 'path';
 import { readdir } from 'node:fs/promises';
 import ObjectsToCsv from 'objects-to-csv';
 
+// Constants
 const uespBaseUrl = "https://en.uesp.net";
+const uespItemLookupUrl = "https://esoitem.uesp.net/itemLink.php?&itemid="
 const webDataDir = "uesp/";
 const projDir = "FurnishingRecipeCollector/";
 const merchRolisURL="https://en.uesp.net/wiki/Online:Rolis_Hlaalu";
@@ -20,22 +22,54 @@ const folioMarkers=["Furnishing Folio"];
 const rejectMarkers=["(page)*","(page)","(view contents)","*","[edit]","(image)"];
 
 var itemsRecipes = [];
-var itemsFolios = [];
-var itemsGrabBags = [];
-var folioItems= [];
-var folioItemsText="";
-var grabBagItems = [];
-var grabBagItemsText="";
+  // {
+  //   Icon: '/wiki/File:ON-icon-plan-Sketch_5.png',
+  //   Name: 'Sketch: Colovian Mirror, Standing(Colovian Mirror, Standing)',
+  //   ItemId: '211037',
+  //   Price: '100',
+  //   Url: 'https://en.uesp.net//esoitem.uesp.net/itemLink.php?&itemid=211037&quality=5'
+  // }
+var containersFolios = [];
+var containersGrabBags = [];
+//Sample data structure for containers
+  // {
+  //   Icon: '/wiki/File:ON-icon-book-Closed_02.png',
+  //   Name: 'Western Skyrim Furnishing Folio',
+  //   ItemId: '171808',
+  //   Price: '700',
+  //   Url: 'https://en.uesp.net/wiki/Online:Western_Skyrim_Furnishing_Folio'
+  // }
+var folioItemRecipes= [];
+var grabBagItemsRecipes = [];
+// Sample data structure for items in containers
+  // {
+  //   Name: 'Pattern: Solitude Loom, Warp-Weighted',
+  //   Url: '//esoitem.uesp.net/itemLink.php?&itemid=167379&quality=5',
+  //   ItemId: '167379',
+  //   ContainerId: '171808',
+  //   Container: 'Western Skyrim Furnishing Folio'
+  // },
+var folioItemRecipesLua="";
+var grabBagItemsRecipesLua="";
+// Sample data structure for lua variables
+  // [171808]= --Western Skyrim Furnishing Folio
+  // {
+  //   167380, --Blueprint: Solitude Game, Blood-on-the-Snow
+  //   167383, --Design: Solitude Smoking Rack, Fish
+  //   167378, --Diagram: Vampiric Chandelier, Azure Wrought-Iron
+  //   167382, --Formula: Winter Cardinal Painting, In Progress
+  //   167379, --Pattern: Solitude Loom, Warp-Weighted
+  //   167381, --Praxis: Ancient Nord Monolith, Head
+  //   167384, --Sketch: Blackreach Geode, Iridescent
+  // },
 
-var previousContainer = "";
-
-// Sleep function: pauses for 'ms' milliseconds
+// Helper Functions=================================================
+// Sleep function to pause execution for given milliseconds
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
-
+// Function to clean text by removing unwanted markers as defined in rejectMarkers
 function cleanText(text) {
-
   rejectMarkers.forEach(marker => {
     const escapedMarker = marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     if (text.includes(marker)) {
@@ -45,7 +79,16 @@ function cleanText(text) {
 
   return text;
 }
-
+function sortByContainerAndItemName(a, b) {
+  // First, compare by Container
+  if (a.Container < b.Container) return -1;
+  if (a.Container > b.Container) return 1;
+  // If Container is the same, compare by ItemId
+  if (a.Name < b.Name) return -1;
+  if (a.Name > b.Name) return 1;
+  return 0; // They are equal
+}
+// Function to check if a file exists and if it was modified within the last 7 days
 function checkForCachedData(filename) {
   if (fs.existsSync(filename)) {
     const stats = fs.statSync(filename); // Get file stats synchronously
@@ -59,231 +102,27 @@ function checkForCachedData(filename) {
   }
   return false;
 }
-
-async function scrapeMerchant(url, filename) {
-  // Check if the file already exists and is recent enough
-  if (checkForCachedData(filename)) {
-    return;
-  }
-  try {
-      const response = await axios.get(url);
-      const $ = cheerio.load(response.data);
-      const items = [];
-
-      const header = $('h1#firstHeading').text().replace('Online:', '').trim();
-      const table = $('h2:contains("Wares")').next('table');
-
-      // Get the HTML of the table
-      const tableHtml = $.html(table);
-
-      // Write to a local file
-      fs.writeFileSync(filename, tableHtml);
-
-      console.log('Merchant inventory exported from '+filename);
-
-  } catch (error) {
-      console.error('Error fetching merchant data:', error);
-  }
-};
-
-async function readMerchantData(filename) {
-  const currPage = cheerio.load(fs.readFileSync(filename, 'utf8'));
-  currPage('tr').each((index, element) => {
-      const item = {};
-      item.Icon = currPage(element).find('td:nth-child(1) a').attr('href');
-      item.Name = currPage(element).find('td:nth-child(2)').text().trim();
-      item.ItemId = currPage(element).find('td:nth-child(2) a').attr('itemid');
-      item.Price = currPage(element).find('td:nth-child(3) span>span').text().trim();
-      if (recipeMarkers.some(marker => item.Name.includes(marker))) {
-          item.Url = uespBaseUrl+currPage(element).find('td:nth-child(2) a:nth-child(1)').attr('href');
-          itemsRecipes.push(item);
-      } else if (grabBagMarkers.some(marker => item.Name.includes(marker))) {
-          item.Url = uespBaseUrl+currPage(element).find('td:nth-child(2) a:nth-child(2)').attr('href');
-          itemsGrabBags.push(item);
-      } else if (folioMarkers.some(marker => item.Name.includes(marker))) {
-          item.Url = uespBaseUrl+currPage(element).find('td:nth-child(2) a:nth-child(2)').attr('href');
-          itemsFolios.push(item);
-      } else {
-          //Don't push items we don't care about
-          item.Type = "Item";
-          item.Url = currPage(element).find('td:nth-child(2) a:nth-child(1)').attr('href');
-      }
-      item.Name = cleanText(item.Name);
-    });
-};
-
-//Uncomment to get fresh data
-await scrapeMerchant(merchRolisURL,merchRolisFile);
-await scrapeMerchant(merchFaustinaURL,merchFaustinaFile);
-
-await readMerchantData(merchRolisFile);
-await readMerchantData(merchFaustinaFile);
-
-// console.log(itemsRecipes);
-// console.log(itemsGrabBags);
-// console.log(itemsFolios);
-
-//=======================================================================
-//  Grab Bag and Folio Page Scraping
-//=======================================================================
-async function scrapeContainers() {
-  itemsGrabBags.forEach(async(item) => {
-    var filename = webDataDir+item.Name+".html"
-    // Check if the file already exists and is recent enough
-    if (checkForCachedData(filename)) {
-      return;
-    } else {
-      console.log('Visiting Grab Bag: '+item.Name + " - " + item.Url);
-    }
-    try {
-        const response = await axios.get(item.Url);
-        const $ = cheerio.load(response.data);
-        var allHTML="";
-        allHTML+="<h2>"+item.Name+"</h2>";
-        allHTML+="<h2>"+item.ItemId+"</h2>";
-
-        recipeMarkers.forEach(marker => {
-          const list = $('h2').filter(function(){
-            if ( cleanText($(this).text()) === marker) {
-              return true;
-            }}).next('ul');
-
-            // Get the HTML of the table
-            allHTML += $.html(list);
-          });
-
-        // Write to a local file
-        fs.writeFileSync(filename, allHTML);
-    } catch (error) {
-        console.error('Error fetching merchant data:', error);
-    }
-    return true;
-  });
-
-  itemsFolios.forEach(async(item) => {
-    var filename = webDataDir+item.Name+".html"
-    // Check if the file already exists and is recent enough
-    if (checkForCachedData(filename)) {
-      return;
-    }
-    else {
-      console.log('Visiting Folio: '+item.Name + " - " + item.Url);
-    }
-    try {
-        const response = await axios.get(item.Url);
-        const $ = cheerio.load(response.data);
-        var allHTML="";
-        allHTML+="<h2>"+item.Name+"</h2>";
-        allHTML+="<h2>"+item.ItemId+"</h2>";
-
-        const table = $('h2:contains("Contents")').next('ul');
-
-        // Get the HTML of the table
-        allHTML+=$.html(table);
-
-        // Write to a local file
-        fs.writeFileSync(webDataDir+item.Name+".html", allHTML);
-
-    } catch (error) {
-        console.error('Error fetching merchant data:', error);
-    }
-  });
-};
-
-await scrapeContainers();
-//=======================================================================
-//  Analyze Data
-//=======================================================================
-async function analyzeData() {
-  try {
-    const files = await fs.promises.readdir(webDataDir, { withFileTypes: true });
-
-    for (const file of files) {
-      if (file.isFile() && file.name.endsWith('.html')) {
-        if (grabBagMarkers.some(marker => file.name.includes(marker))) {
-          const $ = cheerio.load(fs.readFileSync(path.join(webDataDir, file.name), 'utf8'));
-          $('ul li').each((index, element) => {
-            const item = {};
-            item.Name = cleanText($(element).text());
-            item.Url = $(element).find('a').attr('href');
-            item.ItemId = $(element).find('a').attr('itemid');
-            item.ContainerId=$('h2:nth-child(2)').text().trim();
-            item.Container=$('h2:nth-child(1)').text().trim();
-            grabBagItems.push(item);
-          });
-        }
-        if (folioMarkers.some(marker => file.name.includes(marker))) {
-          const $ = cheerio.load(fs.readFileSync(file.path+file.name, 'utf8'));
-          $('ul li').each((index, element) => {
-            const item = {};
-            item.Name = cleanText($(element).text());
-            item.Url = $(element).find('a').attr('href');
-            item.ItemId = $(element).find('a').attr('itemid');
-            item.ContainerId=$('h2:nth-child(2)').text().trim();
-            item.Container=$('h2:nth-child(1)').text().trim();
-            folioItems.push(item);
-          });
-        }
-      }
-    };
-  } catch (error) {
-      console.error('Error analyzing data:', error);
-  }
-};
-await sleep(2000); //buffer to wait until files are created.
-await analyzeData();
-//=======================================================================
-//  Sort the data and generate lua that can be put into the respective files
-//=======================================================================
-function sortByContainerAndItemId(a, b) {
-  // First, compare by Container
-  if (a.Container < b.Container) return -1;
-  if (a.Container > b.Container) return 1;
-  // If Container is the same, compare by ItemId
-  if (a.Name < b.Name) return -1;
-  if (a.Name > b.Name) return 1;
-  return 0; // They are equal
-}
-folioItems.sort(sortByContainerAndItemId);
-grabBagItems.sort(sortByContainerAndItemId);
-
-function processItems(items, itemsTextVar) {
+// This function will generate code that can be hot swapped in the main project lua files
+function CreateLuaDataStructure(items) {
+  let output = "";
   let previousContainer = "";
   items.forEach((item, index) => {
     if (item.Container !== previousContainer) {
       if (previousContainer !== "") {
-        itemsTextVar.value += "\t},\n";
+        output += "\t},\n";
       }
-      itemsTextVar.value += '\t[' + item.ContainerId + ']= --' + item.Container + '\n\t{\n';
-      itemsTextVar.value += "\t\t" + item.ItemId + ", --" + item.Name + "\n";
+      output += '\t[' + item.ContainerId + ']= --' + item.Container + '\n\t{\n';
+      output += "\t\t" + item.ItemId + ", --" + item.Name + "\n";
     } else {
-      itemsTextVar.value += "\t\t" + item.ItemId + ", --" + item.Name + "\n";
+      output += "\t\t" + item.ItemId + ", --" + item.Name + "\n";
     }
     if (index === items.length - 1) {
-      itemsTextVar.value += "\t},\n";
+      output += "\t},\n";
     }
     previousContainer = item.Container;
   });
+  return output.replace(/\t/g, '  ');
 }
-
-let folioItemsTextObj = { value: "" };
-let grabBagItemsTextObj = { value: "" };
-
-processItems(folioItems, folioItemsTextObj);
-processItems(grabBagItems, grabBagItemsTextObj);
-
-// Access the results
-folioItemsText = folioItemsTextObj.value;
-grabBagItemsText = grabBagItemsTextObj.value;
-
-folioItemsText = folioItemsText.replace(/\t/g, '  ');
-grabBagItemsText = grabBagItemsText.replace(/\t/g, '  ');
-
-fs.writeFileSync('folios_new.lua', folioItemsText);
-fs.writeFileSync('grabbags_new.lua', grabBagItemsText);
-
-//Grab the data from the project lua files
-
 function readProjLuaFile(filePath, projFilePath){
   const luaFile = fs.readFileSync(filePath, 'utf8');
   const match = luaFile.match(/--AUTOMATION START=+\s*([\s\S]*?)--AUTOMATION END=+/m);
@@ -294,10 +133,8 @@ function readProjLuaFile(filePath, projFilePath){
     console.log('Markers not found or no data between them.');
   }
 };
-
-await readProjLuaFile(projFolioFile,'folios_old.lua');
-await readProjLuaFile(projGrabBagFile,'grabbags_old.lua');
-
+// Lua file comparison function==========================
+// These functions were written by Perplexity for assistance with project.
 function compareLuaFiles(file1Path, file2Path) {
   console.log(file1Path, file2Path);
     // Read and parse both files
@@ -382,11 +219,233 @@ function parseLuaFile(content) {
 
     return containers;
 }
-console.log(JSON.stringify(
-  compareLuaFiles('folios_new.lua', 'folios_old.lua'),
-  null, 2 // 2-space indentation
-));
-console.log(JSON.stringify(
-  compareLuaFiles('grabbags_new.lua', 'grabbags_old.lua'),
-  null, 2 // 2-space indentation
-));
+
+
+// Web Scraping Functions========================================
+async function scrapeMerchantPage(url, filename) {
+  // Check if the file already exists and is recent enough
+  if (checkForCachedData(filename)) {
+    return;
+  }
+  try {
+      const response = await axios.get(url);
+      const $ = cheerio.load(response.data);
+      const table = $('h2:contains("Wares")').next('table');
+
+      // Get the HTML of the table
+      const tableHtml = $.html(table);
+
+      // Write to a local file
+      fs.writeFileSync(filename, tableHtml);
+
+      console.log('Merchant inventory exported from '+filename);
+
+  } catch (error) {
+      console.error('Error fetching merchant data:', error);
+  }
+};
+async function scrapeContainerPages() {
+  containersGrabBags.forEach(async(item) => {
+    var filename = webDataDir+item.Name+".html"
+    // Check if the file already exists and is recent enough
+    if (checkForCachedData(filename)) {
+      return;
+    } else {
+      console.log('Visiting Grab Bag: '+item.Name + " - " + item.Url);
+    }
+    try {
+        const response = await axios.get(item.Url);
+        const $ = cheerio.load(response.data);
+        var allHTML="";
+        allHTML+="<h2>"+item.Name+"</h2>";
+        allHTML+="<h2>"+item.ItemId+"</h2>";
+
+        recipeMarkers.forEach(marker => {
+          const list = $('h2').filter(function(){
+            if ( cleanText($(this).text()) === marker) {
+              return true;
+            }}).next('ul');
+
+            // Get the HTML of the table
+            allHTML += $.html(list);
+          });
+
+        // Write to a local file
+        fs.writeFileSync(filename, allHTML);
+    } catch (error) {
+        console.error('Error fetching merchant data:', error);
+    }
+    return true;
+  });
+
+  containersFolios.forEach(async(item) => {
+    var filename = webDataDir+item.Name+".html"
+    // Check if the file already exists and is recent enough
+    if (checkForCachedData(filename)) {
+      return;
+    }
+    else {
+      console.log('Visiting Folio: '+item.Name + " - " + item.Url);
+    }
+    try {
+        const response = await axios.get(item.Url);
+        const $ = cheerio.load(response.data);
+        var allHTML="";
+        allHTML+="<h2>"+item.Name+"</h2>";
+        allHTML+="<h2>"+item.ItemId+"</h2>";
+
+        const table = $('h2:contains("Contents")').next('ul');
+
+        // Get the HTML of the table
+        allHTML+=$.html(table);
+
+        // Write to a local file
+        fs.writeFileSync(webDataDir+item.Name+".html", allHTML);
+
+    } catch (error) {
+        console.error('Error fetching merchant data:', error);
+    }
+  });
+};
+async function scrapeItemPage(itemId) {
+  const filename = webDataDir + itemId + ".html";
+  if (checkForCachedData(filename)) {
+    return;
+  }
+  try {
+    const response = await axios.get(uespItemLookupUrl + itemId);
+    const $ = cheerio.load(response.data);
+    const table = $('table#esoil_rawdatatable');
+
+    // Get the HTML of the table
+    const tableHtml = $.html(table);
+
+    // Write to a local file
+    fs.writeFileSync(filename, tableHtml);
+
+  } catch (error) {
+    console.error(`Error fetching item data for ID ${itemId}:`, error);
+    return null;
+  }
+}
+
+// File Reading Functions========================================
+async function readMerchantData(filename) {
+  const currPage = cheerio.load(fs.readFileSync(filename, 'utf8'));
+  currPage('tr').each((index, element) => {
+      const item = {};
+      item.Icon = currPage(element).find('td:nth-child(1) a').attr('href');
+      item.Name = currPage(element).find('td:nth-child(2)').text().trim();
+      item.ItemId = currPage(element).find('td:nth-child(2) a').attr('itemid');
+      item.Price = currPage(element).find('td:nth-child(3) span>span').text().trim();
+      if (recipeMarkers.some(marker => item.Name.includes(marker))) {
+          item.Url = uespBaseUrl+currPage(element).find('td:nth-child(2) a:nth-child(1)').attr('href');
+          itemsRecipes.push(item);
+      } else if (grabBagMarkers.some(marker => item.Name.includes(marker))) {
+          item.Url = uespBaseUrl+currPage(element).find('td:nth-child(2) a:nth-child(2)').attr('href');
+          containersGrabBags.push(item);
+      } else if (folioMarkers.some(marker => item.Name.includes(marker))) {
+          item.Url = uespBaseUrl+currPage(element).find('td:nth-child(2) a:nth-child(2)').attr('href');
+          containersFolios.push(item);
+      } else {
+          //Don't push items we don't care about
+          item.Type = "Item";
+          item.Url = currPage(element).find('td:nth-child(2) a:nth-child(1)').attr('href');
+      }
+      item.Name = cleanText(item.Name);
+    });
+};
+async function readContainerData() {
+  try {
+    const files = await fs.promises.readdir(webDataDir, { withFileTypes: true });
+
+    for (const file of files) {
+      if (file.isFile() && file.name.endsWith('.html')) {
+        if (grabBagMarkers.some(marker => file.name.includes(marker))) {
+          const $ = cheerio.load(fs.readFileSync(path.join(webDataDir, file.name), 'utf8'));
+          $('ul li').each((index, element) => {
+            const item = {};
+            item.Name = cleanText($(element).text());
+            item.Url = $(element).find('a').attr('href');
+            item.ItemId = $(element).find('a').attr('itemid');
+            item.ContainerId=$('h2:nth-child(2)').text().trim();
+            item.Container=$('h2:nth-child(1)').text().trim();
+            grabBagItemsRecipes.push(item);
+          });
+        }
+        if (folioMarkers.some(marker => file.name.includes(marker))) {
+          const $ = cheerio.load(fs.readFileSync(file.path+file.name, 'utf8'));
+          $('ul li').each((index, element) => {
+            const item = {};
+            item.Name = cleanText($(element).text());
+            item.Url = $(element).find('a').attr('href');
+            item.ItemId = $(element).find('a').attr('itemid');
+            item.ContainerId=$('h2:nth-child(2)').text().trim();
+            item.Container=$('h2:nth-child(1)').text().trim();
+            folioItemRecipes.push(item);
+          });
+        }
+      }
+    };
+  } catch (error) {
+      console.error('Error analyzing data:', error);
+  }
+};
+
+//=======================================================================
+//Main Logic of the Script===============================================
+//=======================================================================
+
+//Uncomment to get fresh data
+await scrapeMerchantPage(merchRolisURL,merchRolisFile);
+await scrapeMerchantPage(merchFaustinaURL,merchFaustinaFile);
+
+await readMerchantData(merchRolisFile);
+await readMerchantData(merchFaustinaFile);
+
+await scrapeContainerPages();
+
+await sleep(2000); //buffer to wait until files are created.
+
+await readContainerData();
+
+folioItemRecipes.sort(sortByContainerAndItemName);
+grabBagItemsRecipes.sort(sortByContainerAndItemName);
+
+folioItemRecipesLua = CreateLuaDataStructure(folioItemRecipes);
+grabBagItemsRecipesLua = CreateLuaDataStructure(grabBagItemsRecipes);
+
+fs.writeFileSync('folios_new.lua', folioItemRecipesLua);
+fs.writeFileSync('grabbags_new.lua', grabBagItemsRecipesLua);
+
+await readProjLuaFile(projFolioFile,'folios_old.lua');
+await readProjLuaFile(projGrabBagFile,'grabbags_old.lua');
+
+var jsonFolioCompare = compareLuaFiles('folios_old.lua', 'folios_new.lua');
+var jsonGrabBagCompare = compareLuaFiles('grabbags_old.lua', 'grabbags_new.lua');
+
+// console.log("Folio Comparison Results:");
+// console.log("Added Containers:", jsonFolioCompare.addedContainers);
+// console.log("Removed Containers:", jsonFolioCompare.removedContainers);
+// console.log("Changed Containers:", jsonFolioCompare.changedContainers);
+// console.log("Same Containers:", jsonFolioCompare.sameContainers);
+
+
+console.log("Grab Bag Comparison Results:");
+var changedContainers = jsonGrabBagCompare.changedContainers;
+Object.keys(changedContainers).forEach(containerId => {
+
+  containersGrabBags.filter(item => item.ItemId === containerId).forEach(item => {
+    console.log(`Container ID: ${containerId} (${changedContainers[containerId].name}) - ${item.Url}`);
+  });
+
+  changedContainers[containerId].removedItems.forEach(item => {
+    const itemData = grabBagItemsRecipes.find(i => i.ItemId === item);
+    if (itemData) {
+      console.log(`  - ${itemData.Name} (${itemData.ItemId})`);
+    } else {
+      scrapeItemPage(item);
+      console.log(`  - Item ID ${item} not found in grab bag items.`);
+    }
+  });
+});
