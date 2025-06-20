@@ -456,8 +456,30 @@ async function processContainers(containers) {
       });
 
     const printedTypes = new Set(); // Track types printed for this container
-
+    console.log(`########## Items in addon that need to be added to UESP`);
     for (const itemId of changedContainers[containerId].removedItems) {
+      const itemData = grabBagItemsRecipes.find(i => i.ItemId === itemId);
+
+      if (itemData) {
+        console.log(`  - ${itemData.Name} (${itemData.ItemId})`);
+      } else {
+        try {
+          const filename = webDataDir + itemId + ".html";
+          await scrapeItemPage(itemId, filename);
+          const item = await readItemPage(filename);
+
+          if (!printedTypes.has(item.Type)) {
+            console.log(item.Type);
+            printedTypes.add(item.Type);
+          }
+          console.log(`* {{Furnishing Recipe Link Short|${item.Name}}}`);
+        } catch (error) {
+          console.error(`Failed to process item ${itemId}:`, error);
+        }
+      }
+    }
+    console.log(`########## Items in UESP that need to be added to addon`);
+    for (const itemId of changedContainers[containerId].addedItems) {
       const itemData = grabBagItemsRecipes.find(i => i.ItemId === itemId);
 
       if (itemData) {
