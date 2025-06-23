@@ -5,7 +5,7 @@ FRC.Data = FRC.Data or {}
 FRC.Data.Folios =
 {
   --AUTOMATION START================================
-  [190121] = --Blackwood Furnishing Folio
+  [190121]= --Blackwood Furnishing Folio
   {
     181557, --Blueprint: Leyawiin Divider, Carved Starfish
     181560, --Design: Leyawiin Bowl, Squid Special
@@ -15,9 +15,9 @@ FRC.Data.Folios =
     181559, --Praxis: Leyawiin Hearth, Carved Wood
     181562, --Sketch: Leyawiin Lightpost, Ornate
   },
-  [171568] = --Crafter's Furnishing Folio
+  [171568]= --Crafter's Furnishing Folio
   {
-    121200, --Blueprint: Cabinet, Poisonmaker’s
+    121200, --Blueprint: Cabinet, Poisonmaker's
     121166, --Blueprint: Podium, Skinning
     121168, --Blueprint: Tools, Case
     121199, --Design: Mortar and Pestle
@@ -29,16 +29,16 @@ FRC.Data.Folios =
     121209, --Pattern: Orcish Tapestry, Spear
     121207, --Praxis: Orcish Table with Fur
   },
-  [171571] = --Dark Elf Furnishing Folio
+  [171571]= --Dark Elf Furnishing Folio
   {
-    134987, --Blueprint: Hlaalu Gaming Table, “Foxes &amp; Felines”
+    134987, --Blueprint: Hlaalu Gaming Table, Foxes & Felines
     134986, --Design: Miniature Garden, Bottled
     134983, --Diagram: Hlaalu Gong
     134982, --Formula: Alchemical Apparatus, Master
-    134984, --Pattern: Clothier’s Form, Brass
+    134984, --Pattern: Clothier's Form, Brass
     134985, --Praxis: Hlaalu Trinket Box, Curious Turtle
   },
-  [194429] = --Deadlands Furnishing Folio
+  [194429]= --Deadlands Furnishing Folio
   {
     184154, --Blueprint: Alinor Easel, Carved
     184156, --Design: Blackwood Provisioning Station
@@ -48,7 +48,7 @@ FRC.Data.Folios =
     184149, --Praxis: Deadlands Puzzle Cube
     184153, --Sketch: Fargrave Window, Grand Medallion
   },
-  [171778] = --Dragonhold Funrishing Folio
+  [171778]= --Dragonhold Furnishing Folio
   {
     159500, --Blueprint: Elsweyr Well, Covered
     159503, --Design: Elsweyr Bread Basket, Feast-Day
@@ -58,7 +58,7 @@ FRC.Data.Folios =
     159501, --Praxis: Khajiit Sigil, Moon Cycle
     159504, --Sketch: Elsweyr Game, Swan Stones
   },
-  [171573] = --Ebonheart Furnishing Folio
+  [171573]= --Ebonheart Furnishing Folio
   {
     147652, --Blueprint: Frog-Caller, Untuned
     147653, --Design: Pottery Wheel, Ever-Turning
@@ -68,7 +68,7 @@ FRC.Data.Folios =
     147655, --Praxis: Hlaalu Salt Lamp, Enchanted
     147651, --Sketch: Silver Kettle, Masterworked
   },
-  [171574] = --Elsweyr Furnishing Folio
+  [171574]= --Elsweyr Furnishing Folio
   {
     153731, --Blueprint: Elsweyr Cart, Masterwork
     153734, --Design: Provisioning Station, Elsweyr Grill
@@ -78,7 +78,7 @@ FRC.Data.Folios =
     153732, --Praxis: Elsweyr Statue, Shrine Lion
     153735, --Sketch: Elsweyr Cage, Filigree
   },
-  [204499] = --Galen Furnishing Folio
+  [204499]= --Galen Furnishing Folio
   {
     194398, --Blueprint: Druidic Bridge, Living
     194394, --Design: Druidic Oven, Stone
@@ -88,17 +88,17 @@ FRC.Data.Folios =
     194396, --Praxis: Stone, Lava-Etched
     194392, --Sketch: Resonance Crystal, Cerulean
   },
-  [198597] = --High Isle Furnishing Folio
+  [198597]= --High Isle Furnishing Folio
   {
     190080, --Blueprint: High Isle Caravel, Miniature
     190079, --Design: Shark Jaw, Massive
     190075, --Diagram: High Isle Beacon, Unlit
     190074, --Formula: Potted Trees, Stonelore Dogwood
     190076, --Pattern: High Isle Tapestry, Seaside Tourney
-    190077, --Praxis: High Isle Heartlh, Tilework
+    190077, --Praxis: High Isle Hearth, Tilework
     190078, --Sketch: High Isle Hourglass, Gold
   },
-  [184192] = --Markarth Furnishing Folio
+  [184192]= --Markarth Furnishing Folio
   {
     171803, --Blueprint: Solitude Well, Noble
     171806, --Design: Provisioning Station, Solitude Grill
@@ -108,13 +108,13 @@ FRC.Data.Folios =
     171804, --Praxis: Solitude Hearth, Rounded Tall
     171807, --Sketch: Dwarven Crystal Sconce, Mirror
   },
-  [171569] = --Morrowind Furnishing Folio
+  [171569]= --Morrowind Furnishing Folio
   {
     132195, --Blueprint: Telvanni Candelabra, Masterwork
     132194, --Design: Mammoth Cheese, Mastercrafted
     132191, --Diagram: Dwarven Gyroscope, Masterwork
     132190, --Formula: Mages Apparatus, Master
-    132192, --Pattern: Dres Sewing Kit, Master’s
+    132192, --Pattern: Dres Sewing Kit, Master's
     132193, --Praxis: Hlaalu Bath Tub, Masterwork
   },
   [211090]= --Necrom Furnishing Folio
@@ -127,28 +127,28 @@ FRC.Data.Folios =
     198063, --Praxis: Necrom Crematory, Furnace
     198059, --Sketch: Daedric Mirror, Nightmarish
   },
-  [171572] = --Summerset Furnishing Folio
+  [171572]= --Summerset Furnishing Folio
   {
-    141904, --Blueprint: Alinor Bookshelf, Grand Full
+    141904, --Blueprint: Alinor Bookcase, Grand Full
     141907, --Design: Alinor Grape Stomping Tub
     141902, --Diagram: Relic Vault, Impenetrable
-    141906, --Formula: Artist’s Palette, Pigment
+    141906, --Formula: Artist's Palette, Pigment
     141903, --Pattern: Alinor Bed, Levitating
     141905, --Praxis: Alinor Gaming Table, Punctilious Conflict
     139486, --Sketch: Alinor Ancestor Clock, Celestial
-    141896, --Sketch: Figurine, The Dragon’s Glare
+    141896, --Sketch: Figurine, The Dragon's Glare
   },
-  [214255] = --Tomehold Furnishing Folio
+  [214255]= --Tomehold Furnishing Folio
   {
     203319, --Blueprint: Pergola, Reclaimed Wood
-    203320, --Design: Apocrypha Tree, Spore
+    203320, --Design: Apocrypha Tree, Spore(Apocrypha Tree, Spore (Legendary))
     203323, --Diagram: Apocrypha Bookcase Platform
     203321, --Formula: Apocrypha Light Diffuser, Stalk
     203322, --Pattern: Apocrypha Book Press
     203325, --Praxis: Apocrypha Wall, Eye
     203324, --Sketch: Apocrypha Mirror, Intricate
   },
-  [171808] = --Western Skyrim Furnishing Folio
+  [171808]= --Western Skyrim Furnishing Folio
   {
     167380, --Blueprint: Solitude Game, Blood-on-the-Snow
     167383, --Design: Solitude Smoking Rack, Fish
@@ -157,6 +157,7 @@ FRC.Data.Folios =
     167379, --Pattern: Solitude Loom, Warp-Weighted
     167381, --Praxis: Ancient Nord Monolith, Head
     167384, --Sketch: Blackreach Geode, Iridescent
-  }
-  --AUTOMATION END==================================
+  },
+
+--AUTOMATION END==================================
 }

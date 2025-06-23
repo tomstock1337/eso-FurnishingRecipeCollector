@@ -2,8 +2,8 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
-import { readdir } from 'node:fs/promises';
-import ObjectsToCsv from 'objects-to-csv';
+
+const overwriteProjectFiles = false;
 
 // Constants
 const uespBaseUrl = "https://en.uesp.net";
@@ -165,7 +165,8 @@ function CreateLuaDataStructure(items) {
 }
 function readProjLuaFile(filePath, projFilePath){
   const luaFile = fs.readFileSync(filePath, 'utf8');
-  const match = luaFile.match(/--AUTOMATION START=+\s*([\s\S]*?)--AUTOMATION END=+/m);
+  const pattern = /--AUTOMATION START=+\s*([\s\S]*?)--AUTOMATION END=+/m;
+  const match = luaFile.match(pattern);
   if (match && match[1]) {
     const extractedData = match[1].trim();
     fs.writeFileSync(projFilePath, extractedData);
@@ -173,10 +174,21 @@ function readProjLuaFile(filePath, projFilePath){
     console.log('Markers not found or no data between them.');
   }
 };
+function writeProjLuaFile(projFilePath, contents){
+  const luaFile = fs.readFileSync(projFilePath, 'utf8');
+  const pattern = /(\-\-AUTOMATION START=+)([\s\S]*?)(\-\-AUTOMATION END=+)/m;
+  const match = luaFile.match(pattern);
+  if (match) {
+    // Reconstruct the file with new contents between the markers
+    const newLuaFile = luaFile.replace(pattern, `$1\n${contents}\n$3`);
+    fs.writeFileSync(projFilePath, newLuaFile);
+  } else {
+    console.log('Markers not found or no data between them.');
+  }
+};
 // Lua file comparison function==========================
 // These functions were written by Perplexity for assistance with project.
 function compareLuaFiles(file1Path, file2Path) {
-  console.log(file1Path, file2Path);
     // Read and parse both files
     const file1 = parseLuaFile(fs.readFileSync(file1Path, 'utf8'));
     const file2 = parseLuaFile(fs.readFileSync(file2Path, 'utf8'));
@@ -542,4 +554,10 @@ var changedContainers = jsonGrabBagCompare.changedContainers;
 console.log("The following items needs to be added to UESP.");
 
 processContainers(changedContainers)
+
+if (overwriteProjectFiles){
+  await writeProjLuaFile(projFolioFile,folioItemRecipesLua);
+  await writeProjLuaFile(projGrabBagFile,grabBagItemsRecipesLua);
+  console.log("Project files updated with new data.");
+}
 

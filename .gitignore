@@ -3,5 +3,5 @@
 *_sv.lua
 node_modules/*
 uesp/*
-folios.lua
-grabbags.lua
+folios_*.lua
+grabbags_*.lua
