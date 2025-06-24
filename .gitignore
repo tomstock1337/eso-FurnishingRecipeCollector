@@ -1,3 +1,8 @@
 *.xlsx
 *.zip
 *_sv.lua
+node_modules/*
+uesp/*
+folios_*.lua
+grabbags_*.lua
+looserecipes_*.lua

@@ -7,171 +7,9 @@ FRC.Data = FRC.Data or {}
 --$1, --$2
 FRC.Data.FurnisherDocuments =
 {
-  [214257] = --West Weald Journeyman's Furnisher's Document
+  --AUTOMATION START================================
+  [184191]= --Blackwood Journeyman Furnisher's Document
   {
-    207919, --Blueprint: Colovian Beehive, Small
-    207824, --Blueprint: Colovian Bookcase, Noble Small
-    207823, --Blueprint: Colovian Bookshelf , Noble Filled
-    207840, --Blueprint: Colovian Counter, Bar
-    207838, --Blueprint: Colovian Counter, Block
-    207839, --Blueprint: Colovian Counter, Corner
-    207831, --Blueprint: Colovian Divider, Noble
-    207913, --Blueprint: Colovian Grape Vines, Long
-    207916, --Blueprint: Colovian Keg, Wine
-    207828, --Blueprint: Colovian Shelf, Noble
-    207836, --Blueprint: Colovian Table, Noble
-    207837, --Blueprint: Colovian Tea Table, Noble
-    207911, --Blueprint: Colovian Trellis, Enclosed
-    207922, --Blueprint: Colovian Trellis, Tall Vineyard
-    207825, --Blueprint: Colovian Wardrobe, Rustic
-    211441, --Blueprint: Dawnwood Table, Reclaimed
-    207879, --Design: Colovian Bowl, Grapes
-    207882, --Design: Colovian Meal, Cheese Board
-    207883, --Design: Colovian Meal, Grape Board
-    207877, --Design: Colovian Meal, Poultry
-    207876, --Design: Colovian Serving Dish, Cheese
-    207881, --Design: Dawnwood Basket, Antlers
-    207886, --Design: Dawnwood Meal, Flan
-    211446, --Design: Dawnwood Meal, Meat
-    207885, --Design: Dawnwood Tray, Fish
-    211433, --Design: Dawnwood Wind Chimes, Bone
-    207887, --Design: Honey Pot, Open
-    207864, --Diagram: Colovian Brazier, Basin
-    207863, --Diagram: Colovian Brazier, Hanging
-    207850, --Diagram: Colovian Dresser, Noble
-    207853, --Diagram: Colovian Jewelry Box, Noble
-    207866, --Diagram: Colovian Lamppost, Arched
-    207865, --Diagram: Colovian Lantern, Hanging
-    207862, --Diagram: Colovian Sconce, Wall
-    207899, --Diagram: Dawnwood Cauldron, Closed
-    211447, --Diagram: Dawnwood Container, Metal
-    211431, --Diagram: Dawnwood Firepit, Metal
-    207897, --Formula: Colovian Cup, Glass
-    207896, --Formula: Colovian Jug, Glass
-    207908, --Formula: Colovian Mirror, Table
-    207892, --Formula: Colovian Wine Bottle, Wax Sealed
-    207890, --Formula: Colovian Wine Crate, Small
-    207893, --Formula: Colovian Wine, Basketed
-    207870, --Formula: Dawnwood Lantern String, Long
-    207871, --Formula: Dawnwood Lantern String, Short
-    207869, --Formula: Dawnwood Lantern, Antlers
-    207872, --Formula: Dawnwood Lantern, Hanging
-    211452, --Formula: Dawnwood Orange Light, Tall Sprouted Arch
-    211453, --Formula: Dawnwood Orange Lights, Sprouted Arch
-    207873, --Formula: Dawnwood Sconce, Wall
-    207847, --Formula: Dawnwood Seat, Sprouted
-    207833, --Pattern: Colovian Bed, Noble Single
-    207832, --Pattern: Colovian Bed, Rustic Double
-    207905, --Pattern: Colovian Curtains, Ivory
-    207857, --Pattern: Colovian Rug, Fallen Leaves
-    207855, --Pattern: Colovian Rug, Noble Long
-    211437, --Pattern: Dawnwood Basket, Square Leather
-    207854, --Pattern: Dawnwood Bedding, Skins
-    211449, --Pattern: Dawnwood Container, Turtle
-    211435, --Pattern: Dawnwood Container, Wood
-    207901, --Praxis: Colovian Planter, Large
-    207900, --Praxis: Colovian Planter, Tall
-    207902, --Praxis: Colovian Vase, Limestone
-    207848, --Praxis: Dawnwood Bench, Sprouted
-    211445, --Praxis: Dawnwood Vase, Leather
-  },
-  [214256] = --West Weald Master Furnisher's Document
-  {
-    207918, --Blueprint: Colovian Beehive, Large
-    207820, --Blueprint: Colovian Bookcase, Noble Large
-    207829, --Blueprint: Colovian Cheese Rack, Rustic
-    207826, --Blueprint: Colovian Wardrobe, Noble
-    207914, --Blueprint: Colovian Wine Barrel, Large
-    207915, --Blueprint: Colovian Wine Rack, Filled
-    207852, --Blueprint: Dawnwood Chest, Antlers
-    207880, --Design: Colovian Grape Basket, Wax
-    207867, --Diagram: Colovian Chandelier, Metal
-    207904, --Diagram: Colovian Incense Burner, Metal
-    207861, --Diagram: Colovian Lamp, Brass
-    211448, --Diagram: Dawnwood Container, Crow
-    207860, --Formula: Colovian Lamp, Glass
-    207909, --Formula: Colovian Mirror, Wall
-    207889, --Formula: Colovian Wine Crate, Large
-    207874, --Formula: Dawnwood Crystal Lights, Sprouted
-    211451, --Formula: Dawnwood Crystal Lights, Sprouted Arch
-    211454, --Formula: Dawnwood Tent, Grown
-    207845, --Pattern: Colovian Armchair, Noble
-    207843, --Pattern: Colovian Armchair, Noble Backless
-    212617, --Pattern: Colovian Bed, Canopy Full
-    207844, --Pattern: Colovian Bench, Noble
-    207907, --Pattern: Colovian Curtains, Noble
-    207906, --Pattern: Colovian Curtains, Sage
-    207856, --Pattern: Colovian Rug, Noble Circular
-    211439, --Pattern: Dawnwood Bedding, Illuminated
-    207846, --Pattern: Dawnwood Chair, Antlers
-    211436, --Pattern: Dawnwood Container, Bone
-    207834, --Pattern: Dawnwood Hammock, Sprouted
-    211430, --Pattern: Wood Elf Beehive, Stump
-    207898, --Praxis: Dawnwood Pitcher, Tall
-    207849, --Praxis: Dawnwood Table, Sprouted
-  },
-  [211092] = --Tomehold Journeyman Furnisher's Document
-  {
-    198531, --Blueprint: Necrom Dresser, Elegant Short
-    198479, --Blueprint: Necrom Lamp Post, Wood
-    198488, --Diagram: Apocrypha Bench, Intricate
-    198505, --Diagram: Apocrypha Stool, Intricate
-    198545, --Diagram: Necrom Candle, Tall
-    198487, --Pattern: Apocrypha Bed, Spiked Double
-    198480, --Pattern: Apocrypha Book Pile, Large Twisted
-    198515, --Pattern: Apocrypha Book Pile, Medium
-    198527, --Pattern: Apocrypha Book Piles, Floating
-    198540, --Pattern: Necrom Carpet, Ruby
-    198481, --Praxis: Apocrypha Bookcase, Corner
-    198509, --Praxis: Apocrypha Bookcase, Intricate
-    198502, --Praxis: Apocrypha Bookcase, Large
-    198495, --Praxis: Apocrypha Bookcase, Large Intricate
-    198512, --Praxis: Apocrypha Bookcase, Spiked
-    198497, --Praxis: Apocrypha Desk, Intricate
-    198499, --Praxis: Apocrypha Divider, Spiked
-    198500, --Praxis: Apocrypha Dresser, Intricate
-    198522, --Praxis: Apocrypha Lamp, Desk
-    198504, --Praxis: Apocrypha Nightstand, Intricate
-    198483, --Praxis: Apocrypha Stele, Arched
-    198485, --Praxis: Apocrypha Stele, Tablet
-    198484, --Praxis: Apocrypha Stele, Wide Arched
-    198507, --Praxis: Apocrypha Table, Intricate
-    198536, --Praxis: Necrom Planter, Small
-    198541, --Praxis: Necrom Planter, Tall
-    198529, --Praxis: Necrom Wind Chimes, Stone
-    198516, --Praxis: Paper Making Frame
-    198518, --Praxis: Pulp Masher, Paper Making
-  },
-  [211091] = --Tomehold Master Furnisher's Document
-  {
-    198528, --Blueprint: Necrom Cart, Merchant
-    198530, --Blueprint: Necrom Dresser, Elegant
-    198535, --Blueprint: Necrom Planter, Large
-    198533, --Blueprint: Necrom Table, Elegant Round
-    198496, --Diagram: Apocrypha Chair, Intricate
-    198498, --Diagram: Apocrypha Divider, Intricate
-    198521, --Diagram: Apocrypha Light Diffusers, Bowl
-    198526, --Diagram: Apocrypha Sconce, Intricate
-    198546, --Diagram: Necrom Lamp Post, Metal
-    198539, --Diagram: Necrom Planter, Hanging Round
-    198547, --Diagram: Necrom Sconce, Brass
-    198537, --Formula: Necrom Incense Burner, Delicate Brass
-    198538, --Formula: Necrom Incense Burner, Squat Brass
-    198486, --Pattern: Apocrypha Bed, Intricate Double
-    198511, --Praxis: Apocrypha Bookcase, Large Intricate Filled
-    198549, --Praxis: Apocrypha Bookcase, Large Spiked Filled
-    198523, --Praxis: Apocrypha Lamp, Large
-    198503, --Praxis: Apocrypha Mirror, Spiked
-    198525, --Praxis: Apocrypha Sconce, Diffuser
-    198482, --Praxis: Apocrypha Stele, Tentacles
-    198510, --Praxis: Apocrypha Wardrobe, Intricate
-    198513, --Praxis: Apocrypha Wardrobe, Spiked
-    198548, --Praxis: Necrom Brazier, Tall Stone
-    198517, --Praxis: Vat, Paper Pulp
-  },
-  [184191] =  --Blackwood Journeyman Furnisher's Document
-  {
-
     175955, --Blueprint: Leyawiin Armchair, Backless
     175959, --Blueprint: Leyawiin Bench, Formal Wide
     175927, --Blueprint: Leyawiin Bookcase, Narrow
@@ -222,7 +60,7 @@ FRC.Data.FurnisherDocuments =
     176000, --Praxis: Leyawiin Potted Plant, Aspen Sapling
     176002, --Sketch: Leyawiin Hand Mirror, Lacquered
   },
-  [184190] =  --Blackwood Master Furnisher's Document
+  [184190]= --Blackwood Master Furnisher's Document
   {
     175954, --Blueprint: Leyawiin Armchair, Cushioned
     175922, --Blueprint: Leyawiin Armoire, Formal
@@ -258,6 +96,7 @@ FRC.Data.FurnisherDocuments =
     175930, --Pattern: Leyawiin Bed, Formal Double
     175931, --Pattern: Leyawiin Bed, Formal Single
     175938, --Pattern: Leyawiin Carpet, Grand Carmine Octad
+    175937, --Pattern: Leyawiin Tapestry, Fleet
     175933, --Pattern: Leyawiin Tapestry, Floral
     175995, --Praxis: Leyawiin Amphora, Elegant
     175994, --Praxis: Leyawiin Pitcher, Elegant
@@ -266,7 +105,7 @@ FRC.Data.FurnisherDocuments =
     175960, --Sketch: Leyawiin Jewelry Box, Gilded
     175961, --Sketch: Leyawiin Jewelry Box, Iron Octopus
   },
-  [153623] =  --Clockwork Mixed Furnisher's Document
+  [153623]= --Clockwork Mixed Furnisher's Document
   {
     134516, --Design: Clockwork Bowl, Large Nutriment Paste
     134522, --Design: Clockwork Goblet, Recycled Water
@@ -315,7 +154,7 @@ FRC.Data.FurnisherDocuments =
     134524, --Praxis: Clockwork Mortar and Pestle, Sintered
     134496, --Praxis: Clockwork Switch, Sturdy
   },
-  [190870] =  --Deadlands Mixed Furnisher's Document
+  [190870]= --Deadlands Mixed Furnisher's Document
   {
     182963, --Blueprint: Deadlands Armoire, Etched
     182964, --Blueprint: Deadlands Bookcase, Etched
@@ -365,28 +204,76 @@ FRC.Data.FurnisherDocuments =
     183004, --Praxis: Fargrave Bench, Long Stone
     182937, --Praxis: Fargrave Bench, Stone
   },
-  [159653] =  --Elsweyr Journeyman Furnisher's Document
+  [159653]= --Elsweyr Journeyman Furnisher's Document
   {
     152035, --Blueprint: Elsweyr Armchair, Low-Backed Wooden
+    152042, --Blueprint: Elsweyr Bookcase, Elegant Wooden
+    152044, --Blueprint: Elsweyr Bookcase, Short Elegant
+    152040, --Blueprint: Elsweyr Bookcase, Wooden
     152055, --Blueprint: Elsweyr Cabinet, Elegant Wooden
+    152053, --Blueprint: Elsweyr Cabinet, Wall
+    152032, --Blueprint: Elsweyr Couch, Wooden
+    152060, --Blueprint: Elsweyr Desk, Wooden
     151979, --Blueprint: Elsweyr Meal, Hearty Noodles
     152059, --Blueprint: Elsweyr Nightstand, Wooden
+    152054, --Blueprint: Elsweyr Shelf, Elegant Wall
+    152019, --Blueprint: Elsweyr Stall Counter, Single
+    152063, --Blueprint: Elsweyr Table, Low
+    152064, --Blueprint: Elsweyr Table, Low Square
+    152061, --Blueprint: Elsweyr Table, Square
+    152062, --Blueprint: Elsweyr Table, Wide
     151978, --Design: Elsweyr Bowl, Deep Ceramic
+    151983, --Design: Elsweyr Bowl, Shallow Ceramic
+    151980, --Design: Elsweyr Fish, Displayed
+    151984, --Design: Elsweyr Meal, Root Vegetables
     152086, --Design: Elsweyr Sconce, Candle Carved
+    152084, --Design: Elsweyr Sconce, Candle Elegant
+    152085, --Design: Elsweyr Sconce, Candle Engraved
+    152087, --Design: Elsweyr Sconce, Candle Shielded
+    151987, --Design: Elsweyr Steamer, Ceramic
     152106, --Diagram: Hakoshae Hook, Block
+    152107, --Diagram: Hakoshae Pillar, Wooden Hooked
+    152038, --Pattern: Elsweyr Barstool, Wooden
+    152012, --Pattern: Elsweyr Bed, Quilted Double
+    152011, --Pattern: Elsweyr Bed, Quilted Single
     152013, --Pattern: Elsweyr Bed, Rumpled Quilted Single
+    152093, --Pattern: Elsweyr Carpet, Chaotic Symmetry
+    152022, --Pattern: Elsweyr Curtains, Flat Panel Maroon
     152023, --Pattern: Elsweyr Curtains, Tied-Back Blue
+    152024, --Pattern: Elsweyr Fabric, Hanging
+    152025, --Pattern: Elsweyr Fabric, Hanging Cluster
+    152096, --Pattern: Elsweyr Half-Rug, Sandflowers
+    152097, --Pattern: Elsweyr Runner, Autumn Vines
+    152100, --Pattern: Elsweyr Runner, Lavish Floral
+    152103, --Pattern: Elsweyr Tapestry, Amber Vines
     152105, --Pattern: Elsweyr Tapestry, Ruby-Maroon
     152104, --Pattern: Elsweyr Tapestry, Verdant Blossom
+    152102, --Pattern: Elsweyr Tapestry, Water Flowers
+    152005, --Praxis: Elsweyr Altar, Ancient Stone
+    152073, --Praxis: Elsweyr Brazier, Embellished
+    152072, --Praxis: Elsweyr Brazier, Ribbed
+    152030, --Praxis: Elsweyr Column, Stone Support
+    152114, --Praxis: Elsweyr Floor, Masonry
+    152116, --Praxis: Elsweyr Foot Bridge, Masonry
+    152081, --Praxis: Elsweyr Lantern, Hanging Twist
     152076, --Praxis: Elsweyr Lightpost, Ancient Stone
+    151974, --Praxis: Elsweyr Pillar, Ancient Stone
     152113, --Praxis: Elsweyr Platform, Stepped
+    151998, --Praxis: Elsweyr Pot, Cerulean
+    151999, --Praxis: Elsweyr Pot, Floral
     152003, --Praxis: Elsweyr Sand Meditation Ring, Large
+    152031, --Praxis: Elsweyr Spire, Decorative
     152115, --Praxis: Elsweyr Stairs, Masonry
+    152077, --Praxis: Elsweyr Streetlight, Inlaid Stone
+    151989, --Sketch: Elsweyr Cup of Rice, Gilded
+    151991, --Sketch: Elsweyr Gravy Boat, Gilded
     152006, --Sketch: Elsweyr Incense Burner, Tall Brass
     152082, --Sketch: Elsweyr Lantern, Metal Ring
+    152088, --Sketch: Elsweyr Lantern, Twist
     151990, --Sketch: Elsweyr Sugar Bowl, Gilded
+    152008, --Sketch: Elsweyr Vessel, Umber Embellished
   },
-  [159654] =  --Elsweyr Master Furnisher's Document
+  [159654]= --Elsweyr Master Furnisher's Document
   {
     152033, --Blueprint: Elsweyr Armchair, Elegant Wooden
     152036, --Blueprint: Elsweyr Armchair, Low-Backed Elegant
@@ -445,7 +332,7 @@ FRC.Data.FurnisherDocuments =
     151992, --Sketch: Elsweyr Steaming Pot, Ceramic
     152002, --Sketch: Elsweyr Sugar Pipe, Gilded
   },
-  [198599] =  --Galen Mixed Furnisher's Document
+  [198599]= --Galen Mixed Furnisher's Document
   {
     192533, --Blueprint: Druidic Bookcase, Tall Wood
     192534, --Blueprint: Druidic Cage, Ivy Wood
@@ -453,6 +340,8 @@ FRC.Data.FurnisherDocuments =
     192541, --Blueprint: High Isle Nightstand, Wood
     192555, --Design: Druidic Chandelier, Firesong
     192556, --Design: Druidic Gourd Candle, Hanging
+    192559, --Design: Druidic Incense Burner, Clay
+    192560, --Design: Druidic Pot, Clay
     192557, --Design: Druidic Wind Chimes, Gourd
     192529, --Diagram: High Isle Censer, Metal
     192539, --Diagram: High Isle Copper Teapot
@@ -465,12 +354,14 @@ FRC.Data.FurnisherDocuments =
     192520, --Praxis: Druidic Bench, Ivy Curved Stone
     192519, --Praxis: Druidic Bench, Ivy Stone
     192524, --Praxis: Druidic Bookcase, Tall Stone
+    192536, --Praxis: Druidic Dresser, Ivy Open Stone
     192526, --Praxis: Druidic Dresser, Open Stone
     192523, --Praxis: Druidic End Table, Ivy Stone
+    192561, --Praxis: Druidic Game, Marble Maze
     192517, --Praxis: Druidic Gourd Candles, Stone
-    192518, --Praxis: Druidic Stone Oven
+    192518, --Praxis: Druidic Hearth, Stone
     192516, --Praxis: Druidic Meditation Stones, Tall
-    192515, --Praxis:Druidic Sculpture, Sphere
+    192515, --Praxis: Druidic Sculpture, Sphere
     192514, --Praxis: Druidic Statue, Planter
     192537, --Praxis: Druidic Table, Stone
     192535, --Praxis: Druidic Trunk, Stone
@@ -479,7 +370,45 @@ FRC.Data.FurnisherDocuments =
     192546, --Praxis: Druidic Wall Stone, Spirits
     192543, --Praxis: High Isle Fountain, Wall
   },
-  [127106] = -- Hlaalu Journeyman Furnisher's Document
+  [194430]= --High Isle Mixed Furnisher's Document
+  {
+    188150, --Blueprint: High Isle Bench, Padded
+    188159, --Blueprint: High Isle Bench, Sturdy
+    188168, --Blueprint: High Isle Bookcase, Carved Filled
+    188169, --Blueprint: High Isle Bookcase, Wide Carved Filled
+    188151, --Blueprint: High Isle Chair, Ornate
+    188158, --Blueprint: High Isle Chair, Sturdy
+    188156, --Blueprint: High Isle Counter, Sturdy
+    188185, --Blueprint: High Isle Divider, Ornate
+    188180, --Blueprint: High Isle Dresser, Carved
+    188181, --Blueprint: High Isle End Table, Carved
+    188167, --Blueprint: High Isle Nightstand, Ornate
+    188176, --Blueprint: High Isle Plate, Compass Rose Setting
+    188160, --Blueprint: High Isle Stool, Cushioned
+    188157, --Blueprint: High Isle Stool, Sturdy
+    188172, --Blueprint: High Isle Streetlight, Paired
+    188153, --Blueprint: High Isle Table, Compass Rose
+    188152, --Blueprint: High Isle Table, Ornate
+    188155, --Blueprint: High Isle Table, Sturdy
+    188154, --Blueprint: High Isle Tea Table, Round Wheel
+    188165, --Blueprint: High Isle Trunk, Ornate
+    188166, --Blueprint: High Isle Trunk, Sturdy
+    188147, --Blueprint: High Isle Wardrobe, Compass Rose
+    188177, --Design: High Isle Crab, Steamed
+    188178, --Design: High Isle Crab, Steamed Pile
+    188179, --Design: High Isle Mussel, Steamed Pile
+    188171, --Diagram: High Isle Brazier, Standing
+    188192, --Diagram: High Isle Lantern, Table
+    188186, --Diagram: High Isle Mirror, Standing
+    188174, --Diagram: High Isle Sconce, Glass
+    188173, --Diagram: High Isle Sconce, Ornate
+    188175, --Diagram: High Isle Serving Platter, Silver
+    188184, --Formula: High Isle Herb Rack, Ladder
+    188145, --Pattern: High Isle Bed, Canopy Full
+    188182, --Pattern: High Isle Carpet, Ballroom
+    188187, --Sketch: High Isle Wall Mirror, Gilded
+  },
+  [127106]= --Hlaalu Journeyman Furnisher's Document
   {
     115759, --Blueprint: Argonian Bar, Woven Corner
     115761, --Blueprint: Argonian Bed, Woven
@@ -829,7 +758,7 @@ FRC.Data.FurnisherDocuments =
     119057, --Praxis: Orcish Trestle, Engraved
     119216, --Praxis: Redguard Well, Arched
   },
-  [121364] = -- Hlaalu Master Furnisher's Document
+  [121364]= --Hlaalu Master Furnisher's Document
   {
     115827, --Blueprint: Argonian Bark, Painted
     115830, --Blueprint: Argonian Gravestick
@@ -899,8 +828,8 @@ FRC.Data.FurnisherDocuments =
     116216, --Blueprint: Nord Trunk, Buckled
     119079, --Blueprint: Orcish Armoire, Peaked
     119080, --Blueprint: Orcish Bed, Peaked
-    119081, --Blueprint: Orcish Bookcase, Peaked
-    119082, --Blueprint: Orcish Bookcase, Peaked
+    119081, --Blueprint: Orcish Bookcase, Peaked  [1]
+    119082, --Blueprint: Orcish Bookcase, Peaked  [1]
     119084, --Blueprint: Orcish Cabinet, Engraved
     119111, --Blueprint: Orcish Candleholder, Horn
     119112, --Blueprint: Orcish Candlestick, Horn
@@ -1199,55 +1128,19 @@ FRC.Data.FurnisherDocuments =
     119272, --Praxis: Redguard Vase, Baroque
     121371, --Praxis: Wood Elf Hearth, Forest
   },
-  [194430] =  --High Isle Mixed Furnisher's Document
-  {
-    188158, --Blueprint: High Isle Chair, Sturdy
-    188150, --Blueprint: High Isle Bench, Padded
-    188159, --Blueprint: High Isle Bench, Sturdy
-    188168, --Blueprint: High Isle Bookcase, Carved Filled
-    188151, --Blueprint: High Isle Chair, Ornate
-    188158, --Blueprint: High Isle Chair, Sturdy
-    188156, --Blueprint: High Isle Counter, Sturdy
-    188181, --Blueprint: High Isle End Table, Carved
-    188167, --Blueprint: High Isle Nightstand, Ornate
-    188176, --Blueprint: High Isle Plate, Compass Rose Setting
-    188157, --Blueprint: High Isle Stool, Sturdy
-    188172, --Blueprint: High Isle Streetlight, Paired
-    188152, --Blueprint: High Isle Table, Ornate
-    188155, --Blueprint: High Isle Table, Sturdy
-    188166, --Blueprint: High Isle Trunk, Sturdy
-    188169, --Blueprint: High Isle Bookcase, Wide Carved Filled
-    188180, --Blueprint: High Isle Dresser, Carved
-    188160, --Blueprint: High Isle Stool, Cushioned
-    188153, --Blueprint: High Isle Table, Compass Rose
-    188154, --Blueprint: High Isle Tea Table, Round Wheel
-    188165, --Blueprint: High Isle Trunk, Ornate
-    188147, --Blueprint: High Isle Wardrobe, Compass Rose
-    188177, --Design: High Isle Crab, Steamed
-    188179, --Design: High Isle Mussel, Steamed Pile
-    188178, --Design: High Isle Crab, Steamed Pile
-    188171, --Diagram: High Isle Brazier, Standing
-    188192, --Diagram: High Isle Lantern, Table
-    188174, --Diagram: High Isle Sconce, Glass
-    188186, --Diagram: High Isle Mirror, Standing
-    188173, --Diagram: High Isle Sconce, Ornate
-    188175, --Diagram: High Isle Serving Platter, Silver
-    188184, --Formula: High Isle Herb Rack, Ladder
-    188145, --Pattern: High Isle Bed, Canopy Full
-    188182, --Pattern: High Isle Carpet, Ballroom
-    188187, --Sketch: High Isle Wall Mirror, Gilded
-  },
-  [181612] =  --Markarth Mixed Furnisher's Document
+  [181612]= --Markarth Mixed Furnisher's Document
   {
     171489, --Blueprint: Dwarven Wall Lamp, Reachfolk Adorned
     171487, --Blueprint: Reachmen Chandelier, Gnarled
     171488, --Blueprint: Reachmen Chandelier, Shaded
     171529, --Blueprint: Reachmen Pergola, Ivy
-    171511, --Design: Dwarven Serving Dish, Vegetable Soup
     171510, --Design: Dwarven Dinner Bowl, Hearty Stew
     171512, --Design: Dwarven Plate, Full Breakfast
+    171511, --Design: Dwarven Serving Dish, Vegetable Soup
     171503, --Diagram: Dwarven Amphora, Ornate Polished
     171484, --Diagram: Dwarven Brazier, Square Polished
+    171493, --Diagram: Dwarven Chair, Ornate Polished
+    171508, --Diagram: Dwarven Cooking Implements, Hanging
     171492, --Diagram: Dwarven Corner Bench, Ornate Polished
     171514, --Diagram: Dwarven Desk, Ornate Polished
     171498, --Diagram: Dwarven Divider, Ornate Polished
@@ -1255,19 +1148,17 @@ FRC.Data.FurnisherDocuments =
     171483, --Diagram: Dwarven Lamp, Conal Frustum Cage
     171482, --Diagram: Dwarven Lamp, Cylinder Cage
     171519, --Diagram: Dwarven Low Table, Ornate Polished
-    171501, --Diagram: Dwarven Relief, Connected Circles
-    171517, --Diagram: Dwarven Sideboard, Granite Polished
-    171515, --Diagram: Dwarven Table, Grand Polished
-    171526, --Diagram: Dwarven Wardrobe, Ornate Polished
-    171493, --Diagram: Dwarven Chair, Ornate Polished
-    171508, --Diagram: Dwarven Cooking Implements, Hanging
     171491, --Diagram: Dwarven Pew, Ornate Polished
     171504, --Diagram: Dwarven Pot, Polished
     171481, --Diagram: Dwarven Potted Plant, Polished Vase
+    171501, --Diagram: Dwarven Relief, Connected Circles
     171502, --Diagram: Dwarven Relief, Tracks
+    171517, --Diagram: Dwarven Sideboard, Granite Polished
     171509, --Diagram: Dwarven Strainer, Kitchen
     171486, --Diagram: Dwarven Table Lamp, Polished Dome
+    171515, --Diagram: Dwarven Table, Grand Polished
     171523, --Diagram: Dwarven Trunk, Ornate Polished
+    171526, --Diagram: Dwarven Wardrobe, Ornate Polished
     171494, --Pattern: Dwarven Bed, Reach Furs
     171496, --Pattern: Dwarven Bed, Reach Furs Canopy
     171495, --Pattern: Dwarven Bed, Reach Furs Double
@@ -1282,79 +1173,10 @@ FRC.Data.FurnisherDocuments =
     171516, --Praxis: Dwarven Table, Granite
     171518, --Praxis: Dwarven Table, Granite Kitchen
     171524, --Praxis: Dwarven Wall Cabinet, Granite
-    171799, --Praxis: Markarth Archway, Stone
-    171790, --Praxis: Markarth Fireplace, Stone
-    171781, --Praxis: Markarth Floor, Circular
-    171783, --Praxis: Markarth Floor, Large Oval
-    171785, --Praxis: Markarth Floor, Large Rectangle
-    171784, --Praxis: Markarth Floor, Large Square
-    171782, --Praxis: Markarth Floor, Square
-    171788, --Praxis: Markarth Pillar, Stone
-    171793, --Praxis: Markarth Platform, Bordered Square
-    171792, --Praxis: Markarth Platform, Square
-    171796, --Praxis: Markarth Stairway, Wide Stone
-    171800, --Praxis: Markarth Tower, Stone
-    171798, --Praxis: Markarth Walkway, Metal Trim
-    171791, --Praxis: Markarth Wall, Windowed Stone
+    171500, --Sketch: Dwarven Cage, Polished Specimen
     171499, --Sketch: Dwarven Mirror, Polished
   },
-  [153888] =  --Murkmire Mixed Furnisher's Document
-  {
-    145992, --Blueprint: Murkmire Bed, Carved
-    145980, --Blueprint: Murkmire Bonding Chimes, Domed
-    146016, --Blueprint: Murkmire Bonding Chimes, Simple
-    145994, --Blueprint: Murkmire Chair, Woven
-    145996, --Blueprint: Murkmire Counter, Cabinet
-    146006, --Blueprint: Murkmire Gate, Arched
-    146005, --Blueprint: Murkmire Platform, Reed
-    146002, --Blueprint: Murkmire Ramp, Marshwood
-    146004, --Blueprint: Murkmire Ramp, Reed
-    146001, --Blueprint: Murkmire Shelf, Woven Hanging
-    146000, --Blueprint: Murkmire Shelves, Woven
-    145998, --Blueprint: Murkmire Table, Woven
-    146008, --Blueprint: Murkmire Totem Post, Carved
-    146017, --Blueprint: Murkmire Totem, Wolf-Lizard
-    145995, --Blueprint: Murkmire Trunk, Leatherbound
-    146009, --Blueprint: Murkmire Wall, Corner Curve
-    146007, --Blueprint: Murkmire Wall, Straight
-    145993, --Blueprint: Murkmire Wardrobe, Woven
-    145971, --Design: Bowl of Worms, Large
-    145988, --Design: Murkmire Candlepost, Driftwood
-    145987, --Design: Murkmire Candlepost, Timber
-    145989, --Design: Murkmire Candles, Bone Group
-    145968, --Design: Murkmire Pot, Large Carved
-    145960, --Diagram: Murkmire Brazier, Bowl
-    145986, --Formula: Murkmire Candle, Standing Shell
-    145982, --Formula: Murkmire Lamp, Hanging Bottle
-    145983, --Formula: Murkmire Lamp, Hanging Conch
-    145981, --Formula: Murkmire Lantern, Covered
-    145984, --Formula: Murkmire Sconce, Shell
-    146011, --Pattern: Murkmire Rug, Hist Gathering
-    146012, --Pattern: Murkmire Rug, Supine Turtle
-    146010, --Pattern: Murkmire Tapestry, Hist Gathering
-    145947, --Praxis: Murkmire Bed, Enclosed
-    145945, --Praxis: Murkmire Bench, Wide
-    145955, --Praxis: Murkmire Bookcase
-    145956, --Praxis: Murkmire Bookcase, Full
-    145951, --Praxis: Murkmire Bookcase, Grand
-    145952, --Praxis: Murkmire Bookcase, Grand Full
-    145950, --Praxis: Murkmire Brazier, Engraved
-    145962, --Praxis: Murkmire Hearth Shrine, Sithis Coiled
-    145963, --Praxis: Murkmire Hearth Shrine, Sithis Looming
-    145961, --Praxis: Murkmire Hearth Shrine, Sithis Rearing
-    145958, --Praxis: Murkmire Pedestal, Winged
-    145957, --Praxis: Murkmire Platform, Sectioned
-    145953, --Praxis: Murkmire Sarcophagus, Empty
-    145954, --Praxis: Murkmire Sarcophagus Lid
-    145967, --Praxis: Murkmire Shrine, Sithis Coiled
-    145966, --Praxis: Murkmire Shrine, Sithis Figure
-    145965, --Praxis: Murkmire Shrine, Sithis Rearing
-    145964, --Praxis: Murkmire Shrine, Sithis Relief
-    145949, --Praxis: Murkmire Table, Engraved
-    145959, --Praxis: Murkmire Totem, Beacon
-    145979, --Praxis: Murkmire Wall, Stone
-  },
-  [134684] =  --Morrowind Journeyman Furnisher's Document
+  [134684]= --Morrowind Journeyman Furnisher's Document
   {
     127002, --Blueprint: Ashlander Cup, Empty
     127003, --Blueprint: Ashlander Cup, Mazte
@@ -1422,7 +1244,7 @@ FRC.Data.FurnisherDocuments =
     127019, --Praxis: Indoril Incense Cup, Silver
     127066, --Praxis: Redoran Jar, Jazbay
   },
-  [134683] =  --Morrowind Master Furnisher's Document
+  [134683]= --Morrowind Master Furnisher's Document
   {
     126960, --Blueprint: Dres Divider, Chains
     126961, --Blueprint: Dres Divider, Honeycomb
@@ -1431,8 +1253,8 @@ FRC.Data.FurnisherDocuments =
     126913, --Blueprint: Hlaalu Armchair, Polished
     126942, --Blueprint: Hlaalu Bookcase, Orderly
     127048, --Blueprint: Hlaalu Box, Trinket
-    126955, --Blueprint: Hlaalu Cabinet, Clerk
     126946, --Blueprint: Hlaalu Cabinet of Drawers, Clerk
+    126955, --Blueprint: Hlaalu Cabinet, Clerk
     126972, --Blueprint: Hlaalu Chest, Secure
     126943, --Blueprint: Hlaalu Cupboard, Formal
     126944, --Blueprint: Hlaalu Desk, Scholar's
@@ -1544,13 +1366,70 @@ FRC.Data.FurnisherDocuments =
     126981, --Praxis: Telvanni Throne, Organic
     127102, --Praxis: Tribunal Tablet of Almalexia
   },
-  [204501] =  --Necrom Journeyman Furnisher's Document
+  [153888]= --Murkmire Mixed Furnisher's Document
+  {
+    145992, --Blueprint: Murkmire Bed, Carved
+    145980, --Blueprint: Murkmire Bonding Chimes, Domed
+    146016, --Blueprint: Murkmire Bonding Chimes, Simple
+    145994, --Blueprint: Murkmire Chair, Woven
+    145996, --Blueprint: Murkmire Counter, Cabinet
+    146006, --Blueprint: Murkmire Gate, Arched
+    146005, --Blueprint: Murkmire Platform, Reed
+    146002, --Blueprint: Murkmire Ramp, Marshwood
+    146004, --Blueprint: Murkmire Ramp, Reed
+    146001, --Blueprint: Murkmire Shelf, Woven Hanging
+    146000, --Blueprint: Murkmire Shelves, Woven
+    145998, --Blueprint: Murkmire Table, Woven
+    146008, --Blueprint: Murkmire Totem Post, Carved
+    146017, --Blueprint: Murkmire Totem, Wolf-Lizard
+    145995, --Blueprint: Murkmire Trunk, Leatherbound
+    146009, --Blueprint: Murkmire Wall, Corner Curve
+    146007, --Blueprint: Murkmire Wall, Straight
+    145993, --Blueprint: Murkmire Wardrobe, Woven
+    145971, --Design: Bowl of Worms, Large
+    145988, --Design: Murkmire Candlepost, Driftwood
+    145987, --Design: Murkmire Candlepost, Timber
+    145989, --Design: Murkmire Candles, Bone Group
+    145968, --Design: Murkmire Pot, Large Carved
+    145960, --Diagram: Murkmire Brazier, Bowl
+    145986, --Formula: Murkmire Candle, Standing Shell
+    145982, --Formula: Murkmire Lamp, Hanging Bottle
+    145983, --Formula: Murkmire Lamp, Hanging Conch
+    145981, --Formula: Murkmire Lantern, Covered
+    145984, --Formula: Murkmire Sconce, Shell
+    146011, --Pattern: Murkmire Rug, Hist Gathering
+    146012, --Pattern: Murkmire Rug, Supine Turtle
+    146010, --Pattern: Murkmire Tapestry, Hist Gathering
+    145947, --Praxis: Murkmire Bed, Enclosed
+    145945, --Praxis: Murkmire Bench, Wide
+    145955, --Praxis: Murkmire Bookcase
+    145956, --Praxis: Murkmire Bookcase, Full
+    145951, --Praxis: Murkmire Bookcase, Grand
+    145952, --Praxis: Murkmire Bookcase, Grand Full
+    145950, --Praxis: Murkmire Brazier, Engraved
+    145962, --Praxis: Murkmire Hearth Shrine, Sithis Coiled
+    145963, --Praxis: Murkmire Hearth Shrine, Sithis Looming
+    145961, --Praxis: Murkmire Hearth Shrine, Sithis Rearing
+    145958, --Praxis: Murkmire Pedestal, Winged
+    145957, --Praxis: Murkmire Platform, Sectioned
+    145954, --Praxis: Murkmire Sarcophagus Lid
+    145953, --Praxis: Murkmire Sarcophagus, Empty
+    145967, --Praxis: Murkmire Shrine, Sithis Coiled
+    145966, --Praxis: Murkmire Shrine, Sithis Figure
+    145965, --Praxis: Murkmire Shrine, Sithis Rearing
+    145964, --Praxis: Murkmire Shrine, Sithis Relief
+    145949, --Praxis: Murkmire Table, Engraved
+    145959, --Praxis: Murkmire Totem, Beacon
+    145979, --Praxis: Murkmire Wall, Stone
+  },
+  [204501]= --Necrom Journeyman Furnisher's Document
   {
     197549, --Blueprint: Necrom Bookcase, Elegant Tall
     197559, --Blueprint: Necrom Chair, Elegant
     197553, --Blueprint: Necrom Chest, Elegant
     197556, --Blueprint: Necrom Divider, Elegant
     197552, --Blueprint: Necrom End Table, Elegant
+    197563, --Blueprint: Necrom Table, Elegant Dining
     197551, --Blueprint: Necrom Wardrobe, Elegant
     197588, --Blueprint: Telvanni Box, Fungal
     197590, --Blueprint: Telvanni Chair, Fungal
@@ -1563,8 +1442,10 @@ FRC.Data.FurnisherDocuments =
     197584, --Design: Telvanni Bookcase, Tall Fungal
     197595, --Design: Telvanni Meal, Fish Dinner
     197599, --Design: Telvanni Meal, Kebab Lunch
+    197596, --Design: Telvanni Mug, Fungal
     197589, --Design: Telvanni Planter, Fungal
     197587, --Design: Telvanni Table, Round Fungal
+    197565, --Diagram: Necrom Lamppost, Elegant
     197566, --Diagram: Necrom Sconce, Elegant
     197602, --Formula: Telvanni Candle, Fungal Standing
     197601, --Formula: Telvanni Sconce, Fungal Wall
@@ -1583,7 +1464,7 @@ FRC.Data.FurnisherDocuments =
     197570, --Praxis: Necrom Vase, Elegant Square Floral
     197573, --Praxis: Necrom Wind Chimes, Elegant
   },
-  [204500] =  --Necrom Master Furnisher's Document
+  [204500]= --Necrom Master Furnisher's Document
   {
     197560, --Blueprint: Necrom Bench, Elegant
     197550, --Blueprint: Necrom Bookcase, Elegant Grand
@@ -1609,44 +1490,96 @@ FRC.Data.FurnisherDocuments =
     197557, --Sketch: Necrom Mirror, Elegant Standing
     197582, --Sketch: Telvanni Mirror, Fungal
   },
-  [171753] =  --Skyrim Journeyman Furnisher's Document
+  [171753]= --Skyrim Journeyman Furnisher's Document
   {
+    166806, --Blueprint: Solitude Armchair, Wicker
     166921, --Blueprint: Solitude Backpack, Basket
+    166803, --Blueprint: Solitude Barstool, Wicker
     166919, --Blueprint: Solitude Basket, Centerpiece
     166920, --Blueprint: Solitude Basket, Ornate
+    166917, --Blueprint: Solitude Basket, Wicker Handles
     166918, --Blueprint: Solitude Basket, Wicker Wide
+    166820, --Blueprint: Solitude Bench, Polished
+    166878, --Blueprint: Solitude Bookcase, Narrow Backless
+    166874, --Blueprint: Solitude Bookcase, Narrow Noble
+    166869, --Blueprint: Solitude Bookcase, Narrow Rustic Filled
+    166867, --Blueprint: Solitude Bookcase, Rustic Filled
+    166880, --Blueprint: Solitude Cabinet, Narrow Noble
     166849, --Blueprint: Solitude Cabinet, Ornate Wall
     166865, --Blueprint: Solitude Cabinet, Rustic Filled
+    166808, --Blueprint: Solitude Chair, Wicker
     166832, --Blueprint: Solitude Dresser, Rustic
     166862, --Blueprint: Solitude Jewelry Box, Wolf's-Head
+    166847, --Blueprint: Solitude Nightstand, Noble
     166848, --Blueprint: Solitude Nightstand, Noble Cabinet
+    166846, --Blueprint: Solitude Nightstand, Noble Drawers
+    166812, --Blueprint: Solitude Pew, Sturdy
     166810, --Blueprint: Solitude Pew, Sturdy Long
     166916, --Blueprint: Solitude Picnic Basket, Wicker
+    166915, --Blueprint: Solitude Serving Basket, Wicker
+    166914, --Blueprint: Solitude Serving Tray, Wood
+    166837, --Blueprint: Solitude Table, Circular Ornate Small
+    166823, --Blueprint: Solitude Table, Round
     166824, --Blueprint: Solitude Table, Round Small
+    166821, --Blueprint: Solitude Table, Rustic
+    166822, --Blueprint: Solitude Table, Rustic Large
+    166827, --Blueprint: Solitude Table, Square
+    166826, --Blueprint: Solitude Table, Square Low
+    166858, --Blueprint: Solitude Travel Chest, Practical
+    166840, --Blueprint: Solitude Trestle, Ornate
+    166841, --Blueprint: Solitude Trestle, Ornate Large
     166830, --Blueprint: Solitude Wardrobe, Rustic
     166931, --Design: Solitude Bowl, Berries
     166930, --Design: Solitude Bowl, Mushrooms
     166944, --Design: Solitude Bread, Floral Pattern
+    166948, --Design: Solitude Bread, Long
     166947, --Design: Solitude Bread, Rustic Loaf
+    166942, --Design: Solitude Breakfast, Eggs and Ham
+    166941, --Design: Solitude Breakfast, Full
     166943, --Design: Solitude Breakfast, Sausages and Ham
     166939, --Design: Solitude Camping Pot, Fish Stew
     166936, --Design: Solitude Dinner Bowl, Hearty Stew
     166938, --Design: Solitude Dinner Bowl, Vegetable Soup
+    166953, --Design: Solitude Drinking Horn, Ivory
     166954, --Design: Solitude Drying Rack, Stockfish
-    166895, --Diagram: Solitude Hand-Drill, Simple
+    166950, --Design: Solitude Goblet, Knotwork
+    166932, --Design: Solitude Meal, Rustic
+    166902, --Design: Solitude Pot, Large Ceramic
+    166933, --Design: Solitude Tray, Stockfish
+    166903, --Design: Solitude Vase, Large Sealed
+    166923, --Diagram: Solitude Cauldron, Flat-Bottomed
+    166775, --Diagram: Solitude Chandelier, Horns
     166925, --Diagram: Solitude Frying Pan, Long-Handled
+    166927, --Diagram: Solitude Frying Pan, Trivet
+    166940, --Diagram: Solitude Gravy Boat, Metal
+    166854, --Diagram: Solitude Hand Mirror, Elegant
+    166855, --Diagram: Solitude Hand Mirror, Ornate
+    166895, --Diagram: Solitude Hand-Drill, Simple
+    166785, --Diagram: Solitude Lantern, Table
+    166924, --Diagram: Solitude Melting Pot, Double Boiler
+    166906, --Diagram: Solitude Pot, Narrow Metal
     166907, --Diagram: Solitude Pot, Stout Metal
+    166905, --Diagram: Solitude Pot, Wide Metal
+    166783, --Diagram: Solitude Sconce, Torch
+    166780, --Diagram: Solitude Sconce, Wrought Iron
+    166909, --Diagram: Solitude Serving Bowl, Metal
+    166893, --Diagram: Solitude Skewer, Twisted Iron
     166860, --Diagram: Solitude Trunk, Knotwork
+    166888, --Pattern: Solitude Bed, Rustic Bearskin Double
     166891, --Pattern: Solitude Bed, Rustic Bearskin Single
+    166889, --Pattern: Solitude Bed, Rustic Cowhide Double
+    166892, --Pattern: Solitude Bed, Rustic Cowhide Single
     166794, --Pattern: Solitude Carpet, Small Plush
     166898, --Pattern: Solitude Patching Kit, Well-Worn
     166787, --Pattern: Solitude Rug, Cowhide
     166793, --Pattern: Solitude Rug, Knotwork
     166788, --Pattern: Solitude Rug, Snow Bear
+    166782, --Praxis: Solitude Sconce, Candle Embellished
     166951, --Sketch: Solitude Goblet, Noble
+    166863, --Sketch: Solitude Jewelry Box, Copper and Agate
     166911, --Sketch: Solitude Serving Bowl, Verdigris
   },
-  [171754] =  --Skyrim Master Furnisher's Document
+  [171754]= --Skyrim Master Furnisher's Document
   {
     166799, --Blueprint: Solitude Armchair, High-Backed Noble
     166800, --Blueprint: Solitude Armchair, Noble
@@ -1668,6 +1601,7 @@ FRC.Data.FurnisherDocuments =
     166959, --Blueprint: Solitude Display Shelf, Noble Filled
     166899, --Blueprint: Solitude Game, Warrior and the Wolf
     166851, --Blueprint: Solitude Mirror, Noble Full-Length
+    166819, --Blueprint: Solitude Pew, Noble
     166817, --Blueprint: Solitude Pew, Noble Long
     166818, --Blueprint: Solitude Pew, Ornate
     166816, --Blueprint: Solitude Pew, Ornate Long
@@ -1694,8 +1628,8 @@ FRC.Data.FurnisherDocuments =
     166853, --Diagram: Solitude Wall Mirror, Ornate
     166887, --Pattern: Solitude Bed, Noble Double
     166890, --Pattern: Solitude Bed, Noble Single
-    166791, --Pattern: Solitude Carpet, Plush
     166789, --Pattern: Solitude Carpet, Grand Wolf's-Head Border
+    166791, --Pattern: Solitude Carpet, Plush
     166792, --Pattern: Solitude Carpet, Wolf's-Head Border
     166790, --Pattern: Solitude Runner, Grand Wolf's-Head Border
     166957, --Praxis: Solitude Streetlight, Paired
@@ -1704,29 +1638,45 @@ FRC.Data.FurnisherDocuments =
     166856, --Sketch: Solitude Censer, Wolf-Head
     166949, --Sketch: Solitude Goblet, Covered
   },
-  [153622] =  --Summerset Journeyman Furnisher's
+  [153622]= --Summerset Journeyman Furnisher's Document
   {
-    139550, --Blueprint: Alinor Armchair, Polished
     139551, --Blueprint: Alinor Armchair, Backless Polished
-    139539, --Blueprint: Alinor Bed, Polished Single
+    139550, --Blueprint: Alinor Armchair, Polished
     139541, --Blueprint: Alinor Bed, Noble Single
+    139539, --Blueprint: Alinor Bed, Polished Single
+    139532, --Blueprint: Alinor Candles, Stand
     139531, --Blueprint: Alinor Candles, Tall Stand
+    139549, --Blueprint: Alinor Chair, Polished
+    139559, --Blueprint: Alinor Counter, Polished Corner
     139558, --Blueprint: Alinor Counter, Polished Drawers
     139552, --Blueprint: Alinor Desk, Polished
+    139584, --Blueprint: Alinor Divider, Polished
     139570, --Blueprint: Alinor Jewelry Box, Octagonal
+    139568, --Blueprint: Alinor Jewelry Box, Polished
     139555, --Blueprint: Alinor Nightstand, Octagonal
+    139554, --Blueprint: Alinor Nightstand, Scalloped
     139485, --Blueprint: Alinor Pew, Polished
+    139593, --Blueprint: Alinor Table, Noble Intimate
     139564, --Blueprint: Alinor Trunk, Engraved
     139563, --Blueprint: Alinor Trunk, Peaked
+    139557, --Blueprint: Alinor Winerack, Polished
     139598, --Design: Alinor Amphora, Embossed
     139648, --Design: Alinor Amphora, Portrait
+    139610, --Design: Alinor Meal, Complete Setting
     139594, --Design: Alinor Urn, Gilded
     139533, --Diagram: Alinor Brazier, Hanging Coals
     139526, --Diagram: Alinor Brazier, Standing Coals
+    139620, --Diagram: Alinor Bread Basket, Wrought Iron
     139618, --Diagram: Alinor Platter, Scalloped
+    139519, --Diagram: Alinor Sconce, Arched
+    139520, --Diagram: Alinor Sconce, Crenellated
+    139609, --Diagram: Alinor Table Setting, Complete
     139599, --Diagram: Alinor Urn, Bronze
+    139639, --Pattern: Alinor Carpet, Vibrant
     139635, --Pattern: Alinor Curtains, Drawn
+    139634, --Pattern: Alinor Curtains, Tall Drawn
     139640, --Pattern: Alinor Rug, Alinor Seal
+    139643, --Pattern: Alinor Tapestry, Alinor Dawn
     139644, --Pattern: Alinor Tapestry, Alinor Dusk
     139645, --Pattern: Alinor Tapestry, Royal Gryphons
     139518, --Praxis: Alinor Archway, Tall
@@ -1735,25 +1685,32 @@ FRC.Data.FurnisherDocuments =
     139502, --Praxis: Alinor Column, Slender Timeworn
     139504, --Praxis: Alinor Column, Timeworn
     139607, --Praxis: Alinor Display Stand, Marble
+    139606, --Praxis: Alinor Display Stand, Marble Wide
+    139516, --Praxis: Alinor Fence, Tall
+    139517, --Praxis: Alinor Fence, Tall Long
     139503, --Praxis: Alinor Floor, Ballroom Timeworn
+    139589, --Praxis: Alinor Fountain, Timeworn
     139507, --Praxis: Alinor Plinth, Sarcophagus
     139515, --Praxis: Alinor Post, Tall Fence
     139630, --Praxis: Alinor Potted Plant, Double Tiered
     139629, --Praxis: Alinor Potted Plant, Triple Tiered
     139631, --Praxis: Alinor Potted Plant, Twin Saplings
     139508, --Praxis: Alinor Sarcophagus, Open
+    139603, --Praxis: Alinor Shrine, Limestone
     139604, --Praxis: Alinor Shrine, Limestone Raised
+    139509, --Praxis: Alinor Stairway, Timeworn
     139510, --Praxis: Alinor Stairway, Timeworn Wide
     139591, --Praxis: Alinor Table, Decorative Marble
     139590, --Praxis: Alinor Table, Round Marble
     139602, --Praxis: Alinor Urn, Limestone Large
     139608, --Praxis: Alinor Wall Shrine, Marble
+    139613, --Sketch: Alinor Chalice, Delicate
     139615, --Sketch: Alinor Chalice, Ornate
     139616, --Sketch: Alinor Goblet, Silver Ornate
     139576, --Sketch: Scrimshaw, Sea Monster
     139577, --Sketch: Scrimshaw, Ship
   },
-  [153621] =  --Summerset Master Furnisher's
+  [153621]= --Summerset Master Furnisher's Document
   {
     139545, --Blueprint: Alinor Armchair, Backless Verdant
     139547, --Blueprint: Alinor Armchair, Noble
@@ -1782,12 +1739,13 @@ FRC.Data.FurnisherDocuments =
     139596, --Design: Alinor Amphora, Slender
     139527, --Diagram: Alinor Brazier, Noble
     139528, --Diagram: Alinor Candelabra, Wrought Iron
+    139521, --Diagram: Alinor Lantern, Hanging
     139522, --Diagram: Alinor Lantern, Stationary
     139524, --Diagram: Alinor Sconce, Arched Glass
     139525, --Diagram: Alinor Sconce, Lantern
     139523, --Diagram: Alinor Sconce, Wrought Glass
-    139535, --Diagram: Alinor Streetlight, Wrought Iron
     139534, --Diagram: Alinor Streetlight, Paired Wrought Iron
+    139535, --Diagram: Alinor Streetlight, Wrought Iron
     139637, --Pattern: Alinor Carpet, Alinor Crescent
     139638, --Pattern: Alinor Carpet, Verdant
     139636, --Pattern: Alinor Drapes, Noble
@@ -1805,10 +1763,174 @@ FRC.Data.FurnisherDocuments =
     139573, --Sketch: Figurine, The Fish and the Unicorn
     139571, --Sketch: Figurine, The Sea-Monster's Surprise
     139572, --Sketch: Figurine, The Taming of the Gryphon
-    139579, --Sketch: Scrimshaw, Ancient Vessel
     139580, --Sketch: Scrimshaw Jewelry Box, Floral
     139575, --Sketch: Scrimshaw Jewelry Box, Verdant Oval
     139574, --Sketch: Scrimshaw Jewelry Box, Vineyard
+    139579, --Sketch: Scrimshaw, Ancient Vessel
     139578, --Sketch: Scrimshaw, Octopus
-  }
+  },
+  [211092]= --Tomehold Journeyman Furnisher's Document
+  {
+    198531, --Blueprint: Necrom Dresser, Elegant Short
+    198479, --Blueprint: Necrom Lamp Post, Wood
+    198488, --Diagram: Apocrypha Bench, Intricate
+    198505, --Diagram: Apocrypha Stool, Intricate
+    198545, --Diagram: Necrom Candle, Tall
+    198487, --Pattern: Apocrypha Bed, Spiked Double
+    198480, --Pattern: Apocrypha Book Pile, Large Twisted
+    198515, --Pattern: Apocrypha Book Pile, Medium
+    198527, --Pattern: Apocrypha Book Piles, Floating
+    198540, --Pattern: Necrom Carpet, Ruby
+    198481, --Praxis: Apocrypha Bookcase, Corner
+    198509, --Praxis: Apocrypha Bookcase, Intricate
+    198502, --Praxis: Apocrypha Bookcase, Large
+    198495, --Praxis: Apocrypha Bookcase, Large Intricate
+    198512, --Praxis: Apocrypha Bookcase, Spiked
+    198497, --Praxis: Apocrypha Desk, Intricate
+    198499, --Praxis: Apocrypha Divider, Spiked
+    198500, --Praxis: Apocrypha Dresser, Intricate
+    198522, --Praxis: Apocrypha Lamp, Desk
+    198504, --Praxis: Apocrypha Nightstand, Intricate
+    198483, --Praxis: Apocrypha Stele, Arched
+    198485, --Praxis: Apocrypha Stele, Tablet
+    198484, --Praxis: Apocrypha Stele, Wide Arched
+    198507, --Praxis: Apocrypha Table, Intricate
+    198536, --Praxis: Necrom Planter, Small
+    198541, --Praxis: Necrom Planter, Tall
+    198529, --Praxis: Necrom Wind Chimes, Stone
+    198516, --Praxis: Paper Making Frame
+    198518, --Praxis: Pulp Masher, Paper Making
+  },
+  [211091]= --Tomehold Master Furnisher's Document
+  {
+    198528, --Blueprint: Necrom Cart, Merchant
+    198530, --Blueprint: Necrom Dresser, Elegant
+    198535, --Blueprint: Necrom Planter, Large
+    198533, --Blueprint: Necrom Table, Elegant Round
+    198496, --Diagram: Apocrypha Chair, Intricate
+    198498, --Diagram: Apocrypha Divider, Intricate
+    198521, --Diagram: Apocrypha Light Diffusers, Bowl
+    198526, --Diagram: Apocrypha Sconce, Intricate
+    198546, --Diagram: Necrom Lamp Post, Metal
+    198539, --Diagram: Necrom Planter, Hanging Round
+    198547, --Diagram: Necrom Sconce, Brass
+    198537, --Formula: Necrom Incense Burner, Delicate Brass
+    198538, --Formula: Necrom Incense Burner, Squat Brass
+    198486, --Pattern: Apocrypha Bed, Intricate Double
+    198511, --Praxis: Apocrypha Bookcase, Large Intricate Filled
+    198549, --Praxis: Apocrypha Bookcase, Large Spiked Filled
+    198523, --Praxis: Apocrypha Lamp, Large
+    198503, --Praxis: Apocrypha Mirror, Spiked
+    198525, --Praxis: Apocrypha Sconce, Diffuser
+    198482, --Praxis: Apocrypha Stele, Tentacles
+    198510, --Praxis: Apocrypha Wardrobe, Intricate
+    198513, --Praxis: Apocrypha Wardrobe, Spiked
+    198548, --Praxis: Necrom Brazier, Tall Stone
+    198517, --Praxis: Vat, Paper Pulp
+  },
+  [214257]= --West Weald Journeyman Furnisher's Document
+  {
+    207919, --Blueprint: Colovian Beehive, Small
+    207824, --Blueprint: Colovian Bookcase, Noble Small
+    207823, --Blueprint: Colovian Bookshelf , Noble Filled
+    207840, --Blueprint: Colovian Counter, Bar
+    207838, --Blueprint: Colovian Counter, Block
+    207839, --Blueprint: Colovian Counter, Corner
+    207831, --Blueprint: Colovian Divider, Noble
+    207913, --Blueprint: Colovian Grape Vines, Long
+    207916, --Blueprint: Colovian Keg, Wine
+    207828, --Blueprint: Colovian Shelf, Noble
+    207836, --Blueprint: Colovian Table, Noble
+    207837, --Blueprint: Colovian Tea Table, Noble
+    207911, --Blueprint: Colovian Trellis, Enclosed
+    207922, --Blueprint: Colovian Trellis, Tall Vineyard
+    207825, --Blueprint: Colovian Wardrobe, Rustic
+    211441, --Blueprint: Dawnwood Table, Reclaimed
+    207879, --Design: Colovian Bowl, Grapes
+    207882, --Design: Colovian Meal, Cheese Board
+    207883, --Design: Colovian Meal, Grape Board
+    207877, --Design: Colovian Meal, Poultry
+    207876, --Design: Colovian Serving Dish, Cheese
+    207881, --Design: Dawnwood Basket, Antlers
+    207886, --Design: Dawnwood Meal, Flan
+    211446, --Design: Dawnwood Meal, Meat
+    207885, --Design: Dawnwood Tray, Fish
+    211433, --Design: Dawnwood Wind Chimes, Bone
+    207887, --Design: Honey Pot, Open
+    207864, --Diagram: Colovian Brazier, Basin
+    207863, --Diagram: Colovian Brazier, Hanging
+    207850, --Diagram: Colovian Dresser, Noble
+    207853, --Diagram: Colovian Jewelry Box, Noble
+    207866, --Diagram: Colovian Lamppost, Arched
+    207865, --Diagram: Colovian Lantern, Hanging
+    207862, --Diagram: Colovian Sconce, Wall
+    207899, --Diagram: Dawnwood Cauldron, Closed
+    211447, --Diagram: Dawnwood Container, Metal
+    211431, --Diagram: Dawnwood Firepit, Metal
+    207897, --Formula: Colovian Cup, Glass
+    207896, --Formula: Colovian Jug, Glass
+    207908, --Formula: Colovian Mirror, Table
+    207892, --Formula: Colovian Wine Bottle, Wax Sealed
+    207890, --Formula: Colovian Wine Crate, Small
+    207893, --Formula: Colovian Wine, Basketed
+    207870, --Formula: Dawnwood Lantern String, Long
+    207871, --Formula: Dawnwood Lantern String, Short
+    207869, --Formula: Dawnwood Lantern, Antlers
+    207872, --Formula: Dawnwood Lantern, Hanging
+    211452, --Formula: Dawnwood Orange Light, Tall Sprouted Arch
+    211453, --Formula: Dawnwood Orange Lights, Sprouted Arch
+    207873, --Formula: Dawnwood Sconce, Wall
+    207847, --Formula: Dawnwood Seat, Sprouted
+    207833, --Pattern: Colovian Bed, Noble Single
+    207832, --Pattern: Colovian Bed, Rustic Double
+    207905, --Pattern: Colovian Curtains, Ivory
+    207857, --Pattern: Colovian Rug, Fallen Leaves
+    207855, --Pattern: Colovian Rug, Noble Long
+    211437, --Pattern: Dawnwood Basket, Square Leather
+    207854, --Pattern: Dawnwood Bedding, Skins
+    211449, --Pattern: Dawnwood Container, Turtle
+    211435, --Pattern: Dawnwood Container, Wood
+    207901, --Praxis: Colovian Planter, Large
+    207900, --Praxis: Colovian Planter, Tall
+    207902, --Praxis: Colovian Vase, Limestone
+    207848, --Praxis: Dawnwood Bench, Sprouted
+    211445, --Praxis: Dawnwood Vase, Leather
+  },
+  [214256]= --West Weald Master Furnisher's Document
+  {
+    207918, --Blueprint: Colovian Beehive, Large
+    207820, --Blueprint: Colovian Bookcase, Noble Large
+    207829, --Blueprint: Colovian Cheese Rack, Rustic
+    207826, --Blueprint: Colovian Wardrobe, Noble
+    207914, --Blueprint: Colovian Wine Barrel, Large
+    207915, --Blueprint: Colovian Wine Rack, Filled
+    207852, --Blueprint: Dawnwood Chest, Antlers
+    207880, --Design: Colovian Grape Basket, Wax
+    207867, --Diagram: Colovian Chandelier, Metal
+    207904, --Diagram: Colovian Incense Burner, Metal
+    207861, --Diagram: Colovian Lamp, Brass
+    211448, --Diagram: Dawnwood Container, Crow
+    207860, --Formula: Colovian Lamp, Glass
+    207909, --Formula: Colovian Mirror, Wall
+    207889, --Formula: Colovian Wine Crate, Large
+    207874, --Formula: Dawnwood Crystal Lights, Sprouted
+    211451, --Formula: Dawnwood Crystal Lights, Sprouted Arch
+    211454, --Formula: Dawnwood Tent, Grown
+    207845, --Pattern: Colovian Armchair, Noble
+    207843, --Pattern: Colovian Armchair, Noble Backless
+    212617, --Pattern: Colovian Bed, Canopy Full
+    207844, --Pattern: Colovian Bench, Noble
+    207907, --Pattern: Colovian Curtains, Noble
+    207906, --Pattern: Colovian Curtains, Sage
+    207856, --Pattern: Colovian Rug, Noble Circular
+    211439, --Pattern: Dawnwood Bedding, Illuminated
+    207846, --Pattern: Dawnwood Chair, Antlers
+    211436, --Pattern: Dawnwood Container, Bone
+    207834, --Pattern: Dawnwood Hammock, Sprouted
+    211430, --Pattern: Wood Elf Beehive, Stump
+    207898, --Praxis: Dawnwood Pitcher, Tall
+    207849, --Praxis: Dawnwood Table, Sprouted
+  },
+
+--AUTOMATION END==================================
 }
