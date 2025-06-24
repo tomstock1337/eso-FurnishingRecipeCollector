@@ -10,7 +10,7 @@
 ## Version: 1.4
 ## AddOnVersion:01040
 ## Author: tomstock
-## APIVersion: 101045
+## APIVersion: 101046
 ## SavedVariables: FurnishingRecipeCollectorSavedVariables
 ## OptionalDependsOn: LibDebugLogger>=180 LibCharacterKnowledge>=201000 TamrielTradeCentrePrice LibSlashCommander
 ## DependsOn: LibAddonMenu-2.0>=36 LibScrollableMenu>=0201
