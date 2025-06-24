@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 
 const overwriteProjectFiles = false;
+const cleanupFiles = false;
 
 // Constants
 const uespBaseUrl = "https://en.uesp.net";
@@ -16,12 +17,12 @@ const merchFaustinaURL="https://en.uesp.net/wiki/Online:Faustina_Curio";
 const merchFaustinaFile=webDataDir+"_Merchant-Faustina Curio.html";
 const projFolioFile=projDir+"dataFolios.lua";
 const projGrabBagFile=projDir+"dataGrabBags.lua";
-const recipeMarkers=["Blueprint","Blueprints","Sketch","Sketches","Pattern","Patterns","Design","Designs","Praxis","Praxes","Recipe","Formula","Formulae",'Diagram','Diagrams'];
+const projLooseRecipesFile=projDir+"dataMisc.lua";
+const recipeMarkers=["Blueprint","Blueprints","Sketch","Sketches","Pattern","Patterns","Design","Designs","Praxis","Praxes","Formula","Formulae",'Diagram','Diagrams'];
 const grabBagMarkers=["Master Furnisher's Document","Journeyman Furnisher's Document","Mixed Furnisher's Document"];
 const folioMarkers=["Furnishing Folio"];
 const rejectMarkers=["(page)*","(page)","(view contents)","*","[edit]","(image)"];
 
-var itemsRecipes = [];
   // {
   //   Icon: '/wiki/File:ON-icon-plan-Sketch_5.png',
   //   Name: 'Sketch: Colovian Mirror, Standing(Colovian Mirror, Standing)',
@@ -39,8 +40,9 @@ var containersGrabBags = [];
   //   Price: '700',
   //   Url: 'https://en.uesp.net/wiki/Online:Western_Skyrim_Furnishing_Folio'
   // }
-var folioItemRecipes= [];
+var folioItemsRecipes= [];
 var grabBagItemsRecipes = [];
+var looseRecipes = [];
 // Sample data structure for items in containers
   // {
   //   Name: 'Pattern: Solitude Loom, Warp-Weighted',
@@ -49,7 +51,7 @@ var grabBagItemsRecipes = [];
   //   ContainerId: '171808',
   //   Container: 'Western Skyrim Furnishing Folio'
   // },
-var folioItemRecipesLua="";
+var folioItemsRecipesLua="";
 var grabBagItemsRecipesLua="";
 // Sample data structure for lua variables
   // [171808]= --Western Skyrim Furnishing Folio
@@ -62,8 +64,11 @@ var grabBagItemsRecipesLua="";
   //   167381, --Praxis: Ancient Nord Monolith, Head
   //   167384, --Sketch: Blackreach Geode, Iridescent
   // },
+var looseRecipesLua=""
+
 var jsonFolioCompare = {};
 var jsonGrabBagCompare = {};
+var jsonLooseRecipesCompare = {};
 //Sample data structure for comparison results
   // {
   //   "addedContainers": [],
@@ -128,6 +133,18 @@ function sortByContainerAndItemName(a, b) {
   if (a.Name > b.Name) return 1;
   return 0; // They are equal
 }
+function sortByRecipeVendorTtypeName(a, b) {
+  // First, compare by Container
+  if (a.Vendor < b.Vendor) return -1;
+  if (a.Vendor > b.Vendor) return 1;
+  // If Container is the same, compare by ItemId
+  if (a.Type < b.Type) return -1;
+  if (a.Type > b.Type) return 1;
+  // If Container is the same, compare by ItemId
+  if (a.Name < b.Name) return -1;
+  if (a.Name > b.Name) return 1;
+  return 0; // They are equal
+}
 // Function to check if a file exists and if it was modified within the last 7 days
 function checkForCachedData(filename) {
   if (fs.existsSync(filename)) {
@@ -143,7 +160,7 @@ function checkForCachedData(filename) {
   return false;
 }
 // This function will generate code that can be hot swapped in the main project lua files
-function CreateLuaDataStructure(items) {
+function CreateLuaDataStructureForContainers(items) {
   let output = "";
   let previousContainer = "";
   items.forEach((item, index) => {
@@ -160,6 +177,13 @@ function CreateLuaDataStructure(items) {
       output += "\t},\n";
     }
     previousContainer = item.Container;
+  });
+  return output.replace(/\t/g, '  ');
+}
+function CreateLuaDataStructureForRecipeList(items) {
+  let output = "";
+  items.forEach((item, index) => {
+    output += "\t[" + item.ItemId + "]={location=\""+item.Vendor+"\"}, --" + item.Name + "\n";
   });
   return output.replace(/\t/g, '  ');
 }
@@ -188,10 +212,10 @@ function writeProjLuaFile(projFilePath, contents){
 };
 // Lua file comparison function==========================
 // These functions were written by Perplexity for assistance with project.
-function compareLuaFiles(file1Path, file2Path) {
+function compareLuaFilesOfContainers(file1Path, file2Path) {
     // Read and parse both files
-    const file1 = parseLuaFile(fs.readFileSync(file1Path, 'utf8'));
-    const file2 = parseLuaFile(fs.readFileSync(file2Path, 'utf8'));
+    const file1 = parseLuaFileOfContainers(fs.readFileSync(file1Path, 'utf8'));
+    const file2 = parseLuaFileOfContainers(fs.readFileSync(file2Path, 'utf8'));
 
     // Compare containers
     const result = {
@@ -240,8 +264,47 @@ function compareLuaFiles(file1Path, file2Path) {
 
     return result;
 }
+function compareLuaFilesOfRecipes(file1Path, file2Path) {
+    // Read and parse both files
+    const data1 = parseLuaFileOfRecipes(fs.readFileSync(file1Path, 'utf8'));
+    const data2 = parseLuaFileOfRecipes(fs.readFileSync(file2Path, 'utf8'));
 
-function parseLuaFile(content) {
+    // Compare individual entries
+    const result = {
+        addedEntries: [],
+        removedEntries: [],
+        sameEntries: []
+    };
+
+    const allIds = new Set([
+        ...Object.keys(data1),
+        ...Object.keys(data2)
+    ]);
+
+    allIds.forEach(id => {
+        const entry1 = data1[id];
+        const entry2 = data2[id];
+
+        if (!entry1) {
+            result.addedEntries.push(id);
+        } else if (!entry2) {
+            result.removedEntries.push(id);
+        } else {
+            // Compare location values
+            if (entry1.location === entry2.location) {
+                result.sameEntries.push(id);
+            } else {
+                result.changedEntries[id] = {
+                    oldLocation: entry1.location,
+                    newLocation: entry2.location
+                };
+            }
+        }
+    });
+
+    return result;
+}
+function parseLuaFileOfContainers(content) {
     const containers = {};
     // Split into container blocks using regex
     const containerBlocks = content.split(/(?=\[\d+\]\s*\=\s*--)/g);
@@ -270,6 +333,30 @@ function parseLuaFile(content) {
     });
 
     return containers;
+}
+function parseLuaFileOfRecipes(content) {
+    const entries = {};
+
+    // Split content into lines and process each line individually
+    // Normalize all line endings to '\n' before splitting
+    const lines = content.replace(/\r\n?/g, '\n').split('\n');
+
+    lines.forEach(line => {
+        // Regex to capture: [id], location, and item name
+        const match = line.match(/^\s*\[(\d+)\]=\{location="([^"]+)"\},\s*--\s*(.+)$/);
+
+        if (match) {
+            const id = match[1];
+            const location = match[2];
+            const itemName = match[3].trim();
+
+            entries[id] = {
+                location: location,
+                itemName: itemName
+            };
+        }
+    });
+    return entries;
 }
 
 
@@ -372,7 +459,7 @@ async function scrapeItemPage(itemId, filename) {
     const tableHtml = $.html(table);
 
     // Write to a local file
-    fs.writeFileSync(filename, tableHtml);
+    await fs.writeFileSync(filename, tableHtml);
 
   } catch (error) {
     console.error(`Error fetching item data for ID ${itemId}:`, error);
@@ -386,12 +473,18 @@ async function readMerchantData(filename) {
   currPage('tr').each((index, element) => {
       const item = {};
       item.Icon = currPage(element).find('td:nth-child(1) a').attr('href');
-      item.Name = currPage(element).find('td:nth-child(2)').text().trim();
-      item.ItemId = currPage(element).find('td:nth-child(2) a').attr('itemid');
+      item.Name = currPage(element).find('td:nth-child(2) a:first').text().trim();
+      item.ItemId = currPage(element).find('td:nth-child(2) a:first').attr('itemid');
       item.Price = currPage(element).find('td:nth-child(3) span>span').text().trim();
       if (recipeMarkers.some(marker => item.Name.includes(marker))) {
           item.Url = uespBaseUrl+currPage(element).find('td:nth-child(2) a:nth-child(1)').attr('href');
-          itemsRecipes.push(item);
+          item.Type = detectRecipeMarker(item.Name);
+          if (filename.includes("Rolis")){
+            item.Vendor = "Rolis Hlaalu Writ Vendor";
+          } else if (filename.includes("Faustina")) {
+            item.Vendor = "Faustina Curio Writ Vendor";
+          }
+          looseRecipes.push(item);
       } else if (grabBagMarkers.some(marker => item.Name.includes(marker))) {
           item.Url = uespBaseUrl+currPage(element).find('td:nth-child(2) a:nth-child(2)').attr('href');
           containersGrabBags.push(item);
@@ -421,6 +514,7 @@ async function readContainerData() {
             item.ItemId = $(element).find('a').attr('itemid');
             item.ContainerId=$('h2:nth-child(2)').text().trim();
             item.Container=$('h2:nth-child(1)').text().trim();
+            item.Type = detectRecipeMarker(item.Name);
             grabBagItemsRecipes.push(item);
           });
         }
@@ -433,7 +527,8 @@ async function readContainerData() {
             item.ItemId = $(element).find('a').attr('itemid');
             item.ContainerId=$('h2:nth-child(2)').text().trim();
             item.Container=$('h2:nth-child(1)').text().trim();
-            folioItemRecipes.push(item);
+            item.Type = detectRecipeMarker(item.Name);
+            folioItemsRecipes.push(item);
           });
         }
       }
@@ -461,38 +556,46 @@ async function processContainers(containers) {
   const containerIds = Object.keys(containers);
 
   for (const containerId of containerIds) {
+    // Output container information
     containersGrabBags
       .filter(item => item.ItemId === containerId)
       .forEach(item => {
-        console.log(`Container ID: ${containerId} (${changedContainers[containerId].name}) - ${item.Url}`);
+        console.log(`Container ID: ${containerId} (${containers[containerId].name}) - ${item.Url}`);
+      });
+    containersFolios
+      .filter(item => item.ItemId === containerId)
+      .forEach(item => {
+        console.log(`Container ID: ${containerId} (${containers[containerId].name}) - ${item.Url}`);
       });
 
     const printedTypes = new Set(); // Track types printed for this container
-    console.log(`########## Items in addon that need to be added to UESP`);
-    for (const itemId of changedContainers[containerId].removedItems) {
-      const itemData = grabBagItemsRecipes.find(i => i.ItemId === itemId);
+    if (containers[containerId].removedItems.length > 0){
+      console.log(`########## Items in addon that need to be added to UESP`);
+    }
+    for (const itemId of containers[containerId].removedItems) {
+      var itemData = grabBagItemsRecipes.find(i => i.ItemId === itemId) || folioItemsRecipes.find(i => i.ItemId === itemId);
 
-      if (itemData) {
-        console.log(`  - ${itemData.Name} (${itemData.ItemId})`);
-      } else {
+      if (!itemData) {
         try {
           const filename = webDataDir + itemId + ".html";
           await scrapeItemPage(itemId, filename);
-          const item = await readItemPage(filename);
+          itemData = await readItemPage(filename);
 
-          if (!printedTypes.has(item.Type)) {
-            console.log(item.Type);
-            printedTypes.add(item.Type);
-          }
-          console.log(`* {{Furnishing Recipe Link Short|${item.Name}}}`);
         } catch (error) {
           console.error(`Failed to process item ${itemId}:`, error);
         }
       }
+      if (!printedTypes.has(itemData.Type)) {
+        console.log(itemData.Type);
+        printedTypes.add(itemData.Type);
+      }
+      console.log(`* {{Furnishing Recipe Link Short|${itemData.Name}}}`);
     }
-    console.log(`########## Items in UESP that need to be added to addon`);
-    for (const itemId of changedContainers[containerId].addedItems) {
-      const itemData = grabBagItemsRecipes.find(i => i.ItemId === itemId);
+    if (containers[containerId].addedItems.length > 0){
+      console.log(`########## Items in UESP that need to be added to addon`);
+    }
+    for (const itemId of containers[containerId].addedItems) {
+      const itemData = grabBagItemsRecipes.find(i => i.ItemId === itemId) || folioItemsRecipes.find(i => i.ItemId === itemId);
 
       if (itemData) {
         console.log(`  - ${itemData.Name} (${itemData.ItemId})`);
@@ -514,6 +617,43 @@ async function processContainers(containers) {
     }
   }
 }
+async function processRecipeList(list) {
+  console.log(`########## Items in addon that need to be added to UESP`);
+  if (list.removedEntries.length > 0){
+    console.log(`########## Items in addon that need to be added to UESP`);
+  }
+  for (const itemId of list.removedEntries) {
+    var itemData = looseRecipes.find(i => i.ItemId === itemId);
+
+    if (!itemData) {
+      try {
+        const filename = webDataDir + itemId + ".html";
+        await scrapeItemPage(itemId, filename);
+        itemData = await readItemPage(filename);
+      } catch (error) {
+        console.error(`Failed to process item ${itemId}:`, error);
+      }
+    }
+    console.log(`* {{Furnishing Recipe Link Short|${itemData.Name}}}`);
+  }
+  if (list.removedEntries.length > 0){
+    console.log(`########## Items in UESP that need to be added to addon`);
+  }
+  for (const itemId of list.addedEntries) {
+    var itemData = looseRecipes.find(i => i.ItemId === itemId);
+
+    if (!itemData) {
+      try {
+        const filename = webDataDir + itemId + ".html";
+        await scrapeItemPage(itemId, filename);
+        itemData = await readItemPage(filename);
+      } catch (error) {
+        console.error(`Failed to process item ${itemId}:`, error);
+      }
+    }
+    console.log(`  [${itemData.ItemId}]={location="${itemData.Vendor}"}, --${itemData.Name}`);
+  }
+}
 
 //=======================================================================
 //Main Logic of the Script===============================================
@@ -533,31 +673,63 @@ await sleep(2000); //buffer to wait until files are created.
 await readContainerData();
 
 //populated from readContainerData()
-folioItemRecipes.sort(sortByContainerAndItemName);
+folioItemsRecipes.sort(sortByContainerAndItemName);
 grabBagItemsRecipes.sort(sortByContainerAndItemName);
+looseRecipes.sort(sortByRecipeVendorTtypeName);
 
-folioItemRecipesLua = CreateLuaDataStructure(folioItemRecipes);
-grabBagItemsRecipesLua = CreateLuaDataStructure(grabBagItemsRecipes);
+folioItemsRecipesLua = CreateLuaDataStructureForContainers(folioItemsRecipes);
+grabBagItemsRecipesLua = CreateLuaDataStructureForContainers(grabBagItemsRecipes);
+looseRecipesLua = CreateLuaDataStructureForRecipeList(looseRecipes);
 
-fs.writeFileSync('folios_new.lua', folioItemRecipesLua);
+fs.writeFileSync('folios_new.lua', folioItemsRecipesLua);
 fs.writeFileSync('grabbags_new.lua', grabBagItemsRecipesLua);
+fs.writeFileSync('looserecipes_new.lua', looseRecipesLua);
 
 await readProjLuaFile(projFolioFile,'folios_old.lua');
 await readProjLuaFile(projGrabBagFile,'grabbags_old.lua');
+await readProjLuaFile(projLooseRecipesFile,'looserecipes_old.lua');
 
-jsonFolioCompare = compareLuaFiles('folios_old.lua', 'folios_new.lua');
-jsonGrabBagCompare = compareLuaFiles('grabbags_old.lua', 'grabbags_new.lua');
+jsonFolioCompare = await compareLuaFilesOfContainers('folios_old.lua', 'folios_new.lua');
+jsonGrabBagCompare = await compareLuaFilesOfContainers('grabbags_old.lua', 'grabbags_new.lua');
+jsonLooseRecipesCompare = await compareLuaFilesOfRecipes('looserecipes_old.lua', 'looserecipes_new.lua');
 
-console.log("Grab Bag Comparison Results:");
+console.log("Grab Bag Comparison Results==================================");
+await processContainers(jsonGrabBagCompare.changedContainers)
 
-var changedContainers = jsonGrabBagCompare.changedContainers;
-console.log("The following items needs to be added to UESP.");
+console.log("Folio Comparison Results==================================");
+await processContainers(jsonFolioCompare.changedContainers)
 
-processContainers(changedContainers)
+console.log("Loose Recipe Comparison Results==================================");
+await processRecipeList(jsonLooseRecipesCompare);
 
 if (overwriteProjectFiles){
-  await writeProjLuaFile(projFolioFile,folioItemRecipesLua);
+  await writeProjLuaFile(projFolioFile,folioItemsRecipesLua);
   await writeProjLuaFile(projGrabBagFile,grabBagItemsRecipesLua);
+  await writeProjLuaFile(projLooseRecipesFile,looseRecipesLua);
   console.log("Project files updated with new data.");
 }
+if (cleanupFiles) {
+  const webfiles = await fs.promises.readdir(webDataDir);
+  const comparefiles = ['folios_old.lua','grabbags_old.lua','folios_new.lua','grabbags_new.lua'];
 
+  // Delete files and directories in webDataDir
+  for (const file of webfiles) {
+    const filePath = path.join(webDataDir, file);
+    const stat = await fs.promises.lstat(filePath);
+    if (stat.isDirectory()) {
+      await fs.promises.rm(filePath, { recursive: true, force: true });
+    } else {
+      await fs.promises.unlink(filePath);
+    }
+  }
+  // Delete comparefiles in current directory
+  await Promise.all(comparefiles.map(async (file) => {
+    const filePath = path.join(process.cwd(), file); // Ensures current directory
+    try {
+      await fs.promises.rm(filePath, { force: true });
+      console.log(`${file} deleted successfully.`);
+    } catch (err) {
+      console.error(`Error deleting file ${file}: ${err}`);
+    }
+  }));
+};
