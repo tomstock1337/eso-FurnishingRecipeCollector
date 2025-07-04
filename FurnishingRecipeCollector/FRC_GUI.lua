@@ -551,7 +551,7 @@ local function CreatePostXMLGui()
     local comboBox = nil
     local defValue = nil
 
-    function OnItemSelect(comboBox, itemName, item, selectionChanged, oldItem)
+    local function OnItemSelect(comboBox, itemName, item, selectionChanged, oldItem)
       local ctrlName = comboBox:GetUniqueName()
 
       if ctrlName == "FRC_GUI_FilterFolio" then
