@@ -152,7 +152,7 @@ local function OnLoad(eventCode, name)
     {type = "checkbox",name = "Show on Writ Vendor Folios",getFunc = function() return FRC.savedVariables.folio_on end,setFunc = function( newValue ) FRC.savedVariables.folio_on = newValue; end,--[[warning = "",]]  requiresReload = false},
     {type = "checkbox",name = "Show Character Knowledge",getFunc = function() return FRC.savedVariables.folio_lck_on end,setFunc = function( newValue ) FRC.savedVariables.folio_lck_on = newValue; end,--[[warning = "",]]  requiresReload = false},
   }
-  LAM = LibAddonMenu2
+  local LAM = LibAddonMenu2
   LAM:RegisterAddonPanel(FRC.Name .. "Options", menuOptions )
   LAM:RegisterOptionControls(FRC.Name .. "Options", dataTable )
 
