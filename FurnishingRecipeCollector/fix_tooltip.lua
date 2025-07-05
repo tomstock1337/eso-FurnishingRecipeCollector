@@ -56,91 +56,16 @@ EsoUI/Libraries/ZO_ParametricScrollList/ZO_ParametricScrollList.lua:402: in func
 EsoUI/Libraries/ZO_ParametricScrollList/ZO_ParametricScrollList.lua:421: in function 'ZO_ParametricScrollList:Activate'
 |caaaaaa<Locals> self = [table:10] </Locals>|r
 ]]
-function ZO_TooltipSection:AddControl(control, primarySize, secondarySize, ...)
-    primarySize = primarySize or 0
-	secondarySize = secondarySize or 0
-
-    control:SetParent(self.contentsControl)
-    control:ClearAnchors()
-
-    local spacing = self:GetNextSpacing(...)
-    if self:ShouldAdvanceSecondaryCursor(primarySize, spacing) then
-        local advanceAmount = self.maxSecondarySizeOnLine + (self:GetProperty("childSecondarySpacing") or 0)
-        self.secondaryCursor = self.secondaryCursor + advanceAmount
-        if not self:IsSecondaryDimensionFixed() then
-            self:AddToSecondaryDimension(advanceAmount)
-        end
-        self.maxSecondarySizeOnLine = 0
-        self.primaryCursor = 0
-        self.firstInLine = true
-        spacing = self:GetNextSpacing(...)
-
-        --If we are not vertical, the secondary cursor direction is either up or down, so advancing the secondary cursor means we added a new row
-        if not self:IsVertical() then
-            if self.secondaryCursorDirection == -1 then
-                --If the direction is up, then we need to insert the new row at the front
-                table.insert(self.narrationText, 1, {})
-                self.currentRow = 1
-            else
-                --If the direction is down, then we need to insert the new row at the end
-                table.insert(self.narrationText, {})
-                self.currentRow = self.currentRow + 1
-            end
-        end
+local preventEndlessZO_TooltipSectionAddControlLoop = false
+ZO_PreHook(ZO_TooltipSection, "AddControl", function(selfVar, control, primarySize, secondarySize, ...)
+    if not preventEndlessZO_TooltipSectionAddControlLoop and (primarySize == nil or secondarySize == nil) then
+        preventEndlessZO_TooltipSectionAddControlLoop = true
+        primarySize = primarySize or 0
+        secondarySize = secondarySize or 0
+        selfVar:AddControl(control, primarySize, secondarySize, ...)
+        preventEndlessZO_TooltipSectionAddControlLoop = false
+        return true --Abort original func call
     end
-    self.primaryCursor = self.primaryCursor + spacing
-    self.maxSecondarySizeOnLine = zo_max(self.maxSecondarySizeOnLine, secondarySize)
-    if not self:IsSecondaryDimensionFixed() then
-        if self:IsVertical() then
-            self:SetSecondaryDimension(self.maxSecondarySizeOnLine + self.secondaryCursor + self.paddingLeft + self.paddingRight)
-        else
-            self:SetSecondaryDimension(self.maxSecondarySizeOnLine + self.secondaryCursor + self.paddingTop + self.paddingBottom)
-        end
-    end
-
-    if self:IsVertical() then
-        control.offsetX = self.secondaryCursor * self.secondaryCursorDirection
-        control.offsetY = self.primaryCursor * self.primaryCursorDirection
-        --If we are vertical, then our primary cursor direction is either up or down
-        if self.primaryCursorDirection == -1 then
-            --If the direction is up, then we need to insert the new row at the front
-            table.insert(self.narrationText, 1, {})
-            self.currentRow = 1
-        else
-            --If the direction is down, then we need to insert the new row at the end
-            table.insert(self.narrationText, {})
-            self.currentRow = self.currentRow + 1
-        end
-    else
-        control.offsetX = self.primaryCursor * self.primaryCursorDirection
-        control.offsetY = self.secondaryCursor * self.secondaryCursorDirection
-    end
-
-    if not self.isPrimaryDimensionCentered then
-        control:SetAnchor(self.layoutRootAnchor, nil, self.layoutRootAnchor, control.offsetX, control.offsetY)
-    end
-
-    if not self:IsPrimaryDimensionFixed() then
-        self:AddToPrimaryDimension(primarySize + spacing)
-    end
-
-    self.primaryCursor = self.primaryCursor + primarySize
-    self.numControls = self.numControls + 1
-    self.firstInLine = false
-
-    if self.isPrimaryDimensionCentered then
-        local centerOffsetPrimary = ((self.innerPrimaryDimension - self.primaryCursor) / 2) * self.primaryCursorDirection
-        local numChildren = self.contentsControl:GetNumChildren()
-        for i = 1, numChildren do
-            local childControl = self.contentsControl:GetChild(i)
-            local childSecondaryOffset = self:IsVertical() and childControl.offsetX or childControl.offsetY
-            if childSecondaryOffset == self.secondaryCursor then
-                local modifiedOffsetX = childControl.offsetX + (self:IsVertical() and 0 or centerOffsetPrimary)
-                local modifiedOffsetY = childControl.offsetY + (self:IsVertical() and centerOffsetPrimary or 0)
-                childControl:SetAnchor(self.layoutRootAnchor, nil, self.layoutRootAnchor, modifiedOffsetX, modifiedOffsetY)
-            end
-        end
-    end
-
-    self:AddNextNarrationText()
-end
+    preventEndlessZO_TooltipSectionAddControlLoop = false
+    return false --Call original func now
+end)
