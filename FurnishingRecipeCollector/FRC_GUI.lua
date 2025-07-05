@@ -388,7 +388,7 @@ function FRC.UpdateScrollDataLinesData()
   local dataLines = {}
 
   local function fillDataLine(recipe)
-    local vItemId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName, vRecipePrice, vRecipeListing = FRC.GetRecipeDetail(recipe)
+    local vItemLinkId, vItemName, vItemFunctionalQuality, vItemType, vSpecialType, vFolioItemLinkId, vFolioItemLink, vFolioItemName, vRecipeItemLinkId, vRecipeItemLink, vRecipeItemName, vGrabBagItemLinkId, vGrabBagItemLink, vGrabBagItemName, vLocation, vResultLinkId, vResultLink, vResultName, vRecipePrice, vRecipeListing = FRC.GetRecipeDetail(recipe)
     local vCharacterStringLong, vCharacterStringShort, vCharTrackedCount, vCharKnownCount = FRC.GetRecipeKnowledge(vRecipeItemLinkId)
     local tempDataLine = {}
     if not ((FRC.savedVariables.gui.filterQuality == "All") or
