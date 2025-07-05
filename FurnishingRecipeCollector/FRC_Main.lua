@@ -168,20 +168,22 @@ local function OnLoad(eventCode, name)
     FRC.InitDebugGui()
   end
 
-  if SLASH ~= nil then
-    slashMainCommand = SLASH:Register()
-    slashMainCommand:AddAlias("/furrecipe")
-    slashMainCommand:AddAlias("/frc")
-    slashMainCommand:SetCallback(FurnishingRecipeCollector.FRC_Toggle)
-    slashMainCommand:SetDescription("Furniture Recipe Collector")
-    slashDebugCommand = SLASH:Register()
-    slashDebugCommand:AddAlias("/frc_debug")
-    slashDebugCommand:SetCallback(FurnishingRecipeCollector.FRC_DebugToggle)
-    slashDebugCommand:SetDescription("Furniture Recipe Collector Debug")
-  else
-    SLASH_COMMANDS["/furrecipe"] = FurnishingRecipeCollector.FRC_Toggle
-    SLASH_COMMANDS["/frc"] = FurnishingRecipeCollector.FRC_Toggle
-    SLASH_COMMANDS["/frc_debug"] = FurnishingRecipeCollector.FRC_DebugToggle
+  if IsConsoleUI() then
+    if SLASH ~= nil then
+      slashMainCommand = SLASH:Register()
+      slashMainCommand:AddAlias("/furrecipe")
+      slashMainCommand:AddAlias("/frc")
+      slashMainCommand:SetCallback(FurnishingRecipeCollector.FRC_Toggle)
+      slashMainCommand:SetDescription("Furniture Recipe Collector")
+      slashDebugCommand = SLASH:Register()
+      slashDebugCommand:AddAlias("/frc_debug")
+      slashDebugCommand:SetCallback(FurnishingRecipeCollector.FRC_DebugToggle)
+      slashDebugCommand:SetDescription("Furniture Recipe Collector Debug")
+    else
+      SLASH_COMMANDS["/furrecipe"] = FurnishingRecipeCollector.FRC_Toggle
+      SLASH_COMMANDS["/frc"] = FurnishingRecipeCollector.FRC_Toggle
+      SLASH_COMMANDS["/frc_debug"] = FurnishingRecipeCollector.FRC_DebugToggle
+    end
   end
 end
 function FRC.Donate(control, mouseButton)
