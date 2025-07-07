@@ -3,7 +3,7 @@ local FRC = FurnishingRecipeCollector
 FRC.Name = "FurnishingRecipeCollector"
 FRC.DisplayName = "Furnishing Recipe Collector"
 FRC.Author = "tomstock"
-FRC.Version = "1.4.2"
+FRC.Version = "1.4.3"
 
 FRC.logger = nil
 
@@ -168,7 +168,7 @@ local function OnLoad(eventCode, name)
     FRC.InitDebugGui()
   end
 
-  if IsConsoleUI() then
+  if not IsConsoleUI() then
     if SLASH ~= nil then
       slashMainCommand = SLASH:Register()
       slashMainCommand:AddAlias("/furrecipe")
