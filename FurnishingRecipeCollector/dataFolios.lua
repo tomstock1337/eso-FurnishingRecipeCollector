@@ -148,6 +148,16 @@ FRC.Data.Folios =
     203325, --Praxis: Apocrypha Wall, Eye
     203324, --Sketch: Apocrypha Mirror, Intricate
   },
+  [219721]= --West Weald Furnishing Folio I
+  {
+    211039, --Blueprint: Colovian Keg, Gigantic Wine
+    211038, --Design: Dawnwood Platter, Feast
+    211034, --Diagram: Colovian Chandelier, Grapes
+    211033, --Formula: Colovian Alembic Set, Colorful
+    211035, --Pattern: Colovian Tapestry, Red Diamond
+    211036, --Praxis: Colovian Glassblower's Furnace
+    211037, --Sketch: Colovian Mirror, Standing
+  },
   [171808]= --Western Skyrim Furnishing Folio
   {
     167380, --Blueprint: Solitude Game, Blood-on-the-Snow
