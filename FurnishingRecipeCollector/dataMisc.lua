@@ -4,24 +4,24 @@ FRC.Data = FRC.Data or {}
 --https://en.uesp.net/wiki/Online:Furnisher_Documents
 FRC.Data.Misc = {
   --AUTOMATION START================================
-  [211039]={location="Faustina Curio Writ Vendor"}, --Blueprint: Colovian Keg, Gigantic Wine
-  [211038]={location="Faustina Curio Writ Vendor"}, --Design: Dawnwood Platter, Feast
-  [211034]={location="Faustina Curio Writ Vendor"}, --Diagram: Colovian Chandelier, Grapes
-  [211033]={location="Faustina Curio Writ Vendor"}, --Formula: Colovian Alembic Set, Colorful
-  [211035]={location="Faustina Curio Writ Vendor"}, --Pattern: Colovian Tapestry, Red Diamond
-  [211036]={location="Faustina Curio Writ Vendor"}, --Praxis: Colovian Glassblower's Furnace
-  [211037]={location="Faustina Curio Writ Vendor"}, --Sketch: Colovian Mirror, Standing
-  [212562]={location="Rolis Hlaalu Writ Vendor"}, --Blueprint: Colovian Wine Press
-  [212563]={location="Rolis Hlaalu Writ Vendor"}, --Design: Colovian Grape Vat, Large
-  [212565]={location="Rolis Hlaalu Writ Vendor"}, --Diagram: Ayleid Window, Turquoise Glass
-  [212564]={location="Rolis Hlaalu Writ Vendor"}, --Formula: Dawnwood Hut, Partial
-  [212561]={location="Rolis Hlaalu Writ Vendor"}, --Pattern: Wood Elf Tent, Saplings
-  [212566]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Ayleid Sconce, Winged Floor
+  [212562]={location="Faustina Curio Writ Vendor"}, --Blueprint: Colovian Wine Press
+  [212563]={location="Faustina Curio Writ Vendor"}, --Design: Colovian Grape Vat, Large
+  [212565]={location="Faustina Curio Writ Vendor"}, --Diagram: Ayleid Window, Turquoise Glass
+  [212564]={location="Faustina Curio Writ Vendor"}, --Formula: Dawnwood Hut, Partial
+  [212561]={location="Faustina Curio Writ Vendor"}, --Pattern: Wood Elf Tent, Saplings
+  [212566]={location="Faustina Curio Writ Vendor"}, --Praxis: Ayleid Sconce, Winged Floor
+  [212567]={location="Faustina Curio Writ Vendor"}, --Sketch: Guardian Key, Replica
+  [219665]={location="Rolis Hlaalu Writ Vendor"}, -- Blueprint: Tide-Born Hut, Elevated
+  [219663]={location="Rolis Hlaalu Writ Vendor"}, -- Design: Fruit Arrangement, Tide-Born
+  [219664]={location="Rolis Hlaalu Writ Vendor"}, -- Diagram: Naj-Caldeesh Impaler, Deactivated
+  [219660]={location="Rolis Hlaalu Writ Vendor"}, -- Formula: High Elf Castle Painting, In Progess
+  [219661]={location="Rolis Hlaalu Writ Vendor"}, -- Pattern: Vossa-Satl, Display
+  [219666]={location="Rolis Hlaalu Writ Vendor"}, -- Praxis: Stone-Nest Fountain, Triple Spout
+  [219662]={location="Rolis Hlaalu Writ Vendor"}, -- Sketch: Meridian Bell, Temple
   [126582]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Centurion, Dwarf-Brass
   [126583]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Centurion, Robust Refabricated
   [119592]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Skeleton, Humanoid
   [121315]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Skeleton, Robust Humanoid
-  [212567]={location="Rolis Hlaalu Writ Vendor"}, --Sketch: Guardian Key, Replica
 
 --AUTOMATION END==================================
   [119391]={location="Brewer"}, --Design: Common Candle, Set
