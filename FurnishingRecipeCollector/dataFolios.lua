@@ -160,7 +160,7 @@ FRC.Data.Folios =
   },
   [171808]= --Western Skyrim Furnishing Folio
   {
-    167380, --Blueprint: Solitude Game, Blood-on-the-Snow
+    167380, --Blueprint: Solitude Game, Blood-On-The-Snow
     167383, --Design: Solitude Smoking Rack, Fish
     167378, --Diagram: Vampiric Chandelier, Azure Wrought-Iron
     167382, --Formula: Winter Cardinal Painting, In Progress

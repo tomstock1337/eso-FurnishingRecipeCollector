@@ -679,7 +679,7 @@ FRC.Data.FurnisherDocuments =
     115782, --Pattern: Argonian Scaleskin, Pale
     115783, --Pattern: Argonian Scaleskin, Striped
     115778, --Pattern: Argonian Tray, Woven
-    115934, --Pattern: Breton Bed, Four-poster
+    115934, --Pattern: Breton Bed, Four-Poster
     115935, --Pattern: Breton Bed, Full
     115954, --Pattern: Breton Carpet, Dark
     115952, --Pattern: Breton Carpet, Full

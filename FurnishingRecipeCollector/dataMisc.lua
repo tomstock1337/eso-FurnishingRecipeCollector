@@ -11,17 +11,17 @@ FRC.Data.Misc = {
   [212561]={location="Faustina Curio Writ Vendor"}, --Pattern: Wood Elf Tent, Saplings
   [212566]={location="Faustina Curio Writ Vendor"}, --Praxis: Ayleid Sconce, Winged Floor
   [212567]={location="Faustina Curio Writ Vendor"}, --Sketch: Guardian Key, Replica
-  [219665]={location="Rolis Hlaalu Writ Vendor"}, -- Blueprint: Tide-Born Hut, Elevated
-  [219663]={location="Rolis Hlaalu Writ Vendor"}, -- Design: Fruit Arrangement, Tide-Born
-  [219664]={location="Rolis Hlaalu Writ Vendor"}, -- Diagram: Naj-Caldeesh Impaler, Deactivated
-  [219660]={location="Rolis Hlaalu Writ Vendor"}, -- Formula: High Elf Castle Painting, In Progess
-  [219661]={location="Rolis Hlaalu Writ Vendor"}, -- Pattern: Vossa-Satl, Display
-  [219666]={location="Rolis Hlaalu Writ Vendor"}, -- Praxis: Stone-Nest Fountain, Triple Spout
-  [219662]={location="Rolis Hlaalu Writ Vendor"}, -- Sketch: Meridian Bell, Temple
+  [219665]={location="Rolis Hlaalu Writ Vendor"}, --Blueprint: Tide-Born Hut, Elevated
+  [219663]={location="Rolis Hlaalu Writ Vendor"}, --Design: Fruit Arrangement, Tide-Born
+  [219664]={location="Rolis Hlaalu Writ Vendor"}, --Diagram: Naj-Caldeesh Impaler, Deactivated
+  [219660]={location="Rolis Hlaalu Writ Vendor"}, --Formula: High Elf Castle Painting, In Progress
+  [219661]={location="Rolis Hlaalu Writ Vendor"}, --Pattern: Vossa-Satl, Display
+  [219666]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Stone-Nest Fountain, Triple Spout
   [126582]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Centurion, Dwarf-Brass
   [126583]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Centurion, Robust Refabricated
   [119592]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Skeleton, Humanoid
   [121315]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Skeleton, Robust Humanoid
+  [219662]={location="Rolis Hlaalu Writ Vendor"}, --Sketch: Meridian Bell, Temple
 
 --AUTOMATION END==================================
   [119391]={location="Brewer"}, --Design: Common Candle, Set
