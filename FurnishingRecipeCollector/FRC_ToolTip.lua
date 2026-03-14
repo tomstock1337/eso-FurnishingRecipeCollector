@@ -136,6 +136,12 @@ end
 local ItemLinkPassthrough = function( itemLink )
   return itemLink
 end
+
+local function HookTradingHouseTooltips()
+  TooltipHook(ItemTooltip, "SetTradingHouseItem", GetTradingHouseSearchResultItemLink)
+  TooltipHook(ItemTooltip, "SetTradingHouseListing", GetTradingHouseListingItemLink)
+end
+
 function FRC.HookTooltips()
 
   TooltipHook(PopupTooltip, "SetLink", ItemLinkPassthrough)
@@ -148,8 +154,12 @@ function FRC.HookTooltips()
   TooltipHook(ItemTooltip, "SetLootItem", GetLootItemLink)
   TooltipHook(ItemTooltip, "SetReward", GetItemRewardItemLink)
   TooltipHook(ItemTooltip, "SetQuestReward", GetQuestRewardItemLink)
-  TooltipHook(ItemTooltip, "SetTradingHouseItem", GetTradingHouseSearchResultItemLink)
-  TooltipHook(ItemTooltip, "SetTradingHouseListing", GetTradingHouseListingItemLink)
+
+  if AwesomeGuildStore then
+    AwesomeGuildStore:RegisterCallback(AwesomeGuildStore.callback.AFTER_INITIAL_SETUP, HookTradingHouseTooltips)
+  else
+    HookTradingHouseTooltips()
+  end
 
   TooltipHook_Gamepad(GAMEPAD_TOOLTIPS:GetTooltip(GAMEPAD_LEFT_TOOLTIP), "LayoutItem", ItemLinkPassthrough)
   TooltipHook_Gamepad(GAMEPAD_TOOLTIPS:GetTooltip(GAMEPAD_RIGHT_TOOLTIP), "LayoutItem", ItemLinkPassthrough)
