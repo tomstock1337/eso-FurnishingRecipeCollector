@@ -141,22 +141,12 @@ FRC.Data.Folios =
   [214255]= --Tomehold Furnishing Folio
   {
     203319, --Blueprint: Pergola, Reclaimed Wood
-    203320, --Design: Apocrypha Tree, Spore(Apocrypha Tree, Spore (Legendary))
+    203320, --Design: Apocrypha Tree, Spore
     203323, --Diagram: Apocrypha Bookcase Platform
     203321, --Formula: Apocrypha Light Diffuser, Stalk
     203322, --Pattern: Apocrypha Book Press
     203325, --Praxis: Apocrypha Wall, Eye
     203324, --Sketch: Apocrypha Mirror, Intricate
-  },
-  [219721]= --West Weald Furnishing Folio I
-  {
-    211039, --Blueprint: Colovian Keg, Gigantic Wine
-    211038, --Design: Dawnwood Platter, Feast
-    211034, --Diagram: Colovian Chandelier, Grapes
-    211033, --Formula: Colovian Alembic Set, Colorful
-    211035, --Pattern: Colovian Tapestry, Red Diamond
-    211036, --Praxis: Colovian Glassblower's Furnace
-    211037, --Sketch: Colovian Mirror, Standing
   },
   [171808]= --Western Skyrim Furnishing Folio
   {
@@ -168,6 +158,26 @@ FRC.Data.Folios =
     167381, --Praxis: Ancient Nord Monolith, Head
     167384, --Sketch: Blackreach Geode, Iridescent
   },
+  [219721]= --West Weald Furnishing Folio I
+  {
+    211039, --Blueprint: Colovian Keg, Gigantic Wine
+    211038, --Design: Dawnwood Platter, Feast
+    211034, --Diagram: Colovian Chandelier, Grapes
+    211033, --Formula: Colovian Alembic Set, Colorful
+    211035, --Pattern: Colovian Tapestry, Red Diamond
+    211036, --Praxis: Colovian Glassblower's Furnace
+    211037, --Sketch: Colovian Mirror, Standing
+  },
+  [223978]= --West Weald Furnishing Folio II
+  {
+    212562, --Blueprint: Colovian Wine Press
+    212563, --Design: Colovian Grape Vat, Large
+    212565, --Diagram: Ayleid Window, Turquoise Glass
+    212564, --Formula: Dawnwood Hut, Partial
+    212561, --Pattern: Wood Elf Tent, Saplings
+    212566, --Praxis: Ayleid Sconce, Winged Floor
+    212567, --Sketch: Guardian Key, Replica
+  },
 
---AUTOMATION END==================================
+--AUTOMATION END====================================================================
 }

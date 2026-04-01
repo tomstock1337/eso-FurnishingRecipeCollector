@@ -4,39 +4,38 @@ FRC.Data = FRC.Data or {}
 --https://en.uesp.net/wiki/Online:Furnisher_Documents
 FRC.Data.Misc = {
   --AUTOMATION START================================
-  [212562]={location="Faustina Curio Writ Vendor"}, --Blueprint: Colovian Wine Press
-  [212563]={location="Faustina Curio Writ Vendor"}, --Design: Colovian Grape Vat, Large
-  [212565]={location="Faustina Curio Writ Vendor"}, --Diagram: Ayleid Window, Turquoise Glass
-  [212564]={location="Faustina Curio Writ Vendor"}, --Formula: Dawnwood Hut, Partial
-  [212561]={location="Faustina Curio Writ Vendor"}, --Pattern: Wood Elf Tent, Saplings
-  [212566]={location="Faustina Curio Writ Vendor"}, --Praxis: Ayleid Sconce, Winged Floor
-  [212567]={location="Faustina Curio Writ Vendor"}, --Sketch: Guardian Key, Replica
-  [219665]={location="Rolis Hlaalu Writ Vendor"}, --Blueprint: Tide-Born Hut, Elevated
-  [219663]={location="Rolis Hlaalu Writ Vendor"}, --Design: Fruit Arrangement, Tide-Born
-  [219664]={location="Rolis Hlaalu Writ Vendor"}, --Diagram: Naj-Caldeesh Impaler, Deactivated
-  [219660]={location="Rolis Hlaalu Writ Vendor"}, --Formula: High Elf Castle Painting, In Progress
-  [219661]={location="Rolis Hlaalu Writ Vendor"}, --Pattern: Vossa-Satl, Display
-  [219666]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Stone-Nest Fountain, Triple Spout
+  [219665]={location="Faustina Curio Writ Vendor"}, --Blueprint: Tide-Born Hut, Elevated
+  [219663]={location="Faustina Curio Writ Vendor"}, --Design: Fruit Arrangement, Tide-Born
+  [219664]={location="Faustina Curio Writ Vendor"}, --Diagram: Naj-Caldeesh Impaler, Deactivated
+  [219660]={location="Faustina Curio Writ Vendor"}, --Formula: High Elf Castle Painting, In Progress
+  [219661]={location="Faustina Curio Writ Vendor"}, --Pattern: Vossa-Satl, Display
+  [219666]={location="Faustina Curio Writ Vendor"}, --Praxis: Stone-Nest Fountain, Triple Spout
+  [219662]={location="Faustina Curio Writ Vendor"}, --Sketch: Meridian Bell, Temple
+  [139489]={location="Nalirsewen, Artaeum"}, --Blueprint: Psijic Chair, Arched
+  [139490]={location="Nalirsewen, Artaeum"}, --Blueprint: Psijic Table, Small
+  [139493]={location="Nalirsewen, Artaeum"}, --Pattern: Psijic Banner
+  [139496]={location="Nalirsewen, Artaeum"}, --Pattern: Psijic Banner, Large
+  [141901]={location="Nalirsewen, Artaeum"}, --Pattern: Psijic Banner, Long
+  [139487]={location="Nalirsewen, Artaeum"}, --Praxis: Book Row, Levitating
+  [139488]={location="Nalirsewen, Artaeum"}, --Praxis: Book Stack, Levitating
+  [139495]={location="Nalirsewen, Artaeum"}, --Praxis: Psijic Lighting Globe, Large
+  [139491]={location="Nalirsewen, Artaeum"}, --Praxis: Psijic Lighting Globe, Small
+  [139497]={location="Nalirsewen, Artaeum"}, --Praxis: Psijic Table, Grand
+  [139492]={location="Nalirsewen, Artaeum"}, --Praxis: Psijic Table, Scalloped
+  [139494]={location="Nalirsewen, Artaeum"}, --Praxis: Psijic Table, Six-Fold Symmetry
+  [223932]={location="Rolis Hlaalu Writ Vendor"}, --Blueprint: Worm Cult Torture Rack
+  [223928]={location="Rolis Hlaalu Writ Vendor"}, --Design: Shell-Tide Hatchery Altar, Replica
+  [223931]={location="Rolis Hlaalu Writ Vendor"}, --Diagram: Worm Cult Forge, Mining
+  [223926]={location="Rolis Hlaalu Writ Vendor"}, --Formula: Coldharbour Focusing Lens
+  [223930]={location="Rolis Hlaalu Writ Vendor"}, --Pattern: Worm Cult Tent, Large
+  [223929]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Stone-Nest Fountain, Four Headed
   [126582]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Centurion, Dwarf-Brass
   [126583]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Centurion, Robust Refabricated
   [119592]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Skeleton, Humanoid
   [121315]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Skeleton, Robust Humanoid
-  [219662]={location="Rolis Hlaalu Writ Vendor"}, --Sketch: Meridian Bell, Temple
+  [223927]={location="Rolis Hlaalu Writ Vendor"}, --Sketch: Golden Skull, Argonian
 
---AUTOMATION END==================================
-  [119391]={location="Brewer"}, --Design: Common Candle, Set
-  [139487]={location="Nalirswewen, Artaeum"}, --Praxis: Book Row, Levitating
-  [139488]={location="Nalirswewen, Artaeum"}, --Praxis: Book Stack, Levitating
-  [139489]={location="Nalirswewen, Artaeum"}, --Blueprint: Psijic Chair, Arched
-  [139490]={location="Nalirswewen, Artaeum"}, --Blueprint: Psijic Table, Small
-  [139491]={location="Nalirswewen, Artaeum"}, --Praxis: Psijic Lighting Globe, Small
-  [139492]={location="Nalirswewen, Artaeum"}, --Praxis: Psijic Table, Scalloped
-  [139493]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner
-  [139494]={location="Nalirswewen, Artaeum"}, --Praxis: Psijic Table, Six-fold Symmetry
-  [139495]={location="Nalirswewen, Artaeum"}, --Praxis: Psijic Lighting Globe, Large
-  [139496]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner, Large
-  [139497]={location="Nalirswewen, Artaeum"}, --Praxis: Psijic Table, Grand
-  [141901]={location="Nalirswewen, Artaeum"}, --Pattern: Psijic Banner, Long
+--AUTOMATION END====================================================================
   --The following are special cases that are not in the writ folios and grab bags
   [119098]={location="Pickpocketing Nobles in Orsinium"}, --Blueprint: Orcish Throne, Peaked
   [119077]={location="Pickpocketing Nobles in Orsinium"}, --Praxis: Orcish Throne, Engraved

@@ -258,10 +258,15 @@ FRC.Data.FurnisherDocuments =
     152081, --Praxis: Elsweyr Lantern, Hanging Twist
     152076, --Praxis: Elsweyr Lightpost, Ancient Stone
     151974, --Praxis: Elsweyr Pillar, Ancient Stone
+    153723, --Praxis: Elsweyr Platform, Ancient Square
     152113, --Praxis: Elsweyr Platform, Stepped
     151998, --Praxis: Elsweyr Pot, Cerulean
     151999, --Praxis: Elsweyr Pot, Floral
     152003, --Praxis: Elsweyr Sand Meditation Ring, Large
+    152238, --Praxis: Elsweyr Sarcophagus Lid, Ancient
+    152237, --Praxis: Elsweyr Sarcophagus, Ancient
+    153725, --Praxis: Elsweyr Shrine, Ancient Multilevel
+    153724, --Praxis: Elsweyr Shrine, Ancient Small
     152031, --Praxis: Elsweyr Spire, Decorative
     152115, --Praxis: Elsweyr Stairs, Masonry
     152077, --Praxis: Elsweyr Streetlight, Inlaid Stone
@@ -328,6 +333,8 @@ FRC.Data.FurnisherDocuments =
     152078, --Praxis: Elsweyr Lightpost, Ancient Tall
     151975, --Praxis: Elsweyr Monument, Ancient Stone Broken
     151997, --Praxis: Elsweyr Pot, Tall
+    153727, --Praxis: Elsweyr Shrine, Ancient Large
+    153728, --Praxis: Elsweyr Tower, Ancient Huge
     152007, --Sketch: Elsweyr Incense Burner, Branched Brass
     151992, --Sketch: Elsweyr Steaming Pot, Ceramic
     152002, --Sketch: Elsweyr Sugar Pipe, Gilded
@@ -828,8 +835,8 @@ FRC.Data.FurnisherDocuments =
     116216, --Blueprint: Nord Trunk, Buckled
     119079, --Blueprint: Orcish Armoire, Peaked
     119080, --Blueprint: Orcish Bed, Peaked
-    119081, --Blueprint: Orcish Bookcase, Peaked  [1]
-    119082, --Blueprint: Orcish Bookcase, Peaked  [1]
+    119081, --Blueprint: Orcish Bookcase, Peaked
+    119082, --Blueprint: Orcish Bookcase, Peaked
     119084, --Blueprint: Orcish Cabinet, Engraved
     119111, --Blueprint: Orcish Candleholder, Horn
     119112, --Blueprint: Orcish Candlestick, Horn
@@ -1159,6 +1166,7 @@ FRC.Data.FurnisherDocuments =
     171515, --Diagram: Dwarven Table, Grand Polished
     171523, --Diagram: Dwarven Trunk, Ornate Polished
     171526, --Diagram: Dwarven Wardrobe, Ornate Polished
+    171789, --Diagram: Markarth Door, Double
     171494, --Pattern: Dwarven Bed, Reach Furs
     171496, --Pattern: Dwarven Bed, Reach Furs Canopy
     171495, --Pattern: Dwarven Bed, Reach Furs Double
@@ -1173,6 +1181,20 @@ FRC.Data.FurnisherDocuments =
     171516, --Praxis: Dwarven Table, Granite
     171518, --Praxis: Dwarven Table, Granite Kitchen
     171524, --Praxis: Dwarven Wall Cabinet, Granite
+    171799, --Praxis: Markarth Archway, Stone
+    171790, --Praxis: Markarth Fireplace, Stone
+    171781, --Praxis: Markarth Floor, Circular
+    171783, --Praxis: Markarth Floor, Large Oval
+    171785, --Praxis: Markarth Floor, Large Rectangle
+    171784, --Praxis: Markarth Floor, Large Square
+    171782, --Praxis: Markarth Floor, Square
+    171788, --Praxis: Markarth Pillar, Stone
+    171793, --Praxis: Markarth Platform, Bordered Square
+    171792, --Praxis: Markarth Platform, Square
+    171796, --Praxis: Markarth Stairway, Wide Stone
+    171800, --Praxis: Markarth Tower, Stone
+    171798, --Praxis: Markarth Walkway, Metal Trim
+    171791, --Praxis: Markarth Wall, Windowed Stone
     171500, --Sketch: Dwarven Cage, Polished Specimen
     171499, --Sketch: Dwarven Mirror, Polished
   },
@@ -1507,8 +1529,10 @@ FRC.Data.FurnisherDocuments =
     166880, --Blueprint: Solitude Cabinet, Narrow Noble
     166849, --Blueprint: Solitude Cabinet, Ornate Wall
     166865, --Blueprint: Solitude Cabinet, Rustic Filled
+    167366, --Blueprint: Solitude Cart, Work
     166808, --Blueprint: Solitude Chair, Wicker
     166832, --Blueprint: Solitude Dresser, Rustic
+    167367, --Blueprint: Solitude Foot Bridge, Wood-Planked
     166862, --Blueprint: Solitude Jewelry Box, Wolf's-Head
     166847, --Blueprint: Solitude Nightstand, Noble
     166848, --Blueprint: Solitude Nightstand, Noble Cabinet
@@ -1516,6 +1540,8 @@ FRC.Data.FurnisherDocuments =
     166812, --Blueprint: Solitude Pew, Sturdy
     166810, --Blueprint: Solitude Pew, Sturdy Long
     166916, --Blueprint: Solitude Picnic Basket, Wicker
+    167361, --Blueprint: Solitude Pillar Base, Wood
+    167368, --Blueprint: Solitude Platform, Square Wooden
     166915, --Blueprint: Solitude Serving Basket, Wicker
     166914, --Blueprint: Solitude Serving Tray, Wood
     166837, --Blueprint: Solitude Table, Circular Ornate Small
@@ -1574,7 +1600,12 @@ FRC.Data.FurnisherDocuments =
     166787, --Pattern: Solitude Rug, Cowhide
     166793, --Pattern: Solitude Rug, Knotwork
     166788, --Pattern: Solitude Rug, Snow Bear
+    167364, --Praxis: Solitude Archway, Stone
+    167370, --Praxis: Solitude Platform, Ornate Tile
+    167363, --Praxis: Solitude Post, Stone Wall
     166782, --Praxis: Solitude Sconce, Candle Embellished
+    167362, --Praxis: Solitude Wall, Curved Stone
+    167369, --Praxis: Solitude Well, Covered
     166951, --Sketch: Solitude Goblet, Noble
     166863, --Sketch: Solitude Jewelry Box, Copper and Agate
     166911, --Sketch: Solitude Serving Bowl, Verdigris
@@ -1832,7 +1863,7 @@ FRC.Data.FurnisherDocuments =
   {
     207919, --Blueprint: Colovian Beehive, Small
     207824, --Blueprint: Colovian Bookcase, Noble Small
-    207823, --Blueprint: Colovian Bookshelf , Noble Filled
+    207823, --Blueprint: Colovian Bookshelf, Noble Filled
     207840, --Blueprint: Colovian Counter, Bar
     207838, --Blueprint: Colovian Counter, Block
     207839, --Blueprint: Colovian Counter, Corner
@@ -1932,5 +1963,5 @@ FRC.Data.FurnisherDocuments =
     207849, --Praxis: Dawnwood Table, Sprouted
   },
 
---AUTOMATION END==================================
+--AUTOMATION END====================================================================
 }
