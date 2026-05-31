@@ -1962,6 +1962,103 @@ FRC.Data.FurnisherDocuments =
     207898, --Praxis: Dawnwood Pitcher, Tall
     207849, --Praxis: Dawnwood Table, Sprouted
   },
+  [224293]= --Solstice Journeyman Furnisher's Document
+  {
+    217568, --Blueprint: Pigment Bowl, Blue Large
+    217565, --Blueprint: Pigment Bowl, Green
+    217566, --Blueprint: Pigment Bowl, Red
+    217567, --Blueprint: Pigment Bowl, Yellow
+    217515, --Blueprint: Tide-Born Shelves, Tall
+    217516, --Blueprint: Tide-Born Table, Grand
+    223579, --Blueprint: Worm Cult Divider, Wooden
+    217535, --Design: Coconut Bunch, Display
+    217546, --Design: Green Coconut Bunch, Display
+    217539, --Design: Lychee Bowl, Display
+    217542, --Design: Oyster Plate, Display
+    217544, --Design: Seahorse Platter, Display
+    217519, --Design: Tide-Born Art, Decorative Shrimp
+    217554, --Design: Tide-Born Candleholder, Coral
+    217531, --Design: Tide-Born Gourd Shaker
+    217520, --Design: Tide-Born Windcatcher, Feathered
+    223595, --Design: Worm Cult Candelabra, Cold-Flame
+    223574, --Diagram: Worm Cult Bookcase, Filled
+    223591, --Diagram: Worm Cult Brazier, Cold-Flame
+    223569, --Diagram: Worm Cult Buffet
+    223592, --Diagram: Worm Cult Chandelier, Caged Cold-Flame
+    223572, --Diagram: Worm Cult Decor, Skeleton
+    223577, --Diagram: Worm Cult Dresser, Short
+    223603, --Diagram: Worm Cult Lever, Metal Gate
+    223598, --Diagram: Worm Cult Sconce, Caged Cold-Flame
+    223601, --Diagram: Worm Cult Sconce, Cold-Flame Torch
+    223624, --Diagram: Worm Cult Specimen, Skull
+    223584, --Diagram: Worm Cult Table, Small
+    223580, --Diagram: Worm Cult Trunk, Medium
+    223585, --Formula: Worm Cult Mirror, Metal
+    223621, --Formula: Worm Cult Specimen Jar, Brain
+    223625, --Formula: Worm Cult Specimen Jar, Spider
+    223602, --Pattern: Battlefield Marker, Flag Spear
+    217570, --Pattern: Canvas, Blank
+    217525, --Pattern: Tide-Born Basket, Shell-Topped
+    217507, --Pattern: Tide-Born Bed, Single
+    217526, --Pattern: Tide-Born Mat, Geometric Round
+    217529, --Pattern: Tide-Born Rug, Medium Rectangular
+    217534, --Pattern: Tide-Born Wall Art, Rope
+    223567, --Pattern: Worm Cult Bed, Full
+    223607, --Pattern: Worm Cult Bench, Padded
+    223615, --Pattern: Worm Cult Book Stack, Trio
+    223616, --Pattern: Worm Cult Books, Row
+    223609, --Pattern: Worm Cult Chair, Padded
+    223587, --Pattern: Worm Cult Rug, Red
+    223588, --Pattern: Worm Cult Rug, Triangular Sigil
+    223623, --Pattern: Worm Cult Scroll, Unfinished
+    223619, --Pattern: Worm Cult Stool, Padded
+    223610, --Pattern: Worm Cult Stool, Round
+    217559, --Praxis: Sunport Fountain, Floral Wall
+    217562, --Praxis: Sunport Table, Tall
+    217506, --Praxis: Tide-Born Coffer, Trinket
+    217512, --Praxis: Tide-Born Firepit, Stone
+    217552, --Praxis: Tide-Born Pitcher, Stone
+  },
+  [224294]= --Solstice Master Furnisher's Document
+  {
+    217564, --Blueprint: Paint Muller Board
+    217509, --Blueprint: Tide-Born Bench, Wicker
+    217527, --Blueprint: Tide-Born Rug, Large Round
+    223605, --Blueprint: Worm Cult Mill, Grinding
+    217536, --Design: Fruit Bunch, Display
+    217543, --Design: Seafood Platter, Display
+    217518, --Design: Tide-Born Art, Flame Lily
+    217553, --Design: Tide-Born Chandelier, Coral
+    217522, --Design: Tide-Born Pot, Shell-Topped
+    217556, --Design: Tide-Born Sconce, Coral
+    217561, --Diagram: Sunport Planter, Hanging
+    223575, --Diagram: Worm Cult Bookcase, Wide Filled
+    223593, --Diagram: Worm Cult Chandelier, Bone Cold-Flame
+    223604, --Diagram: Worm Cult Crane, Mining
+    223571, --Diagram: Worm Cult Decor, Crystal Skeleton
+    223578, --Diagram: Worm Cult Divider, Iron
+    223594, --Diagram: Worm Cult Lamp, Floor Cold-Flame
+    223597, --Diagram: Worm Cult Lamp, Jaw
+    223599, --Diagram: Worm Cult Lightpost, Caged Cold-Flame
+    223600, --Diagram: Worm Cult Sconce, Jaw
+    223583, --Diagram: Worm Cult Table, Grand
+    223576, --Diagram: Worm Cult Trunk, Large
+    217533, --Formula: Tide-Born Wall Mirror
+    223622, --Formula: Worm Cult Apparatus, Condenser
+    217558, --Pattern: Sunport Scarf Valance, Lavender
+    217508, --Pattern: Tide-Born Bed, Double
+    217528, --Pattern: Tide-Born Rug, Large Rectangular
+    223566, --Pattern: Worm Cult Bed, Canopy Full
+    223608, --Pattern: Worm Cult Bench, Padded Backed
+    223617, --Pattern: Worm Cult Books, Long Row
+    223612, --Pattern: Worm Cult Chair, Padded Double-Backed
+    223589, --Pattern: Worm Cult Rug, Large Teal
+    217563, --Praxis: Sunport Game, Marbles
+    217560, --Praxis: Sunport Planter, Stone
+    217504, --Praxis: Tide-Born Chest, Large
+    217505, --Praxis: Tide-Born Chest, Small
+    217513, --Praxis: Tide-Born Oven, Stone
+  },
 
 --AUTOMATION END====================================================================
 }
