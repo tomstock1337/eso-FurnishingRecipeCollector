@@ -35,7 +35,7 @@ FRC.Data.Misc = {
   [121315]={location="Rolis Hlaalu Writ Vendor"}, --Praxis: Target Skeleton, Robust Humanoid
   [223927]={location="Rolis Hlaalu Writ Vendor"}, --Sketch: Golden Skull, Argonian
 
---AUTOMATION END====================================================================
+--AUTOMATION END======================================================================================================
   --The following are special cases that are not in the writ folios and grab bags
   [119098]={location="Pickpocketing Nobles in Orsinium"}, --Blueprint: Orcish Throne, Peaked
   [119077]={location="Pickpocketing Nobles in Orsinium"}, --Praxis: Orcish Throne, Engraved
